@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "MrPitiful.BoardGame.Game": "1.0.0-*",
+    "MrPitiful.BoardGame.Interfaces": "1.0.0-*",
+    "NETStandard.Library": "1.6.0",
+    "System.Runtime.Serialization.Json": "4.0.2",
+    "Newtonsoft.Json": "9.0.1"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}
