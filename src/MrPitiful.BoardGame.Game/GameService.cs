@@ -9,8 +9,8 @@ namespace MrPitiful.BoardGame.Game
     public class GamePieceIdNotFoundException : Exception { }
     public class GameBoardSpaceIdNotFoundException : Exception { }
     public class DuplicatePlayerIdException : Exception {}
-    public class DuplicateGamePieceException : Exception { }
-    public class DuplicateGameBoardSpaceException : Exception { }
+    public class DuplicateGamePieceIdException : Exception { }
+    public class DuplicateGameBoardSpaceIdException : Exception { }
 
     public class GameService : IGameService
     {
@@ -43,7 +43,7 @@ namespace MrPitiful.BoardGame.Game
                 _gameRepository.Save(game);
             } else
             {
-                throw new DuplicateGamePieceException();
+                throw new DuplicateGamePieceIdException();
             }
         }
 
@@ -55,7 +55,7 @@ namespace MrPitiful.BoardGame.Game
             }
             else
             {
-                throw new DuplicateGameBoardSpaceException();
+                throw new DuplicateGameBoardSpaceIdException();
             }
         }
 
@@ -73,7 +73,14 @@ namespace MrPitiful.BoardGame.Game
 
         public void EndGame(IGame game)
         {
-            throw new NotImplementedException();
+            game.EndTime = DateTime.UtcNow;
+            _gameRepository.Save(game);
+        }
+
+        public void StartGame(IGame game)
+        {
+            game.StartTime = DateTime.UtcNow;
+            _gameRepository.Save(game);
         }
 
         public void RemoveGamePieceIdFromGame(Guid gamePieceId, IGame game)
@@ -113,12 +120,7 @@ namespace MrPitiful.BoardGame.Game
                 throw new PlayerIdNotFoundException();
             }
         }
-
-        public void StartGame(IGame game)
-        {
-            throw new NotImplementedException();
-        }
-
+ 
         public void UpdateGameStateProperty(IGame game, string gameStatePropertyName, string gameStatePropertyValue)
         {
             game.State[gameStatePropertyName] = gameStatePropertyValue;
