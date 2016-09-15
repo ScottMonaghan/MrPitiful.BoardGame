@@ -18842,18 +18842,18 @@
     },
     "MrPitiful.BoardGame.Game/1.0.0": {
       "type": "project",
-      "path": "../src/MrPitiful.BoardGame.Game/project.json",
-      "msbuildProject": "../src/MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game.xproj"
+      "path": "../../MrPitiful.BoardGame.Game/project.json",
+      "msbuildProject": "../../MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game.xproj"
     },
     "MrPitiful.BoardGame.Game.Web/1.0.0": {
       "type": "project",
-      "path": "../src/MrPitiful.BoardGame.Game.Web/project.json",
-      "msbuildProject": "../src/MrPitiful.BoardGame.Game.Web/MrPitiful.BoardGame.Game.Web.xproj"
+      "path": "../../MrPitiful.BoardGame.Game.Web/project.json",
+      "msbuildProject": "../../MrPitiful.BoardGame.Game.Web/MrPitiful.BoardGame.Game.Web.xproj"
     },
     "MrPitiful.BoardGame.Interfaces/1.0.0": {
       "type": "project",
-      "path": "../src/MrPitiful.BoardGame.Interfaces/project.json",
-      "msbuildProject": "../src/MrPitiful.BoardGame.Interfaces/MrPitiful.BoardGame.Interfaces.xproj"
+      "path": "../../../../MrPitiful.BoardGame.Interfaces/project.json",
+      "msbuildProject": "../../../../MrPitiful.BoardGame.Interfaces/MrPitiful.BoardGame.Interfaces.xproj"
     }
   },
   "projectFileDependencyGroups": {

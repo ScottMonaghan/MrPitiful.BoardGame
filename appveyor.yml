@@ -11,14 +11,12 @@ before_build:
 #- appveyor-retry nuget restore
 - appveyor-retry dotnet restore -v Minimal
 build_script:
-- dotnet build "Microservices\MrPitiful.Boardgame.Game\MrPitiful.BoardGame.Game" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "Microservices\MrPitiful.Boardgame.Game\MrPitiful.BoardGame.Game.Web" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "Microservices\MrPitiful.Boardgame.Game\MrPitiful.BoardGame.Game.Web.Client" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "src\MicroServices\MrPitiful.BoardGame.Game\MrPitiful.BoardGame.Game" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 # after_build:
 #- dotnet publish "src\ConsoleApplication" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts\ConsoleApplication
-test_script:
-- dotnet test "Microservices\MrPitiful.Boardgame.Game\Tests\MrPitiful.BoardGame.Game.Test" -c %CONFIGURATION%
-- dotnet test "Microservices\MrPitiful.Boardgame.Game\Tests\MrPitiful.Boardgame.Game.Web.Test" -c %CONFIGURATION%
+#test_script:
+#- dotnet test "Microservices\MrPitiful.Boardgame.Game\Tests\MrPitiful.BoardGame.Game.Test" -c %CONFIGURATION%
+#- dotnet test "Microservices\MrPitiful.Boardgame.Game\Tests\MrPitiful.Boardgame.Game.Web.Test" -c %CONFIGURATION%
 artifacts:
 - path: artifacts\**\*.*
 cache:

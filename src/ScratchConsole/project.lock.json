@@ -7026,13 +7026,13 @@
     },
     "MrPitiful.BoardGame.Game/1.0.0": {
       "type": "project",
-      "path": "../MrPitiful.BoardGame.Game/project.json",
-      "msbuildProject": "../MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game.xproj"
+      "path": "../MicroServices/MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game/project.json",
+      "msbuildProject": "../MicroServices/MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game.xproj"
     },
     "MrPitiful.BoardGame.Game.Web.Client/1.0.0": {
       "type": "project",
-      "path": "../MrPitiful.BoardGame.Game.Web.Client/project.json",
-      "msbuildProject": "../MrPitiful.BoardGame.Game.Web.Client/MrPitiful.BoardGame.Game.Web.Client.xproj"
+      "path": "../MicroServices/MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game.Web.Client/project.json",
+      "msbuildProject": "../MicroServices/MrPitiful.BoardGame.Game/MrPitiful.BoardGame.Game.Web.Client/MrPitiful.BoardGame.Game.Web.Client.xproj"
     },
     "MrPitiful.BoardGame.Interfaces/1.0.0": {
       "type": "project",
