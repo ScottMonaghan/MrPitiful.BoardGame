@@ -2,7 +2,7 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "MrPitiful.BoardGame.Interfaces": "1.0.0-*",
+    "MrPitiful.BoardGame.Interfaces": { "target": "project" },
     "NETStandard.Library": "1.6.0"
   },
 

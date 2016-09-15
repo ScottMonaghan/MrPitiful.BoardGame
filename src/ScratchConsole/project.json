@@ -9,9 +9,9 @@
       "type": "platform",
       "version": "1.0.0"
     },
-    "MrPitiful.BoardGame.Game": "1.0.0-*",
-    "MrPitiful.BoardGame.Game.Web.Client": "1.0.0-*",
-    "MrPitiful.BoardGame.Interfaces": "1.0.0-*"
+    "MrPitiful.BoardGame.Game": { "target": "project" },
+    "MrPitiful.BoardGame.Game.Web.Client": { "target": "project" },
+    "MrPitiful.BoardGame.Interfaces": { "target": "project" }
   },
 
   "frameworks": {

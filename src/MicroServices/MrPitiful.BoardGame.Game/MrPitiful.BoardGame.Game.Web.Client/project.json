@@ -2,10 +2,9 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "MrPitiful.BoardGame.Game": "1.0.0-*",
-    "MrPitiful.BoardGame.Interfaces": "1.0.0-*",
+    "MrPitiful.BoardGame.Game": { "target": "project" },
+    "MrPitiful.BoardGame.Interfaces": { "target": "project" },
     "NETStandard.Library": "1.6.0",
-    "System.Runtime.Serialization.Json": "4.0.2",
     "Newtonsoft.Json": "9.0.1"
   },
 

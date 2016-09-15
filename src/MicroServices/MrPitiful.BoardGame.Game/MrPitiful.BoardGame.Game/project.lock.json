@@ -4035,7 +4035,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "MrPitiful.BoardGame.Interfaces >= 1.0.0-*",
+      "MrPitiful.BoardGame.Interfaces",
       "NETStandard.Library >= 1.6.0"
     ],
     ".NETStandard,Version=v1.6": []

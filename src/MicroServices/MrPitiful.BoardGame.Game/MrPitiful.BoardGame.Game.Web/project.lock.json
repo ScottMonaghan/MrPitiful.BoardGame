@@ -9379,8 +9379,8 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.NETCore.App >= 1.0.0",
-      "MrPitiful.BoardGame.Game >= 1.0.0-*",
-      "MrPitiful.BoardGame.Interfaces >= 1.0.0-*",
+      "MrPitiful.BoardGame.Game",
+      "MrPitiful.BoardGame.Interfaces",
       "Newtonsoft.Json >= 9.0.1"
     ],
     ".NETCoreApp,Version=v1.0": []
