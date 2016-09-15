@@ -1,7 +1,6 @@
 version: '1.0.{build}'
 configuration:
 - Debug
-- Release
 platform: Any CPU
 environment:
   # Don't report back to the mothership
@@ -12,25 +11,14 @@ before_build:
 #- appveyor-retry nuget restore
 - appveyor-retry dotnet restore -v Minimal
 build_script:
-- dotnet build "src\LibNETStandard10" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\LibNETStandard11" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\LibNETStandard12" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\LibNETStandard13" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\LibNETStandard14" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\LibNETStandard15" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\LibNETStandard16" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\ConsoleApplication" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-after_build:
-- dotnet pack "src\LibNETStandard10" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
-- dotnet pack "src\LibNETStandard11" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
-- dotnet pack "src\LibNETStandard12" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
-- dotnet pack "src\LibNETStandard13" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
-- dotnet pack "src\LibNETStandard14" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
-- dotnet pack "src\LibNETStandard15" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
-- dotnet pack "src\LibNETStandard16" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
+- dotnet build "Microservices\MrPitiful.Boardgame.Game\MrPitiful.BoardGame.Game" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Microservices\MrPitiful.Boardgame.Game\MrPitiful.BoardGame.Game.Web" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Microservices\MrPitiful.Boardgame.Game\MrPitiful.BoardGame.Game.Web.Client" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+# after_build:
 #- dotnet publish "src\ConsoleApplication" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts\ConsoleApplication
-#test_script:
-#- dotnet test "test\MyFirstUnitTests" -c %CONFIGURATION%
+test_script:
+- dotnet test "Microservices\MrPitiful.Boardgame.Game\Tests\MrPitiful.BoardGame.Game.Test" -c %CONFIGURATION%
+- dotnet test "Microservices\MrPitiful.Boardgame.Game\Tests\MrPitiful.Boardgame.Game.Web.Test" -c %CONFIGURATION%
 artifacts:
 - path: artifacts\**\*.*
 cache:
