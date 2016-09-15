@@ -1283,9 +1283,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "System.Runtime.Serialization.Json": "4.0.2",
-          "System.Runtime.Serialization.Primitives": "4.1.1"
+          "NETStandard.Library": "1.6.0"
         },
         "compile": {
           "netstandard1.6/MrPitiful.BoardGame.Interfaces.dll": {}
