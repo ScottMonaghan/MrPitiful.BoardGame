@@ -9,6 +9,7 @@ environment:
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 before_build:
+- appveyor-retry nuget restore
 - appveyor-retry dotnet restore -v Minimal
 build_script:
 - dotnet build "src\LibNETStandard10" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
