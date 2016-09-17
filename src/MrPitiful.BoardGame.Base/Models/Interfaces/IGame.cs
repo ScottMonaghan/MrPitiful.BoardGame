@@ -16,6 +16,7 @@ namespace MrPitiful.BoardGame.Base.Models.Interfaces
     public interface IGame:IGameObject
     {
         List<Guid> PlayerIds { get; set; }
+        Guid GameBoardId { get; set; }
         List<Guid> GameBoardSpaceIds { get; set; }
         List<Guid> GamePieceIds { get; set; }
         DateTime StartTime { get; set; }

@@ -7,12 +7,13 @@ using MrPitiful.BoardGame.Base.Repositories.Interfaces;
 namespace MrPitiful.BoardGame.Base.Services
 {
     public class GameNotFoundException : Exception {}
-    public class PlayerIdNotFoundException : Exception { }
-    public class GamePieceIdNotFoundException : Exception { }
-    public class GameBoardSpaceIdNotFoundException : Exception { }
+    public class GameBoardNotFoundException : Exception {}
+    public class PlayerIdNotFoundException : Exception {}
+    public class GamePieceIdNotFoundException : Exception {}
+    public class GameBoardSpaceIdNotFoundException : Exception {}
     public class DuplicatePlayerIdException : Exception {}
-    public class DuplicateGamePieceIdException : Exception { }
-    public class DuplicateGameBoardSpaceIdException : Exception { }
+    public class DuplicateGamePieceIdException : Exception {}
+    public class DuplicateGameBoardSpaceIdException : Exception {}
 
     public abstract class GameService : GameObjectService, IGameService
     {
@@ -107,6 +108,11 @@ namespace MrPitiful.BoardGame.Base.Services
                 throw new PlayerIdNotFoundException();
             }
         }
- 
+
+        public void SetGameBoard(Guid gameBoardId, IGame game)
+        {
+            game.GameBoardId = gameBoardId;
+        }
+
     }
 }

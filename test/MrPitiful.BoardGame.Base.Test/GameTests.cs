@@ -18,6 +18,15 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.NotNull(game.PlayerIds);
         }
         [Fact]
+        public void GameBoardIdTest()
+        {
+            //make sure gameboard id can set and get
+            GenericGame game = new GenericGame();
+            Guid gameBoardId = Guid.NewGuid();
+            game.GameBoardId = gameBoardId;
+            Assert.Equal<Guid>(gameBoardId, game.GameBoardId);
+        }
+        [Fact]
         public void GameBoardSpaceIdsTest()
         {
             //test get / set of GenericGame.GameBoardSpaceIds;

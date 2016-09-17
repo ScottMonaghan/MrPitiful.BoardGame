@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
-using MrPitiful.BoardGame.Base.Services.Interfaces;
+using MrPitiful.BoardGame.Base.Repositories.Interfaces;
 namespace MrPitiful.BoardGame.Base.Controllers
 {
  
@@ -10,20 +10,20 @@ namespace MrPitiful.BoardGame.Base.Controllers
     public abstract class GameObjectController : Controller
     {
 
-        private IGameObjectService _gameObjectService;
+        private IGameObjectRepository _gameObjectRepository;
         private IGameObject _gameObject;
         // GET api/values
  
-        public GameObjectController(IGameObjectService gameObjectService, IGameObject gameObject)
+        public GameObjectController(IGameObjectRepository gameObjectRepository, IGameObject gameObject)
         {
-            _gameObjectService = gameObjectService;
+            _gameObjectRepository = gameObjectRepository;
             _gameObject = gameObject;
         }
 
         [HttpGet]
         public Dictionary<Guid, IGameObject> Get()
         {
-            return _gameObjectService.Get();
+            return _gameObjectRepository.Get();
         }
 
         // GET api/gameObject/5
@@ -31,7 +31,7 @@ namespace MrPitiful.BoardGame.Base.Controllers
         public ActionResult Get(Guid id)
         {
             return new ObjectResult(
-                   _gameObjectService.Get(id)
+                   _gameObjectRepository.Get(id)
             );
         }
         
@@ -40,7 +40,7 @@ namespace MrPitiful.BoardGame.Base.Controllers
         public ActionResult Create()
         {
             return new ObjectResult(
-                   _gameObjectService.Create(_gameObject)
+                   _gameObjectRepository.Create(_gameObject)
             );
         }
 
@@ -48,8 +48,9 @@ namespace MrPitiful.BoardGame.Base.Controllers
         [HttpGet("GetStateProperty/{gameObjectId}/{propertyName}")]
         public ActionResult GetStateProperty(Guid gameObjectId, string propertyName)
         {
+            IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
             return new ObjectResult(
-                _gameObjectService.GetStateProperty(_gameObjectService.Get(gameObjectId), propertyName)
+                gameObject.State[propertyName] 
             );
         }
 
@@ -57,11 +58,9 @@ namespace MrPitiful.BoardGame.Base.Controllers
         [HttpGet("SetStateProperty/{gameObjectId}/{propertyName}/{propertyValue}")]
         public void SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue)
         {
-            _gameObjectService.SetStateProperty(
-                _gameObjectService.Get(gameObjectId),
-                propertyName,
-                propertyValue
-            );
+                IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
+                gameObject.State[propertyName] = propertyValue;
+                _gameObjectRepository.Save(gameObject);
         }
 
           // DELETE api/values/5

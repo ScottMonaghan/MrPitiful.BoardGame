@@ -8,6 +8,7 @@ namespace MrPitiful.BoardGame.Base.Models
 {
     public abstract class Game:GameObject, IGame
     {
+        private Guid _gameBoardId;
         private List<Guid> _gameBoardSpaceIds;
         private List<Guid> _gamePieceIds;
         private List<Guid> _playerIds;
@@ -87,5 +88,16 @@ namespace MrPitiful.BoardGame.Base.Models
             }
         }
 
+        public Guid GameBoardId
+        {
+            get
+            {
+                return _gameBoardId;
+            }
+            set
+            {
+                _gameBoardId = value;
+            }
+        }
     }
 }

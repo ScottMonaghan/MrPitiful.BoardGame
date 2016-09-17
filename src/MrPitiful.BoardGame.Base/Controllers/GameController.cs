@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
-using MrPitiful.BoardGame.Base.Services.Interfaces;
+using MrPitiful.BoardGame.Base.Repositories.Interfaces;
 namespace MrPitiful.BoardGame.Base.Controllers
 {
- 
+
+    public class GameNotFoundException : Exception { }
+    public class GameBoardNotFoundException : Exception { }
+    public class PlayerIdNotFoundException : Exception { }
+    public class GamePieceIdNotFoundException : Exception { }
+    public class GameBoardSpaceIdNotFoundException : Exception { }
+    public class DuplicatePlayerIdException : Exception { }
+    public class DuplicateGamePieceIdException : Exception { }
+    public class DuplicateGameBoardSpaceIdException : Exception { }
+
     [Route("api/[controller]")]
     public abstract class GameController : GameObjectController
     {
-        private IGameService _gameService;
+        private IGameRepository _gameRepository;
         private IGame _game; 
-        public GameController(IGameService gameService, IGame game) : base(gameService, game) {
-            _gameService = gameService;
+        public GameController(IGameRepository gameRepository, IGame game) : base(gameRepository, game) {
+            _gameRepository = gameRepository;
             _game = game;
         }
 
@@ -20,60 +29,117 @@ namespace MrPitiful.BoardGame.Base.Controllers
         [HttpGet("AddPlayerIdToGame/{playerId}/{gameId}")]
         public void AddPlayerIdToGame(Guid playerId, Guid gameId)
         {
-            _gameService.AddPlayerIdToGame(
-                playerId,
-                (IGame)_gameService.Get(gameId)
-            );          
+            IGame game = (IGame)_gameRepository.Get(gameId);
+
+            if (!(game.PlayerIds.Contains(playerId)))
+            {
+                game.PlayerIds.Add(playerId);
+                _gameRepository.Save(game);
+            }
+            else
+            {
+                throw new DuplicatePlayerIdException();
+            }
         }
 
         // GET api/game/RemovePlayerIdFromGame/12345/2345
         [HttpGet("RemovePlayerIdFromGame/{playerId}/{gameId}")]
         public void RemovePlayerIdFromGame(Guid playerId, Guid gameId)
         {
-            _gameService.RemovePlayerIdFromGame(
-                playerId,
-                (IGame)_gameService.Get(gameId)
-            );
+            IGame game = (IGame)_gameRepository.Get(gameId);
+
+            if (game.PlayerIds.Contains(playerId))
+            {
+                game.PlayerIds.Remove(playerId);
+                _gameRepository.Save(game);
+            }
+            else
+            {
+                throw new PlayerIdNotFoundException();
+            }
         }
 
         // GET api/game/AddGamePieceIdToGame/12345/2345
         [HttpGet("AddGamePieceIdToGame/{gamePieceId}/{gameId}")]
         public void AddGamePieceIdToGame(Guid gamePieceId, Guid gameId)
         {
-            _gameService.AddGamePieceIdToGame(
-                gamePieceId,
-                (IGame)_gameService.Get(gameId)
-            );
+            IGame game = (IGame)_gameRepository.Get(gameId);
+
+            if (!(game.GamePieceIds.Contains(gamePieceId)))
+            {
+                game.GamePieceIds.Add(gamePieceId);
+                _gameRepository.Save(game);
+            }
+            else
+            {
+                throw new DuplicateGamePieceIdException();
+            }
         }
 
         // GET api/game/RemoveGamePieceIdFromGame/12345/2345
         [HttpGet("RemoveGamePieceIdFromGame/{gamePieceId}/{gameId}")]
         public void RemoveGamePieceIdFromGame(Guid gamePieceId, Guid gameId)
         {
-            _gameService.RemoveGamePieceIdFromGame(
-                gamePieceId,
-                (IGame)_gameService.Get(gameId)
-            );
+            IGame game = (IGame)_gameRepository.Get(gameId);
+            if (game.GamePieceIds.Contains(gamePieceId))
+            {
+                game.GamePieceIds.Remove(gamePieceId);
+                _gameRepository.Save(game);
+            }
+            else
+            {
+                throw new GamePieceIdNotFoundException();
+            }
         }
 
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("AddGameBoardSpaceIdToGame/{gameBoardSpaceId}/{gameId}")]
         public void AddGameBoardSpaceIdToGame(Guid gameBoardSpaceId, Guid gameId)
         {
-            _gameService.AddGameBoardSpaceIdToGame(
-                gameBoardSpaceId,
-                (IGame)_gameService.Get(gameId)
-            );
+            IGame game = (IGame)_gameRepository.Get(gameId);
+            if (!(game.GameBoardSpaceIds.Contains(gameBoardSpaceId)))
+            {
+                game.GameBoardSpaceIds.Add(gameBoardSpaceId);
+                _gameRepository.Save(game);
+            }
+            else
+            {
+                throw new DuplicateGameBoardSpaceIdException();
+            }
         }
 
         // GET api/game/RemoveGameBoardSpaceIdFromGame/12345/2345
         [HttpGet("RemoveGameBoardSpaceIdFromGame/{gameBoardSpaceId}/{gameId}")]
         public void RemoveGameBoardSpaceIdFromGame(Guid gameBoardSpaceId, Guid gameId)
         {
-            _gameService.RemoveGameBoardSpaceIdFromGame(
-                gameBoardSpaceId,
-                (IGame)_gameService.Get(gameId)
-            );
+            IGame game = (IGame)_gameRepository.Get(gameId);
+            if (game.GameBoardSpaceIds.Contains(gameBoardSpaceId))
+            {
+                game.GameBoardSpaceIds.Remove(gameBoardSpaceId);
+                _gameRepository.Save(game);
+            }
+            else
+            {
+                throw new GameBoardSpaceIdNotFoundException();
+            }
+
         }
+
+        [HttpGet("EndGame/{gameId}")]
+        public void EndGame(Guid gameId)
+        {
+            IGame game = (IGame)_gameRepository.Get(gameId);
+            game.EndTime = DateTime.UtcNow;
+            _gameRepository.Save(game);
+        }
+
+        [HttpGet("StartGame/{gameId}")]
+        public void StartGame(Guid gameId)
+        {
+            IGame game = (IGame)_gameRepository.Get(gameId);
+            game.StartTime = DateTime.UtcNow;
+            _gameRepository.Save(game);
+        }
+
     }
 }
