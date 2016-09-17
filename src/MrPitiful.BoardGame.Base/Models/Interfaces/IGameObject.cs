@@ -8,8 +8,6 @@ namespace MrPitiful.BoardGame.Base.Models.Interfaces
     public interface IGameObject
     {
         Guid Id { get; set; }
-        void BeforeStep(string stepName, object parameters);
-        void DuringStep(string stepName, object parameters);
-        void AfterStep(string stepName, object parameters);
+        Dictionary<string, string> State { get; }
     }
 }

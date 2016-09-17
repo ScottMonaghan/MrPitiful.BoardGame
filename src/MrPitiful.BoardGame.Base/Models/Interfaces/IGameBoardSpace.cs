@@ -17,6 +17,5 @@ namespace MrPitiful.BoardGame.Base.Models.Interfaces
     {
         Guid GameId { get; set; }
         List<Guid> AdjacentSpaces { get; set; }
-        IDictionary<string, string> State { get; set; }
     }
 }

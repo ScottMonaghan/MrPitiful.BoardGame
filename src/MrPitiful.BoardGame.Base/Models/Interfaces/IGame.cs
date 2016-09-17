@@ -18,7 +18,6 @@ namespace MrPitiful.BoardGame.Base.Models.Interfaces
         List<Guid> PlayerIds { get; set; }
         List<Guid> GameBoardSpaceIds { get; set; }
         List<Guid> GamePieceIds { get; set; }
-        Dictionary<string, string> State { get; set; }
         DateTime StartTime { get; set; }
         DateTime EndTime { get; set; }
     }

@@ -8,55 +8,17 @@ using Xunit;
 
 namespace MrPitiful.BoardGame.Base.Test
 {
-    public class GameAPIShould
+    public class GameControllerShould
     {
         private readonly TestServer _server;
         private readonly HttpClient _client;
-        public GameAPIShould()
+        public GameControllerShould()
         {
             _server = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>());
             _client = _server.CreateClient();
         }
 
-        [Fact]
-        public async void ReturnAListOfEmptyGames()
-        {
-            //Act
-            var response = await _client.GetAsync("/api/genericGame/");
-            var result = JsonConvert.DeserializeObject<Dictionary<Guid,GenericGame>>(
-                    response.Content.ReadAsStringAsync().Result
-                );
-            //Assert
-            Assert.Empty(result);
-            Assert.NotNull(result);
-        }
-
-        [Fact]
-        public async void ReturnAGameWithAGuidAfterCreate()
-        {
-            var response = await _client.GetAsync("/api/genericGame/create");
-            GenericGame result = JsonConvert.DeserializeObject<GenericGame>(
-                    response.Content.ReadAsStringAsync().Result
-                );
-            //Assert
-            Assert.True(result.Id != Guid.Empty);
-        }
-
-        [Fact]
-        public async void GetAGameByIdAfterCreatingIt()
-        {
-            var response1 = await _client.GetAsync("/api/genericGame/create");
-            GenericGame createdGame = JsonConvert.DeserializeObject<GenericGame>(
-                    response1.Content.ReadAsStringAsync().Result
-                );
-            var response2 = await _client.GetAsync(String.Format("/api/genericGame/{0}", createdGame.Id));
-            GenericGame gotGame = JsonConvert.DeserializeObject<GenericGame>(
-                    response1.Content.ReadAsStringAsync().Result
-                );
-            //Assert
-            Assert.Equal<Guid>(createdGame.Id, gotGame.Id);
-        }
         [Fact]
         public async void AddPlayerIdToGame()
         {

@@ -7,43 +7,13 @@ namespace MrPitiful.BoardGame.Base.Controllers
 {
  
     [Route("api/[controller]")]
-    public abstract class GameController : Controller
+    public abstract class GameController : GameObjectController
     {
-
         private IGameService _gameService;
-        private IGame _game;
-        // GET api/values
- 
-        public GameController(IGameService gameService, IGame game)
-        {
+        private IGame _game; 
+        public GameController(IGameService gameService, IGame game) : base(gameService, game) {
             _gameService = gameService;
             _game = game;
-        }
-
-        [HttpGet]
-        public IDictionary<Guid, IGame> Get()
-        {
-            return _gameService.Get();
-        }
-
-        // GET api/game/5
-        [HttpGet("{id}")]
-        public ActionResult Get(Guid id)
-        {
-            return new ObjectResult(
-                   _gameService.Get(id)
-            );
-        }
-        
-        // GET api/game/Create
-        [HttpGet("Create")]
-        public ActionResult Create()
-        {
-            return new ObjectResult(
-                   _gameService.Create(
-                       _game
-                   )
-            );
         }
 
         // GET api/game/AddPlayerIdToGame/12345/2345
@@ -52,7 +22,7 @@ namespace MrPitiful.BoardGame.Base.Controllers
         {
             _gameService.AddPlayerIdToGame(
                 playerId,
-                _gameService.Get(gameId)
+                (IGame)_gameService.Get(gameId)
             );          
         }
 
@@ -62,7 +32,7 @@ namespace MrPitiful.BoardGame.Base.Controllers
         {
             _gameService.RemovePlayerIdFromGame(
                 playerId,
-                _gameService.Get(gameId)
+                (IGame)_gameService.Get(gameId)
             );
         }
 
@@ -72,7 +42,7 @@ namespace MrPitiful.BoardGame.Base.Controllers
         {
             _gameService.AddGamePieceIdToGame(
                 gamePieceId,
-                _gameService.Get(gameId)
+                (IGame)_gameService.Get(gameId)
             );
         }
 
@@ -82,7 +52,7 @@ namespace MrPitiful.BoardGame.Base.Controllers
         {
             _gameService.RemoveGamePieceIdFromGame(
                 gamePieceId,
-                _gameService.Get(gameId)
+                (IGame)_gameService.Get(gameId)
             );
         }
 
@@ -92,7 +62,7 @@ namespace MrPitiful.BoardGame.Base.Controllers
         {
             _gameService.AddGameBoardSpaceIdToGame(
                 gameBoardSpaceId,
-                _gameService.Get(gameId)
+                (IGame)_gameService.Get(gameId)
             );
         }
 
@@ -102,34 +72,8 @@ namespace MrPitiful.BoardGame.Base.Controllers
         {
             _gameService.RemoveGameBoardSpaceIdFromGame(
                 gameBoardSpaceId,
-                _gameService.Get(gameId)
+                (IGame)_gameService.Get(gameId)
             );
-        }
-
-        // GET api/game/UpdateGameStateProperty/12345/Name/KnightsOfValor
-        [HttpGet("UpdateGameStateProperty/{gameId}/{gameStatePropertyName}/{gameStatePropertyValue}")]
-        public void UpdateGameStateProperty(Guid gameId, string gameStatePropertyName, string gameStatePropertyValue)
-        {
-            _gameService.UpdateGameStateProperty(
-                _gameService.Get(gameId),
-                gameStatePropertyName,
-                gameStatePropertyValue
-            );
-        }
-
-        // GET api/game/GetGameStateProperty/12345/Name
-        [HttpGet("GetGameStateProperty/{gameId}/{gameStatePropertyName}")]
-        public ActionResult GetGameStateProperty(Guid gameId, string gameStatePropertyName)
-        {
-            return new ObjectResult(
-                _gameService.GetGameStateProperty(_gameService.Get(gameId), gameStatePropertyName)
-            );
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

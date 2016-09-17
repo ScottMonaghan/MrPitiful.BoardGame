@@ -14,28 +14,13 @@ namespace MrPitiful.BoardGame.Base.Services
     public class DuplicateGamePieceIdException : Exception { }
     public class DuplicateGameBoardSpaceIdException : Exception { }
 
-    public abstract class GameService : IGameService
+    public abstract class GameService : GameObjectService, IGameService
     {
         private IGameRepository _gameRepository;
-        
 
-        public GameService(IGameRepository gameRepository)
+        public GameService(IGameRepository gameRepository):base(gameRepository)
         {
-            _gameRepository = gameRepository;   
-        }
-
-        public IGame Create(IGame game)
-        {
-            return _gameRepository.Create(game);
-        }
-
-        public IDictionary<Guid,IGame> Get(){
-            return _gameRepository.Get();
-        }
-
-        public IGame Get(Guid id)
-        {
-            return _gameRepository.Get(id);
+            _gameRepository = gameRepository; 
         }
 
         public void AddGamePieceIdToGame(Guid gamePieceId, IGame game)
@@ -123,15 +108,5 @@ namespace MrPitiful.BoardGame.Base.Services
             }
         }
  
-        public void UpdateGameStateProperty(IGame game, string gameStatePropertyName, string gameStatePropertyValue)
-        {
-            game.State[gameStatePropertyName] = gameStatePropertyValue;
-            _gameRepository.Save(game);
-        }
-
-        public string GetGameStateProperty(IGame game, string gameStatePropertyName)
-        {
-            return game.State[gameStatePropertyName];
-        }
     }
 }

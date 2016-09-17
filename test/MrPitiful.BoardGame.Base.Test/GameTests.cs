@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
-using MrPitiful.BoardGame.Base.Models;
 
 namespace MrPitiful.BoardGame.Base.Test
 {
@@ -19,7 +16,6 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.NotNull(game.GameBoardSpaceIds);
             Assert.NotNull(game.GamePieceIds);
             Assert.NotNull(game.PlayerIds);
-            Assert.NotNull(game.State);
         }
         [Fact]
         public void GameBoardSpaceIdsTest()
@@ -41,16 +37,7 @@ namespace MrPitiful.BoardGame.Base.Test
             game.GamePieceIds = gamePieceIds;
             Assert.Same(gamePieceIds, game.GamePieceIds);
         }
-        [Fact]
-        public void IdTest()
-        {
-            //test get / set of GenericGame.Id;
-            Dictionary<string, string> gameState = new Dictionary<string, string>();
-            GenericGame game = new GenericGame();
-            Guid id = Guid.NewGuid();
-            game.Id = id;
-            Assert.Equal<Guid>(id, game.Id);
-        }
+
         [Fact]
         public void PlayerIdsTest()
         {

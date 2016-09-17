@@ -42,6 +42,9 @@ namespace MrPitiful.BoardGame.Base.Test
             //services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+            services.AddSingleton<IGameObjectRepository, GenericListGameObjectRepository>();
+            services.AddSingleton<IGameObjectService, GenericGameObjectService>();
+            services.AddTransient<IGameObject, GenericGameObject>();
             services.AddSingleton<IGameRepository, GenericListGameRepository>();
             services.AddSingleton<IGameService, GenericGameService>();
             services.AddTransient<IGame, GenericGame>();

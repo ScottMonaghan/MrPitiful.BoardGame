@@ -7,38 +7,6 @@ using MrPitiful.BoardGame.Base.Repositories.Interfaces;
 
 namespace MrPitiful.BoardGame.Base.Test
 {
-    public class MockGameRepository : IGameRepository
-    {
-        public bool Saved = false;
-
-        IGame IGameRepository.Create(IGame game)
-        {
-            return game;
-        }
-
-        void IGameRepository.Delete(IGame game)
-        {
-            //do nothing
-        }
-
-        IDictionary<Guid, IGame> IGameRepository.Get()
-        {
-            return new Dictionary<Guid, IGame>();
-        }
-
-        IGame IGameRepository.Get(Guid Id)
-        {
-            GenericGame game = new GenericGame();
-            game.Id = Id;
-            return game;
-        }
-
-        void IGameRepository.Save(IGame game)
-        {
-            Saved = true;
-        }
-    }
-
     public class GameServiceTests
     {
 
@@ -50,26 +18,6 @@ namespace MrPitiful.BoardGame.Base.Test
             GenericGameService gameService = new GenericGameService(gameRepository);
         }
         
-        [Fact]
-        public void CreateTest()
-        {
-            //test to see if gameRepository.Create is run.  Injected game should be the same as returned game.
-            MockGameRepository gameRepository = new MockGameRepository();
-            GenericGameService gameService = new GenericGameService(gameRepository);
-            GenericGame injectedGame = new GenericGame();
-            GenericGame createdGame = (GenericGame)(gameService.Create(injectedGame));
-            Assert.Same(injectedGame, createdGame);
-        }
-        
-        [Fact]
-        public void GetTest()
-        {
-            //should return a dictionary of IGame
-            MockGameRepository gameRepository = new MockGameRepository();
-            GenericGameService gameService = new GenericGameService(gameRepository);
-            Assert.IsType(typeof(Dictionary<Guid, IGame>), gameService.Get());
-        }
-
         [Fact]
         public void AddGamePieceIdToGameTest()
         {
@@ -259,33 +207,6 @@ namespace MrPitiful.BoardGame.Base.Test
             gameService.StartGame(game);
             Assert.True(DateTime.UtcNow.Subtract(game.StartTime).Seconds < 5);
             Assert.True(gameRepository.Saved);
-        }
-
-        [Fact]
-        public void UpdateGameStatePropertyTest()
-        {
-            //the added PlayerId should exist in GenericGame.PlayerIds
-            MockGameRepository gameRepository = new MockGameRepository();
-            GenericGame game = new GenericGame();
-            GenericGameService gameService = new GenericGameService(gameRepository);
-            String name = "name";
-            String value = "value";
-            gameService.UpdateGameStateProperty(game, name, value);
-            Assert.Equal(value, game.State[name]);
-            Assert.True(gameRepository.Saved);
-        }
-
-        [Fact]
-        public void GetGameStatePropertyTest()
-        {
-            //the added PlayerId should exist in GenericGame.PlayerIds
-            MockGameRepository gameRepository = new MockGameRepository();
-            GenericGame game = new GenericGame();
-            GenericGameService gameService = new GenericGameService(gameRepository);
-            String name = "name";
-            String value = "value";
-            gameService.UpdateGameStateProperty(game, name, value);
-            Assert.Equal(value, gameService.GetGameStateProperty(game, name));
         }
     }
 

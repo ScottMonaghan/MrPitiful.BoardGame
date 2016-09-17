@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
 
-namespace MrPitiful.BoardGame.Base.Repositories.Interfaces
+namespace MrPitiful.UnicodeChess.Models.Interfaces
 {
-    public interface IGameRepository:IGameObjectRepository
-    {}
+    public interface IUnicodeChessGame : IGame
+    {
+    }
 }

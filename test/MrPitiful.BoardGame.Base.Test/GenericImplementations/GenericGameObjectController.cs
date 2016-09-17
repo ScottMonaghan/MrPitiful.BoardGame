@@ -9,9 +9,9 @@ namespace MrPitiful.BoardGame.Base.Test
 {
 
     [Route("api/[controller]")]
-    public class GenericGameController : GameController
+    public class GenericGameObjectController : GameObjectController
     {
-        public GenericGameController(IGameService gameService, IGame game) : base(gameService, game)
+        public GenericGameObjectController(IGameObjectService gameObjectService, IGameObject gameObject) : base(gameObjectService, gameObject)
         {
         }
     }

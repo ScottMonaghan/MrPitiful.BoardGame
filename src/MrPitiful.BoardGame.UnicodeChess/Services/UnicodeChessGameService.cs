@@ -13,5 +13,20 @@ namespace MrPitiful.UnicodeChess.Services
         {
             //do something
         }
+
+        public override void AfterGameStep(string gameStep, object Parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void BeforeGameStep(string gameStep, object Parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DuringGameStep(string gameStep, object Parameters)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
