@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
+using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Base.Models
 {
@@ -29,6 +30,7 @@ namespace MrPitiful.BoardGame.Base.Models
             }
         }
 
+        [JsonIgnore]
         public Dictionary<string, string> State
         {
             get

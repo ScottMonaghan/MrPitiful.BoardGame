@@ -8,9 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
-using MrPitiful.BoardGame.Base.Services.Interfaces;
 using MrPitiful.BoardGame.Base.Repositories.Interfaces;
-using MrPitiful.UnicodeChess.Services;
 using MrPitiful.UnicodeChess.Models;
 using MrPitiful.UnicodeChess.Repositories;
 
@@ -46,7 +44,6 @@ namespace MrPitiful.BoardGame.UnicodeChess.Game
 
             services.AddMvc();
             services.AddSingleton<IGameRepository, ListUnicodeChessGameRepository>();
-            services.AddSingleton<IGameService, UnicodeChessGameService>();
             services.AddTransient<IGame, UnicodeChessGame>();
 
         }

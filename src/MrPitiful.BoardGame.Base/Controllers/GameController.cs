@@ -42,6 +42,14 @@ namespace MrPitiful.BoardGame.Base.Controllers
             }
         }
 
+        [HttpGet("GameContainsPlayerId/{gameId}/{playerId}")]
+        public bool GameContainsPlayerId(Guid gameId, Guid playerId)
+        {
+            IGame game = (IGame)_gameRepository.Get(gameId);
+
+            return game.PlayerIds.Contains(playerId);
+        }
+
         // GET api/game/RemovePlayerIdFromGame/12345/2345
         [HttpGet("RemovePlayerIdFromGame/{playerId}/{gameId}")]
         public void RemovePlayerIdFromGame(Guid playerId, Guid gameId)
@@ -76,6 +84,14 @@ namespace MrPitiful.BoardGame.Base.Controllers
             }
         }
 
+        [HttpGet("GameContainsGamePieceId/{gameId}/{gamePieceId}")]
+        public bool GameContainsGamePieceId(Guid gameId, Guid gamePieceId)
+        {
+            IGame game = (IGame)_gameRepository.Get(gameId);
+
+            return game.GamePieceIds.Contains(gamePieceId);
+        }
+
         // GET api/game/RemoveGamePieceIdFromGame/12345/2345
         [HttpGet("RemoveGamePieceIdFromGame/{gamePieceId}/{gameId}")]
         public void RemoveGamePieceIdFromGame(Guid gamePieceId, Guid gameId)
@@ -107,6 +123,15 @@ namespace MrPitiful.BoardGame.Base.Controllers
                 throw new DuplicateGameBoardSpaceIdException();
             }
         }
+
+        [HttpGet("GameContainsGameBoardSpaceId/{gameId}/{gameBoardSpaceId}")]
+        public bool GameContainsGameBoardSpaceId(Guid gameId, Guid gameBoardSpaceId)
+        {
+            IGame game = (IGame)_gameRepository.Get(gameId);
+
+            return game.GameBoardSpaceIds.Contains(gameBoardSpaceId);
+        }
+
 
         // GET api/game/RemoveGameBoardSpaceIdFromGame/12345/2345
         [HttpGet("RemoveGameBoardSpaceIdFromGame/{gameBoardSpaceId}/{gameId}")]

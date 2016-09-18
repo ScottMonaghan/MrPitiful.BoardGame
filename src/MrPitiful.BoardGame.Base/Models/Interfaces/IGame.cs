@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Base.Models.Interfaces
 {
@@ -15,9 +15,12 @@ namespace MrPitiful.BoardGame.Base.Models.Interfaces
   
     public interface IGame:IGameObject
     {
-        List<Guid> PlayerIds { get; set; }
         Guid GameBoardId { get; set; }
+        [JsonIgnore]
+        List<Guid> PlayerIds { get; set; }
+        [JsonIgnore]
         List<Guid> GameBoardSpaceIds { get; set; }
+        [JsonIgnore]
         List<Guid> GamePieceIds { get; set; }
         DateTime StartTime { get; set; }
         DateTime EndTime { get; set; }

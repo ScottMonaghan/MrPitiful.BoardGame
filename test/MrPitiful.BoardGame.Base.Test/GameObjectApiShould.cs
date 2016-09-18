@@ -8,11 +8,11 @@ using Xunit;
 
 namespace MrPitiful.BoardGame.Base.Test
 {
-    public class GameObjectControllerShould
+    public class GameObjectApiShould
     {
         private readonly TestServer _server;
         private readonly HttpClient _client;
-        public GameObjectControllerShould()
+        public GameObjectApiShould()
         {
             _server = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>());

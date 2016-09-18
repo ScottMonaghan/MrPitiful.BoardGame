@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
 using MrPitiful.BoardGame.Base.Repositories;
-using MrPitiful.BoardGame.Base.Services.Interfaces;
 
 namespace MrPitiful.BoardGame.Base.Test
 {

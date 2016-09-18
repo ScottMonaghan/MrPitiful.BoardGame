@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
-using MrPitiful.BoardGame.Base.Services.Interfaces;
 using MrPitiful.BoardGame.Base.Repositories.Interfaces;
 
 
@@ -43,10 +42,8 @@ namespace MrPitiful.BoardGame.Base.Test
 
             services.AddMvc();
             services.AddSingleton<IGameObjectRepository, GenericListGameObjectRepository>();
-            services.AddSingleton<IGameObjectService, GenericGameObjectService>();
             services.AddTransient<IGameObject, GenericGameObject>();
             services.AddSingleton<IGameRepository, GenericListGameRepository>();
-            services.AddSingleton<IGameService, GenericGameService>();
             services.AddTransient<IGame, GenericGame>();
 
         }

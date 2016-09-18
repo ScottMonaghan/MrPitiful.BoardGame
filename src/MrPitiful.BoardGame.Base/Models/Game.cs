@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MrPitiful.BoardGame.Base.Models.Interfaces;
+using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Base.Models
 {
@@ -22,6 +23,7 @@ namespace MrPitiful.BoardGame.Base.Models
             _playerIds = new List<Guid>();
         }
 
+        [JsonIgnore]
         public List<Guid> GameBoardSpaceIds
         {
             get
@@ -36,6 +38,7 @@ namespace MrPitiful.BoardGame.Base.Models
 
         }
 
+        [JsonIgnore]
         public List<Guid> GamePieceIds
         {
             get
@@ -49,6 +52,7 @@ namespace MrPitiful.BoardGame.Base.Models
             }
         }
 
+        [JsonIgnore]
         public List<Guid> PlayerIds
         {
             get
