@@ -62,6 +62,7 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.False(result);
         }
 
+        [Fact]
         public async void SetAndGetGameBoardSpaceGameId()
         {
             //Arrange
@@ -89,6 +90,7 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.Equal<Guid>(newGameId, gotGameId);
         }
 
+        [Fact]
         public async void SetAndGetGameBoardSpaceGameBoardId()
         {
             //Arrange
@@ -116,5 +118,62 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.Equal<Guid>(newGameBoardId, gotGameBoardId);
         }
 
+        //NEED TO ADD
+        //AddAdjacentSpaceToGameBoardSpace
+        [Fact]
+        public async void AddQueryAndRemoveAdjacenctSpace()
+        {
+            //Arrange
+            //Create a gameBoardSpace
+            var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
+            GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+
+            //Act 
+            //Add AdjacentSpace to gameBoardSpace
+            string direction = "direction";
+            Guid adjacentSpaceId = Guid.NewGuid();
+            response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/AddAdjacentSpaceToGameBoardSpace/{0}/{1}/{2}", direction, adjacentSpaceId, createdGameBoardSpace.Id));
+            response.Dispose();
+
+            //Assert
+            //now we should be able to retrieve the adjacent space by direction!
+            response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetAdjacentSpaceIdByDirection/{0}/{1}", createdGameBoardSpace.Id, direction));
+            Guid gotAdjacentSpaceId = JsonConvert.DeserializeObject<Guid>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+            Assert.Equal<Guid>(adjacentSpaceId, gotAdjacentSpaceId);
+
+            //Assert
+            //now we should be able to retrieve the dicrection by the spaceId!
+            response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetDirectionsByAdjacentSpaceId/{0}/{1}", createdGameBoardSpace.Id, adjacentSpaceId));
+            List<string> gotDirections = JsonConvert.DeserializeObject<List<string>>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+            Assert.True(gotDirections.Contains(direction));
+
+            //Act (some more?)
+            //now lets remove the adjacent space
+            response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/RemoveAdjacentSpaceFromGameBoardSpace/{0}/{1}", direction, createdGameBoardSpace.Id));
+            response.Dispose();
+
+            //Assert 
+            //Make sure its gone?
+            response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetDirectionsByAdjacentSpaceId/{0}/{1}", createdGameBoardSpace.Id, adjacentSpaceId));
+            List<string> gotRemovedDirections = JsonConvert.DeserializeObject<List<string>>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+            Assert.False(gotRemovedDirections.Contains(direction));
+
+        }
+
+        //RemoveAdjacentSpaceFromGameBoardSpace
+        //GetAdjacentSpaceIdByDirection
+        //GetDirectionsByAdjacentSpaceId
     }
 }

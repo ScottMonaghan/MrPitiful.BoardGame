@@ -64,6 +64,7 @@ namespace MrPitiful.BoardGame.Base
             IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
 
             gameBoardSpace.AdjacentSpaceIds[direction] = adjacentSpaceId;
+            _gameBoardSpaceRepository.Save(gameBoardSpace);
         }
 
         [HttpGet("RemoveAdjacentSpaceFromGameBoardSpace/{direction}/{gameBoardSpaceId}")]
@@ -71,6 +72,7 @@ namespace MrPitiful.BoardGame.Base
         {
             IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             gameBoardSpace.AdjacentSpaceIds.Remove(direction);
+            _gameBoardSpaceRepository.Save(gameBoardSpace);
         }
 
         [HttpGet("GetAdjacentSpaceIdByDirection/{gameBoardSpaceId}/{direction}")]
@@ -86,16 +88,16 @@ namespace MrPitiful.BoardGame.Base
          * a single adjacent space may exist in multiple directions.
          */
         [HttpGet("GetDirectionsByAdjacentSpaceId/{gameBoardSpaceId}/{adjacentSpaceId}")]
-        public List<string> GetDirectionsByAdjacentSpaceId(Guid gameBoardSpaceId, string direction)
+        public List<string> GetDirectionsByAdjacentSpaceId(Guid gameBoardSpaceId, Guid adjacentSpaceId)
         {
             IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             List<string> adjacentSpaces = new List<string>();
 
-            if (gameBoardSpace.AdjacentSpaceIds.ContainsValue(gameBoardSpaceId))
+            if (gameBoardSpace.AdjacentSpaceIds.ContainsValue(adjacentSpaceId))
             {
                 foreach (KeyValuePair<string,Guid> adjacentSpace in gameBoardSpace.AdjacentSpaceIds)
                 {
-                    if (adjacentSpace.Value == gameBoardSpaceId)
+                    if (adjacentSpace.Value == adjacentSpaceId)
                     {
                         adjacentSpaces.Add(adjacentSpace.Key);
                     }
