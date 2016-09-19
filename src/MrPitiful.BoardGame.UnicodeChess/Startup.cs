@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MrPitiful.BoardGame.Base.Models.Interfaces;
-using MrPitiful.BoardGame.Base.Repositories.Interfaces;
+using MrPitiful.BoardGame.Base;
 using MrPitiful.UnicodeChess.Models;
 using MrPitiful.UnicodeChess.Repositories;
 

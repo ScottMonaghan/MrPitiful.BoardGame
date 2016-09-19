@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MrPitiful.BoardGame.Base.Controllers;
-using MrPitiful.BoardGame.Base.Repositories.Interfaces;
-using MrPitiful.BoardGame.Base.Models.Interfaces;
+using MrPitiful.BoardGame.Base;
 
 namespace MrPitiful.UnicodeChess.Controllers
 {

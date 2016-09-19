@@ -7,9 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MrPitiful.BoardGame.Base.Models.Interfaces;
-using MrPitiful.BoardGame.Base.Repositories.Interfaces;
-
 
 namespace MrPitiful.BoardGame.Base.Test
 {
@@ -45,6 +42,10 @@ namespace MrPitiful.BoardGame.Base.Test
             services.AddTransient<IGameObject, GenericGameObject>();
             services.AddSingleton<IGameRepository, GenericListGameRepository>();
             services.AddTransient<IGame, GenericGame>();
+            services.AddSingleton<IGameBoardRepository, GenericListGameBoardRepository>();
+            services.AddTransient<IGameBoard, GenericGameBoard>();
+            services.AddSingleton<IGameBoardSpaceRepository, GenericListGameBoardSpaceRepository>();
+            services.AddTransient<IGameBoardSpace, GenericGameBoardSpace>();
 
         }
 

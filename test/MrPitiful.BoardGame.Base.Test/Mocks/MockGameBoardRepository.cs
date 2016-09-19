@@ -3,6 +3,6 @@ using System.Collections.Generic;
 
 namespace MrPitiful.BoardGame.Base.Test
 {
-    public class MockGameRepository : MockGameObjectRepository, IGameRepository
+    public class MockGameBoardRepository : MockGameObjectRepository, IGameBoardRepository
     {}
 }
