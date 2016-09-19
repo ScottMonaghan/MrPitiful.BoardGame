@@ -104,6 +104,30 @@ namespace MrPitiful.BoardGame.Base
             return adjacentSpaces;
         }
 
+        [HttpGet("SetGameBoardSpaceGameId/{gameBoardSpaceId}/{gameId}")]
+        public void SetGameBoardSpaceGameId(Guid gameBoardSpaceId, Guid gameId)
+        {
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            gameBoardSpace.GameId = gameId;
+        }
 
+        [HttpGet("GetGameBoardSpaceGameId/{gameBoardSpaceId}")]
+        public Guid GetGameBoardSpaceGameId(Guid gameBoardSpaceId)
+        {
+            return ((IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId)).GameId;
+        }
+
+        [HttpGet("SetGameBoardSpaceGameBoardId/{gameBoardSpaceId}/{gameBoardId}")]
+        public void SetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId, Guid gameBoardId)
+        {
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            gameBoardSpace.GameBoardId = gameBoardId;
+        }
+
+        [HttpGet("GetGameBoardSpaceGameBoardId/{gameBoardSpaceId}")]
+        public Guid GetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId)
+        {
+            return ((IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId)).GameBoardId;
+        }
     }
 }

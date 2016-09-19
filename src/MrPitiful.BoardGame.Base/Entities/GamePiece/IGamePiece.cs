@@ -15,6 +15,6 @@ namespace MrPitiful.BoardGame.Base
     public interface IGamePiece:IGameObject
     {
         Guid GameId { get; set; }
-        Guid GameSpaceId { get; set; }
+        Guid GameBoardSpaceId { get; set; }
     }
 }

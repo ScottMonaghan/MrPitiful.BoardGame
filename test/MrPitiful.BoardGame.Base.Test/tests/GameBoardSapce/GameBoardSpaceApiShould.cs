@@ -62,5 +62,59 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.False(result);
         }
 
+        public async void SetAndGetGameBoardSpaceGameId()
+        {
+            //Arrange
+            //Create a gameBoardSpace
+            var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
+            GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+
+            //Act
+            //set the gameId
+            Guid newGameId = Guid.NewGuid();
+            response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/SetGameBoardSpaceGameId/{0}/{1}", createdGameBoardSpace.Id, newGameId));
+            response.Dispose();
+
+
+            //Assert
+            //make sure we get the Id that was just set and that it is the correct value 
+            response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetGameBoardSpaceGameId/{0}", createdGameBoardSpace.Id));
+            Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+
+            Assert.Equal<Guid>(newGameId, gotGameId);
+        }
+
+        public async void SetAndGetGameBoardSpaceGameBoardId()
+        {
+            //Arrange
+            //Create a gameBoardSpace
+            var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
+            GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+
+            //Act
+            //set the gameBoardId
+            Guid newGameBoardId = Guid.NewGuid();
+            response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/SetGameBoardSpaceGameBoardId/{0}/{1}", createdGameBoardSpace.Id, newGameBoardId));
+            response.Dispose();
+
+
+            //Assert
+            //make sure we get the Id that was just set and that it is the correct value 
+            response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetGameBoardSpaceGameBoardId/{0}", createdGameBoardSpace.Id));
+            Guid gotGameBoardId = JsonConvert.DeserializeObject<Guid>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+
+            Assert.Equal<Guid>(newGameBoardId, gotGameBoardId);
+        }
+
     }
 }

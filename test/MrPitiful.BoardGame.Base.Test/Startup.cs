@@ -46,6 +46,8 @@ namespace MrPitiful.BoardGame.Base.Test
             services.AddTransient<IGameBoard, GenericGameBoard>();
             services.AddSingleton<IGameBoardSpaceRepository, GenericListGameBoardSpaceRepository>();
             services.AddTransient<IGameBoardSpace, GenericGameBoardSpace>();
+            services.AddSingleton<IGamePieceRepository, GenericListGamePieceRepository>();
+            services.AddTransient<IGamePiece, GenericGamePiece>();
 
         }
 

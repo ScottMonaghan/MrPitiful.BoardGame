@@ -65,5 +65,32 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.False(result);
         }
 
+        [Fact]
+        public async void SetAndGetGameBoardGameId()
+        {
+            //Arrange
+            //Create a gameBoard
+            var response = await _client.GetAsync("/api/genericGameBoard/create");
+            GenericGameBoard createdGameBoard = JsonConvert.DeserializeObject<GenericGameBoard>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+
+            //Act
+            //set the gameId
+            Guid newGameId = Guid.NewGuid();
+            response = await _client.GetAsync(string.Format("/api/genericGameBoard/SetGameBoardGameId/{0}/{1}",createdGameBoard.Id,newGameId));
+            response.Dispose();
+
+
+            //Assert
+            //make sure we get the Id that was just set and that it is the correct value 
+            response = await _client.GetAsync(string.Format("/api/genericGameBoard/GetGameBoardGameId/{0}", createdGameBoard.Id));
+            Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+
+            Assert.Equal<Guid>(newGameId, gotGameId);
+        }
     }
 }
