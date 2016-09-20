@@ -164,5 +164,18 @@ namespace MrPitiful.BoardGame.Base
             _gameRepository.Save(game);
         }
 
+        [HttpGet("SetGameBoardId/{gameId}/{gameBoardId}")]
+        public void SetGameBoardId(Guid gameId, Guid gameBoardId)
+        {
+            IGame game = (IGame)_gameRepository.Get(gameId);
+            game.GameBoardId = gameBoardId;
+        }
+
+        [HttpGet("GetGameBoardId/{gameId}")]
+        public Guid GetGameBoardId(Guid gameId)
+        {
+            IGame game = (IGame)_gameRepository.Get(gameId);
+            return game.GameBoardId;
+        }
     }
 }
