@@ -85,9 +85,9 @@ namespace MrPitiful.BoardGame.Base
             await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/RemovePlayerIdFromGame/{0}/{1}", playerId, gameId));
         }
 
-        public async Task SetGameBoard(Guid gameId, Guid gameBoardId)
+        public async Task SetGameBoardId(Guid gameId, Guid gameBoardId)
         {
-            await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/SetGameBoard/{0}/{1}", gameId, gameBoardId));
+            await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/SetGameBoardId/{0}/{1}", gameId, gameBoardId));
         }
     }
 }

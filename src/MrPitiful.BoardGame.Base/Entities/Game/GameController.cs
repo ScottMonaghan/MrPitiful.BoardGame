@@ -148,6 +148,7 @@ namespace MrPitiful.BoardGame.Base
 
         }
 
+        /*
         [HttpGet("EndGame/{gameId}")]
         public void EndGame(Guid gameId)
         {
@@ -163,6 +164,7 @@ namespace MrPitiful.BoardGame.Base
             game.StartTime = DateTime.UtcNow;
             _gameRepository.Save(game);
         }
+        */
 
         [HttpGet("SetGameBoardId/{gameId}/{gameBoardId}")]
         public void SetGameBoardId(Guid gameId, Guid gameBoardId)

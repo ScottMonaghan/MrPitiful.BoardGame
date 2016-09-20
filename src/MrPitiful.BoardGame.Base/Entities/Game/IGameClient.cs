@@ -25,7 +25,7 @@ namespace MrPitiful.BoardGame.Base
         Task RemoveGameBoardSpaceIdFromGame(Guid gameBoardSpaceId, Guid gameId);
 
         //gameBoard
-        Task SetGameBoard(Guid gameId, Guid gameBoardId);
+        Task SetGameBoardId(Guid gameId, Guid gameBoardId);
         Task<Guid> GetGameBoardId(Guid gameId);
     }
 }
