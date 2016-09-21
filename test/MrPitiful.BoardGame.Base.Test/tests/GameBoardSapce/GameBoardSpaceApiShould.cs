@@ -118,8 +118,6 @@ namespace MrPitiful.BoardGame.Base.Test
             Assert.Equal<Guid>(newGameBoardId, gotGameBoardId);
         }
 
-        //NEED TO ADD
-        //AddAdjacentSpaceToGameBoardSpace
         [Fact]
         public async void AddQueryAndRemoveAdjacenctSpace()
         {
@@ -172,8 +170,5 @@ namespace MrPitiful.BoardGame.Base.Test
 
         }
 
-        //RemoveAdjacentSpaceFromGameBoardSpace
-        //GetAdjacentSpaceIdByDirection
-        //GetDirectionsByAdjacentSpaceId
     }
 }
