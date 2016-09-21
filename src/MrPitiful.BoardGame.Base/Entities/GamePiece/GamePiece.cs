@@ -10,6 +10,7 @@ namespace MrPitiful.BoardGame.Base
     {
         private Guid _gameBoardSpaceId;
         private Guid _gameId;
+        private Guid _gameBoardId;
 
         public GamePiece() { }
         public GamePiece(Guid gameId, Guid gameBoardSpaceId) {
@@ -27,6 +28,19 @@ namespace MrPitiful.BoardGame.Base
             set
             {
                 _gameId = value;
+            }
+        }
+
+        public Guid GameBoardId
+        {
+            get
+            {
+                return _gameBoardId;
+            }
+
+            set
+            {
+                _gameBoardId = value;
             }
         }
 

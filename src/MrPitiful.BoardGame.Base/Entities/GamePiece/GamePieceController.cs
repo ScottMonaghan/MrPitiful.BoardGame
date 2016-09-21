@@ -29,6 +29,20 @@ namespace MrPitiful.BoardGame.Base
             return ((IGamePiece)_gamePieceRepository.Get(gamePieceId)).GameId;
         }
 
+        [HttpGet("SetGamePieceGameBoardId/{gamePieceId}/{gameBoardId}")]
+        public void SetGamePieceGameBoardId(Guid gamePieceId, Guid gameBoardId)
+        {
+            IGamePiece gamePiece = (IGamePiece)_gamePieceRepository.Get(gamePieceId);
+            gamePiece.GameBoardId = gameBoardId;
+        }
+
+        [HttpGet("GetGamePieceGameBoardId/{gamePieceId}")]
+        public Guid GetGamePieceGameBoardId(Guid gamePieceId)
+        {
+            return ((IGamePiece)_gamePieceRepository.Get(gamePieceId)).GameBoardId;
+        }
+
+
         [HttpGet("SetGamePieceGameBoardSpaceId/{gamePieceId}/{gameBoardSpaceId}")]
         public void SetGamePieceGameBoardSpaceId(Guid gamePieceId, Guid gameBoardSpaceId)
         {
