@@ -40,7 +40,6 @@ namespace MrPitiful.BoardGame.Base.Test
             services.AddMvc();
             services.AddSingleton<IGameObjectRepository, GenericListGameObjectRepository>();
             services.AddTransient<IGameObject, GenericGameObject>();
-            //services.AddTransient<IGameObjectClient, GenericGameObjectClient>();
             services.AddSingleton<IGameRepository, GenericListGameRepository>();
             services.AddTransient<IGame, GenericGame>();
             services.AddSingleton<IGameBoardRepository, GenericListGameBoardRepository>();

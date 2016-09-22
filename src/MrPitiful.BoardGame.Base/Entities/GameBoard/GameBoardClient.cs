@@ -23,6 +23,11 @@ namespace MrPitiful.BoardGame.Base
             _httpClient = httpClient;
         }
 
+        public async Task SetGameBoardGameId(Guid gameBoardId, Guid gameId)
+        {
+            await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/SetGameBoardGameId/{0}/{1}", gameBoardId, gameId));
+        }
+
         public async Task AddGameBoardSpaceIdToGameBoard(Guid gameBoardSpaceId, Guid gameBoardId)
         {
             await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/AddGameBoardSpaceIdToGameBoard/{0}/{1}", gameBoardSpaceId, gameBoardId));

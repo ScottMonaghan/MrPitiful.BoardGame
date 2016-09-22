@@ -8,11 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MrPitiful.BoardGame.Base;
-using MrPitiful.UnicodeChess.Models;
-using MrPitiful.UnicodeChess.Repositories;
 
 
-namespace MrPitiful.BoardGame.UnicodeChess.Game
+namespace MrPitiful.UnicodeChess
 {
     public class Startup 
     {
@@ -42,9 +40,14 @@ namespace MrPitiful.BoardGame.UnicodeChess.Game
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
-            services.AddSingleton<IGameRepository, ListUnicodeChessGameRepository>();
-            services.AddTransient<IGame, UnicodeChessGame>();
-
+            services.AddSingleton<IGameRepository, ChessListGameRepository>();
+            services.AddTransient<IGame, ChessGame>();
+            services.AddSingleton<IGameBoardRepository, ChessListGameBoardRepository>();
+            services.AddTransient<IGameBoard, ChessGameBoard>();
+            services.AddSingleton<IGameBoardSpaceRepository, ChessListGameBoardSpaceRepository>();
+            services.AddTransient<IGameBoardSpace, ChessGameBoardSpace>();
+            services.AddSingleton<IGamePieceRepository, ChessListGamePieceRepository>();
+            services.AddTransient<IGamePiece, ChessGamePiece>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

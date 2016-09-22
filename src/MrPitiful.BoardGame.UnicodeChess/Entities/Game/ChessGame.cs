@@ -4,9 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MrPitiful.BoardGame.Base;
 
-namespace MrPitiful.UnicodeChess.Models.Interfaces
+namespace MrPitiful.UnicodeChess
 {
-    public interface IUnicodeChessGame : IGame
-    {
-    }
+    public class ChessGame : Game {}
 }

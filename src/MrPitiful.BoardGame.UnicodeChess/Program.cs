@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 
-namespace MrPitiful.BoardGame.UnicodeChess.Game
+namespace MrPitiful.UnicodeChess
 {
     public class Program
     {
