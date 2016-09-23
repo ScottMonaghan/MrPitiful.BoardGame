@@ -29,6 +29,11 @@ namespace MrPitiful.BoardGame.Base.Test
             return gameObject;
         }
 
+        public List<IGameObject> GetByStateProperties(Dictionary<string, string> stateProperties)
+        {
+            return new List<IGameObject>();
+        }
+
         public void Save(IGameObject gameObject)
         {
             Saved = true;

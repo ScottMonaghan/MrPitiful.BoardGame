@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MrPitiful.BoardGame.Base
@@ -33,7 +34,7 @@ namespace MrPitiful.BoardGame.Base
                    _gameObjectRepository.Get(id)
             );
         }
-        
+
         // GET api/gameObject/Create
         [HttpGet("Create")]
         public ActionResult Create()
@@ -60,6 +61,22 @@ namespace MrPitiful.BoardGame.Base
                 IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
                 gameObject.State[propertyName] = propertyValue;
                 _gameObjectRepository.Save(gameObject);
+        }
+
+        //returns objects with matching state properties
+        // GET api/gameObject/GetByStateProperties/propertyName:propertyValue/propertyName:propertyValue...
+        [HttpGet("GetByStateProperties/{*stateProperties}")]
+        public IActionResult GetByStateProperties(string stateProperties)
+        {
+            Dictionary<string, string> statePropertiesDictionary = new Dictionary<string, string>();
+            string[] propertyValuePairs = stateProperties.Split('/');
+            foreach (string propertyValuePair in propertyValuePairs)
+            {
+                statePropertiesDictionary.Add(propertyValuePair.Split(':')[0], propertyValuePair.Split(':')[1]);
+            }
+            return new ObjectResult(
+                _gameObjectRepository.GetByStateProperties(statePropertiesDictionary)
+            );
         }
 
           // DELETE api/values/5

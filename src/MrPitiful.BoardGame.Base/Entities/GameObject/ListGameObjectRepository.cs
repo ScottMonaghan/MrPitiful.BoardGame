@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace MrPitiful.BoardGame.Base
 {
     public abstract class ListGameObjectRepository : IGameObjectRepository
     {
+        private Dictionary<Guid, IGameObject> _gameObjects;
+
         public ListGameObjectRepository(IGameObject gameObject)
         {
             _gameObjects = new Dictionary<Guid, IGameObject>();
         }
-
-        private Dictionary<Guid, IGameObject> _gameObjects;
 
         public IGameObject Create(IGameObject gameObject)
         {
@@ -39,5 +40,15 @@ namespace MrPitiful.BoardGame.Base
             _gameObjects.Remove(gameObject.Id);
         }
 
+        public List<IGameObject> GetByStateProperties(Dictionary<string, string> stateProperties)
+        {
+            List<IGameObject>filtereddGameObjects = _gameObjects.Values.ToList();
+            foreach (KeyValuePair<string,string> stateProperty in stateProperties)
+            {
+                filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();
+            }
+
+            return filtereddGameObjects;
+        }
     }
 }

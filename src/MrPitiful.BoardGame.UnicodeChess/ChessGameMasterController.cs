@@ -126,10 +126,17 @@ namespace MrPitiful.UnicodeChess
 
             //now connect adjacent spaces - we use cardinal directions because that simpler than diagonal-left-down, etc.
 
-            //unless it's the first rank connect the adjacent space south
-            //unless it's the first file connect the adjacent space west
-            //unless it's the first file or the first rank connect the adjacent space southwest
-            //unless it's the last file or the first rank connect the adjacent space southeast
+            List<Task> AdjacentSpaceConnections = new List<Task>();
+            for (int rank = 1; rank <= 8; rank++)
+            {
+                for (char file = 'a'; file <= 'h'; file++)
+                {
+                    //unless it's the first rank connect the adjacent space south
+                    //unless it's the first file connect the adjacent space west
+                    //unless it's the first file or the first rank connect the adjacent space southwest
+                    //unless it's the last file or the first rank connect the adjacent space southeast
+                }
+            }
         }
         private async void InitialSetup(Guid chessGameId)
         {
