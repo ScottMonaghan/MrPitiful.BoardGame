@@ -4,7 +4,7 @@ using MrPitiful.BoardGame.Base;
 
 namespace MrPitiful.UnicodeChess
 {
-    public class ChessGameBoardSpaceClient : GameBoardSpaceClient<ChessGameBoardSpace>
+    public class ChessGameBoardSpaceClient : GameBoardSpaceClient<ChessGameBoardSpace>, IChessGameBoardSpaceClient
     {
         public ChessGameBoardSpaceClient()
         {}

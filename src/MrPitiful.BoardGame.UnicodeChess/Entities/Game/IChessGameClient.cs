@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using MrPitiful.BoardGame.Base;
 
 namespace MrPitiful.UnicodeChess
-{
-    public class ChessGame : Game, IChessGame {}
+{ 
+    public interface IChessGameClient:IGameClient<ChessGame>
+    {
+    }
 }

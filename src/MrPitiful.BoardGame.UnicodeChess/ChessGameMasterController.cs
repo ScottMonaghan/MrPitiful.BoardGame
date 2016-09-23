@@ -14,10 +14,23 @@ namespace MrPitiful.UnicodeChess
         //TO BE ABLE TO TEST: 
         //REPLACE WITH MOCKABLE INTERFACES
         //ALL CLIENT REQUESTS NEED FAILSAFES AND NEED TO RETURN RESPONSE (OTHERWISE HOW THE HECK WOULD YOU DEBUG?)
-        private ChessGameClient _chessGameClient;
-        private ChessGameBoardClient _chessGameBoardClient;
-        private ChessGameBoardSpaceClient _chessGameBoardSpaceClient;
-        private ChessGamePiece _chessGamePieceClient;
+        private IChessGameClient _chessGameClient;
+        private IChessGameBoardClient _chessGameBoardClient;
+        private IChessGameBoardSpaceClient _chessGameBoardSpaceClient;
+        private IChessGamePiece _chessGamePieceClient;
+
+        public ChessGameMasterController(
+            IChessGameClient chessGameClient,
+            IChessGameBoardClient chessGameBoardClient,
+            IChessGameBoardSpaceClient chessGameBoardSpaceClient,
+            IChessGamePiece chessGamePieceClient
+        )
+        {
+            _chessGameClient = chessGameClient;
+            _chessGameBoardClient = chessGameBoardClient;
+            _chessGameBoardSpaceClient = chessGameBoardSpaceClient;
+            _chessGamePieceClient = chessGamePieceClient;
+        }
 
         #region Chessboard Creation Methods
 
@@ -31,7 +44,7 @@ namespace MrPitiful.UnicodeChess
                 //add the chessGameBoardSpaceId to the chessGameBoard
                 Tasks.Add(_chessGameClient.SetGameBoardId(chessGameId, chessGameBoardId));
                 //add the chessGameBoardId to the chessGameBoardSpace
-                Tasks.Add(_chessGameBoardClient.SetGameBoardGameId(chessGameBoardId, chessGameId));
+                Tasks.Add(_chessGameBoardClient.SetGameId(chessGameBoardId, chessGameId));
 
                 //rull all the independent client calls!
                 Task.WaitAll(Tasks.ToArray());
