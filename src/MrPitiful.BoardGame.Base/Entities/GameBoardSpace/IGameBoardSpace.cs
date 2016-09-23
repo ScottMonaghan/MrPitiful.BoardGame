@@ -14,8 +14,6 @@ namespace MrPitiful.BoardGame.Base
     */
     public interface IGameBoardSpace:IGameObject
     {
-        //The game a space is part of
-        Guid GameId { get; set; }
 
         //The gameboard the piece exists in
         Guid GameBoardId { get; set; }

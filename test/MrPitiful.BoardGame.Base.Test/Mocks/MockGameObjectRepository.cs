@@ -29,7 +29,7 @@ namespace MrPitiful.BoardGame.Base.Test
             return gameObject;
         }
 
-        public List<IGameObject> GetByStateProperties(Dictionary<string, string> stateProperties)
+        public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
             return new List<IGameObject>();
         }

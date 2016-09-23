@@ -19,8 +19,9 @@ namespace MrPitiful.UnicodeChess
         private ChessGameBoardSpaceClient _chessGameBoardSpaceClient;
         private ChessGamePiece _chessGamePieceClient;
 
+        #region Chessboard Creation Methods
 
-        private async Task AddChessGameBoardToChessGame(Guid chessGameId, Guid chessGameBoardId)
+        public async Task AddChessGameBoardToChessGame(Guid chessGameId, Guid chessGameBoardId)
         {
             await Task.Run(() =>
             { 
@@ -37,7 +38,7 @@ namespace MrPitiful.UnicodeChess
             });
         }
 
-        private async Task AddChessGameBoardSpaceToChessGameBoard(Guid chessGameId, Guid chessGameBoardSpaceId, Guid chessGameBoardId)
+        public async Task AddChessGameBoardSpaceToChessGameBoard(Guid chessGameId, Guid chessGameBoardSpaceId, Guid chessGameBoardId)
         {
             await Task.Run(() =>
             {
@@ -58,7 +59,7 @@ namespace MrPitiful.UnicodeChess
             });
         }
 
-        private async Task<Guid> CreateChessGameBoardSpace(Guid chessGameId, Guid chessGameBoardId, int rank, char file, string color)
+        public async Task<Guid> CreateChessGameBoardSpace(Guid chessGameId, Guid chessGameBoardId, int rank, char file, string color)
         {
             //every chessboard space will have the following properies:
             //Rank: A number 1 - 8
@@ -87,7 +88,29 @@ namespace MrPitiful.UnicodeChess
             return chessGameBoardSpace.Id;
         }
 
-        private async Task CreateChessBoard(Guid chessGameId)
+        public async Task CreateRecipricalAdjacentSpaces(Guid gameBoardSpaceId1, Guid gameBoardSpaceId2, string directionFrom1to2, string directionFrom2to1)
+        {
+            await Task.Run(() =>
+            {
+                List<Task> Tasks = new List<Task>();
+                Tasks.Add(_chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom1to2, gameBoardSpaceId2, gameBoardSpaceId1));
+                Tasks.Add(_chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom2to1, gameBoardSpaceId1, gameBoardSpaceId2));
+                Task.WaitAll(Tasks.ToArray());
+            });
+        }
+
+        public async Task<ChessGameBoardSpace> GetSpaceByRankAndFile(Guid chessGameId, int rank, char file)
+        {
+            var response = await _chessGameBoardSpaceClient.GetByStateProperties(chessGameId,
+                                new Dictionary<string, string>() {
+                                {"rank", rank.ToString()},
+                                {"file", file.ToString()}
+                                }
+                            );
+            return response[0];
+        }
+
+        public async Task CreateChessBoard(Guid chessGameId)
         {
             //create empty ChessGameBoard and add to game
             ChessGameBoard chessGameBoard = await _chessGameBoardClient.Create();
@@ -134,13 +157,65 @@ namespace MrPitiful.UnicodeChess
             {
                 for (char file = 'a'; file <= 'h'; file++)
                 {
+                    //get the current Space
+                    ChessGameBoardSpace currentSpace = await GetSpaceByRankAndFile(chessGameId, rank, file);
                     //unless it's the first rank connect the adjacent space south
+                    if (rank > 1)
+                    {
+                        ChessGameBoardSpace spaceToSouth = await GetSpaceByRankAndFile(chessGameId, rank - 1, file);
+                        AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                            currentSpace.Id,
+                            spaceToSouth.Id,
+                            "south",
+                            "north"
+                        ));
+                    }
                     //unless it's the first file connect the adjacent space west
+                    if (file > 'a')
+                    {
+                        {
+                            ChessGameBoardSpace spaceToWest = await GetSpaceByRankAndFile(chessGameId, rank, (char)(file - 1));
+                            AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                                currentSpace.Id,
+                                spaceToWest.Id,
+                                "west",
+                                "east"
+                            ));
+                        }
+                    }
                     //unless it's the first file or the first rank connect the adjacent space southwest
+                    if (rank > 1 && file > 'a')
+                    {
+                        {                       
+                            ChessGameBoardSpace spaceToSouthWest = await GetSpaceByRankAndFile(chessGameId, rank-1, (char)(file - 1));
+                            AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                                currentSpace.Id,
+                                spaceToSouthWest.Id,
+                                "southwest",
+                                "northeast"
+                            ));
+                        }
+                    }
                     //unless it's the last file or the first rank connect the adjacent space southeast
+                    if (file < 'h' && rank > 1)
+                    {
+                        {                         
+                            ChessGameBoardSpace spaceToSouthEast = await GetSpaceByRankAndFile(chessGameId, rank - 1, (char)(file + 1));
+                            AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                                currentSpace.Id,
+                                spaceToSouthEast.Id,
+                                "southeast",
+                                "northwest"
+                            ));
+                        }
+                    }
                 }
             }
+            Task.WaitAll(AdjacentSpaceConnections.ToArray());
         }
+
+        #endregion
+
         private async void InitialSetup(Guid chessGameId)
         {
             //Initial setup - from https://en.wikipedia.org/wiki/Rules_of_chess#Initial_setup (9/21/2016)

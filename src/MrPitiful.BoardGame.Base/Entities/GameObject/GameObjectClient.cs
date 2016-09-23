@@ -41,6 +41,21 @@ namespace MrPitiful.BoardGame.Base
             return result;
         }
 
+        public async Task SetGameId(Guid gameObjectId, Guid gameId)
+        {
+            await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/SetGameId/{0}/{1}", gameObjectId, gameId));
+        }
+
+        public async Task<Guid> GetGameId(Guid gameObjectdId)
+        {
+            var response = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/GetGameId/{0}", gameObjectdId));
+            Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            return gotGameId;
+        }
+
+
         public async Task<Dictionary<Guid, TGameObject>> Get()
         {
             var response = await _httpClient.GetAsync("/" + _apiRoute + "/");
@@ -56,6 +71,21 @@ namespace MrPitiful.BoardGame.Base
                     response2.Content.ReadAsStringAsync().Result
                 );
             return gotGameObject;
+        }
+
+        public async Task<List<TGameObject>> GetByStateProperties(Guid gameId, Dictionary<string,string> stateProperties)
+        {
+            string propertyString = "";
+
+            foreach (KeyValuePair<string,string> stateProperty in stateProperties)
+            {
+                propertyString += String.Format("/{0}:{1}", WebUtility.UrlEncode(stateProperty.Key), WebUtility.UrlEncode(stateProperty.Value));
+            }
+            var response = await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/GetByStateProperties/{0}{1}", gameId, propertyString));
+            List<TGameObject> gotGameObjects = JsonConvert.DeserializeObject<List<TGameObject>>(
+                    response.Content.ReadAsStringAsync().Result
+            );
+            return gotGameObjects;
         }
 
         public async Task<string> GetStateProperty(Guid gameObjectId, string propertyName)

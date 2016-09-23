@@ -10,26 +10,12 @@ namespace MrPitiful.BoardGame.Base
     {
         private List<Guid> _gamePieceIds;
         private Dictionary<string, Guid> _adjacentSpaceIds;
-        private Guid _gameId;
         private Guid _gameBoardId;
 
         public GameBoardSpace()
         {
             _gamePieceIds = new List<Guid>();
             _adjacentSpaceIds = new Dictionary<string, Guid>();
-        }
-
-        public Guid GameId
-        {
-            get
-            {
-                return _gameId;
-            }
-
-            set
-            {
-                _gameId = value;
-            }
         }
 
         public Guid GameBoardId

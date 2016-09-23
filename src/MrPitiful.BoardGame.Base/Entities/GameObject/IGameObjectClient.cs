@@ -15,5 +15,6 @@ namespace MrPitiful.BoardGame.Base
         Task<TGameObject> Create();
         Task<string> GetStateProperty(Guid gameObjectId, string propertyName);
         Task SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue);
+        Task SetGameId(Guid gameObjectId, Guid gameId);
     }
 }

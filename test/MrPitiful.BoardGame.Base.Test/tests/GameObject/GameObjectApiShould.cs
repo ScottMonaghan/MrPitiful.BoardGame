@@ -89,6 +89,9 @@ namespace MrPitiful.BoardGame.Base.Test
         public async void ReturnAListOfGameObjectsByStateProperties()
         {
             //Arrange
+            //create fake GameId
+            Guid gameId = Guid.NewGuid();
+
             //define test state properties
             string property1 = "property1";
             string property2 = "property2";
@@ -102,6 +105,10 @@ namespace MrPitiful.BoardGame.Base.Test
                 );
             //clear the response.
             response.Dispose();
+            //set the game id for gameObject1
+            //set the gameId
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetGameBoardGameId/{0}/{1}", createdGameObject1.Id, gameId));
+            response.Dispose();
 
             //create second gameObject
             response = await _client.GetAsync("/api/genericGameObject/create");
@@ -110,6 +117,10 @@ namespace MrPitiful.BoardGame.Base.Test
                 );
             //clear the response.
             response.Dispose();
+            //set the game id for gameObject2
+            //set the gameId
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetGameBoardGameId/{0}/{1}", createdGameObject2.Id, gameId));
+            response.Dispose();
 
             //set properties of first game to return
             response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject1.Id, property1, goodValue));
@@ -117,7 +128,7 @@ namespace MrPitiful.BoardGame.Base.Test
             response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject1.Id, property2, goodValue));
             response.Dispose();
 
-            //set properites of second game to return
+            //set properites of second game to NOT return
             response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject2.Id, property1, goodValue));
             response.Dispose();
             response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject2.Id, property2, badValue));
@@ -137,5 +148,34 @@ namespace MrPitiful.BoardGame.Base.Test
             //Assert that the Guid is the same as createdGameObject1
             Assert.Equal<Guid>(gotGameObjects[0].Id, createdGameObject1.Id);
         }
+
+        [Fact]
+        public async void SetAndGetGameId()
+        {
+            //Arrange
+            //Create a gameObject
+            var response = await _client.GetAsync("/api/genericGameObject/create");
+            GenericGameObject createdGameObject = JsonConvert.DeserializeObject<GenericGameObject>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+
+            //Act
+            //set the gameId
+            Guid newGameId = Guid.NewGuid();
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetGameId/{0}/{1}", createdGameObject.Id, newGameId));
+            response.Dispose();
+
+
+            //Assert
+            //make sure we get the Id that was just set and that it is the correct value 
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/GetGameId/{0}", createdGameObject.Id));
+            Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+
+            Assert.Equal<Guid>(newGameId, gotGameId);
+        }
+
     }
 }

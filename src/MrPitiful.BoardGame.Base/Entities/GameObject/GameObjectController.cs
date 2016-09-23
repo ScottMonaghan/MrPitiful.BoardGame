@@ -67,8 +67,8 @@ namespace MrPitiful.BoardGame.Base
 
         //returns objects with matching state properties
         // GET api/gameObject/GetByStateProperties/propertyName:propertyValue/propertyName:propertyValue...
-        [HttpGet("GetByStateProperties/{*stateProperties}")]
-        public IActionResult GetByStateProperties(string stateProperties)
+        [HttpGet("GetByStateProperties/{gameId}/{*stateProperties}")]
+        public IActionResult GetByStateProperties(Guid gameId, string stateProperties)
         {
             Dictionary<string, string> statePropertiesDictionary = new Dictionary<string, string>();
             string[] propertyValuePairs = stateProperties.Split('/');
@@ -77,11 +77,29 @@ namespace MrPitiful.BoardGame.Base
                 statePropertiesDictionary.Add(propertyValuePair.Split(':')[0], propertyValuePair.Split(':')[1]);
             }
             return new ObjectResult(
-                _gameObjectRepository.GetByStateProperties(statePropertiesDictionary)
+                _gameObjectRepository.GetByStateProperties(gameId, statePropertiesDictionary)
             );
         }
 
-          // DELETE api/values/5
+        // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
+        [HttpGet("SetGameId/{gameObjectId}/{gameId}")]
+        public void SetGameBoardGameId(Guid gameObjectId, Guid gameId)
+        {
+            IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
+            gameObject.GameId = gameId;
+            _gameObjectRepository.Save(gameObject);
+
+        }
+
+        // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
+        [HttpGet("GetGameId/{gameObjectId}")]
+        public Guid GetGameBoardGameId(Guid gameObjectId)
+        {
+            return (_gameObjectRepository.Get(gameObjectId)).GameId;
+        }
+
+
+        // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

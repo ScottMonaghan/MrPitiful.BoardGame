@@ -10,8 +10,6 @@ namespace MrPitiful.BoardGame.Base
     {
         private List<Guid> _gameBoardSpaceIds;
 
-        private Guid _gameId;
-
         public GameBoard()
         {
             _gameBoardSpaceIds = new List<Guid>();
@@ -19,7 +17,7 @@ namespace MrPitiful.BoardGame.Base
 
         public GameBoard(Guid gameId):this()
         {
-            _gameId = gameId;
+            this.GameId = gameId;
         }
 
         public List<Guid> GameBoardSpaceIds
@@ -27,19 +25,6 @@ namespace MrPitiful.BoardGame.Base
             get
             {
                 return _gameBoardSpaceIds;
-            }
-        }
-
-        public Guid GameId
-        {
-            get
-            {
-                return _gameId;
-            }
-
-            set
-            {
-                _gameId = value;
             }
         }
     }

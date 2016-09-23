@@ -40,9 +40,10 @@ namespace MrPitiful.BoardGame.Base
             _gameObjects.Remove(gameObject.Id);
         }
 
-        public List<IGameObject> GetByStateProperties(Dictionary<string, string> stateProperties)
+        public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
-            List<IGameObject>filtereddGameObjects = _gameObjects.Values.ToList();
+            List<IGameObject> filtereddGameObjects = _gameObjects.Values.ToList().Where(x => x.GameId == gameId).ToList();
+
             foreach (KeyValuePair<string,string> stateProperty in stateProperties)
             {
                 filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();

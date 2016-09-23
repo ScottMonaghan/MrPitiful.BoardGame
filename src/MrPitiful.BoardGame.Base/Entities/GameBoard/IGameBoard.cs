@@ -14,7 +14,6 @@ namespace MrPitiful.BoardGame.Base
     */
     public interface IGameBoard:IGameObject
     {
-        Guid GameId { get; set; }
         [JsonIgnore]
         List<Guid> GameBoardSpaceIds { get; }
     }

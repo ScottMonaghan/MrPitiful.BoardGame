@@ -20,6 +20,33 @@ namespace MrPitiful.BoardGame.Base
             _playerIds = new List<Guid>();
         }
 
+        //keep Id & GameId in-sync at game level.  They should always be the same.
+        public new Guid Id
+        {
+            get {
+                return base.Id;
+            }
+
+            set {
+                base.Id = value;
+                base.GameId = value;
+            }
+        }
+        //keep Id & GameId in-sync at game level.  They should always be the same.
+        public new Guid GameId
+        {
+            get
+            {
+                return base.GameId;
+            }
+
+            set
+            {
+                base.Id = value;
+                base.GameId = value;
+            }
+        }
+
         [JsonIgnore]
         public List<Guid> GameBoardSpaceIds
         {

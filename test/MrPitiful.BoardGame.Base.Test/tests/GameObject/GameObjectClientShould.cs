@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System.Net.Http;
@@ -25,17 +26,17 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create new GameObjectClient
             GenericGameObjectClient gameObjectClient
                 = new GenericGameObjectClient(
-                        _client                  
+                        _client
                         );
             //Act
             var result = await gameObjectClient.Get();
-            
+
             //Assert
             Assert.Empty(result);
             Assert.NotNull(result);
         }
 
-        
+
         [Fact]
         public async void ReturnAGameObjectWithAGuidAfterCreate()
         {
@@ -49,7 +50,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Assert
             Assert.True(result.Id != Guid.Empty);
         }
-        
+
         [Fact]
         public async void GetAGameByIdAfterCreatingIt()
         {
@@ -60,11 +61,11 @@ namespace MrPitiful.BoardGame.Base.Test
 
             GenericGameObject createdGameObject = await gameObjectClient.Create();
             GenericGameObject gotGameObject = await gameObjectClient.Get(createdGameObject.Id);
-            
+
             //Assert
             Assert.Equal<Guid>(createdGameObject.Id, gotGameObject.Id);
         }
-        
+
         [Fact]
         public async void GetAStatePropertyAfterSettingIt()
         {
@@ -85,6 +86,74 @@ namespace MrPitiful.BoardGame.Base.Test
             //Assert
             Assert.Equal(setValue, gotValue);
         }
-        
+
+        [Fact]
+        public async void ReturnAListOfGameObjectsByStateProperties()
+        {
+            //Arrange
+            //Create new GameObjectClient
+            GenericGameObjectClient gameObjectClient
+                = new GenericGameObjectClient(_client);
+            //define test state properties
+            string property1 = "property1";
+            string property2 = "property2";
+            string goodValue = "goodValue";
+            string badValue = "badValue";
+            Guid gameId = Guid.NewGuid();
+
+            //create first gameObject
+            GenericGameObject createdGameObject1 = await gameObjectClient.Create();
+            //add gameId to createdGameObject1
+            await gameObjectClient.SetGameId(createdGameObject1.Id, gameId);
+
+            //create second gameObject
+            GenericGameObject createdGameObject2 = await gameObjectClient.Create();
+            //add gameId to createdGameObject1
+            await gameObjectClient.SetGameId(createdGameObject2.Id, gameId);
+
+            //set properties of first game to return
+            await gameObjectClient.SetStateProperty(createdGameObject1.Id, property1, goodValue);
+            await gameObjectClient.SetStateProperty(createdGameObject1.Id, property2, goodValue);
+            //set properites of second game to NOT return
+            await gameObjectClient.SetStateProperty(createdGameObject2.Id, property1, goodValue);
+            await gameObjectClient.SetStateProperty(createdGameObject2.Id, property2, badValue);
+
+            //Act
+            //Get list of gameObjects where both properties are set to goodValue
+            Dictionary<string, string> stateProperties = new Dictionary<string, string>();
+            stateProperties[property1] = goodValue;
+            stateProperties[property2] = goodValue;
+
+            List<GenericGameObject> gotGameObjects = await gameObjectClient.GetByStateProperties(gameId, stateProperties);
+
+            //Assert that only one gameObject returns
+            Assert.Equal(1, gotGameObjects.Count);
+
+            //Assert that the Guid is the same as createdGameObject1
+            Assert.Equal<Guid>(gotGameObjects[0].Id, createdGameObject1.Id);
+        }
+
+        [Fact]
+        public async void SetAndGetGameId()
+        {
+            //Arrange
+            //Create new GameObjectClient
+            GenericGameObjectClient gameObjectClient
+                = new GenericGameObjectClient(_client);
+
+            //Create a gameObject
+            GenericGameObject createdGameObject = await gameObjectClient.Create();
+
+            //Act
+            //set the gameId
+            Guid newGameId = Guid.NewGuid();
+            await gameObjectClient.SetGameId(createdGameObject.Id, newGameId);
+
+            //Assert
+            //make sure we get the Id that was just set and that it is the correct value 
+            Guid gotGameId = await gameObjectClient.GetGameId(createdGameObject.Id);
+
+            Assert.Equal<Guid>(newGameId, gotGameId);
+        }
     }
 }
