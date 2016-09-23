@@ -11,6 +11,9 @@ namespace MrPitiful.UnicodeChess
     [Route("api/[controller]")]
     public class ChessGameMasterController : Controller
     {
+        //TO BE ABLE TO TEST: 
+        //REPLACE WITH MOCKABLE INTERFACES
+        //ALL CLIENT REQUESTS NEED FAILSAFES AND NEED TO RETURN RESPONSE (OTHERWISE HOW THE HECK WOULD YOU DEBUG?)
         private ChessGameClient _chessGameClient;
         private ChessGameBoardClient _chessGameBoardClient;
         private ChessGameBoardSpaceClient _chessGameBoardSpaceClient;

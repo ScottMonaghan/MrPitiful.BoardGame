@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -56,11 +57,12 @@ namespace MrPitiful.BoardGame.Base
 
         // GET api/gameObject/SetStateProperty/12345/Name/KnightsOfValor
         [HttpGet("SetStateProperty/{gameObjectId}/{propertyName}/{propertyValue}")]
-        public void SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue)
+        public ActionResult SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue)
         {
-                IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
-                gameObject.State[propertyName] = propertyValue;
-                _gameObjectRepository.Save(gameObject);
+            IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
+            gameObject.State[propertyName] = propertyValue;
+            _gameObjectRepository.Save(gameObject);
+            return new NoContentResult();           
         }
 
         //returns objects with matching state properties
