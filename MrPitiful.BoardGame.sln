@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{98C52F00-3
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MrPitiful.UnicodeChess", "src\MrPitiful.BoardGame.UnicodeChess\MrPitiful.UnicodeChess.xproj", "{B98D072E-FA82-41A8-BAE3-4AB82470FC4F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MrPitiful.UnicodeChess.Test", "MrPitiful.UnicodeChess.Test\MrPitiful.UnicodeChess.Test.xproj", "{CAF67811-A629-4578-8271-101124CF7422}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MrPitiful.UnicodeChess.Test", "test\MrPitiful.UnicodeChess.Test\MrPitiful.UnicodeChess.Test.xproj", "{CAF67811-A629-4578-8271-101124CF7422}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

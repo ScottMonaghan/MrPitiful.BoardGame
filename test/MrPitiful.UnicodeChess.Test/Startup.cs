@@ -8,9 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MrPitiful.BoardGame.Base;
+using MrPitiful.UnicodeChess;
 
 
-namespace MrPitiful.UnicodeChess
+namespace MrPitiful.UnicodeChess.Test
 {
     public class Startup 
     {
@@ -24,7 +25,7 @@ namespace MrPitiful.UnicodeChess
             if (env.IsEnvironment("Development"))
             {
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-               // builder.AddApplicationInsightsSettings(developerMode: true);
+                //builder.AddApplicationInsightsSettings(developerMode: true);
             }
 
             builder.AddEnvironmentVariables();
@@ -42,12 +43,16 @@ namespace MrPitiful.UnicodeChess
             services.AddMvc();
             services.AddSingleton<IGameRepository, ChessListGameRepository>();
             services.AddTransient<IGame, ChessGame>();
+            services.AddTransient<IChessGame, ChessGame>();
             services.AddSingleton<IGameBoardRepository, ChessListGameBoardRepository>();
             services.AddTransient<IGameBoard, ChessGameBoard>();
+            services.AddTransient<IChessGameBoard, ChessGameBoard>();
             services.AddSingleton<IGameBoardSpaceRepository, ChessListGameBoardSpaceRepository>();
             services.AddTransient<IGameBoardSpace, ChessGameBoardSpace>();
+            services.AddTransient<IChessGameBoardSpace, ChessGameBoardSpace>();
             services.AddSingleton<IGamePieceRepository, ChessListGamePieceRepository>();
             services.AddTransient<IGamePiece, ChessGamePiece>();
+            services.AddTransient<IChessGamePiece, ChessGamePiece>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

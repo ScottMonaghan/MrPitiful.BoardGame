@@ -17,13 +17,13 @@ namespace MrPitiful.UnicodeChess
         private IChessGameClient _chessGameClient;
         private IChessGameBoardClient _chessGameBoardClient;
         private IChessGameBoardSpaceClient _chessGameBoardSpaceClient;
-        private IChessGamePiece _chessGamePieceClient;
+        private IChessGamePieceClient _chessGamePieceClient;
 
         public ChessGameMasterController(
             IChessGameClient chessGameClient,
             IChessGameBoardClient chessGameBoardClient,
             IChessGameBoardSpaceClient chessGameBoardSpaceClient,
-            IChessGamePiece chessGamePieceClient
+            IChessGamePieceClient chessGamePieceClient
         )
         {
             _chessGameClient = chessGameClient;
@@ -36,40 +36,40 @@ namespace MrPitiful.UnicodeChess
 
         public async Task AddChessGameBoardToChessGame(Guid chessGameId, Guid chessGameBoardId)
         {
-            await Task.Run(() =>
-            { 
+            //await Task.Run(() =>
+            //{ 
                 //create a task list to run all our independent client calls in parallel
-                List<Task> Tasks = new List<Task>();
+                //List<Task> Tasks = new List<Task>();
 
                 //add the chessGameBoardSpaceId to the chessGameBoard
-                Tasks.Add(_chessGameClient.SetGameBoardId(chessGameId, chessGameBoardId));
+                await _chessGameClient.SetGameBoardId(chessGameId, chessGameBoardId);
                 //add the chessGameBoardId to the chessGameBoardSpace
-                Tasks.Add(_chessGameBoardClient.SetGameId(chessGameBoardId, chessGameId));
+                await _chessGameBoardClient.SetGameId(chessGameBoardId, chessGameId);
 
                 //rull all the independent client calls!
-                Task.WaitAll(Tasks.ToArray());
-            });
+                //Task.WaitAll(Tasks.ToArray());
+            //});
         }
 
         public async Task AddChessGameBoardSpaceToChessGameBoard(Guid chessGameId, Guid chessGameBoardSpaceId, Guid chessGameBoardId)
         {
-            await Task.Run(() =>
-            {
+            //await Task.Run(() =>
+            //{
                 //create a task list to run all our independent client calls in parallel
                 List<Task> Tasks = new List<Task>();
 
                 //add the chessGameBoardSpaceId to the chessGameBoard
-                Tasks.Add(_chessGameBoardClient.AddGameBoardSpaceIdToGameBoard(chessGameBoardSpaceId, chessGameBoardId));
+                await _chessGameBoardClient.AddGameBoardSpaceIdToGameBoard(chessGameBoardSpaceId, chessGameBoardId);
                 //add the chessGameBoardId to the chessGameBoardSpace
-                Tasks.Add(_chessGameBoardSpaceClient.SetGameBoardSpaceGameBoardId(chessGameBoardSpaceId, chessGameBoardId));
+                await _chessGameBoardSpaceClient.SetGameBoardSpaceGameBoardId(chessGameBoardSpaceId, chessGameBoardId);
                 //add the chessGameBoardSpaceId to the chessGame
-                Tasks.Add(_chessGameClient.AddGameBoardSpaceIdToGame(chessGameBoardSpaceId, chessGameId));
+                await _chessGameClient.AddGameBoardSpaceIdToGame(chessGameBoardSpaceId, chessGameId);
                 //add the chessGameId to the chessGameBoardSpace
-                Tasks.Add(_chessGameBoardSpaceClient.SetGameBoardSpaceGameId(chessGameBoardSpaceId, chessGameId));
+                await _chessGameBoardSpaceClient.SetGameBoardSpaceGameId(chessGameBoardSpaceId, chessGameId);
 
                 //rull all the independent client calls!
-                Task.WaitAll(Tasks.ToArray());
-            });
+                //Task.WaitAll(Tasks.ToArray());
+            //});
         }
 
         public async Task<Guid> CreateChessGameBoardSpace(Guid chessGameId, Guid chessGameBoardId, int rank, char file, string color)
@@ -87,29 +87,29 @@ namespace MrPitiful.UnicodeChess
             
             //set the state properties
             //set rank
-            Tasks.Add(_chessGameBoardClient.SetStateProperty(chessGameBoardSpace.Id, "rank", rank.ToString()));
+            await _chessGameBoardSpaceClient.SetStateProperty(chessGameBoardSpace.Id, "rank", rank.ToString());
             //set file
-            Tasks.Add(_chessGameBoardClient.SetStateProperty(chessGameBoardSpace.Id, "file", file.ToString()));
+            await _chessGameBoardSpaceClient.SetStateProperty(chessGameBoardSpace.Id, "file", file.ToString());
             //set color
-            Tasks.Add(_chessGameBoardClient.SetStateProperty(chessGameBoardSpace.Id, "color", color));
+            await _chessGameBoardSpaceClient.SetStateProperty(chessGameBoardSpace.Id, "color", color);
 
             //add ChessBoardSpace to gameboard
-            Tasks.Add(AddChessGameBoardSpaceToChessGameBoard(chessGameId, chessGameBoardSpace.Id, chessGameBoardId));
+            await AddChessGameBoardSpaceToChessGameBoard(chessGameId, chessGameBoardSpace.Id, chessGameBoardId);
 
             //rull all the independent client calls!
-            Task.WaitAll(Tasks.ToArray());
+            //Task.WaitAll(Tasks.ToArray());
             return chessGameBoardSpace.Id;
         }
 
         public async Task CreateRecipricalAdjacentSpaces(Guid gameBoardSpaceId1, Guid gameBoardSpaceId2, string directionFrom1to2, string directionFrom2to1)
         {
-            await Task.Run(() =>
-            {
-                List<Task> Tasks = new List<Task>();
-                Tasks.Add(_chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom1to2, gameBoardSpaceId2, gameBoardSpaceId1));
-                Tasks.Add(_chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom2to1, gameBoardSpaceId1, gameBoardSpaceId2));
-                Task.WaitAll(Tasks.ToArray());
-            });
+            //await Task.Run(() =>
+            //{
+                //List<Task> Tasks = new List<Task>();
+                await _chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom1to2, gameBoardSpaceId2, gameBoardSpaceId1);
+                await _chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom2to1, gameBoardSpaceId1, gameBoardSpaceId2);
+                //Task.WaitAll(Tasks.ToArray());
+            //});
         }
 
         public async Task<ChessGameBoardSpace> GetSpaceByRankAndFile(Guid chessGameId, int rank, char file)
@@ -123,13 +123,13 @@ namespace MrPitiful.UnicodeChess
             return response[0];
         }
 
-        public async Task CreateChessBoard(Guid chessGameId)
+        public async Task<Guid> CreateChessBoard(Guid chessGameId)
         {
             //create empty ChessGameBoard and add to game
             ChessGameBoard chessGameBoard = await _chessGameBoardClient.Create();
             await AddChessGameBoardToChessGame(chessGameId, chessGameBoard.Id);
 
-            List<Task> gameBoardSpaceAddTasks = new List<Task>();
+            //List<Task> gameBoardSpaceAddTasks = new List<Task>();
 
             //add spaces to the board
             string lastRankStartingColor = "";
@@ -158,14 +158,14 @@ namespace MrPitiful.UnicodeChess
                     lastFileColor = color;
 
                     //create the space
-                    gameBoardSpaceAddTasks.Add(CreateChessGameBoardSpace(chessGameId, chessGameBoard.Id, rank, file, color));
+                    await CreateChessGameBoardSpace(chessGameId, chessGameBoard.Id, rank, file, color);
                 }
             }
-            Task.WaitAll(gameBoardSpaceAddTasks.ToArray());
+            //Task.WaitAll(gameBoardSpaceAddTasks.ToArray());
 
             //now connect adjacent spaces - we use cardinal directions because that simpler than diagonal-left-down, etc.
 
-            List<Task> AdjacentSpaceConnections = new List<Task>();
+            //List<Task> AdjacentSpaceConnections = new List<Task>();
             for (int rank = 1; rank <= 8; rank++)
             {
                 for (char file = 'a'; file <= 'h'; file++)
@@ -176,24 +176,24 @@ namespace MrPitiful.UnicodeChess
                     if (rank > 1)
                     {
                         ChessGameBoardSpace spaceToSouth = await GetSpaceByRankAndFile(chessGameId, rank - 1, file);
-                        AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                        await CreateRecipricalAdjacentSpaces(
                             currentSpace.Id,
                             spaceToSouth.Id,
                             "south",
                             "north"
-                        ));
+                        );
                     }
                     //unless it's the first file connect the adjacent space west
                     if (file > 'a')
                     {
                         {
                             ChessGameBoardSpace spaceToWest = await GetSpaceByRankAndFile(chessGameId, rank, (char)(file - 1));
-                            AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                            await CreateRecipricalAdjacentSpaces(
                                 currentSpace.Id,
                                 spaceToWest.Id,
                                 "west",
                                 "east"
-                            ));
+                            );
                         }
                     }
                     //unless it's the first file or the first rank connect the adjacent space southwest
@@ -201,12 +201,12 @@ namespace MrPitiful.UnicodeChess
                     {
                         {                       
                             ChessGameBoardSpace spaceToSouthWest = await GetSpaceByRankAndFile(chessGameId, rank-1, (char)(file - 1));
-                            AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                            await CreateRecipricalAdjacentSpaces(
                                 currentSpace.Id,
                                 spaceToSouthWest.Id,
                                 "southwest",
                                 "northeast"
-                            ));
+                            );
                         }
                     }
                     //unless it's the last file or the first rank connect the adjacent space southeast
@@ -214,17 +214,18 @@ namespace MrPitiful.UnicodeChess
                     {
                         {                         
                             ChessGameBoardSpace spaceToSouthEast = await GetSpaceByRankAndFile(chessGameId, rank - 1, (char)(file + 1));
-                            AdjacentSpaceConnections.Add(CreateRecipricalAdjacentSpaces(
+                            await CreateRecipricalAdjacentSpaces(
                                 currentSpace.Id,
                                 spaceToSouthEast.Id,
                                 "southeast",
                                 "northwest"
-                            ));
+                            );
                         }
                     }
                 }
             }
-            Task.WaitAll(AdjacentSpaceConnections.ToArray());
+            //Task.WaitAll(AdjacentSpaceConnections.ToArray());
+            return chessGameBoard.Id;
         }
 
         #endregion
