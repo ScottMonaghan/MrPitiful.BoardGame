@@ -41,7 +41,7 @@ namespace MrPitiful.BoardGame.Base.Test
             response.Dispose();
             Assert.False(result);
 
-            //Add a player Id to that game
+            //Add a GamePieceId to that game
             await _client.GetAsync(String.Format("/api/genericGameBoardSpace/AddGamePieceIdToGameBoardSpace/{0}/{1}", gamePieceId, createdGameBoardSpace.Id));
             //Ensure gamePieceId DID get added to game
             response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/GameBoardSpaceContainsGamePieceId/{0}/{1}", createdGameBoardSpace.Id, gamePieceId));
@@ -170,5 +170,33 @@ namespace MrPitiful.BoardGame.Base.Test
 
         }
 
+        [Fact]
+        public async void GetGameBoardSpaceGamePieceIds()
+        {
+            //Arrange
+            //create dummy gamePieceId
+            var gamePieceId = Guid.NewGuid();
+            //Create a gameBoardSpace
+            var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
+            GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+            //Add a GamePieceId to that gameBoardSpace
+            await _client.GetAsync(String.Format("/api/genericGameBoardSpace/AddGamePieceIdToGameBoardSpace/{0}/{1}", gamePieceId, createdGameBoardSpace.Id));
+
+            //Act
+            response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/GetGameBoardSpaceGamePieceIds/{0}",createdGameBoardSpace.Id));
+            List<Guid> GamePieceIds = JsonConvert.DeserializeObject<List<Guid>>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+            response.Dispose();
+
+            //Assert
+            //the list should contain 1 value
+            Assert.Equal(1, GamePieceIds.Count);
+            //the lists first value should be gamePieceId
+            Assert.Equal(gamePieceId, GamePieceIds[0]);
+        }
     }
 }

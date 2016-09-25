@@ -131,5 +131,15 @@ namespace MrPitiful.BoardGame.Base
         {
             return ((IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId)).GameBoardId;
         }
+
+        [HttpGet("GetGameBoardSpaceGamePieceIds/{gameBoardSpaceId}")]
+        public ActionResult GetGameBoardSpaceGamePieceIds(Guid gameBoardSpaceId)
+        {
+            return new ObjectResult(
+                ((IGameBoardSpace)(_gameBoardSpaceRepository.Get(gameBoardSpaceId))).GamePieceIds
+                );       
+        }
+
+
     }
 }

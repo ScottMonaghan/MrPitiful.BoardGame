@@ -21,5 +21,6 @@ namespace MrPitiful.BoardGame.Base
         Task<Guid> GetGameBoardSpaceGameId(Guid gameBoardSpaceId);
         Task SetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId, Guid gameBoardId);
         Task<Guid> GetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId);
+        Task<List<Guid>> GetGameBoardSpaceGamePieceIds(Guid gameBoardSpaceId);
     }
 }

@@ -100,6 +100,18 @@ namespace MrPitiful.BoardGame.Base
                 );
         }
 
+        public async Task<List<Guid>> GetGameBoardSpaceGamePieceIds(Guid gameBoardSpaceId)
+        {
+            var response = await _httpClient.GetAsync(
+                 String.Format("/" + _apiRoute + "/GetGameBoardSpaceGamePieceIds/{0}",
+                 gameBoardSpaceId
+                 )
+             );
+            return JsonConvert.DeserializeObject<List<Guid>>(
+                    response.Content.ReadAsStringAsync().Result
+                );
+        }
+
         public async Task RemoveAdjacentSpaceFromGameBoardSpace(string direction, Guid gameBoardSpaceId)
         {
             await _httpClient.GetAsync(

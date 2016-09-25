@@ -130,7 +130,28 @@ namespace MrPitiful.BoardGame.Base.Test
 
         }
 
+        [Fact]
+        async void GetGameBoardSpaceGamePieceIds()
+        {
+            //Arrange
+            //Create new GameBoardSpaceClient
+            GenericGameBoardSpaceClient gameBoardSpaceClient
+                = new GenericGameBoardSpaceClient(_client);
+            //create dummy gamePieceId
+            var gamePieceId = Guid.NewGuid();
+            //Create a GameBoardSpace
+            GenericGameBoardSpace createdGameBoardSpace = await gameBoardSpaceClient.Create();
+            //Add a GamePieceId to that gameBoardSpace
+            await gameBoardSpaceClient.AddGamePieceIdToGameBoardSpace(gamePieceId, createdGameBoardSpace.Id);
 
+            //Act
+            List<Guid> GamePieceIds = await gameBoardSpaceClient.GetGameBoardSpaceGamePieceIds(createdGameBoardSpace.Id);
 
+            //Assert
+            //the list should contain 1 value
+            Assert.Equal(1, GamePieceIds.Count);
+            //the lists first value should be gamePieceId
+            Assert.Equal(gamePieceId, GamePieceIds[0]);
+        }
     }
 }
