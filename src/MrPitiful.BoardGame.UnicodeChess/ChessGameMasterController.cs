@@ -18,6 +18,7 @@ namespace MrPitiful.UnicodeChess
         private IChessGameBoardClient _chessGameBoardClient;
         private IChessGameBoardSpaceClient _chessGameBoardSpaceClient;
         private IChessGamePieceClient _chessGamePieceClient;
+        private string message = "";
 
         public ChessGameMasterController(
             IChessGameClient chessGameClient,
@@ -333,7 +334,8 @@ namespace MrPitiful.UnicodeChess
 
         #endregion
 
-        public async Task InitialSetup(Guid chessGameId)
+        [HttpGet("InitialSetup/{chessGameId}")]
+        public async Task<IActionResult> InitialSetup(Guid chessGameId)
         {
             //Initial setup - from https://en.wikipedia.org/wiki/Rules_of_chess#Initial_setup (9/21/2016)
 
@@ -401,6 +403,9 @@ namespace MrPitiful.UnicodeChess
             //The player controlling the black pieces is named "black".
             //White moves first, then players alternate moves.
             await _chessGameClient.SetStateProperty(chessGameId, "nextplayer", "white");
+            message += "New game set up!\n";
+
+            return new NoContentResult();
         }
 
         public async Task<Boolean> MoveIsValid(Guid chessGamePieceId, Guid chessGameBoardSpaceId)
@@ -426,6 +431,12 @@ namespace MrPitiful.UnicodeChess
             //eventually we want to report something here, but for now just remove capturedPiece from game.
             //!!NEED TO ADD ABILITY TO DELETE GAME OBJECTS
 
+            string capturingPieceColor = await _chessGamePieceClient.GetStateProperty(capturingPieceId, "color");
+            string capturedPieceColor = await _chessGamePieceClient.GetStateProperty(capturedPieceId, "color");
+            string capturingPieceName = await _chessGamePieceClient.GetStateProperty(capturingPieceId, "name");
+            string capturedPieceName = await _chessGamePieceClient.GetStateProperty(capturedPieceId, "name");
+            message += string.Format("{0} {1} captures {2} {3}!\n", capturingPieceColor, capturingPieceName, capturedPieceColor, capturedPieceName);
+
             //get captured piece
             var capturedPiece = await _chessGamePieceClient.Get(capturedPieceId);
 
@@ -447,7 +458,8 @@ namespace MrPitiful.UnicodeChess
             //DELETE CAPTURED PIECE
         }
 
-        public async Task Move(Guid chessGameId, char moveToFile, int moveToRank, char moveFromFile, int moveFromRank)
+        [HttpGet("Move/{chessGameId}/{moveToFile}/{moveToRank}/{moveFromFile}/{moveFromRank}")]
+        public async Task<IActionResult> Move(Guid chessGameId, char moveToFile, int moveToRank, char moveFromFile, int moveFromRank)
         {
             //The player controlling the white pieces is named "White"; 
             //The player controlling the black pieces is named "Black".
@@ -488,6 +500,9 @@ namespace MrPitiful.UnicodeChess
             //If move is valid
             if (await MoveIsValid(chessGamePieceId, spaceMoveTo.Id))
             {
+                string pieceColor = await _chessGamePieceClient.GetStateProperty(chessGamePieceId, "color");
+                string pieceName = await _chessGamePieceClient.GetStateProperty(chessGamePieceId, "name");
+                message += String.Format("{0} {1} moves from {2}{3} to {4}{5}\n", pieceColor, pieceName, moveFromFile, moveFromRank, moveToFile, moveToRank);
                 //Capture if space is occupied
                 var piecesOnSpaceMoveTo = await _chessGameBoardSpaceClient.GetGameBoardSpaceGamePieceIds(spaceMoveTo.Id);
                 if (piecesOnSpaceMoveTo.Count > 0)
@@ -497,6 +512,8 @@ namespace MrPitiful.UnicodeChess
                 //Move to Space
                 await MoveGamePieceToGameBoardSpace(chessGamePieceId, spaceMoveTo.Id);
             }
+
+            return new NoContentResult();
         }
 
         public async Task<string> RenderChessBoardAsText(Guid chessGameId)
@@ -531,12 +548,20 @@ namespace MrPitiful.UnicodeChess
             return chessBoardString;
         }
 
+        private string OutputMessage()
+        {
+            string outputMessage = message;
+            message = "";
+            return outputMessage;
+        }
+
         [HttpGet("StartGame")]
         public async Task<IActionResult> StartGame()
         {
             var createdGame = await _chessGameClient.Create();
             await InitialSetup(createdGame.Id);
             return Content(
+                OutputMessage() + 
                 "GameId: " + createdGame.Id + "\n" +
                 await RenderChessBoardAsText(createdGame.Id)
             );
@@ -547,6 +572,7 @@ namespace MrPitiful.UnicodeChess
         {
             await Move(chessGameId, moveToFile, moveToRank, moveFromFile, moveFromRank);
             return Content(
+                OutputMessage() + 
                 "GameId: " + chessGameId + "\n" +
                 await RenderChessBoardAsText(chessGameId)
             );
