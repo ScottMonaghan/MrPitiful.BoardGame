@@ -44,15 +44,18 @@ namespace MrPitiful.UnicodeChess.Test
             services.AddSingleton<IGameRepository, ChessListGameRepository>();
             services.AddTransient<IGame, ChessGame>();
             services.AddTransient<IChessGame, ChessGame>();
+            services.AddTransient<IChessGameClient, ChessGameClient>();
             services.AddSingleton<IGameBoardRepository, ChessListGameBoardRepository>();
             services.AddTransient<IGameBoard, ChessGameBoard>();
             services.AddTransient<IChessGameBoard, ChessGameBoard>();
+            services.AddTransient<IChessGameBoardClient, ChessGameBoardClient>();
             services.AddSingleton<IGameBoardSpaceRepository, ChessListGameBoardSpaceRepository>();
             services.AddTransient<IGameBoardSpace, ChessGameBoardSpace>();
-            services.AddTransient<IChessGameBoardSpace, ChessGameBoardSpace>();
+            services.AddTransient<IChessGameBoardSpaceClient, ChessGameBoardSpaceClient>();
             services.AddSingleton<IGamePieceRepository, ChessListGamePieceRepository>();
             services.AddTransient<IGamePiece, ChessGamePiece>();
             services.AddTransient<IChessGamePiece, ChessGamePiece>();
+            services.AddTransient<IChessGamePieceClient, ChessGamePieceClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

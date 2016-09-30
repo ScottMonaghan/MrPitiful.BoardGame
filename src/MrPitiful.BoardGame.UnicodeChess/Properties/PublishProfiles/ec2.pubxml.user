@@ -6,6 +6,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\Scott Monaghan\Documents\Visual Studio 2015\Projects\MrPitiful.BoardGame\src\MrPitiful.BoardGame.UnicodeChess\.\bin\Release\PublishOutput</_PublishTargetUrl>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAT55Jt707o0WyxVOzu8KebgAAAAACAAAAAAAQZgAAAAEAACAAAADQjbXEBTtm9cmw1z2VN7DMEZ/dd4pScDZlAGG6YX2+JQAAAAAOgAAAAAIAACAAAABO/RPLYlyNGuwVlzkOAriPt2wBJanO0Ip2sxK0kK6gHSAAAADeG2/aZTrXSK2/vRb21klkh+ehBBgLLHfJmoM1UDUuZEAAAADbxa33GcMHFABtyRPn8vJLDm81v3j0UPpBvT0MnRP9eRK1dFMCnkg/QdtYF2k1rnup46Ow4+q3SqOGqQ/AW8MV</EncryptedPassword>
   </PropertyGroup>
 </Project>

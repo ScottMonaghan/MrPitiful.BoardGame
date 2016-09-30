@@ -9,7 +9,8 @@ namespace MrPitiful.BoardGame.Base
     public interface IGameObjectClient<TGameObject>
         where TGameObject:IGameObject
     {
-        HttpClient HttpClient { get; }
+        HttpClient HttpClient { get; set; }
+        String ApiRoute { get; set; }
         Task<Dictionary<Guid, TGameObject>> Get();
         Task<TGameObject> Get(Guid id);
         Task<TGameObject> Create();

@@ -333,7 +333,7 @@ namespace MrPitiful.UnicodeChess
 
         #endregion
 
-        private async void InitialSetup(Guid chessGameId)
+        public async Task InitialSetup(Guid chessGameId)
         {
             //Initial setup - from https://en.wikipedia.org/wiki/Rules_of_chess#Initial_setup (9/21/2016)
 
@@ -531,7 +531,26 @@ namespace MrPitiful.UnicodeChess
             return chessBoardString;
         }
 
+        [HttpGet("StartGame")]
+        public async Task<IActionResult> StartGame()
+        {
+            var createdGame = await _chessGameClient.Create();
+            await InitialSetup(createdGame.Id);
+            return Content(
+                "GameId: " + createdGame.Id + "\n" +
+                await RenderChessBoardAsText(createdGame.Id)
+            );
+        }
 
+        [HttpGet("MoveAndRender/{chessGameId}/{moveToFile}/{moveToRank}/{moveFromFile}/{moveFromRank}")]
+        public async Task<IActionResult> MoveAndRender(Guid chessGameId, char moveToFile, int moveToRank, char moveFromFile, int moveFromRank)
+        {
+            await Move(chessGameId, moveToFile, moveToRank, moveFromFile, moveFromRank);
+            return Content(
+                "GameId: " + chessGameId + "\n" +
+                await RenderChessBoardAsText(chessGameId)
+            );
+        }
     }
 
 }

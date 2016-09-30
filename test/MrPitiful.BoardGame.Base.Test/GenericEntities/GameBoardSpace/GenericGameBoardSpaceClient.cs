@@ -4,8 +4,8 @@ namespace MrPitiful.BoardGame.Base.Test
 {
     public class GenericGameBoardSpaceClient : GameBoardSpaceClient<GenericGameBoardSpace>
     {
-        public GenericGameBoardSpaceClient()
-        {}
+        //public GenericGameBoardSpaceClient()
+        //{}
         public GenericGameBoardSpaceClient(HttpClient httpClient, string apiRoute = "api/GenericGameBoardSpace") 
             : base(httpClient, apiRoute)
         { }

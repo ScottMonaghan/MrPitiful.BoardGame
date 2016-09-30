@@ -13,9 +13,9 @@ namespace MrPitiful.BoardGame.Base
         private string _apiRoute;
         private HttpClient _httpClient;
 
-        public GameClient()
-        {
-        }
+        //public GameClient()
+        //{
+        //}
 
         public GameClient(HttpClient httpClient, string apiRoute = "api/Game"):base(httpClient,apiRoute)
         {

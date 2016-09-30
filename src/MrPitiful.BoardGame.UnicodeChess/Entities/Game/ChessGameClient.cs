@@ -6,8 +6,8 @@ namespace MrPitiful.UnicodeChess
 {
     public class ChessGameClient : GameClient<ChessGame>, IChessGameClient
     {
-        public ChessGameClient()
-        {}
+        //public ChessGameClient()
+        //{}
         public ChessGameClient(HttpClient httpClient, string apiRoute = "api/ChessGame") 
             : base(httpClient, apiRoute)
         { }
