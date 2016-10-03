@@ -60,7 +60,7 @@ namespace MrPitiful.BoardGame.Base.Test
         }
 
         [Fact]
-        public async void GetAStatePropertyAfterSettingIt()
+        public async void GetSetAndClearAStateProperty()
         {
             //Arrange
             string propertyName = "name";
@@ -78,11 +78,21 @@ namespace MrPitiful.BoardGame.Base.Test
             //Set a State Property
             response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject.Id, propertyName, setValue));
             response.Dispose();
+            //get a state property
             response = await _client.GetAsync(string.Format("/api/genericGameObject/getStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
             string returnedValue = response.Content.ReadAsStringAsync().Result;
   
             //Assert
             Assert.Equal(setValue, returnedValue);
+
+            //act
+            //Clear the property
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/ClearStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/getStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
+            returnedValue = response.Content.ReadAsStringAsync().Result;
+
+            //Assert
+            Assert.Equal(String.Empty, returnedValue);
         }
 
         [Fact]

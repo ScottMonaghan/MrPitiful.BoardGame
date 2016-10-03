@@ -117,5 +117,10 @@ namespace MrPitiful.BoardGame.Base
         {
             await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/SetStateProperty/{0}/{1}/{2}", gameObjectId, propertyName, propertyValue));
         }
+
+        public async Task ClearStateProperty(Guid gameObjectId, string propertyName)
+        {
+            await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/ClearStateProperty/{0}/{1}", gameObjectId, propertyName));
+        }
     }
 }

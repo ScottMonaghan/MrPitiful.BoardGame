@@ -67,7 +67,7 @@ namespace MrPitiful.BoardGame.Base.Test
         }
 
         [Fact]
-        public async void GetAStatePropertyAfterSettingIt()
+        public async void GetSetAndClearAStateProperty()
         {
             //Arrange 
             //Create new GameObjectClient
@@ -85,6 +85,14 @@ namespace MrPitiful.BoardGame.Base.Test
             string gotValue = await gameObjectClient.GetStateProperty(createdGameObject.Id, propertyName);
             //Assert
             Assert.Equal(setValue, gotValue);
+
+            //Act clear the state property
+            await gameObjectClient.ClearStateProperty(createdGameObject.Id, propertyName);
+            gotValue = await gameObjectClient.GetStateProperty(createdGameObject.Id, propertyName);
+
+            //Assert
+            Assert.Equal(String.Empty, gotValue);
+
         }
 
         [Fact]

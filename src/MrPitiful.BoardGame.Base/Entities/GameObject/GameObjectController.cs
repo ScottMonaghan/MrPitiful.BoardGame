@@ -65,6 +65,15 @@ namespace MrPitiful.BoardGame.Base
             return new NoContentResult();           
         }
 
+        [HttpGet("ClearStateProperty/{gameObjectId}/{propertyName}")]
+        public ActionResult ClearStateProperty(Guid gameObjectId, string propertyName)
+        {
+            IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
+            gameObject.State[propertyName] = "";
+            _gameObjectRepository.Save(gameObject);
+            return new NoContentResult();
+        }
+
         //returns objects with matching state properties
         // GET api/gameObject/GetByStateProperties/propertyName:propertyValue/propertyName:propertyValue...
         [HttpGet("GetByStateProperties/{gameId}/{*stateProperties}")]
