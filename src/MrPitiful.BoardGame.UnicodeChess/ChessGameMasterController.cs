@@ -334,6 +334,26 @@ namespace MrPitiful.UnicodeChess
 
         #endregion
 
+        [HttpGet("SetGameMessage/{gameId}/{message}")]
+        public async Task<IActionResult> SetGameMessage(Guid gameId, string message)
+        {
+            await _chessGameClient.SetStateProperty(gameId, "message", message);
+            return new NoContentResult();
+        }
+
+        [HttpGet("GetGameMessage/{gameId}")]
+        public async Task<IActionResult> GetGameMessage(Guid gameId)
+        {
+            return Content(await _chessGameClient.GetStateProperty(gameId, "message"));
+        }
+
+        [HttpGet("ClearGameMessage/{gameId}")]
+        public async Task<IActionResult> ClearGameMessage(Guid gameId)
+        {
+            await _chessGameClient.SetStateProperty(gameId, "message", string.Empty);
+            return new NoContentResult();
+        }
+
         [HttpGet("InitialSetup/{chessGameId}")]
         public async Task<IActionResult> InitialSetup(Guid chessGameId)
         {
@@ -426,7 +446,7 @@ namespace MrPitiful.UnicodeChess
             await _chessGamePieceClient.SetGamePieceGameBoardSpaceId(gamePieceId, gameBoardSpaceId);
         }
 
-        public async Task Capture(Guid capturingPieceId, Guid capturedPieceId)
+        public async Task Capture(Guid chessGameId, Guid capturingPieceId, Guid capturedPieceId)
         {
             //eventually we want to report something here, but for now just remove capturedPiece from game.
             //!!NEED TO ADD ABILITY TO DELETE GAME OBJECTS
@@ -435,7 +455,10 @@ namespace MrPitiful.UnicodeChess
             string capturedPieceColor = await _chessGamePieceClient.GetStateProperty(capturedPieceId, "color");
             string capturingPieceName = await _chessGamePieceClient.GetStateProperty(capturingPieceId, "name");
             string capturedPieceName = await _chessGamePieceClient.GetStateProperty(capturedPieceId, "name");
-            message += string.Format("{0} {1} captures {2} {3}!\n", capturingPieceColor, capturingPieceName, capturedPieceColor, capturedPieceName);
+            await SetGameMessage(chessGameId,
+                await GetGameMessage(chessGameId) +
+                string.Format("{0} {1} captures {2} {3}!\n", capturingPieceColor, capturingPieceName, capturedPieceColor, capturedPieceName)
+                );
 
             //get captured piece
             var capturedPiece = await _chessGamePieceClient.Get(capturedPieceId);
@@ -502,12 +525,15 @@ namespace MrPitiful.UnicodeChess
             {
                 string pieceColor = await _chessGamePieceClient.GetStateProperty(chessGamePieceId, "color");
                 string pieceName = await _chessGamePieceClient.GetStateProperty(chessGamePieceId, "name");
-                message += String.Format("{0} {1} moves from {2}{3} to {4}{5}\n", pieceColor, pieceName, moveFromFile, moveFromRank, moveToFile, moveToRank);
+                await SetGameMessage(chessGameId,
+                    await GetGameMessage(chessGameId) +
+                    String.Format("{0} {1} moves from {2}{3} to {4}{5}\n", pieceColor, pieceName, moveFromFile, moveFromRank, moveToFile, moveToRank)
+                    );
                 //Capture if space is occupied
                 var piecesOnSpaceMoveTo = await _chessGameBoardSpaceClient.GetGameBoardSpaceGamePieceIds(spaceMoveTo.Id);
                 if (piecesOnSpaceMoveTo.Count > 0)
                 {
-                    await Capture(chessGamePieceId, piecesOnSpaceMoveTo[0]);
+                    await Capture(chessGameId,chessGamePieceId, piecesOnSpaceMoveTo[0]);
                 }
                 //Move to Space
                 await MoveGamePieceToGameBoardSpace(chessGamePieceId, spaceMoveTo.Id);
@@ -516,6 +542,7 @@ namespace MrPitiful.UnicodeChess
             return new NoContentResult();
         }
 
+        [HttpGet("RenderChessBoardAsText/{chessGameId}")]
         public async Task<string> RenderChessBoardAsText(Guid chessGameId)
         {
             //Example after setup
@@ -548,11 +575,12 @@ namespace MrPitiful.UnicodeChess
             return chessBoardString;
         }
 
-        private string OutputMessage()
+        [HttpGet("GetAndClearMessage")]
+        public IActionResult GetAndClearMessage()
         {
             string outputMessage = message;
             message = "";
-            return outputMessage;
+            return Content(outputMessage);
         }
 
         [HttpGet("StartGame")]
@@ -560,23 +588,23 @@ namespace MrPitiful.UnicodeChess
         {
             var createdGame = await _chessGameClient.Create();
             await InitialSetup(createdGame.Id);
-            return Content(
-                OutputMessage() + 
-                "GameId: " + createdGame.Id + "\n" +
-                await RenderChessBoardAsText(createdGame.Id)
-            );
+            await SetGameMessage(createdGame.Id, "");
+            return new ObjectResult(createdGame.Id);
         }
 
-        [HttpGet("MoveAndRender/{chessGameId}/{moveToFile}/{moveToRank}/{moveFromFile}/{moveFromRank}")]
-        public async Task<IActionResult> MoveAndRender(Guid chessGameId, char moveToFile, int moveToRank, char moveFromFile, int moveFromRank)
-        {
-            await Move(chessGameId, moveToFile, moveToRank, moveFromFile, moveFromRank);
-            return Content(
-                OutputMessage() + 
-                "GameId: " + chessGameId + "\n" +
-                await RenderChessBoardAsText(chessGameId)
-            );
-        }
+
+        //[HttpGet("MoveAndRender/{chessGameId}/{moveToFile}/{moveToRank}/{moveFromFile}/{moveFromRank}")]
+        //public async Task<IActionResult> MoveAndRender(Guid chessGameId, char moveToFile, int moveToRank, char moveFromFile, int moveFromRank)
+        //{
+        //    await Move(chessGameId, moveToFile, moveToRank, moveFromFile, moveFromRank);
+        //    return Content(
+        //        OutputMessage() + 
+        //        "GameId: " + chessGameId + "\n" +
+        //        await RenderChessBoardAsText(chessGameId)
+        //    );
+        //}
+
+
     }
 
 }

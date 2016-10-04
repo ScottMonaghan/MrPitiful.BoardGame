@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using Xunit;
 
@@ -605,6 +606,28 @@ namespace MrPitiful.UnicodeChess.Test
 
             //Assert
             Assert.Equal(expectedString, chessBoardAsText);
+        }
+
+        [Fact]
+        public async void SetGetAndClearGameMessage()
+        {
+            //arrange
+            //create game
+            ChessGame chessGame = await _chessGameClient.Create();
+            string testMessage = "test message";
+
+            //act
+            await _ChessGameMasterController.SetGameMessage(chessGame.Id, testMessage);
+
+            //assert
+            Assert.Equal(testMessage, ((ContentResult)(await _ChessGameMasterController.GetGameMessage(chessGame.Id))).Content);
+
+            //act
+            await _ChessGameMasterController.ClearGameMessage(chessGame.Id);
+
+            //assert
+            Assert.Equal("", ((ContentResult)(await _ChessGameMasterController.GetGameMessage(chessGame.Id))).Content);
+
         }
     }
 }
