@@ -57,10 +57,10 @@ namespace MrPitiful.BoardGame.Base
 
         // GET api/gameObject/SetStateProperty/12345/Name/KnightsOfValor
         [HttpGet("SetStateProperty/{gameObjectId}/{propertyName}/{propertyValue}")]
-        public ActionResult SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue = "")
+        public ActionResult SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue)
         {
             IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
-            gameObject.State[propertyName] = propertyValue;
+            gameObject.State[propertyName] = WebUtility.UrlDecode(propertyValue);
             _gameObjectRepository.Save(gameObject);
             return new NoContentResult();           
         }

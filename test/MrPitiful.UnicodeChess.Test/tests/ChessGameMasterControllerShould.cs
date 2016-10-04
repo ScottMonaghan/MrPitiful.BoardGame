@@ -614,7 +614,7 @@ namespace MrPitiful.UnicodeChess.Test
             //arrange
             //create game
             ChessGame chessGame = await _chessGameClient.Create();
-            string testMessage = "test message";
+            string testMessage = "test message line 1\ntest message line 2";
 
             //act
             await _ChessGameMasterController.SetGameMessage(chessGame.Id, testMessage);

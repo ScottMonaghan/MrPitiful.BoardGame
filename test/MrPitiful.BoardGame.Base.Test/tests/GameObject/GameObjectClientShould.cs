@@ -74,7 +74,7 @@ namespace MrPitiful.BoardGame.Base.Test
             GenericGameObjectClient gameObjectClient
                 = new GenericGameObjectClient(_client);
             string propertyName = "name";
-            string setValue = "value";
+            string setValue = "value line 1\nvalue line 2";
 
             //Create a gameobject
             GenericGameObject createdGameObject = await gameObjectClient.Create();

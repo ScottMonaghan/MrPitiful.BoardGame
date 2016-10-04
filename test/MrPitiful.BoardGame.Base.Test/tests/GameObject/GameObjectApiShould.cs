@@ -64,7 +64,7 @@ namespace MrPitiful.BoardGame.Base.Test
         {
             //Arrange
             string propertyName = "name";
-            string setValue = "value";
+            string setValue = "value line 1\nvalue line 2";
 
             //Create a gameobject
             var response = await _client.GetAsync("/api/genericGameObject/create");
@@ -76,7 +76,7 @@ namespace MrPitiful.BoardGame.Base.Test
 
             //Act
             //Set a State Property
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject.Id, propertyName, setValue));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject.Id, propertyName, WebUtility.HtmlEncode(setValue)));
             response.Dispose();
             //get a state property
             response = await _client.GetAsync(string.Format("/api/genericGameObject/getStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
