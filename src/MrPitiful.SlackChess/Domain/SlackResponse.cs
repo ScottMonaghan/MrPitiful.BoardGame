@@ -19,7 +19,7 @@ namespace MrPitiful.SlackChess
 
             set
             {
-                value = _response_type;
+                _response_type = value;
             }
         }
 
@@ -32,7 +32,7 @@ namespace MrPitiful.SlackChess
 
             set
             {
-                value = _response_type;
+                _text = value;
             }
         }
     }

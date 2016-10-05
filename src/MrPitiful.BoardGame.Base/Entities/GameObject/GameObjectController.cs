@@ -69,7 +69,13 @@ namespace MrPitiful.BoardGame.Base
         public ActionResult ClearStateProperty(Guid gameObjectId, string propertyName)
         {
             IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
-            gameObject.State[propertyName] = "";
+            if (gameObject.State.ContainsKey(propertyName))
+            {
+                gameObject.State[propertyName] = "";
+            } else
+            {
+                gameObject.State.Add(propertyName, "");
+            }
             _gameObjectRepository.Save(gameObject);
             return new NoContentResult();
         }

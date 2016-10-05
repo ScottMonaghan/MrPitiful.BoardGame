@@ -580,8 +580,8 @@ namespace MrPitiful.UnicodeChess
         public async Task<IActionResult> StartGame()
         {
             var createdGame = await _chessGameClient.Create();
+            await ClearGameMessage(createdGame.Id);
             await InitialSetup(createdGame.Id);
-            await SetGameMessage(createdGame.Id, "");
             return new ObjectResult(createdGame.Id);
         }
 

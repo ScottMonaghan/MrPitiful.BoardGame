@@ -49,9 +49,11 @@ namespace MrPitiful.SlackChess
                     response.Content.ReadAsStringAsync().Result
                 );
             _slackChessRepository.Create(slackChannelId, unicodeChessGameId);
-            responseString += (await _client.GetAsync("api/ChessGameMaster/GetMessage")).Content.ReadAsStringAsync();
-            responseString += (await _client.GetAsync("api/ChessGameMaster/RenderChessBoardAsText")).Content.ReadAsStringAsync();
-            await _client.GetAsync("api/ChessGameMaster/ClearMessage");
+            response = await _client.GetAsync(String.Format("api/ChessGameMaster/GetGameMessage/{0}",unicodeChessGameId));
+            responseString += await response.Content.ReadAsStringAsync();
+            response = await _client.GetAsync(String.Format("api/ChessGameMaster/RenderChessBoardAsText/{0}",unicodeChessGameId));
+            responseString += await response.Content.ReadAsStringAsync();
+            await _client.GetAsync(String.Format("api/ChessGameMaster/ClearGameMessage/{0}", unicodeChessGameId));
 
             return responseString;
         }
@@ -73,9 +75,11 @@ namespace MrPitiful.SlackChess
                         moveFrom.ToCharArray()[1]
                         )
                     );
-                responseString += (await _client.GetAsync("api/ChessGameMaster/GetMessage")).Content.ReadAsStringAsync();
-                responseString += (await _client.GetAsync("api/ChessGameMaster/RenderChessBoardAsText")).Content.ReadAsStringAsync();
-                await _client.GetAsync("api/ChessGameMaster/ClearMessage");
+                response = await _client.GetAsync(String.Format("api/ChessGameMaster/GetGameMessage/{0}", unicodeChessGameId));
+                responseString += await response.Content.ReadAsStringAsync();
+                response = await _client.GetAsync(String.Format("api/ChessGameMaster/RenderChessBoardAsText/{0}", unicodeChessGameId));
+                responseString += await response.Content.ReadAsStringAsync();
+                await _client.GetAsync(String.Format("api/ChessGameMaster/ClearGameMessage/{0}", unicodeChessGameId));
             }
             else
             {
@@ -90,29 +94,29 @@ namespace MrPitiful.SlackChess
             return "I'm working!";
         }
         // POST api/values
-        [HttpPost, HttpGet]
+        [HttpPost]
         public async Task<ISlackResponse> Post(
-            string token,
-            string team_id,
-            string team_domain,
-            string channel_id,
-            string channel_name,
-            string user_id,
-            string user_name,
-            string command,
-            string text,
-            string response_url)
+            string token = "",
+            string team_id = "",
+            string team_domain = "",
+            string channel_id = "",
+            string channel_name = "",
+            string user_id = "",
+            string user_name = "",
+            string command = "",
+            string text = "",
+            string response_url = "")
         {
             string[] options;
             var responseString = helpText;
             if (command.ToLower() == "\\chess" && text != string.Empty) {
                 options = text.Split(' ');
-                switch (options[0])
+                switch (options[0].ToLower())
                 {
-                    case "StartGame":
+                    case "startgame":
                         responseString = await StartGame(channel_id);
                         break;
-                    case "Move":
+                    case "move":
                         if (options.Length == 3)
                         {
                             responseString = await Move(channel_id, options[1], options[2]);
