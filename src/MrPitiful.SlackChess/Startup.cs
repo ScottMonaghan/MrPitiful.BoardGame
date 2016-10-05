@@ -29,6 +29,10 @@ namespace MrPitiful.SlackChess
         {
             // Add framework services.
             services.AddMvc();
+            services.AddSingleton<ISlackChessGameRepository, ListSlackChessGameRepository>();
+            services.AddTransient<ISlackChessGame, SlackChessGame>();
+            services.AddTransient<ISlackResponse, SlackResponse>();
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
