@@ -35,7 +35,10 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "copyToOutput": {
+      "include": [ "appsettings.json" ]
+    }
   },
 
   "runtimeOptions": {
