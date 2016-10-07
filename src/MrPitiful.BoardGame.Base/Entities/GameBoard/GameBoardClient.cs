@@ -37,7 +37,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/GameBoardContainsGameBoardSpaceId/{0}/{1}", gameBoardId, gameBoardSpaceId));
             return JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 

@@ -27,7 +27,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameBoardSpace
             var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
             GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             var gamePieceId = Guid.NewGuid();
             response.Dispose();
@@ -36,7 +36,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Ensure GamePieceId doesn't already exist in game
             response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/GameBoardSpaceContainsGamePieceId/{0}/{1}", createdGameBoardSpace.Id, gamePieceId));
             result = JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.False(result);
@@ -46,7 +46,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Ensure gamePieceId DID get added to game
             response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/GameBoardSpaceContainsGamePieceId/{0}/{1}", createdGameBoardSpace.Id, gamePieceId));
             result = JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.True(result);
@@ -56,7 +56,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Ensure gamePieceId DID get removed from game
             response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/GameBoardSpaceContainsGamePieceId/{0}/{1}", createdGameBoardSpace.Id, gamePieceId));
             result = JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.False(result);
@@ -69,7 +69,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameBoardSpace
             var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
             GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
 
@@ -84,7 +84,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //make sure we get the Id that was just set and that it is the correct value 
             response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetGameBoardSpaceGameId/{0}", createdGameBoardSpace.Id));
             Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
 
             Assert.Equal<Guid>(newGameId, gotGameId);
@@ -97,7 +97,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameBoardSpace
             var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
             GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
 
@@ -112,7 +112,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //make sure we get the Id that was just set and that it is the correct value 
             response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetGameBoardSpaceGameBoardId/{0}", createdGameBoardSpace.Id));
             Guid gotGameBoardId = JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
 
             Assert.Equal<Guid>(newGameBoardId, gotGameBoardId);
@@ -125,7 +125,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameBoardSpace
             var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
             GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
 
@@ -140,7 +140,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //now we should be able to retrieve the adjacent space by direction!
             response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetAdjacentSpaceIdByDirection/{0}/{1}", createdGameBoardSpace.Id, direction));
             Guid gotAdjacentSpaceId = JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.Equal<Guid>(adjacentSpaceId, gotAdjacentSpaceId);
@@ -149,7 +149,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //now we should be able to retrieve the dicrection by the spaceId!
             response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetDirectionsByAdjacentSpaceId/{0}/{1}", createdGameBoardSpace.Id, adjacentSpaceId));
             List<string> gotDirections = JsonConvert.DeserializeObject<List<string>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.True(gotDirections.Contains(direction));
@@ -163,7 +163,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Make sure its gone?
             response = await _client.GetAsync(string.Format("/api/genericGameBoardSpace/GetDirectionsByAdjacentSpaceId/{0}/{1}", createdGameBoardSpace.Id, adjacentSpaceId));
             List<string> gotRemovedDirections = JsonConvert.DeserializeObject<List<string>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.False(gotRemovedDirections.Contains(direction));
@@ -179,7 +179,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameBoardSpace
             var response = await _client.GetAsync("/api/genericGameBoardSpace/create");
             GenericGameBoardSpace createdGameBoardSpace = JsonConvert.DeserializeObject<GenericGameBoardSpace>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             //Add a GamePieceId to that gameBoardSpace
@@ -188,7 +188,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Act
             response = await _client.GetAsync(String.Format("/api/genericGameBoardSpace/GetGameBoardSpaceGamePieceIds/{0}",createdGameBoardSpace.Id));
             List<Guid> GamePieceIds = JsonConvert.DeserializeObject<List<Guid>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
 

@@ -42,7 +42,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/GameContainsGameBoardSpaceId/{0}/{1}", gameId, gameBoardSpaceId));
             return JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -50,7 +50,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/GameContainsGamePieceId/{0}/{1}", gameId, gamePieceId));
             return JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -58,7 +58,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/GameContainsPlayerId/{0}/{1}", gameId, playerId));
             return JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -66,7 +66,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/GetGameBoardId/{0}", gameId));
             return JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 

@@ -629,5 +629,43 @@ namespace MrPitiful.UnicodeChess.Test
             Assert.Equal("", ((ContentResult)(await _ChessGameMasterController.GetGameMessage(chessGame.Id))).Content);
 
         }
+
+        [Fact]
+        public async void ReturnMessageOnInitialSetup()
+        {
+            //arrange
+            var createdGame = await _chessGameClient.Create();
+
+            //act
+            await _ChessGameMasterController.InitialSetup(createdGame.Id);
+
+            //assert
+            Assert.True(
+                (
+                    (ContentResult)
+                    (await _ChessGameMasterController.GetGameMessage(createdGame.Id))
+                ).Content.Contains("New game")
+            );
+        }
+
+        [Fact]
+        public async void ReturnMessageOnMove()
+        {
+            //arrange
+            var createdGame = await _chessGameClient.Create();
+            await _ChessGameMasterController.InitialSetup(createdGame.Id);
+
+            //act
+            await _ChessGameMasterController.Move(createdGame.Id, 'd', 4, 'd', 2);
+
+            //assert
+            Assert.True(
+                (
+                    (ContentResult)
+                    (await _ChessGameMasterController.GetGameMessage(createdGame.Id))
+                ).Content.Contains("moves from d2 to d4")
+            );
+        }
+
     }
 }

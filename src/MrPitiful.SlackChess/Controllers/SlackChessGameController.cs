@@ -36,9 +36,9 @@ namespace MrPitiful.SlackChess
 
         private string helpText =
             "Welcome to Slack Chess!\n" +
-            "To start a new game type the command: \\Chess StartGame\n" +
-            "To move a piece use \\Chess Move [MoveTo] [MoveFrom]\n" +
-            "Example: \\Chess Move d4 d2\n" +
+            "To start a new game type the command: /Chess StartGame\n" +
+            "To move a piece use /Chess Move [MoveTo] [MoveFrom]\n" +
+            "Example: /Chess Move d4 d2\n" +
             "--As an opening move would execute the [Queen's Gambit](https://en.wikipedia.org/wiki/Queen%27s_Gambit) moving the white pawn at d2 two spaces forward to d4";
         
         private async Task<string> StartGame(string slackChannelId)
@@ -46,13 +46,13 @@ namespace MrPitiful.SlackChess
             string responseString = "";
             var response = await _client.GetAsync("api/ChessGameMaster/StartGame");
             Guid unicodeChessGameId = JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             _slackChessRepository.Create(slackChannelId, unicodeChessGameId);
             response = await _client.GetAsync(String.Format("api/ChessGameMaster/GetGameMessage/{0}",unicodeChessGameId));
             responseString += await response.Content.ReadAsStringAsync();
             response = await _client.GetAsync(String.Format("api/ChessGameMaster/RenderChessBoardAsText/{0}",unicodeChessGameId));
-            responseString += await response.Content.ReadAsStringAsync();
+            responseString += "```\n" + await response.Content.ReadAsStringAsync() + "```\n";
             await _client.GetAsync(String.Format("api/ChessGameMaster/ClearGameMessage/{0}", unicodeChessGameId));
 
             return responseString;
@@ -78,7 +78,7 @@ namespace MrPitiful.SlackChess
                 response = await _client.GetAsync(String.Format("api/ChessGameMaster/GetGameMessage/{0}", unicodeChessGameId));
                 responseString += await response.Content.ReadAsStringAsync();
                 response = await _client.GetAsync(String.Format("api/ChessGameMaster/RenderChessBoardAsText/{0}", unicodeChessGameId));
-                responseString += await response.Content.ReadAsStringAsync();
+                responseString += "```\n" + await response.Content.ReadAsStringAsync() + "\n```";
                 await _client.GetAsync(String.Format("api/ChessGameMaster/ClearGameMessage/{0}", unicodeChessGameId));
             }
             else
@@ -95,7 +95,7 @@ namespace MrPitiful.SlackChess
         }
         // POST api/values
         [HttpPost]
-        public async Task<ISlackResponse> Post(
+        public async Task Post(
             string token = "",
             string team_id = "",
             string team_domain = "",
@@ -109,16 +109,18 @@ namespace MrPitiful.SlackChess
         {
             string[] options;
             var responseString = helpText;
-            if (command.ToLower() == "\\chess" && text != string.Empty) {
+            if (command.ToLower() == "/chess" && text != string.Empty) {
                 options = text.Split(' ');
                 switch (options[0].ToLower())
                 {
                     case "startgame":
+                        _client.PostAsync(response_url, new StringContent("Setting up game..."));
                         responseString = await StartGame(channel_id);
                         break;
                     case "move":
                         if (options.Length == 3)
                         {
+                            _client.PostAsync(response_url, new StringContent("Moving..."));
                             responseString = await Move(channel_id, options[1], options[2]);
                         }
                         break;
@@ -127,7 +129,12 @@ namespace MrPitiful.SlackChess
 
             _slackResponse.response_type = "in_channel";
             _slackResponse.text = responseString;
-            return _slackResponse;
+            await _client.PostAsync(
+                response_url,
+                new StringContent(
+                    JsonConvert.SerializeObject(_slackResponse)
+                    )
+                );
         }
     }
 }

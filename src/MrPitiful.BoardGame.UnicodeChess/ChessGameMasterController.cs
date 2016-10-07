@@ -424,7 +424,7 @@ namespace MrPitiful.UnicodeChess
             //White moves first, then players alternate moves.
             await _chessGameClient.SetStateProperty(chessGameId, "nextplayer", "white");
             await SetGameMessage(chessGameId, "New game set up!\n");
-           
+
 
             return new NoContentResult();
         }
@@ -580,7 +580,7 @@ namespace MrPitiful.UnicodeChess
         public async Task<IActionResult> StartGame()
         {
             var createdGame = await _chessGameClient.Create();
-            await ClearGameMessage(createdGame.Id);
+            //await ClearGameMessage(createdGame.Id);
             await InitialSetup(createdGame.Id);
             return new ObjectResult(createdGame.Id);
         }

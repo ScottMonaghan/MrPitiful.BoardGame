@@ -26,7 +26,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Act
             var response = await _client.GetAsync("/api/genericGameObject/");
             var result = JsonConvert.DeserializeObject<Dictionary<Guid,GenericGameObject>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             //Assert
             Assert.Empty(result);
@@ -38,7 +38,7 @@ namespace MrPitiful.BoardGame.Base.Test
         {
             var response = await _client.GetAsync("/api/genericGameObject/create");
             GenericGameObject result = JsonConvert.DeserializeObject<GenericGameObject>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             //Assert
             Assert.True(result.Id != Guid.Empty);
@@ -49,11 +49,11 @@ namespace MrPitiful.BoardGame.Base.Test
         {
             var response1 = await _client.GetAsync("/api/genericGameObject/create");
             GenericGameObject createdGameObject = JsonConvert.DeserializeObject<GenericGameObject>(
-                    response1.Content.ReadAsStringAsync().Result
+                    await response1.Content.ReadAsStringAsync()
                 );
             var response2 = await _client.GetAsync(String.Format("/api/genericGameObject/{0}", createdGameObject.Id));
             GenericGameObject gotGameObject = JsonConvert.DeserializeObject<GenericGameObject>(
-                    response2.Content.ReadAsStringAsync().Result
+                    await response2.Content.ReadAsStringAsync()
                 );
             //Assert
             Assert.Equal<Guid>(createdGameObject.Id, gotGameObject.Id);
@@ -69,7 +69,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameobject
             var response = await _client.GetAsync("/api/genericGameObject/create");
             GenericGameObject createdGameObject = JsonConvert.DeserializeObject<GenericGameObject>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             //clear the response.
             response.Dispose();
@@ -80,7 +80,7 @@ namespace MrPitiful.BoardGame.Base.Test
             response.Dispose();
             //get a state property
             response = await _client.GetAsync(string.Format("/api/genericGameObject/getStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
-            string returnedValue = response.Content.ReadAsStringAsync().Result;
+            string returnedValue = await response.Content.ReadAsStringAsync();
   
             //Assert
             Assert.Equal(setValue, returnedValue);
@@ -89,7 +89,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Clear the property
             response = await _client.GetAsync(string.Format("/api/genericGameObject/ClearStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
             response = await _client.GetAsync(string.Format("/api/genericGameObject/getStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
-            returnedValue = response.Content.ReadAsStringAsync().Result;
+            returnedValue = await response.Content.ReadAsStringAsync();
 
             //Assert
             Assert.Equal(String.Empty, returnedValue);
@@ -111,7 +111,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //create first gameObject
             var response = await _client.GetAsync("/api/genericGameObject/create");
             GenericGameObject createdGameObject1 = JsonConvert.DeserializeObject<GenericGameObject>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             //clear the response.
             response.Dispose();
@@ -123,7 +123,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //create second gameObject
             response = await _client.GetAsync("/api/genericGameObject/create");
             GenericGameObject createdGameObject2 = JsonConvert.DeserializeObject<GenericGameObject>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             //clear the response.
             response.Dispose();
@@ -148,7 +148,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Get list of gameObjects where both properties 
             response = await _client.GetAsync(String.Format("/api/genericGameObject/GetByStateProperties/{0}:{1}/{2}:{3}",property1, goodValue, property2, goodValue));
             List<GenericGameObject> gotGameObjects = JsonConvert.DeserializeObject<List<GenericGameObject>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
              );
 
 
@@ -166,7 +166,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameObject
             var response = await _client.GetAsync("/api/genericGameObject/create");
             GenericGameObject createdGameObject = JsonConvert.DeserializeObject<GenericGameObject>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
 
@@ -181,7 +181,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //make sure we get the Id that was just set and that it is the correct value 
             response = await _client.GetAsync(string.Format("/api/genericGameObject/GetGameId/{0}", createdGameObject.Id));
             Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
 
             Assert.Equal<Guid>(newGameId, gotGameId);

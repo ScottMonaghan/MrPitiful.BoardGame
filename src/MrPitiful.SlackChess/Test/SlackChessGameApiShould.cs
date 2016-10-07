@@ -68,7 +68,7 @@ namespace MrPitiful.SlackChess.Test
 
             //Assert
             //result should include chessboard with the piece: ♚
-            Assert.True(result.text.Contains("♚"));
+            Assert.True(result.text.Contains("♚") && result.text.Contains("New game set up!"));
         }
         [Fact]
         public async void Move()

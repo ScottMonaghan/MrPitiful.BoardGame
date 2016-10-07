@@ -48,7 +48,7 @@ namespace MrPitiful.BoardGame.Base
                 )
             );
             return JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -60,7 +60,7 @@ namespace MrPitiful.BoardGame.Base
                 )
             );
             return JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -72,7 +72,7 @@ namespace MrPitiful.BoardGame.Base
                  )
              );
             return JsonConvert.DeserializeObject<List<string>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -84,7 +84,7 @@ namespace MrPitiful.BoardGame.Base
                  )
              );
             return JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -96,7 +96,7 @@ namespace MrPitiful.BoardGame.Base
                  )
              );
             return JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -108,7 +108,7 @@ namespace MrPitiful.BoardGame.Base
                  )
              );
             return JsonConvert.DeserializeObject<List<Guid>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 

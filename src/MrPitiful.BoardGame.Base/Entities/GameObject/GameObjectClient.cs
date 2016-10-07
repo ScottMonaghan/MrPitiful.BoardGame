@@ -54,7 +54,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync("/"+ _apiRoute + "/Create");
             TGameObject result = JsonConvert.DeserializeObject<TGameObject>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             return result;
         }
@@ -68,7 +68,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/GetGameId/{0}", gameObjectdId));
             Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             return gotGameId;
         }
@@ -77,7 +77,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response = await _httpClient.GetAsync("/" + _apiRoute + "/");
             return JsonConvert.DeserializeObject<Dictionary<Guid, TGameObject>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
         }
 
@@ -85,7 +85,7 @@ namespace MrPitiful.BoardGame.Base
         {
             var response2 = await _httpClient.GetAsync(String.Format("/" + _apiRoute + "/{0}", gameObjectId));
             TGameObject gotGameObject = JsonConvert.DeserializeObject<TGameObject>(
-                    response2.Content.ReadAsStringAsync().Result
+                    await response2.Content.ReadAsStringAsync()
                 );
             return gotGameObject;
         }
@@ -100,7 +100,7 @@ namespace MrPitiful.BoardGame.Base
             }
             var response = await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/GetByStateProperties/{0}{1}", gameId, propertyString));
             List<TGameObject> gotGameObjects = JsonConvert.DeserializeObject<List<TGameObject>>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
             );
             return gotGameObjects;
         }
@@ -108,13 +108,13 @@ namespace MrPitiful.BoardGame.Base
         public async Task<string> GetStateProperty(Guid gameObjectId, string propertyName)
         {
             var response = await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/getStateProperty/{0}/{1}", gameObjectId, propertyName));
-            return response.Content.ReadAsStringAsync().Result;
+            return await response.Content.ReadAsStringAsync();
 
         }
 
         public async Task SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue)
         {
-            await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/SetStateProperty/{0}/{1}/{2}", gameObjectId, WebUtility.UrlEncode(propertyName), WebUtility.UrlEncode(propertyValue)));
+            await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/SetStateProperty/{0}/{1}?propertyValue={2}", gameObjectId, propertyName, WebUtility.UrlEncode(propertyValue)));
         }
 
         public async Task ClearStateProperty(Guid gameObjectId, string propertyName)

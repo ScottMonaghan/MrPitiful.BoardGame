@@ -16,6 +16,7 @@ namespace MrPitiful.BoardGame.Base
             _gameBoard = gameBoard;
         }
 
+        /*
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("SetGameBoardGameId/{gameBoardId}/{gameId}")]
         public void SetGameBoardGameId(Guid gameBoardId, Guid gameId)
@@ -23,13 +24,15 @@ namespace MrPitiful.BoardGame.Base
             IGameBoard gameBoard = (IGameBoard)_gameBoardRepository.Get(gameBoardId);
             gameBoard.GameId = gameId;
         }
-
+        */
+        /*
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("GetGameBoardGameId/{gameBoardId}")]
         public Guid GetGameBoardGameId(Guid gameBoardId)
         {
             return ((IGameBoard)_gameBoardRepository.Get(gameBoardId)).GameId;
         }
+        */
 
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("AddGameBoardSpaceIdToGameBoard/{gameBoardSpaceId}/{gameBoardId}")]

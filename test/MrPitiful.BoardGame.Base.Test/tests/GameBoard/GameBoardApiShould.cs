@@ -29,7 +29,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a game
             var response = await _client.GetAsync("/api/genericGameBoard/create");
             GenericGameBoard createdGameBoard = JsonConvert.DeserializeObject<GenericGameBoard>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
 
@@ -37,7 +37,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Ensure GameBoardSpaceId doesn't already exist in game
             response = await _client.GetAsync(String.Format("/api/genericGameBoard/GameBoardContainsGameBoardSpaceId/{0}/{1}", createdGameBoard.Id, gameBoardSpaceId));
             result = JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.False(result);
@@ -48,7 +48,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Ensure gameBoardSpaceId DID get added to gameBoard
             response = await _client.GetAsync(String.Format("/api/genericGameBoard/GameBoardContainsGameBoardSpaceId/{0}/{1}", createdGameBoard.Id, gameBoardSpaceId));
             result = JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.True(result);
@@ -59,7 +59,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Ensure gameBoardSpaceId DID get removed from gameBoard
             response = await _client.GetAsync(String.Format("/api/genericGameBoard/GameBoardContainsGameBoardSpaceId/{0}/{1}", createdGameBoard.Id, gameBoardSpaceId));
             result = JsonConvert.DeserializeObject<bool>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
             Assert.False(result);
@@ -72,7 +72,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //Create a gameBoard
             var response = await _client.GetAsync("/api/genericGameBoard/create");
             GenericGameBoard createdGameBoard = JsonConvert.DeserializeObject<GenericGameBoard>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
             response.Dispose();
 
@@ -87,7 +87,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //make sure we get the Id that was just set and that it is the correct value 
             response = await _client.GetAsync(string.Format("/api/genericGameBoard/GetGameBoardGameId/{0}", createdGameBoard.Id));
             Guid gotGameId = JsonConvert.DeserializeObject<Guid>(
-                    response.Content.ReadAsStringAsync().Result
+                    await response.Content.ReadAsStringAsync()
                 );
 
             Assert.Equal<Guid>(newGameId, gotGameId);
