@@ -17,17 +17,17 @@ namespace MrPitiful.SlackChess
         private ISlackChessGameRepository _slackChessRepository;
         private IConfiguration _configuration;
         private HttpClient _client;
-        private ISlackResponse _slackResponse;
+        //private ISlackResponse _slackResponse;
 
         public SlackChessGameController(
             IConfiguration configuration, 
-            ISlackResponse slackResponse, 
+            //ISlackResponse slackResponse, 
             ISlackChessGame slackChessGame, 
             ISlackChessGameRepository slackChessRepository)
         {
             _slackChessGame = slackChessGame;
             _slackChessRepository = slackChessRepository;
-            _slackResponse = slackResponse;
+            //_slackResponse = slackResponse;
             _client = new HttpClient();
             _configuration = configuration;
             _client.BaseAddress = new Uri(_configuration.GetSection("UnicodeChess").GetValue<string>("ApiUri"));
@@ -90,14 +90,7 @@ namespace MrPitiful.SlackChess
             return responseString;
         }
 
-        [HttpGet("TestString")]
-        public string TestString()
-        {
-            return "I'm working!";
-        }
-        // POST api/values
-        [HttpPost]
-        public async Task Post(
+        public async Task RespondToSlackAsync(
             string token = "",
             string team_id = "",
             string team_domain = "",
@@ -111,32 +104,61 @@ namespace MrPitiful.SlackChess
         {
             string[] options;
             var responseString = helpText;
-            if (command.ToLower() == "/chess" && text != string.Empty) {
+            if (command.ToLower() == "/chess" && text != string.Empty)
+            {
                 options = text.Split(' ');
                 switch (options[0].ToLower())
                 {
                     case "startgame":
-                        _client.PostAsync(response_url, new StringContent("Setting up game..."));
                         responseString = await StartGame(channel_id);
                         break;
                     case "move":
                         if (options.Length == 3)
                         {
-                            _client.PostAsync(response_url, new StringContent("Moving..."));
                             responseString = await Move(channel_id, options[1], options[2]);
                         }
                         break;
                 }
             }
 
-            _slackResponse.response_type = "in_channel";
-            _slackResponse.text = responseString;
+            SlackResponse slackResponse = new SlackResponse();
+            slackResponse.response_type = "in_channel";
+            slackResponse.text = responseString;
             await _client.PostAsync(
                 response_url,
                 new StringContent(
-                    JsonConvert.SerializeObject(_slackResponse)
+                    JsonConvert.SerializeObject(slackResponse)
                     )
                 );
+        }
+
+
+        [HttpGet("TestString")]
+        public string TestString()
+        {
+            return "I'm working!";
+        }
+
+        // POST api/values
+        [HttpPost]
+        public IActionResult Post(
+            string token = "",
+            string team_id = "",
+            string team_domain = "",
+            string channel_id = "",
+            string channel_name = "",
+            string user_id = "",
+            string user_name = "",
+            string command = "",
+            string text = "",
+            string response_url = "")
+        {
+            //we don't want to await this because we need to respond to slack in under 3 seconds
+            RespondToSlackAsync(token, team_id, team_domain, channel_id, channel_name, user_id, user_name, command, text, response_url);
+            SlackResponse slackResponse = new SlackResponse();
+            slackResponse.response_type = "in_channel";
+            slackResponse.text = user_name + " asked the Chessmaster to " + text + "...";
+            return new ObjectResult(slackResponse);
         }
     }
 }
