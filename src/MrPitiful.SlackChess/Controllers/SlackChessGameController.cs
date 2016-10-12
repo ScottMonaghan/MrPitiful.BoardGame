@@ -40,8 +40,9 @@ namespace MrPitiful.SlackChess
             "To move a piece use /Chess Move [MoveTo] [MoveFrom]\n" +
             "Example: /Chess Move d4 d2\n" +
             "--As an opening move would execute the [Queen's Gambit](https://en.wikipedia.org/wiki/Queen%27s_Gambit) moving the white pawn at d2 two spaces forward to d4";
-        
-        private async Task<string> StartGame(string slackChannelId)
+
+        [HttpGet("StartGame/{slackChannelId}"), HttpPost("StartGame/{slackChannelId}")]
+        public async Task<string> StartGame(string slackChannelId)
         {
             string responseString = "";
             var response = await _client.GetAsync("api/ChessGameMaster/StartGame");
@@ -58,7 +59,8 @@ namespace MrPitiful.SlackChess
             return responseString;
         }
 
-        private async Task<string> Move(string slackChannelId, string moveTo, string moveFrom)
+        [HttpGet("Move/{slackChannelId}/{moveTo}/{moveFrom}"), HttpPost("Move/{slackChannelId}/{moveTo}/{moveFrom}")]
+        public async Task<string> Move(string slackChannelId, string moveTo, string moveFrom)
         {
             Guid unicodeChessGameId = _slackChessRepository.Get(slackChannelId).UnicodeChessGameId;
             Regex positionValidation = new Regex("^[a-hA-H][1-8]$");

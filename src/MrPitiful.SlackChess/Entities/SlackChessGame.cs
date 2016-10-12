@@ -7,6 +7,7 @@ namespace MrPitiful.SlackChess
 {
     public class SlackChessGame : ISlackChessGame
     {
+        private Guid _id; 
         private string _slackChannelId;
         private Guid _unicodeChessGameId;
         public SlackChessGame() { }
@@ -14,6 +15,11 @@ namespace MrPitiful.SlackChess
         {
             _slackChannelId = slackChannelId;
             _unicodeChessGameId = unicodeChessGameId;
+        }
+        public Guid Id
+        {
+            get { return _id; }
+            set { _id = value;}
         }
         public string SlackChannelId
         {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace MrPitiful.SlackChess
 {
@@ -29,7 +30,8 @@ namespace MrPitiful.SlackChess
         {
             // Add framework services.
             services.AddMvc();
-            services.AddSingleton<ISlackChessGameRepository, ListSlackChessGameRepository>();
+            services.AddDbContext<SlackChessGameDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<ISlackChessGameRepository, EFSlackChessGameRepository>();
             services.AddTransient<ISlackChessGame, SlackChessGame>();
             services.AddTransient<ISlackResponse, SlackResponse>();
             services.AddSingleton<IConfiguration>(Configuration);
