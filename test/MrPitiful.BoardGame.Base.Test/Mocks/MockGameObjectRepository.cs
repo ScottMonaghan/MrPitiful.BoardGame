@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Base.Test
 {
@@ -7,34 +8,34 @@ namespace MrPitiful.BoardGame.Base.Test
     {
         public bool Saved = false;
 
-        public IGameObject Create(IGameObject gameObject)
+        public async Task<IGameObject> Create(IGameObject gameObject)
         {
             return gameObject;
         }
 
-        public void Delete(IGameObject gameObject)
+        public async Task Delete(IGameObject gameObject)
         {
             //do nothing
         }
 
-        public Dictionary<Guid, IGameObject> Get()
+        public async Task<Dictionary<Guid, IGameObject>> Get()
         {
             return new Dictionary<Guid, IGameObject>();
         }
 
-        public IGameObject Get(Guid Id)
+        public async Task<IGameObject> Get(Guid Id)
         {
             GenericGameObject gameObject = new GenericGameObject();
             gameObject.Id = Id;
             return gameObject;
         }
 
-        public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
+        public async Task<List<IGameObject>> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
             return new List<IGameObject>();
         }
 
-        public void Save(IGameObject gameObject)
+        public async Task Save(IGameObject gameObject)
         {
             Saved = true;
         }

@@ -2,7 +2,7 @@
 { 
     public abstract class ListGameRepository : ListGameObjectRepository, IGameRepository
     {
-        public ListGameRepository(IGame game) : base(game)
+        public ListGameRepository(Game game) : base(game)
         {}
     }
 }

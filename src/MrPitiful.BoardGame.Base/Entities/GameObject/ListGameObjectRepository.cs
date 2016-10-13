@@ -1,48 +1,49 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Base
 {
     public abstract class ListGameObjectRepository : IGameObjectRepository
     {
-        private Dictionary<Guid, IGameObject> _gameObjects;
+        private Dictionary<Guid, GameObject> _gameObjects;
 
-        public ListGameObjectRepository(IGameObject gameObject)
+        public ListGameObjectRepository(GameObject gameObject)
         {
-            _gameObjects = new Dictionary<Guid, IGameObject>();
+            _gameObjects = new Dictionary<Guid, GameObject>();
         }
 
-        public IGameObject Create(IGameObject gameObject)
+        public async Task<GameObject> Create(GameObject gameObject)
         {
             gameObject.Id = Guid.NewGuid();
             _gameObjects.Add(gameObject.Id, gameObject);
             return gameObject;
         }
 
-        public Dictionary<Guid,IGameObject> Get()
+        public async Task<Dictionary<Guid,GameObject>> Get()
         {
             return _gameObjects;
         }
 
-        public IGameObject Get(Guid Id)
+        public async Task<GameObject> Get(Guid Id)
         {
             return _gameObjects[Id];
         }
     
-        public void Save(IGameObject gameObject)
+        public async Task Save(GameObject gameObject)
         {
             //save game here
         }
 
-        public void Delete(IGameObject gameObject)
+        public async Task Delete(GameObject gameObject)
         {
             _gameObjects.Remove(gameObject.Id);
         }
 
-        public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
+        public async Task<List<GameObject>> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
-            List<IGameObject> filtereddGameObjects = _gameObjects.Values.ToList().Where(x => x.GameId == gameId).ToList();
+            List<GameObject> filtereddGameObjects = _gameObjects.Values.ToList().Where(x => x.GameId == gameId).ToList();
 
             foreach (KeyValuePair<string,string> stateProperty in stateProperties)
             {

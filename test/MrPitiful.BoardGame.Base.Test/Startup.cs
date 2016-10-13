@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +39,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+            //services.AddDbContext<GameObjectDbContext>(opt => opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFProviders.InMemory;Trusted_Connection=True;"));
             services.AddSingleton<IGameObjectRepository, GenericListGameObjectRepository>();
             services.AddTransient<IGameObject, GenericGameObject>();
             services.AddSingleton<IGameRepository, GenericListGameRepository>();
