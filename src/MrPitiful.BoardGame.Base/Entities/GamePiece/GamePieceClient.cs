@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace MrPitiful.BoardGame.Base
 {
     public abstract class GamePieceClient<TGamePiece> : GameObjectClient<TGamePiece>, IGamePieceClient<TGamePiece>
-        where TGamePiece:IGamePiece
+        where TGamePiece:GamePiece
        {
         private string _apiRoute;
         private HttpClient _httpClient;

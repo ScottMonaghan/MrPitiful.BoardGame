@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 namespace MrPitiful.BoardGame.Base
 {
 
@@ -9,9 +10,9 @@ namespace MrPitiful.BoardGame.Base
     public abstract class GameBoardController : GameObjectController
     {
         private IGameBoardRepository _gameBoardRepository;
-        private IGameBoard _gameBoard;
+        private GameBoard _gameBoard;
 
-        public GameBoardController(IGameBoardRepository gameBoardRepository, IGameBoard gameBoard) : base(gameBoardRepository, gameBoard) {
+        public GameBoardController(IGameBoardRepository gameBoardRepository, GameBoard gameBoard) : base(gameBoardRepository, gameBoard) {
             _gameBoardRepository = gameBoardRepository;
             _gameBoard = gameBoard;
         }
@@ -19,9 +20,9 @@ namespace MrPitiful.BoardGame.Base
         /*
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("SetGameBoardGameId/{gameBoardId}/{gameId}")]
-        public void SetGameBoardGameId(Guid gameBoardId, Guid gameId)
+        public async Task SetGameBoardGameId(Guid gameBoardId, Guid gameId)
         {
-            IGameBoard gameBoard = (IGameBoard)_gameBoardRepository.Get(gameBoardId);
+            GameBoard gameBoard = (GameBoard) await _gameBoardRepository.Get(gameBoardId);
             gameBoard.GameId = gameId;
         }
         */
@@ -30,19 +31,19 @@ namespace MrPitiful.BoardGame.Base
         [HttpGet("GetGameBoardGameId/{gameBoardId}")]
         public Guid GetGameBoardGameId(Guid gameBoardId)
         {
-            return ((IGameBoard)_gameBoardRepository.Get(gameBoardId)).GameId;
+            return ((GameBoard)_gameBoardRepository.Get(gameBoardId)).GameId;
         }
         */
 
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("AddGameBoardSpaceIdToGameBoard/{gameBoardSpaceId}/{gameBoardId}")]
-        public void AddGameBoardSpaceIdToGameBoard(Guid gameBoardSpaceId, Guid gameBoardId)
+        public async Task AddGameBoardSpaceIdToGameBoard(Guid gameBoardSpaceId, Guid gameBoardId)
         {
-            IGameBoard gameBoard = (IGameBoard)_gameBoardRepository.Get(gameBoardId);
+            GameBoard gameBoard = (GameBoard) await _gameBoardRepository.Get(gameBoardId);
             if (!(gameBoard.GameBoardSpaceIds.Contains(gameBoardSpaceId)))
             {
                 gameBoard.GameBoardSpaceIds.Add(gameBoardSpaceId);
-                _gameBoardRepository.Save(gameBoard);
+                await _gameBoardRepository.Save(gameBoard);
             }
             else
             {
@@ -51,22 +52,22 @@ namespace MrPitiful.BoardGame.Base
         }
 
         [HttpGet("GameBoardContainsGameBoardSpaceId/{gameBoardId}/{gameBoardSpaceId}")]
-        public bool GameBoardContainsGameBoardSpaceId(Guid gameBoardId, Guid gameBoardSpaceId)
+        public async Task<bool> GameBoardContainsGameBoardSpaceId(Guid gameBoardId, Guid gameBoardSpaceId)
         {
-            IGameBoard gameBoard = (IGameBoard)_gameBoardRepository.Get(gameBoardId);
+            GameBoard gameBoard = (GameBoard) await _gameBoardRepository.Get(gameBoardId);
 
             return gameBoard.GameBoardSpaceIds.Contains(gameBoardSpaceId);
         }
 
         // GET api/game/RemoveGameBoardSpaceIdFromGame/12345/2345
         [HttpGet("RemoveGameBoardSpaceIdFromGameBoard/{gameBoardSpaceId}/{gameBoardId}")]
-        public void RemoveGameBoardSpaceIdFromGameBoard(Guid gameBoardSpaceId, Guid gameBoardId)
+        public async Task RemoveGameBoardSpaceIdFromGameBoard(Guid gameBoardSpaceId, Guid gameBoardId)
         {
-            IGameBoard gameBoard = (IGameBoard)_gameBoardRepository.Get(gameBoardId);
+            GameBoard gameBoard = (GameBoard) await _gameBoardRepository.Get(gameBoardId);
             if (gameBoard.GameBoardSpaceIds.Contains(gameBoardSpaceId))
             {
                 gameBoard.GameBoardSpaceIds.Remove(gameBoardSpaceId);
-                _gameBoardRepository.Save(gameBoard);
+                await _gameBoardRepository.Save(gameBoard);
             }
             else
             {

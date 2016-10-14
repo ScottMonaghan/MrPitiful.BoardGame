@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 namespace MrPitiful.BoardGame.Base
 {
 
@@ -9,51 +10,51 @@ namespace MrPitiful.BoardGame.Base
     public abstract class GamePieceController : GameObjectController
     {
         private IGamePieceRepository _gamePieceRepository;
-        private IGamePiece _gamePiece;
+        private GamePiece _gamePiece;
 
-        public GamePieceController(IGamePieceRepository gamePieceRepository, IGamePiece gamePiece) : base(gamePieceRepository, gamePiece) {
+        public GamePieceController(IGamePieceRepository gamePieceRepository, GamePiece gamePiece) : base(gamePieceRepository, gamePiece) {
             _gamePieceRepository = gamePieceRepository;
             _gamePiece = gamePiece;
         }
 
         [HttpGet("SetGamePieceGameId/{gamePieceId}/{gameId}")]
-        public void SetGamePieceGameId(Guid gamePieceId, Guid gameId)
+        public async Task SetGamePieceGameId(Guid gamePieceId, Guid gameId)
         {
-            IGamePiece gamePiece = (IGamePiece)_gamePieceRepository.Get(gamePieceId);
+            GamePiece gamePiece = (GamePiece) await _gamePieceRepository.Get(gamePieceId);
             gamePiece.GameId = gameId;
         }
 
         [HttpGet("GetGamePieceGameId/{gamePieceId}")]
-        public Guid GetGamePieceGameId(Guid gamePieceId)
+        public async Task<Guid> GetGamePieceGameId(Guid gamePieceId)
         {
-            return ((IGamePiece)_gamePieceRepository.Get(gamePieceId)).GameId;
+            return ((GamePiece) await _gamePieceRepository.Get(gamePieceId)).GameId;
         }
 
         [HttpGet("SetGamePieceGameBoardId/{gamePieceId}/{gameBoardId}")]
-        public void SetGamePieceGameBoardId(Guid gamePieceId, Guid gameBoardId)
+        public async Task SetGamePieceGameBoardId(Guid gamePieceId, Guid gameBoardId)
         {
-            IGamePiece gamePiece = (IGamePiece)_gamePieceRepository.Get(gamePieceId);
+            GamePiece gamePiece = (GamePiece) await _gamePieceRepository.Get(gamePieceId);
             gamePiece.GameBoardId = gameBoardId;
         }
 
         [HttpGet("GetGamePieceGameBoardId/{gamePieceId}")]
-        public Guid GetGamePieceGameBoardId(Guid gamePieceId)
+        public async Task<Guid> GetGamePieceGameBoardId(Guid gamePieceId)
         {
-            return ((IGamePiece)_gamePieceRepository.Get(gamePieceId)).GameBoardId;
+            return ((GamePiece) await _gamePieceRepository.Get(gamePieceId)).GameBoardId;
         }
 
 
         [HttpGet("SetGamePieceGameBoardSpaceId/{gamePieceId}/{gameBoardSpaceId}")]
-        public void SetGamePieceGameBoardSpaceId(Guid gamePieceId, Guid gameBoardSpaceId)
+        public async Task SetGamePieceGameBoardSpaceId(Guid gamePieceId, Guid gameBoardSpaceId)
         {
-            IGamePiece gamePiece = (IGamePiece)_gamePieceRepository.Get(gamePieceId);
+            GamePiece gamePiece = (GamePiece) await _gamePieceRepository.Get(gamePieceId);
             gamePiece.GameBoardSpaceId = gameBoardSpaceId;
         }
 
         [HttpGet("GetGamePieceGameBoardSpaceId/{gamePieceId}")]
-        public Guid GetGamePieceGameBoardSpaceId(Guid gamePieceId)
+        public async Task<Guid> GetGamePieceGameBoardSpaceId(Guid gamePieceId)
         {
-            return ((IGamePiece)_gamePieceRepository.Get(gamePieceId)).GameBoardSpaceId;
+            return ((GamePiece) await _gamePieceRepository.Get(gamePieceId)).GameBoardSpaceId;
         }
 
     }

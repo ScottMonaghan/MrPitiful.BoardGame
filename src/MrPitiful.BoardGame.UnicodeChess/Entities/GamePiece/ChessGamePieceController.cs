@@ -8,7 +8,7 @@ namespace MrPitiful.UnicodeChess
     [Route("api/[controller]")]
     public class ChessGamePieceController : GamePieceController
     {
-        public ChessGamePieceController(IGamePieceRepository gamePieceRepository, IGamePiece gamePiece) : base(gamePieceRepository, gamePiece)
+        public ChessGamePieceController(IGamePieceRepository gamePieceRepository, GamePiece gamePiece) : base(gamePieceRepository, gamePiece)
         {
         }
     }

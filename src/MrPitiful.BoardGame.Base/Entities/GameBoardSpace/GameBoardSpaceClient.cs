@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace MrPitiful.BoardGame.Base
 {
     public abstract class GameBoardSpaceClient<TGameBoardSpace> : GameObjectClient<TGameBoardSpace>, IGameBoardSpaceClient<TGameBoardSpace>
-        where TGameBoardSpace:IGameBoardSpace
+        where TGameBoardSpace:GameBoardSpace
        {
         private string _apiRoute;
         private HttpClient _httpClient;

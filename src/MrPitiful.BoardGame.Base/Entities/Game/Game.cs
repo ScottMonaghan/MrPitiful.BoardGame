@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Base
 {
-    public abstract class Game:GameObject, IGame
+    public abstract class Game:GameObject
     {
         private Guid _gameBoardId;
         private List<Guid> _gameBoardSpaceIds;
@@ -19,7 +19,7 @@ namespace MrPitiful.BoardGame.Base
             _gamePieceIds = new List<Guid>();
             _playerIds = new List<Guid>();
         }
-
+        /*
         //keep Id & GameId in-sync at game level.  They should always be the same.
         public new Guid Id
         {
@@ -46,7 +46,7 @@ namespace MrPitiful.BoardGame.Base
                 base.GameId = value;
             }
         }
-
+        */
         [JsonIgnore]
         public List<Guid> GameBoardSpaceIds
         {

@@ -9,6 +9,6 @@ namespace MrPitiful.UnicodeChess
     //first we need to make a generic listgamerepository to inherit from the base class of game
     public class ChessListGamePieceRepository : ListGamePieceRepository
     {
-        public ChessListGamePieceRepository(IGamePiece gameBoard) : base(gameBoard){}
+        public ChessListGamePieceRepository(GamePiece gameBoard) : base(gameBoard){}
     }
 }

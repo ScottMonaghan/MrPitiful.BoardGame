@@ -7,7 +7,7 @@ using System.Net.Http;
 namespace MrPitiful.BoardGame.Base
 {
     public interface IGamePieceClient<TGamePiece>:IGameObjectClient<TGamePiece>
-        where TGamePiece:IGamePiece
+        where TGamePiece:GamePiece
     {
         //game
         Task SetGamePieceGameId(Guid gamePieceId, Guid gameId);

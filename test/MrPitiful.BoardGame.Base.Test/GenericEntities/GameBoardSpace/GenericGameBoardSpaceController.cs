@@ -7,7 +7,7 @@ namespace MrPitiful.BoardGame.Base.Test
     [Route("api/[controller]")]
     public class GenericGameBoardSpaceController : GameBoardSpaceController
     {
-        public GenericGameBoardSpaceController(IGameBoardSpaceRepository gameBoardSpaceRepository, IGameBoardSpace gameBoardSpace) : base(gameBoardSpaceRepository, gameBoardSpace)
+        public GenericGameBoardSpaceController(IGameBoardSpaceRepository gameBoardSpaceRepository, GameBoardSpace gameBoardSpace) : base(gameBoardSpaceRepository, gameBoardSpace)
         {
         }
     }
