@@ -10,6 +10,7 @@ namespace MrPitiful.SlackChess.Test
 {
     public class SlackChessGameApiShould
     {
+        /*
         private readonly TestServer _server;
         private readonly HttpClient _client;
         public SlackChessGameApiShould()
@@ -94,5 +95,6 @@ namespace MrPitiful.SlackChess.Test
             //result should include chessboard with the piece: ♚
             Assert.True(result.text.Contains("♚"));
         }
+        */
     }
 }

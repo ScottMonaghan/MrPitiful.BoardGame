@@ -40,17 +40,17 @@ namespace MrPitiful.BoardGame.Base.Test
 
             services.AddMvc();
             //services.AddDbContext<GameObjectDbContext>(opt => opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFProviders.InMemory;Trusted_Connection=True;"));
+            services.AddTransient<GameObject, GenericGameObject>();
+            services.AddTransient<Game, GenericGame>();
+            services.AddTransient<GameBoard, GenericGameBoard>();
+            services.AddTransient<GameBoardSpace, GenericGameBoardSpace>();
+            services.AddTransient<GamePiece, GenericGamePiece>();
             services.AddSingleton<IGameObjectRepository, GenericListGameObjectRepository>();
-            services.AddTransient<IGameObject, GenericGameObject>();
             services.AddSingleton<IGameRepository, GenericListGameRepository>();
-            services.AddTransient<IGame, GenericGame>();
             services.AddSingleton<IGameBoardRepository, GenericListGameBoardRepository>();
-            services.AddTransient<IGameBoard, GenericGameBoard>();
             services.AddSingleton<IGameBoardSpaceRepository, GenericListGameBoardSpaceRepository>();
-            services.AddTransient<IGameBoardSpace, GenericGameBoardSpace>();
             services.AddSingleton<IGamePieceRepository, GenericListGamePieceRepository>();
-            services.AddTransient<IGamePiece, GenericGamePiece>();
-
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

@@ -8,6 +8,6 @@ namespace MrPitiful.BoardGame.Base.Test
     //first we need to make a generic listgamerepository to inherit from the base class of game
     public class GenericEFGameObjectRepository : EFGameObjectRepository
     {
-        public GenericEFGameObjectRepository(GameObjectDbContext context, IGameObject gameObject) : base(context, gameObject){}
+        public GenericEFGameObjectRepository(GameObjectDbContext context, GameObject gameObject) : base(context, gameObject){}
     }
 }

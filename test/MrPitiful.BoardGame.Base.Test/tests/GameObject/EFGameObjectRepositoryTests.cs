@@ -46,7 +46,7 @@ namespace MrPitiful.BoardGame.Base.Test
             string testValue = "testValue";
 
             //create a new gameObject
-            var initialGameObject = new GenericGameObject();
+            var initialGameObject = new GameObject();
             initialGameObject.State[testProperty] = testValue;
 
             //act 

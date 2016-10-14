@@ -16,19 +16,29 @@ namespace MrPitiful.BoardGame.Base
 
         public async Task<GameObject> Create(GameObject gameObject)
         {
-            gameObject.Id = Guid.NewGuid();
-            _gameObjects.Add(gameObject.Id, gameObject);
-            return gameObject;
+            return await Task.Run(() =>
+            {
+                gameObject.Id = Guid.NewGuid();
+                _gameObjects.Add(gameObject.Id, gameObject);
+                return gameObject;
+            });
         }
 
         public async Task<Dictionary<Guid,GameObject>> Get()
         {
-            return _gameObjects;
+            Dictionary<Guid, GameObject> retVal;
+            return await Task.Run(() =>
+            {
+                return _gameObjects;
+            });
         }
 
         public async Task<GameObject> Get(Guid Id)
         {
-            return _gameObjects[Id];
+            return await Task.Run(() =>
+            {
+                return _gameObjects[Id];
+            });
         }
     
         public async Task Save(GameObject gameObject)
@@ -38,19 +48,25 @@ namespace MrPitiful.BoardGame.Base
 
         public async Task Delete(GameObject gameObject)
         {
-            _gameObjects.Remove(gameObject.Id);
+            await Task.Run(() =>
+            {
+                _gameObjects.Remove(gameObject.Id);
+            });
         }
 
         public async Task<List<GameObject>> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
-            List<GameObject> filtereddGameObjects = _gameObjects.Values.ToList().Where(x => x.GameId == gameId).ToList();
-
-            foreach (KeyValuePair<string,string> stateProperty in stateProperties)
+            return await Task.Run(() =>
             {
-                filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();
-            }
+                List<GameObject> filtereddGameObjects = _gameObjects.Values.ToList().Where(x => x.GameId == gameId).ToList();
 
-            return filtereddGameObjects;
+                foreach (KeyValuePair<string, string> stateProperty in stateProperties)
+                {
+                    filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();
+                }
+
+                return filtereddGameObjects;
+            });
         }
     }
 }

@@ -41,18 +41,15 @@ namespace MrPitiful.UnicodeChess
             //services.AddApplicationInsightsTelemetry(Configuration);
 
           
-            services.AddMvc();     
+            services.AddMvc();
+            services.AddTransient<Game, ChessGame>();
+            services.AddTransient<GameBoard, ChessGameBoard>();
+            services.AddTransient<GameBoardSpace, ChessGameBoardSpace>();
+            services.AddTransient<GamePiece, ChessGamePiece>();
             services.AddSingleton<IGameRepository, ChessListGameRepository>();
-            services.AddTransient<IGame, ChessGame>();
-            services.AddTransient<IChessGame, ChessGame>();
             services.AddSingleton<IGameBoardRepository, ChessListGameBoardRepository>();
-            services.AddTransient<IGameBoard, ChessGameBoard>();
-            services.AddTransient<IChessGameBoard, ChessGameBoard>();
             services.AddSingleton<IGameBoardSpaceRepository, ChessListGameBoardSpaceRepository>();
-            services.AddTransient<IGameBoardSpace, ChessGameBoardSpace>();
             services.AddSingleton<IGamePieceRepository, ChessListGamePieceRepository>();
-            services.AddTransient<IGamePiece, ChessGamePiece>();
-            services.AddTransient<IChessGamePiece, ChessGamePiece>();
             services.AddTransient<IChessGameClient, ChessGameClient>(x => {
                 var httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(Configuration.GetSection("ChessApiUris").GetValue<string>("ChessGameApiUri"));

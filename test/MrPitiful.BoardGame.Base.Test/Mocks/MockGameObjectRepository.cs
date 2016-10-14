@@ -8,34 +8,34 @@ namespace MrPitiful.BoardGame.Base.Test
     {
         public bool Saved = false;
 
-        public async Task<IGameObject> Create(IGameObject gameObject)
+        public async Task<GameObject> Create(GameObject gameObject)
         {
             return gameObject;
         }
 
-        public async Task Delete(IGameObject gameObject)
+        public async Task Delete(GameObject gameObject)
         {
             //do nothing
         }
 
-        public async Task<Dictionary<Guid, IGameObject>> Get()
+        public async Task<Dictionary<Guid, GameObject>> Get()
         {
-            return new Dictionary<Guid, IGameObject>();
+            return new Dictionary<Guid, GameObject>();
         }
 
-        public async Task<IGameObject> Get(Guid Id)
+        public async Task<GameObject> Get(Guid Id)
         {
             GenericGameObject gameObject = new GenericGameObject();
             gameObject.Id = Id;
             return gameObject;
         }
 
-        public async Task<List<IGameObject>> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
+        public async Task<List<GameObject>> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
-            return new List<IGameObject>();
+            return new List<GameObject>();
         }
 
-        public async Task Save(IGameObject gameObject)
+        public async Task Save(GameObject gameObject)
         {
             Saved = true;
         }

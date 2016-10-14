@@ -76,7 +76,7 @@ namespace MrPitiful.BoardGame.Base.Test
 
             //Act
             //Set a State Property
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject.Id, propertyName, WebUtility.HtmlEncode(setValue)));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}?propertyValue={2}", createdGameObject.Id, propertyName, WebUtility.UrlEncode(setValue)));
             response.Dispose();
             //get a state property
             response = await _client.GetAsync(string.Format("/api/genericGameObject/getStateProperty/{0}/{1}", createdGameObject.Id, propertyName));
@@ -133,15 +133,15 @@ namespace MrPitiful.BoardGame.Base.Test
             response.Dispose();
 
             //set properties of first game to return
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject1.Id, property1, goodValue));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}?propertyValue={2}", createdGameObject1.Id, property1, goodValue));
             response.Dispose();
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject1.Id, property2, goodValue));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}?propertyValue={2}", createdGameObject1.Id, property2, goodValue));
             response.Dispose();
 
             //set properites of second game to NOT return
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject2.Id, property1, goodValue));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}?propertyValue={2}", createdGameObject2.Id, property1, goodValue));
             response.Dispose();
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}/{2}", createdGameObject2.Id, property2, badValue));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetStateProperty/{0}/{1}?propertyValue={2}", createdGameObject2.Id, property2, badValue));
             response.Dispose();
 
             //Act
