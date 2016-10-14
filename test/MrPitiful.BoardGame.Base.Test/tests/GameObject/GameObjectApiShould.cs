@@ -151,7 +151,6 @@ namespace MrPitiful.BoardGame.Base.Test
                     await response.Content.ReadAsStringAsync()
              );
 
-
             //Assert that only one gameObject returns
             Assert.Equal(1, gotGameObjects.Count);
 

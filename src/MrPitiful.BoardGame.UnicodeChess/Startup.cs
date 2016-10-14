@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MrPitiful.BoardGame.Base;
 using System.Net.Http;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace MrPitiful.UnicodeChess
@@ -42,14 +43,18 @@ namespace MrPitiful.UnicodeChess
 
           
             services.AddMvc();
+            services.AddDbContext<ChessGameDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameConnection")));
+            services.AddDbContext<ChessGameBoardDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameBoardConnection")));
+            services.AddDbContext<ChessGameBoardSpaceDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameBoardSpaceConnection")));
+            services.AddDbContext<ChessGamePieceDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGamePieceConnection")));
             services.AddTransient<Game, ChessGame>();
             services.AddTransient<GameBoard, ChessGameBoard>();
             services.AddTransient<GameBoardSpace, ChessGameBoardSpace>();
             services.AddTransient<GamePiece, ChessGamePiece>();
-            services.AddSingleton<IGameRepository, ChessListGameRepository>();
-            services.AddSingleton<IGameBoardRepository, ChessListGameBoardRepository>();
-            services.AddSingleton<IGameBoardSpaceRepository, ChessListGameBoardSpaceRepository>();
-            services.AddSingleton<IGamePieceRepository, ChessListGamePieceRepository>();
+            services.AddSingleton<IGameRepository, ChessEFGameRepository>();
+            services.AddSingleton<IGameBoardRepository, ChessEFGameBoardRepository>();
+            services.AddSingleton<IGameBoardSpaceRepository, ChessEFGameBoardSpaceRepository>();
+            services.AddSingleton<IGamePieceRepository, ChessEFGamePieceRepository>();
             services.AddTransient<IChessGameClient, ChessGameClient>(x => {
                 var httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(Configuration.GetSection("ChessApiUris").GetValue<string>("ChessGameApiUri"));

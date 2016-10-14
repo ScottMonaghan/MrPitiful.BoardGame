@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Base
 {
-    public abstract class EFGameObjectRepository : IGameObjectRepository
+    public class EFGameObjectRepository : IGameObjectRepository
     {
         private GameObjectDbContext _context;
 

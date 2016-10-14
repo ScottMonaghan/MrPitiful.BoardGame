@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MrPitiful.BoardGame.Base
 {
-    public class GameObjectDbContext : DbContext
+    public class GameBoardDbContext:GameObjectDbContext
     {
-        public GameObjectDbContext(DbContextOptions options)
+        public GameBoardDbContext(DbContextOptions options)
             : base(options) { }
 
-        public DbSet<GameObject> GameObjects { get; set; }
+        public DbSet<GameBoard> GameBoards { get; set; }
     }
 }
