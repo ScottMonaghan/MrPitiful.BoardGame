@@ -40,16 +40,6 @@ namespace MrPitiful.BoardGame.Base.Test
 
             services.AddMvc();
             //services.AddDbContext<GameObjectDbContext>(opt => opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFProviders.InMemory;Trusted_Connection=True;"));
-            services.AddTransient<GameObject, GenericGameObject>();
-            services.AddTransient<Game, GenericGame>();
-            services.AddTransient<GameBoard, GenericGameBoard>();
-            services.AddTransient<GameBoardSpace, GenericGameBoardSpace>();
-            services.AddTransient<GamePiece, GenericGamePiece>();
-            services.AddSingleton<IGameObjectRepository, GenericListGameObjectRepository>();
-            services.AddSingleton<IGameRepository, GenericListGameRepository>();
-            services.AddSingleton<IGameBoardRepository, GenericListGameBoardRepository>();
-            services.AddSingleton<IGameBoardSpaceRepository, GenericListGameBoardSpaceRepository>();
-            services.AddSingleton<IGamePieceRepository, GenericListGamePieceRepository>();
             
         }
 

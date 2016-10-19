@@ -43,6 +43,7 @@ namespace MrPitiful.UnicodeChess
 
           
             services.AddMvc();
+            services.AddDbContext<MigrationChessGameDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameConnection")));
             services.AddDbContext<ChessGameDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameConnection")));
             services.AddDbContext<ChessGameBoardDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameBoardConnection")));
             services.AddDbContext<ChessGameBoardSpaceDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameBoardSpaceConnection")));
