@@ -20,13 +20,11 @@ namespace MrPitiful.BoardGame.Base
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AdjacentSpace>()
-                .HasOne(a => a.ParentGameBoardspace)
+                .HasOne(a => a.ParentGameBoardSpace)
                 .WithMany(gbs => gbs.AdjacentSpaces)
                 .HasForeignKey(a => a.ParentGameBoardSpaceId);
             modelBuilder.Entity<AdjacentSpace>()
                 .HasOne(a => a.AdjacentGameBoardSpace);
-                
-
         }
     }
 }

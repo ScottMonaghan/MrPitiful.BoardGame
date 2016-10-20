@@ -10,8 +10,9 @@ namespace MrPitiful.BoardGame.Base
     {
         public Guid Id { get; set; }
         public Guid ParentGameBoardSpaceId { get; set;} 
-        public GameBoardSpace ParentGameBoardspace { get; set; }
+        public GameBoardSpace ParentGameBoardSpace { get; set; }
         public string Direction { get; set; }
         public GameBoardSpace AdjacentGameBoardSpace { get; set; }
+        public Guid AdjacentGameBoardSpaceId { get; set; }
     }
 }
