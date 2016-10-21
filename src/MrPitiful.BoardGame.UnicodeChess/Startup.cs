@@ -43,39 +43,7 @@ namespace MrPitiful.UnicodeChess
 
           
             services.AddMvc();
-            services.AddDbContext<MigrationChessGameDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameConnection")));
-            services.AddDbContext<ChessGameDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameConnection")));
-            services.AddDbContext<ChessGameBoardDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameBoardConnection")));
-            services.AddDbContext<ChessGameBoardSpaceDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGameBoardSpaceConnection")));
-            services.AddDbContext<ChessGamePieceDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ChessGamePieceConnection")));
-            services.AddTransient<Game, ChessGame>();
-            services.AddTransient<GameBoard, ChessGameBoard>();
-            services.AddTransient<GameBoardSpace, ChessGameBoardSpace>();
-            services.AddTransient<GamePiece, ChessGamePiece>();
-            services.AddSingleton<IGameRepository, ChessEFGameRepository>();
-            services.AddSingleton<IGameBoardRepository, ChessEFGameBoardRepository>();
-            services.AddSingleton<IGameBoardSpaceRepository, ChessEFGameBoardSpaceRepository>();
-            services.AddSingleton<IGamePieceRepository, ChessEFGamePieceRepository>();
-            services.AddTransient<IChessGameClient, ChessGameClient>(x => {
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(Configuration.GetSection("ChessApiUris").GetValue<string>("ChessGameApiUri"));
-                return new ChessGameClient(httpClient);
-            });
-            services.AddTransient<IChessGameBoardClient, ChessGameBoardClient>(x => {
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(Configuration.GetSection("ChessApiUris").GetValue<string>("ChessGameBoardApiUri"));
-                return new ChessGameBoardClient(httpClient);
-            });
-            services.AddTransient<IChessGameBoardSpaceClient, ChessGameBoardSpaceClient>(x => {
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(Configuration.GetSection("ChessApiUris").GetValue<string>("ChessGameBoardSpaceApiUri"));
-                return new ChessGameBoardSpaceClient(httpClient);
-            });
-            services.AddTransient<IChessGamePieceClient, ChessGamePieceClient>(x => {
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(Configuration.GetSection("ChessApiUris").GetValue<string>("ChessGamePieceApiUri"));
-                return new ChessGamePieceClient(httpClient);
-            });
+            services.AddDbContext<BoardGameDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("MrPitiful.BoardGame.UnicodeChess")));
         }
 
         

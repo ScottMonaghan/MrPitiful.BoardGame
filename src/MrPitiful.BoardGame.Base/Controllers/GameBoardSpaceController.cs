@@ -65,5 +65,10 @@ namespace MrPitiful.BoardGame.Base
             }
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<GamePiece>> GetGamePieces(Guid gameBoardSpaceId)
+        {
+            return await _context.GamePieces.Where(gp => gp.GameBoardSpaceId == gameBoardSpaceId).ToListAsync();
+        }
     }
 }

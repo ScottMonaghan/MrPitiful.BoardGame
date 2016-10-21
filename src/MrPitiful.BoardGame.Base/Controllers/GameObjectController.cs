@@ -84,7 +84,6 @@ namespace MrPitiful.BoardGame.Base
                     );
         }
 
-        // GET api/gameObject/SetStateProperty/12345/Name/KnightsOfValor
         [HttpPost("SetStateProperty")]
         public async Task SetStateProperty(Guid gameObjectId, string name, string value)
         {
@@ -97,6 +96,13 @@ namespace MrPitiful.BoardGame.Base
             }
             await _context.SaveChangesAsync();
         }
+
+        [HttpPost("ClearStateProperty")]
+        public async Task ClearStateProperty(Guid gameObjectId, string name)
+        {
+            await SetStateProperty(gameObjectId, name, "");
+        }
+
 
         // DELETE api/values/5
         [HttpDelete("{id}")]

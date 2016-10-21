@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MrPitiful.BoardGame.Base;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,27 +15,22 @@ namespace MrPitiful.UnicodeChess
         //TO BE ABLE TO TEST: 
         //REPLACE WITH MOCKABLE INTERFACES
         //ALL CLIENT REQUESTS NEED FAILSAFES AND NEED TO RETURN RESPONSE (OTHERWISE HOW THE HECK WOULD YOU DEBUG?)
-        private IChessGameClient _chessGameClient;
-        private IChessGameBoardClient _chessGameBoardClient;
-        private IChessGameBoardSpaceClient _chessGameBoardSpaceClient;
-        private IChessGamePieceClient _chessGamePieceClient;
+        private ChessGameController _chessGameController;
+        private ChessGameBoardController _chessGameBoardController;
+        private ChessGameBoardSpaceController _chessGameBoardSpaceController;
+        private ChessGamePieceController _chessGamePieceController;
         //private string message = "";
 
-        public ChessGameMasterController(
-            IChessGameClient chessGameClient,
-            IChessGameBoardClient chessGameBoardClient,
-            IChessGameBoardSpaceClient chessGameBoardSpaceClient,
-            IChessGamePieceClient chessGamePieceClient
-        )
+        public ChessGameMasterController(BoardGameDbContext context)     
         {
-            _chessGameClient = chessGameClient;
-            _chessGameBoardClient = chessGameBoardClient;
-            _chessGameBoardSpaceClient = chessGameBoardSpaceClient;
-            _chessGamePieceClient = chessGamePieceClient;
+            _chessGameController = new ChessGameController(context);
+            _chessGameBoardController = new ChessGameBoardController(context);
+            _chessGameBoardSpaceController = new ChessGameBoardSpaceController(context);
+            _chessGamePieceController = new ChessGamePieceController(context);
         }
 
         #region Chessboard Creation Methods
-
+        /*
         public async Task AddChessGameBoardToChessGame(Guid chessGameId, Guid chessGameBoardId)
         {
             await _chessGameClient.SetGameBoardId(chessGameId, chessGameBoardId);
@@ -52,7 +48,7 @@ namespace MrPitiful.UnicodeChess
             //add the chessGameId to the chessGameBoardSpace
             await _chessGameBoardSpaceClient.SetGameBoardSpaceGameId(chessGameBoardSpaceId, chessGameId);
         }
-
+        */
         public async Task<Guid> CreateChessGameBoardSpace(Guid chessGameId, Guid chessGameBoardId, int rank, char file, string color)
         {
             //every chessboard space will have the following properies:
@@ -60,64 +56,58 @@ namespace MrPitiful.UnicodeChess
             //File: A charactar a - h
             //Color: White OR Black
 
-            //create the space
-            ChessGameBoardSpace chessGameBoardSpace = await _chessGameBoardSpaceClient.Create();
+            //build the space
+            ChessGameBoardSpace chessGameBoardSpace = new ChessGameBoardSpace()
+            {
+                //set the state properties
+                StateProperties =
+                {
+                    //set rank
+                    new StateProperty() {Name = "rank", Value = rank.ToString() },
+                    //set file
+                    new StateProperty() {Name = "file", Value = file.ToString() },
+                    //set color
+                    new StateProperty() {Name = "color", Value = color }
+                },
+                //add ChessBoardSpace to gameboard
+                GameBoardId = chessGameBoardId,
+                //add ChessBoardSpace to game
+                GameId = chessGameId
+            };
 
-            //create a task list to run all our independent client calls in parallel
-            List<Task> Tasks = new List<Task>();
-
-            //set the state properties
-            //set rank
-            await _chessGameBoardSpaceClient.SetStateProperty(chessGameBoardSpace.Id, "rank", rank.ToString());
-            //set file
-            await _chessGameBoardSpaceClient.SetStateProperty(chessGameBoardSpace.Id, "file", file.ToString());
-            //set color
-            await _chessGameBoardSpaceClient.SetStateProperty(chessGameBoardSpace.Id, "color", color);
-
-            //add ChessBoardSpace to gameboard
-            await AddChessGameBoardSpaceToChessGameBoard(chessGameId, chessGameBoardSpace.Id, chessGameBoardId);
-
-            //rull all the independent client calls!
-            //Task.WaitAll(Tasks.ToArray());
+            //save 
+            await _chessGameBoardSpaceController.Post(chessGameBoardSpace);
             return chessGameBoardSpace.Id;
         }
 
         public async Task CreateRecipricalAdjacentSpaces(Guid gameBoardSpaceId1, Guid gameBoardSpaceId2, string directionFrom1to2, string directionFrom2to1)
         {
-            //await Task.Run(() =>
-            //{
-            //List<Task> Tasks = new List<Task>();
-            await _chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom1to2, gameBoardSpaceId2, gameBoardSpaceId1);
-            await _chessGameBoardSpaceClient.AddAdjacentSpaceToGameBoardSpace(directionFrom2to1, gameBoardSpaceId1, gameBoardSpaceId2);
-            //Task.WaitAll(Tasks.ToArray());
-            //});
+            await _chessGameBoardSpaceController.PostAdjacentSpace(gameBoardSpaceId1, gameBoardSpaceId2, directionFrom1to2);
+            await _chessGameBoardSpaceController.PostAdjacentSpace(gameBoardSpaceId2, gameBoardSpaceId1, directionFrom2to1);
         }
 
-        public async Task<ChessGameBoardSpace> GetSpaceByRankAndFile(Guid chessGameId, int rank, char file)
+        public async Task<ChessGameBoardSpace> GetSpaceByFileAndRank(Guid chessGameId, char file, int rank)
         {
-            var response = await _chessGameBoardSpaceClient.GetByStateProperties(chessGameId,
-                                new Dictionary<string, string>() {
-                                {"rank", rank.ToString()},
-                                {"file", file.ToString()}
+            var response = await _chessGameBoardSpaceController.GetByStateProperties(chessGameId,
+                                new List<StateProperty>()
+                                {
+                                    new StateProperty() { Name="file", Value=file.ToString() },
+                                    new StateProperty() { Name="rank", Value=rank.ToString() }
                                 }
                             );
-            return response[0];
+            return (ChessGameBoardSpace)response[0];
         }
 
         public async Task<Guid> CreateChessBoard(Guid chessGameId)
         {
             //create empty ChessGameBoard and add to game
-            ChessGameBoard chessGameBoard = await _chessGameBoardClient.Create();
-            await AddChessGameBoardToChessGame(chessGameId, chessGameBoard.Id);
-
-            //List<Task> gameBoardSpaceAddTasks = new List<Task>();
-
+            ChessGameBoard chessGameBoard = (ChessGameBoard) await _chessGameBoardController.Post( new ChessGameBoard() { GameId = chessGameId } );
+  
             //add spaces to the board
             string lastRankStartingColor = "";
             string lastFileColor = "";
             string colorWhite = "white";
             string colorBlack = "black";
-
 
             //note: A1 is Black  
             for (int rank = 1; rank <= 8; rank++)
@@ -142,21 +132,19 @@ namespace MrPitiful.UnicodeChess
                     await CreateChessGameBoardSpace(chessGameId, chessGameBoard.Id, rank, file, color);
                 }
             }
-            //Task.WaitAll(gameBoardSpaceAddTasks.ToArray());
 
             //now connect adjacent spaces - we use cardinal directions because that simpler than diagonal-left-down, etc.
 
-            //List<Task> AdjacentSpaceConnections = new List<Task>();
             for (int rank = 1; rank <= 8; rank++)
             {
                 for (char file = 'a'; file <= 'h'; file++)
                 {
                     //get the current Space
-                    ChessGameBoardSpace currentSpace = await GetSpaceByRankAndFile(chessGameId, rank, file);
+                    ChessGameBoardSpace currentSpace = await GetSpaceByFileAndRank(chessGameId, file, rank);
                     //unless it's the first rank connect the adjacent space south
                     if (rank > 1)
                     {
-                        ChessGameBoardSpace spaceToSouth = await GetSpaceByRankAndFile(chessGameId, rank - 1, file);
+                        ChessGameBoardSpace spaceToSouth = await GetSpaceByFileAndRank(chessGameId, file, rank - 1);
                         await CreateRecipricalAdjacentSpaces(
                             currentSpace.Id,
                             spaceToSouth.Id,
@@ -168,7 +156,7 @@ namespace MrPitiful.UnicodeChess
                     if (file > 'a')
                     {
                         {
-                            ChessGameBoardSpace spaceToWest = await GetSpaceByRankAndFile(chessGameId, rank, (char)(file - 1));
+                            ChessGameBoardSpace spaceToWest = await GetSpaceByFileAndRank(chessGameId, (char)(file - 1), rank);
                             await CreateRecipricalAdjacentSpaces(
                                 currentSpace.Id,
                                 spaceToWest.Id,
@@ -181,7 +169,7 @@ namespace MrPitiful.UnicodeChess
                     if (rank > 1 && file > 'a')
                     {
                         {
-                            ChessGameBoardSpace spaceToSouthWest = await GetSpaceByRankAndFile(chessGameId, rank - 1, (char)(file - 1));
+                            ChessGameBoardSpace spaceToSouthWest = await GetSpaceByFileAndRank(chessGameId, (char)(file - 1), rank - 1);
                             await CreateRecipricalAdjacentSpaces(
                                 currentSpace.Id,
                                 spaceToSouthWest.Id,
@@ -194,7 +182,7 @@ namespace MrPitiful.UnicodeChess
                     if (file < 'h' && rank > 1)
                     {
                         {
-                            ChessGameBoardSpace spaceToSouthEast = await GetSpaceByRankAndFile(chessGameId, rank - 1, (char)(file + 1));
+                            ChessGameBoardSpace spaceToSouthEast = await GetSpaceByFileAndRank(chessGameId, (char)(file + 1), rank - 1);
                             await CreateRecipricalAdjacentSpaces(
                                 currentSpace.Id,
                                 spaceToSouthEast.Id,
@@ -205,13 +193,13 @@ namespace MrPitiful.UnicodeChess
                     }
                 }
             }
-            //Task.WaitAll(AdjacentSpaceConnections.ToArray());
             return chessGameBoard.Id;
         }
 
         #endregion
 
         #region Chess Piece Creation Methods
+        /*
         public async Task AddChessGamePieceToChessGameBoardSpace(Guid chessGamePieceId, Guid chessGameBoardSpaceId, Guid chessGameBoardId, Guid chessGameId)
         {
             //add gameboardspace to piece
@@ -227,23 +215,23 @@ namespace MrPitiful.UnicodeChess
             //add piece to game
             await _chessGameClient.AddGamePieceIdToGame(chessGamePieceId, chessGameId);
         }
+        */
 
         public async Task<Guid> CreateAndPlacePiece(Guid chessGameId, string pieceName, string pieceSymbol, string pieceColor, int spaceRank, char spaceFile)
         {
-            ChessGamePiece newPiece = await _chessGamePieceClient.Create();
-            //set name, symbol, & color
-            await _chessGamePieceClient.SetStateProperty(newPiece.Id, "name", pieceName);
-            await _chessGamePieceClient.SetStateProperty(newPiece.Id, "symbol", pieceSymbol);
-            await _chessGamePieceClient.SetStateProperty(newPiece.Id, "color", pieceColor);
-
-            //get the space by rank and file
-            ChessGameBoardSpace chessBoardSpace = await GetSpaceByRankAndFile(chessGameId, spaceRank, spaceFile);
-            await AddChessGamePieceToChessGameBoardSpace(
-                newPiece.Id,
-                chessBoardSpace.Id,
-                chessBoardSpace.GameBoardId,
-                chessGameId);
-
+            ChessGamePiece newPiece = (ChessGamePiece) await _chessGamePieceController.Post(
+                new ChessGamePiece() {
+                    GameId = chessGameId,
+                    StateProperties =
+                    {
+                        new StateProperty() {Name = "name", Value = pieceName },
+                        new StateProperty() {Name = "symbol", Value = pieceSymbol },
+                        new StateProperty() {Name = "color", Value = pieceColor },
+                        new StateProperty() {Name = "hasMoved", Value = "false" }
+                    },
+                    GameBoardSpaceId = (await GetSpaceByFileAndRank(chessGameId,spaceFile,spaceRank)).Id                 
+                }
+            );
             return newPiece.Id;
         }
 
@@ -277,56 +265,56 @@ namespace MrPitiful.UnicodeChess
 
             //At the beginning of the game, the pieces are arranged as shown in the diagram: https://i.imgur.com/VmWQcXn.png
             //  _a＿b＿c＿d＿e＿f＿g＿h_  
-            // 8|♖|♘|♗|♕|♔|♗|♘|♖|
-            // 7|♙|♙|♙|♙|♙|♙|♙|♙|
+            // 8|♜|♞|♝|♛|♚|♝|♞|♜|
+            // 7|♟|♟|♟|♟|♟|♟|♟|♟|
             // 6|＿|＿|＿|＿|＿|＿|＿|＿|
             // 5|＿|＿|＿|＿|＿|＿|＿|＿|
             // 4|＿|＿|＿|＿|＿|＿|＿|＿|
             // 3|＿|＿|＿|＿|＿|＿|＿|＿|
-            // 2|♟|♟|♟|♟|♟|♟|♟|♟|
-            // 1|♜|♞|♝|♛|♚|♝|♞|♜|
+            // 2|♙|♙|♙|♙|♙|♙|♙|♙|
+            // 1|♖|♘|♗|♕|♔|♗|♘|♖|
 
             //for each side one king, one queen, two rooks, two bishops, two knights, and eight pawns.
 
             //The pieces are placed, one on a square, as follows:
             //The rooks are placed on the outside corners, right and left edge.
-            await CreateAndPlacePiece(chessGameId, "rook", "♜", "black", 1, 'a');
-            await CreateAndPlacePiece(chessGameId, "rook", "♜", "black", 1, 'h');
-            await CreateAndPlacePiece(chessGameId, "rook", "♖", "white", 8, 'a');
-            await CreateAndPlacePiece(chessGameId, "rook", "♖", "white", 8, 'h');
+            await CreateAndPlacePiece(chessGameId, "rook", "♜", "black", 8, 'a');
+            await CreateAndPlacePiece(chessGameId, "rook", "♜", "black", 8, 'h');
+            await CreateAndPlacePiece(chessGameId, "rook", "♖", "white", 1, 'a');
+            await CreateAndPlacePiece(chessGameId, "rook", "♖", "white", 1, 'h');
             //The knights are placed immediately inside of the rooks.
-            await CreateAndPlacePiece(chessGameId, "knight", "♞", "black", 1, 'b');
-            await CreateAndPlacePiece(chessGameId, "knight", "♞", "black", 1, 'g');
-            await CreateAndPlacePiece(chessGameId, "knight", "♘", "white", 8, 'b');
-            await CreateAndPlacePiece(chessGameId, "knight", "♘", "white", 8, 'g');
+            await CreateAndPlacePiece(chessGameId, "knight", "♞", "black", 8, 'b');
+            await CreateAndPlacePiece(chessGameId, "knight", "♞", "black", 8, 'g');
+            await CreateAndPlacePiece(chessGameId, "knight", "♘", "white", 1, 'b');
+            await CreateAndPlacePiece(chessGameId, "knight", "♘", "white", 1, 'g');
             //The bishops are placed immediately inside of the knights.
-            await CreateAndPlacePiece(chessGameId, "bishop", "♝", "black", 1, 'c');
-            await CreateAndPlacePiece(chessGameId, "bishop", "♝", "black", 1, 'f');
-            await CreateAndPlacePiece(chessGameId, "bishop", "♗", "white", 8, 'c');
-            await CreateAndPlacePiece(chessGameId, "bishop", "♗", "white", 8, 'f');
+            await CreateAndPlacePiece(chessGameId, "bishop", "♝", "black", 8, 'c');
+            await CreateAndPlacePiece(chessGameId, "bishop", "♝", "black", 8, 'f');
+            await CreateAndPlacePiece(chessGameId, "bishop", "♗", "white", 1, 'c');
+            await CreateAndPlacePiece(chessGameId, "bishop", "♗", "white", 1, 'f');
             //The queen is placed on the central square of the same color of that of the player: white queen on the white square and black queen on the black square.
-            await CreateAndPlacePiece(chessGameId, "queen", "♛", "black", 1, 'd');
-            await CreateAndPlacePiece(chessGameId, "queen", "♕", "white", 8, 'd');
+            await CreateAndPlacePiece(chessGameId, "queen", "♛", "black", 8, 'd');
+            await CreateAndPlacePiece(chessGameId, "queen", "♕", "white", 1, 'd');
             //The king takes the vacant spot next to the queen.
-            await CreateAndPlacePiece(chessGameId, "king", "♚", "black", 1, 'e');
-            await CreateAndPlacePiece(chessGameId, "king", "♔", "white", 8, 'e');
+            await CreateAndPlacePiece(chessGameId, "king", "♚", "black", 8, 'e');
+            await CreateAndPlacePiece(chessGameId, "king", "♔", "white", 1, 'e');
             //The pawns are placed one square in front of all of the other pieces.
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'a');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'b');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'c');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'd');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'e');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'f');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'g');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 2, 'h');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'a');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'b');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'c');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'd');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'e');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'f');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'g');
-            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 7, 'h');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'a');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'b');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'c');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'd');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'e');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'f');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'g');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♟", "black", 7, 'h');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'a');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'b');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'c');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'd');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'e');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'f');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'g');
+            await CreateAndPlacePiece(chessGameId, "pawn", "♙", "white", 2, 'h');
 
             //Popular mnemonics used to remember the setup are "queen on her own color" and "white on right".The latter refers to setting up the board so that the square closest to each player's right is white (Schiller 2003:16–17).
             //CreateAndPlacePieces
@@ -337,20 +325,20 @@ namespace MrPitiful.UnicodeChess
         [HttpGet("SetGameMessage/{gameId}/{message}")]
         public async Task<IActionResult> SetGameMessage(Guid gameId, string message)
         {
-            await _chessGameClient.SetStateProperty(gameId, "message", message);
+            await _chessGameController.SetStateProperty(gameId, "message", message);
             return new NoContentResult();
         }
 
         [HttpGet("GetGameMessage/{gameId}")]
         public async Task<IActionResult> GetGameMessage(Guid gameId)
         {
-            return Content(await _chessGameClient.GetStateProperty(gameId, "message"));
+            return Content((await _chessGameController.GetStateProperty(gameId, "message")).Value);
         }
 
         [HttpGet("ClearGameMessage/{gameId}")]
         public async Task<IActionResult> ClearGameMessage(Guid gameId)
         {
-            await _chessGameClient.ClearStateProperty(gameId, "message");
+            await _chessGameController.ClearStateProperty(gameId, "message");
             return new NoContentResult();
         }
 
@@ -422,7 +410,7 @@ namespace MrPitiful.UnicodeChess
             //The player controlling the white pieces is named "white";
             //The player controlling the black pieces is named "black".
             //White moves first, then players alternate moves.
-            await _chessGameClient.SetStateProperty(chessGameId, "nextplayer", "white");
+            await _chessGameController.SetStateProperty(chessGameId, "nextplayer", "white");
             await SetGameMessage(chessGameId, "New game set up!\n");
 
 
@@ -432,19 +420,19 @@ namespace MrPitiful.UnicodeChess
         public async Task<Boolean> MoveIsValid(Guid chessGamePieceId, Guid chessGameBoardSpaceId)
         {
             //will be adding rules.  For now, all moves are valid!
-            return true;
+            return await Task.Run(()=> { return true; });
         }
 
         public async Task MoveGamePieceToGameBoardSpace(Guid gamePieceId, Guid gameBoardSpaceId)
         {
-            //get old space
-            var oldGameBoardSpaceId = await _chessGamePieceClient.GetGamePieceGameBoardSpaceId(gamePieceId);
-            //remove piece from old space
-            await _chessGameBoardSpaceClient.RemoveGamePieceIdFromGameBoardSpace(gamePieceId, oldGameBoardSpaceId);
-            //add piece to new space
-            await _chessGameBoardSpaceClient.AddGamePieceIdToGameBoardSpace(gamePieceId, gameBoardSpaceId);
-            //update piece's spaceId
-            await _chessGamePieceClient.SetGamePieceGameBoardSpaceId(gamePieceId, gameBoardSpaceId);
+            //get gamePiece
+            var gamePiece = (ChessGamePiece) await _chessGamePieceController.Get(gamePieceId);
+            //get rid of ambiguity by removing the gameBoardSpace object
+            gamePiece.GameBoardSpace = null;
+            //update the gameboardspaceId
+            gamePiece.GameBoardSpaceId = gameBoardSpaceId;
+            //put the piece
+            await _chessGamePieceController.Put(gamePiece);
         }
 
         public async Task Capture(Guid chessGameId, Guid capturingPieceId, Guid capturedPieceId)
@@ -452,34 +440,17 @@ namespace MrPitiful.UnicodeChess
             //eventually we want to report something here, but for now just remove capturedPiece from game.
             //!!NEED TO ADD ABILITY TO DELETE GAME OBJECTS
 
-            string capturingPieceColor = await _chessGamePieceClient.GetStateProperty(capturingPieceId, "color");
-            string capturedPieceColor = await _chessGamePieceClient.GetStateProperty(capturedPieceId, "color");
-            string capturingPieceName = await _chessGamePieceClient.GetStateProperty(capturingPieceId, "name");
-            string capturedPieceName = await _chessGamePieceClient.GetStateProperty(capturedPieceId, "name");
+            string capturingPieceColor = (await _chessGamePieceController.GetStateProperty(capturingPieceId, "color")).Value;
+            string capturedPieceColor = (await _chessGamePieceController.GetStateProperty(capturedPieceId, "color")).Value;
+            string capturingPieceName = (await _chessGamePieceController.GetStateProperty(capturingPieceId, "name")).Value;
+            string capturedPieceName = (await _chessGamePieceController.GetStateProperty(capturedPieceId, "name")).Value;
             await SetGameMessage(chessGameId,
                 ((ContentResult)(await GetGameMessage(chessGameId))).Content +
                 string.Format("{0} {1} captures {2} {3}!\n", capturingPieceColor, capturingPieceName, capturedPieceColor, capturedPieceName)
                 );
 
-            //get captured piece
-            var capturedPiece = await _chessGamePieceClient.Get(capturedPieceId);
-
-            //remove captured piece from gameBoardSpace
-            await _chessGameBoardSpaceClient.RemoveGamePieceIdFromGameBoardSpace(capturedPiece.Id, capturedPiece.GameBoardSpaceId);
-            //remove gameBoardSpaceId from capturedPiece
-            await _chessGamePieceClient.SetGamePieceGameBoardSpaceId(capturedPiece.Id, Guid.Empty);
-
-            //remove captured peice from gameBoard
-            //NOT IMPLEMENTED
-            //remove gameBoardId from capturedPiece
-            await _chessGamePieceClient.SetGamePieceGameBoardId(capturedPiece.Id, Guid.Empty);
-
-            //remove captured piece from game
-            await _chessGameClient.RemoveGamePieceIdFromGame(capturedPiece.Id, capturedPiece.GameId);
-            //remove gameId from capturedPiece
-            await _chessGamePieceClient.SetGamePieceGameId(capturedPiece.Id, Guid.Empty);
-
             //DELETE CAPTURED PIECE
+            await _chessGamePieceController.Delete(capturedPieceId);
         }
 
         [HttpGet("Move/{chessGameId}/{moveToFile}/{moveToRank}/{moveFromFile}/{moveFromRank}")]
@@ -518,23 +489,23 @@ namespace MrPitiful.UnicodeChess
             //  The pawn is also involved in the two special moves en passant and promotion (Schiller 2003:17–19).
 
             // get two spaces
-            var spaceMoveTo = await GetSpaceByRankAndFile(chessGameId, moveToRank, moveToFile);
-            var spaceMoveFrom = await GetSpaceByRankAndFile(chessGameId, moveFromRank, moveFromFile);
-            var chessGamePieceId = (await _chessGameBoardSpaceClient.GetGameBoardSpaceGamePieceIds(spaceMoveFrom.Id))[0];
+            var spaceMoveTo = await GetSpaceByFileAndRank(chessGameId, moveToFile, moveToRank);
+            var spaceMoveFrom = await GetSpaceByFileAndRank(chessGameId, moveFromFile, moveFromRank);
+            var chessGamePieceId = (await _chessGameBoardSpaceController.GetGamePieces(spaceMoveFrom.Id))[0].Id;
             //If move is valid
             if (await MoveIsValid(chessGamePieceId, spaceMoveTo.Id))
             {
-                string pieceColor = await _chessGamePieceClient.GetStateProperty(chessGamePieceId, "color");
-                string pieceName = await _chessGamePieceClient.GetStateProperty(chessGamePieceId, "name");
+                string pieceColor = (await _chessGamePieceController.GetStateProperty(chessGamePieceId, "color")).Value;
+                string pieceName = (await _chessGamePieceController.GetStateProperty(chessGamePieceId, "name")).Value;
                 await SetGameMessage(chessGameId,
                     ((ContentResult)(await GetGameMessage(chessGameId))).Content +
                     String.Format("{0} {1} moves from {2}{3} to {4}{5}\n", pieceColor, pieceName, moveFromFile, moveFromRank, moveToFile, moveToRank)
                     );
                 //Capture if space is occupied
-                var piecesOnSpaceMoveTo = await _chessGameBoardSpaceClient.GetGameBoardSpaceGamePieceIds(spaceMoveTo.Id);
+                var piecesOnSpaceMoveTo = await _chessGameBoardSpaceController.GetGamePieces(spaceMoveTo.Id);
                 if (piecesOnSpaceMoveTo.Count > 0)
                 {
-                    await Capture(chessGameId,chessGamePieceId, piecesOnSpaceMoveTo[0]);
+                    await Capture(chessGameId,chessGamePieceId, piecesOnSpaceMoveTo[0].Id);
                 }
                 //Move to Space
                 await MoveGamePieceToGameBoardSpace(chessGamePieceId, spaceMoveTo.Id);
@@ -564,11 +535,11 @@ namespace MrPitiful.UnicodeChess
                 for (char file = 'a'; file <='h'; file++)
                 {
                     string symbolToDisplay = "＿";
-                    var currentSpace = await GetSpaceByRankAndFile(chessGameId, rank, file);
-                    var occupyingPieces = await _chessGameBoardSpaceClient.GetGameBoardSpaceGamePieceIds(currentSpace.Id);
+                    var currentSpace = await GetSpaceByFileAndRank(chessGameId, file, rank);
+                    var occupyingPieces = await _chessGameBoardSpaceController.GetGamePieces(currentSpace.Id);
                     if (occupyingPieces.Count > 0)
                     {
-                        symbolToDisplay = await _chessGamePieceClient.GetStateProperty(occupyingPieces[0], "symbol");
+                        symbolToDisplay = (await _chessGamePieceController.GetStateProperty(occupyingPieces[0].Id, "symbol")).Value;
                     }
                     chessBoardString += String.Format("{0}|", symbolToDisplay);    
                 }
@@ -579,7 +550,7 @@ namespace MrPitiful.UnicodeChess
         [HttpGet("StartGame")]
         public async Task<IActionResult> StartGame()
         {
-            var createdGame = await _chessGameClient.Create();
+            var createdGame = await _chessGameController.Post();
             //await ClearGameMessage(createdGame.Id);
             await InitialSetup(createdGame.Id);
             return new ObjectResult(createdGame.Id);

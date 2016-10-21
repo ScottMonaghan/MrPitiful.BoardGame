@@ -6,9 +6,9 @@ using MrPitiful.BoardGame.Base;
 namespace MrPitiful.UnicodeChess
 {
     [Route("api/[controller]")]
-    public class ChessGamePieceController : GamePieceController
+    public class ChessGameBoardSpaceController : GameBoardSpaceController
     {
-        public ChessGamePieceController(IGamePieceRepository gamePieceRepository, GamePiece gamePiece) : base(gamePieceRepository, gamePiece)
+        public ChessGameBoardSpaceController(BoardGameDbContext context) : base(context)
         {
         }
     }

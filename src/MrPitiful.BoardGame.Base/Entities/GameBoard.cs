@@ -8,7 +8,8 @@ namespace MrPitiful.BoardGame.Base
 { 
     public class GameBoard : GameObject
     {
-        public GameBoard(){}   
+        public GameBoard(){} 
+        public Game Game { get; set; }  
         public List<GameBoardSpace> GameBoardSpaces
         { get; set; }
     }
