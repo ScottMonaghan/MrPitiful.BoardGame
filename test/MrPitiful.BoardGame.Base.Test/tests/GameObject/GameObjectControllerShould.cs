@@ -149,7 +149,7 @@ namespace MrPitiful.BoardGame.Base.Test
                 new StateProperty() {Name = statePropertyName2, Value = statePropertyGoodValue}
             };
 
-            //create gameObjects
+            //create good game object we expect to return with state that match filter
             var goodGameObject = new GameObject()
             {
                 GameId = mockGameId,
@@ -159,6 +159,7 @@ namespace MrPitiful.BoardGame.Base.Test
                 }
             };
 
+            //create bad game object we DON'T expect to return with state properties that don't match filter
             var badGameObject = new GameObject()
             {
                 GameId = mockGameId,
@@ -168,10 +169,12 @@ namespace MrPitiful.BoardGame.Base.Test
                 }
             };
 
+            //post the games
             goodGameObject = await _gameObjectController.Post(goodGameObject);
             badGameObject = await _gameObjectController.Post(badGameObject);
 
             //act
+            //get games filtered by stateproperties
             var gotGameObjects = await _gameObjectController.GetByStateProperties(
                 mockGameId, 
                 statePropertiesToFilter
