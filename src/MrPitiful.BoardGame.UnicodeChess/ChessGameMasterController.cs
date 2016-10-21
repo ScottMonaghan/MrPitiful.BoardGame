@@ -71,8 +71,6 @@ namespace MrPitiful.UnicodeChess
                 },
                 //add ChessBoardSpace to gameboard
                 GameBoardId = chessGameBoardId,
-                //add ChessBoardSpace to game
-                GameId = chessGameId
             };
 
             //save 
@@ -86,9 +84,9 @@ namespace MrPitiful.UnicodeChess
             await _chessGameBoardSpaceController.PostAdjacentSpace(gameBoardSpaceId2, gameBoardSpaceId1, directionFrom2to1);
         }
 
-        public async Task<ChessGameBoardSpace> GetSpaceByFileAndRank(Guid chessGameId, char file, int rank)
+        public async Task<ChessGameBoardSpace> GetSpaceByFileAndRank(Guid chessGameBoxId, char file, int rank)
         {
-            var response = await _chessGameBoardSpaceController.GetByStateProperties(chessGameId,
+            var response = await _chessGameBoardSpaceController.GetByStateProperties(chessGameBoxId,
                                 new List<StateProperty>()
                                 {
                                     new StateProperty() { Name="file", Value=file.ToString() },
@@ -221,7 +219,6 @@ namespace MrPitiful.UnicodeChess
         {
             ChessGamePiece newPiece = (ChessGamePiece) await _chessGamePieceController.Post(
                 new ChessGamePiece() {
-                    GameId = chessGameId,
                     StateProperties =
                     {
                         new StateProperty() {Name = "name", Value = pieceName },

@@ -54,31 +54,31 @@ namespace MrPitiful.BoardGame.Base.Test
         public async Task PostAGameObjectWithGameIdAndGetById()
         {
             //Arrange
-            Guid testGameId = Guid.NewGuid();
-            GameObject testGameObject = new GameObject() { GameId = testGameId };
+            Guid testGameBoxId = Guid.NewGuid();
+            GameObject testGameObject = new GameObject() { GameBoxId = testGameBoxId };
 
             //Act 
             GameObject postedGameObject = await _gameObjectController.Post(testGameObject);
 
             //Assert
-            Assert.Equal(testGameId, (await _gameObjectController.Get(postedGameObject.Id)).GameId);
+            Assert.Equal(testGameBoxId, (await _gameObjectController.Get(postedGameObject.Id)).GameBoxId);
         }
 
         [Fact]
         public async Task PostAndPutGameObject()
         {
             //Arrange
-            Guid testGameId = Guid.NewGuid();
-            Guid updatedGameId = Guid.NewGuid();
+            Guid testGameBoxId = Guid.NewGuid();
+            Guid updatedGameBoxId = Guid.NewGuid();
             //post a game object
-            GameObject postedGameObject = await _gameObjectController.Post(new GameObject() { GameId = testGameId });
-            //change GameId
-            postedGameObject.GameId = updatedGameId;
+            GameObject postedGameObject = await _gameObjectController.Post(new GameObject() { GameBoxId = testGameBoxId });
+            //change GameBoxId
+            postedGameObject.GameBoxId = updatedGameBoxId;
 
             //Act 
             await _gameObjectController.Put(postedGameObject);
 
-            Assert.Equal(updatedGameId, (await _gameObjectController.Get(postedGameObject.Id)).GameId);
+            Assert.Equal(updatedGameBoxId, (await _gameObjectController.Get(postedGameObject.Id)).GameBoxId);
         }
 
         [Fact]
@@ -136,7 +136,7 @@ namespace MrPitiful.BoardGame.Base.Test
 
 
             //arrange
-            Guid mockGameId = Guid.NewGuid();
+            Guid mockGameBoxId = Guid.NewGuid();
             string statePropertyName1 = "statePropertyName1";
             string statePropertyName2 = "statePropertyName2";
             string statePropertyGoodValue = "statePropertyGoodValue";
@@ -152,7 +152,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //create good game object we expect to return with state that match filter
             var goodGameObject = new GameObject()
             {
-                GameId = mockGameId,
+                GameBoxId = mockGameBoxId,
                 StateProperties = new List<StateProperty> {
                     new StateProperty() {Name = statePropertyName1, Value = statePropertyGoodValue},
                     new StateProperty() {Name = statePropertyName2, Value = statePropertyGoodValue}
@@ -162,7 +162,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //create bad game object we DON'T expect to return with state properties that don't match filter
             var badGameObject = new GameObject()
             {
-                GameId = mockGameId,
+                GameBoxId = mockGameBoxId,
                 StateProperties = new List<StateProperty> {
                     new StateProperty() {Name = statePropertyName1, Value = statePropertyGoodValue},
                     new StateProperty() {Name = statePropertyName2, Value = statePropertyBadValue}
@@ -176,7 +176,7 @@ namespace MrPitiful.BoardGame.Base.Test
             //act
             //get games filtered by stateproperties
             var gotGameObjects = await _gameObjectController.GetByStateProperties(
-                mockGameId, 
+                mockGameBoxId, 
                 statePropertiesToFilter
                 );
 

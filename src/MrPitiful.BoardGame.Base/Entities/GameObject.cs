@@ -8,8 +8,11 @@ namespace MrPitiful.BoardGame.Base
     {
         public Guid Id { get; set; }
 
-        public Guid GameId{ get; set; }
+        //spublic Guid GameId{ get; set; }
         
         public List<StateProperty> StateProperties{ get; set; }
+
+        public GameBox GameBox { get; set; }
+        public Guid GameBoxId { get; set; }
     }
 }

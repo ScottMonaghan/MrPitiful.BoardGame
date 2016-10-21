@@ -55,13 +55,13 @@ namespace MrPitiful.BoardGame.Base
             return gameObject;
         }
 
-        [HttpPost("GetByStateProperties/{gameId}")]
-        public async Task<List<GameObject>> GetByStateProperties (Guid gameId, [FromBody]List<StateProperty> statePropertiesToFilter)
+        [HttpPost("GetByStateProperties/{gameBoxId}")]
+        public async Task<List<GameObject>> GetByStateProperties (Guid gameBoxId, [FromBody]List<StateProperty> statePropertiesToFilter)
         {
             //this some crazyass linq               
             return await _context.StateProperties.Where(
                 //first filter down to state properties that are equal to the provided filter
-                sp => sp.GameObject.GameId == gameId && statePropertiesToFilter.Exists(f => f.Name == sp.Name && f.Value == sp.Value)
+                sp => sp.GameObject.GameBoxId == gameBoxId && statePropertiesToFilter.Exists(f => f.Name == sp.Name && f.Value == sp.Value)
             )
             //next group by gameobject
             .GroupBy(sp => sp.GameObject)

@@ -9,10 +9,7 @@ namespace MrPitiful.BoardGame.Base
     public class GamePiece : GameObject
     {
         public GamePiece() { }
-        public Game Game {get; set;}
-        public Guid GameBoardId { get; set; }
-        public GameBoard GameBoard { get; set; }
         public Guid GameBoardSpaceId { get; set; }
-        public GameBoard GameBoardSpace { get; set; }
+        public GameBoardSpace GameBoardSpace { get; set; }
     }
 }
