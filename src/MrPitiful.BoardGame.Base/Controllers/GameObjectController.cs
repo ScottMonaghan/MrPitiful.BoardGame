@@ -6,40 +6,40 @@ using System.Threading.Tasks;
 using System.Linq;
 namespace MrPitiful.BoardGame.Base
 {
- 
+
     [Route("api/[controller]")]
-    public class GameObjectController : Controller
+    public abstract class GameObjectController : Controller
     {
 
         private BoardGameDbContext _context;
         //private IGameObject _gameObject;
         // GET api/values
- 
+
         public GameObjectController(BoardGameDbContext context)
         {
             _context = context;
         }
-
+        /*
         [HttpGet]
-        public async Task<List<GameObject>> Get()
+        public virtual async Task<List<GameObject>> Get()
         {
             return await _context.GameObjects.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<GameObject> Get(Guid id)
+        public virtual async Task<GameObject> Get(Guid id)
         {
             return await _context.GameObjects.SingleAsync(gameObject => gameObject.Id == id);
         }
         
         [HttpPost]
-        public async Task<GameObject> Post()
+        public virtual async Task<GameObject> Post()
         {
             return await Post(new GameObject());
         }
 
         [HttpPost]
-        public async Task<GameObject> Post([FromBody]GameObject gameObject)
+        public virtual async Task<GameObject> Post([FromBody]GameObject gameObject)
         {
             _context.GameObjects.Add(gameObject);
             await _context.SaveChangesAsync();
@@ -47,16 +47,16 @@ namespace MrPitiful.BoardGame.Base
         }
 
         [HttpPut]
-        public async Task<GameObject> Put([FromBody]GameObject gameObject)
+        public virtual async Task<GameObject> Put([FromBody]GameObject gameObject)
         {
             _context.Attach(gameObject);
             _context.Entry(gameObject).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return gameObject;
         }
-
+        */
         [HttpPost("GetByStateProperties/{gameBoxId}")]
-        public async Task<List<GameObject>> GetByStateProperties (Guid gameBoxId, [FromBody]List<StateProperty> statePropertiesToFilter)
+        public virtual async Task<List<GameObject>> GetByStateProperties(Guid gameBoxId, [FromBody]List<StateProperty> statePropertiesToFilter)
         {
             //this some crazyass linq               
             return await _context.StateProperties.Where(
@@ -76,10 +76,10 @@ namespace MrPitiful.BoardGame.Base
         [HttpGet("GetStateProperty/{gameObjectId}/{name}")]
         public async Task<StateProperty> GetStateProperty(Guid gameObjectId, string name)
         {
-            return await 
+            return await
                 _context.StateProperties
-                .SingleAsync(stateProperty => 
-                    stateProperty.GameObjectId == gameObjectId && 
+                .SingleAsync(stateProperty =>
+                    stateProperty.GameObjectId == gameObjectId &&
                     stateProperty.Name == name
                     );
         }
@@ -90,7 +90,8 @@ namespace MrPitiful.BoardGame.Base
             if (await _context.StateProperties.AnyAsync(stateProperty => stateProperty.GameObjectId == gameObjectId && stateProperty.Name == name))
             {
                 (await GetStateProperty(gameObjectId, name)).Value = value;
-            } else
+            }
+            else
             {
                 _context.StateProperties.Add(new StateProperty() { GameObjectId = gameObjectId, Name = name, Value = value });
             }
@@ -102,18 +103,6 @@ namespace MrPitiful.BoardGame.Base
         {
             await SetStateProperty(gameObjectId, name, "");
         }
-
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public async Task Delete(Guid id)
-        {
-            if (await _context.GameObjects.AnyAsync(gameObject => gameObject.Id == id))
-            {
-                var deletedGameObject = await _context.GameObjects.SingleAsync(gameObject => gameObject.Id == id);
-                _context.GameObjects.Remove(deletedGameObject);
-                await _context.SaveChangesAsync();
-            }
-        }
     }
+
 }

@@ -8,8 +8,8 @@ using MrPitiful.BoardGame.Base;
 namespace MrPitiful.BoardGame.UnicodeChess.Migrations
 {
     [DbContext(typeof(BoardGameDbContext))]
-    [Migration("20161021065418_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20161025023030_MyFirstMigration")]
+    partial class MyFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,7 +61,7 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
 
                     b.HasIndex("GameBoxId");
 
-                    b.ToTable("GameObjects");
+                    b.ToTable("GameObject");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("GameObject");
                 });

@@ -5,37 +5,51 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net.Http;
+using MrPitiful.BoardGame.Base;
 using Xunit;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MrPitiful.UnicodeChess.Test
 {
     //now we can run our unit tests against Generic Game!
     public class ChessGameMasterControllerShould
     {
-        private readonly TestServer _server;
-        private readonly HttpClient _client;
-        private ChessGameClient _chessGameClient;
-        private ChessGameBoardClient _chessGameBoardClient;
-        private ChessGameBoardSpaceClient _chessGameBoardSpaceClient;
-        private ChessGamePieceClient _chessGamePieceClient;
+        //private readonly TestServer _server;
+        //private readonly HttpClient _client;
+        private BoardGameDbContext _context;
         private ChessGameMasterController _ChessGameMasterController;
-
+        private ChessGameController _chessGameController;
+        private ChessGameBoardController _chessGameBoardController;
+        private ChessGameBoardSpaceController _chessGameBoardSpaceController;
+        private ChessGamePieceController _chessGamePieceController;
         public ChessGameMasterControllerShould()
         {
-            _server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>());
-            _client = _server.CreateClient();
-            _chessGameClient = new ChessGameClient(_client);
-            _chessGameBoardClient = new ChessGameBoardClient(_client);
-            _chessGameBoardSpaceClient = new ChessGameBoardSpaceClient(_client);
-            _chessGamePieceClient = new ChessGamePieceClient(_client);
-            _ChessGameMasterController = new ChessGameMasterController(
-                _chessGameClient,
-                _chessGameBoardClient,
-                _chessGameBoardSpaceClient,
-                _chessGamePieceClient
-                );
+            _context = new BoardGameDbContext(CreateNewContextOptions());
+            _chessGameBoardController = new ChessGameBoardController(_context);
+            _chessGameBoardSpaceController = new ChessGameBoardSpaceController(_context);
+            _chessGameController = new ChessGameController(_context);
+            _chessGamePieceController = new ChessGamePieceController(_context);
+            _ChessGameMasterController = new ChessGameMasterController(_context);                );
+        }
+
+        private static DbContextOptions<BoardGameDbContext> CreateNewContextOptions()
+        {
+            // Create a fresh service provider, and therefore a fresh 
+            // InMemory database instance.
+            var serviceProvider = new ServiceCollection()
+                .AddEntityFrameworkInMemoryDatabase()
+                .BuildServiceProvider();
+
+            // Create a new options instance telling the context to use an
+            // InMemory database and the new service provider.
+            var builder = new DbContextOptionsBuilder<BoardGameDbContext>();
+            builder.UseInMemoryDatabase()
+                   .UseInternalServiceProvider(serviceProvider);
+
+            return builder.Options;
         }
 
         [Fact]

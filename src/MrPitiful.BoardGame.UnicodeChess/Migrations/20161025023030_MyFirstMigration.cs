@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MrPitiful.BoardGame.UnicodeChess.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class MyFirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,7 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GameObjects",
+                name: "GameObject",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -34,29 +34,29 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameObjects", x => x.Id);
+                    table.PrimaryKey("PK_GameObject", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GameObjects_GameObjects_GameId",
+                        name: "FK_GameObject_GameObject_GameId",
                         column: x => x.GameId,
-                        principalTable: "GameObjects",
+                        principalTable: "GameObject",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_GameObjects_GameObjects_GameBoardId",
+                        name: "FK_GameObject_GameObject_GameBoardId",
                         column: x => x.GameBoardId,
-                        principalTable: "GameObjects",
+                        principalTable: "GameObject",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_GameObjects_GameBoxes_GameBoxId",
+                        name: "FK_GameObject_GameBoxes_GameBoxId",
                         column: x => x.GameBoxId,
                         principalTable: "GameBoxes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GameObjects_GameObjects_GameBoardSpaceId",
+                        name: "FK_GameObject_GameObject_GameBoardSpaceId",
                         column: x => x.GameBoardSpaceId,
-                        principalTable: "GameObjects",
+                        principalTable: "GameObject",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -74,15 +74,15 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
                 {
                     table.PrimaryKey("PK_AdjacentSpaces", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AdjacentSpaces_GameObjects_AdjacentGameBoardSpaceId",
+                        name: "FK_AdjacentSpaces_GameObject_AdjacentGameBoardSpaceId",
                         column: x => x.AdjacentGameBoardSpaceId,
-                        principalTable: "GameObjects",
+                        principalTable: "GameObject",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AdjacentSpaces_GameObjects_ParentGameBoardSpaceId",
+                        name: "FK_AdjacentSpaces_GameObject_ParentGameBoardSpaceId",
                         column: x => x.ParentGameBoardSpaceId,
-                        principalTable: "GameObjects",
+                        principalTable: "GameObject",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -100,9 +100,9 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
                 {
                     table.PrimaryKey("PK_StateProperties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StateProperties_GameObjects_GameObjectId",
+                        name: "FK_StateProperties_GameObject_GameObjectId",
                         column: x => x.GameObjectId,
-                        principalTable: "GameObjects",
+                        principalTable: "GameObject",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -118,24 +118,24 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
                 column: "ParentGameBoardSpaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameObjects_GameBoxId",
-                table: "GameObjects",
+                name: "IX_GameObject_GameBoxId",
+                table: "GameObject",
                 column: "GameBoxId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameObjects_GameId",
-                table: "GameObjects",
+                name: "IX_GameObject_GameId",
+                table: "GameObject",
                 column: "GameId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameObjects_GameBoardId",
-                table: "GameObjects",
+                name: "IX_GameObject_GameBoardId",
+                table: "GameObject",
                 column: "GameBoardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameObjects_GameBoardSpaceId",
-                table: "GameObjects",
+                name: "IX_GameObject_GameBoardSpaceId",
+                table: "GameObject",
                 column: "GameBoardSpaceId");
 
             migrationBuilder.CreateIndex(
@@ -153,7 +153,7 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
                 name: "StateProperties");
 
             migrationBuilder.DropTable(
-                name: "GameObjects");
+                name: "GameObject");
 
             migrationBuilder.DropTable(
                 name: "GameBoxes");

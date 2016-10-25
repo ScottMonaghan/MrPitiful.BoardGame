@@ -60,7 +60,7 @@ namespace MrPitiful.BoardGame.UnicodeChess.Migrations
 
                     b.HasIndex("GameBoxId");
 
-                    b.ToTable("GameObjects");
+                    b.ToTable("GameObject");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("GameObject");
                 });

@@ -10,15 +10,15 @@ using Microsoft.Extensions.DependencyInjection;
 namespace MrPitiful.BoardGame.Base.Test
 {
     //now we can run our unit tests against Generic Game!
-    public class GameObjectControllerShould
+    public class GameControllerShould
     {
         private readonly BoardGameDbContext _context;
-        private readonly GameObjectController _gameObjectController;
+        private readonly GameController _gameController;
 
-        public GameObjectControllerShould()
+        public GameControllerShould()
         {
             _context = new BoardGameDbContext(CreateNewContextOptions());
-            _gameObjectController = new GameObjectController(_context);
+            _gameController = new GameController(_context);
         }
 
         private static DbContextOptions<BoardGameDbContext> CreateNewContextOptions()
@@ -39,59 +39,59 @@ namespace MrPitiful.BoardGame.Base.Test
         }
 
         [Fact]
-        public async Task PostAndGetAnEmptyGameObject()
+        public async Task PostAndGetAnEmptyGame()
         {
             //Arrange
 
             //Act 
-            await _gameObjectController.Post();
+            await _gameController.Post();
 
             //Assert
-            Assert.Equal(1, (await _gameObjectController.Get()).Count); 
+            Assert.Equal(1, (await _gameController.Get()).Count); 
         }
 
         [Fact]
-        public async Task PostAGameObjectWithGameIdAndGetById()
+        public async Task PostAGameWithGameIdAndGetById()
         {
             //Arrange
             Guid testGameBoxId = Guid.NewGuid();
-            GameObject testGameObject = new GameObject() { GameBoxId = testGameBoxId };
+            Game testGame = new Game() { GameBoxId = testGameBoxId };
 
             //Act 
-            GameObject postedGameObject = await _gameObjectController.Post(testGameObject);
+            Game postedGame = await _gameController.Post(testGame);
 
             //Assert
-            Assert.Equal(testGameBoxId, (await _gameObjectController.Get(postedGameObject.Id)).GameBoxId);
+            Assert.Equal(testGameBoxId, (await _gameController.Get(postedGame.Id)).GameBoxId);
         }
 
         [Fact]
-        public async Task PostAndPutGameObject()
+        public async Task PostAndPutGame()
         {
             //Arrange
             Guid testGameBoxId = Guid.NewGuid();
             Guid updatedGameBoxId = Guid.NewGuid();
             //post a game object
-            GameObject postedGameObject = await _gameObjectController.Post(new GameObject() { GameBoxId = testGameBoxId });
+            Game postedGame = await _gameController.Post(new Game() { GameBoxId = testGameBoxId });
             //change GameBoxId
-            postedGameObject.GameBoxId = updatedGameBoxId;
+            postedGame.GameBoxId = updatedGameBoxId;
 
             //Act 
-            await _gameObjectController.Put(postedGameObject);
+            await _gameController.Put(postedGame);
 
-            Assert.Equal(updatedGameBoxId, (await _gameObjectController.Get(postedGameObject.Id)).GameBoxId);
+            Assert.Equal(updatedGameBoxId, (await _gameController.Get(postedGame.Id)).GameBoxId);
         }
 
         [Fact]
-        public async Task PostAndDeleteGameObject()
+        public async Task PostAndDeleteGame()
         {
             //Arrange 
-            GameObject postedGameObject = await _gameObjectController.Post();
+            Game postedGame = await _gameController.Post();
 
             //Act
-            await _gameObjectController.Delete(postedGameObject.Id);
+            await _gameController.Delete(postedGame.Id);
             
             //Assert
-            Assert.Equal(0, (await _gameObjectController.Get()).Count);
+            Assert.Equal(0, (await _gameController.Get()).Count);
         }
 
         [Fact]
@@ -100,12 +100,12 @@ namespace MrPitiful.BoardGame.Base.Test
             //arrange
             string propertyName = "propertyName";
             string propertyValue = "propertyValue";
-            GameObject postedGameObject = await _gameObjectController.Post();
+            Game postedGame = await _gameController.Post();
             //act
-            await _gameObjectController.SetStateProperty(postedGameObject.Id, propertyName, propertyValue);
+            await _gameController.SetStateProperty(postedGame.Id, propertyName, propertyValue);
 
             //assert
-            Assert.Equal(propertyValue, (await _gameObjectController.GetStateProperty(postedGameObject.Id, propertyName)).Value);
+            Assert.Equal(propertyValue, (await _gameController.GetStateProperty(postedGame.Id, propertyName)).Value);
         }
 
         [Fact]
@@ -115,22 +115,22 @@ namespace MrPitiful.BoardGame.Base.Test
             string propertyName = "propertyName";
             string originalPropertyValue = "originalPropertyValue";
             string updatedPropertyValue = "updatedPropertyValue";
-            GameObject postedGameObject = await _gameObjectController.Post();
+            Game postedGame = await _gameController.Post();
             //act
-            await _gameObjectController.SetStateProperty(postedGameObject.Id, propertyName, originalPropertyValue);
-            await _gameObjectController.SetStateProperty(postedGameObject.Id, propertyName, updatedPropertyValue);
+            await _gameController.SetStateProperty(postedGame.Id, propertyName, originalPropertyValue);
+            await _gameController.SetStateProperty(postedGame.Id, propertyName, updatedPropertyValue);
 
             //assert
-            Assert.Equal(updatedPropertyValue, (await _gameObjectController.GetStateProperty(postedGameObject.Id, propertyName)).Value);
+            Assert.Equal(updatedPropertyValue, (await _gameController.GetStateProperty(postedGame.Id, propertyName)).Value);
         }
 
         [Fact]
-        public async Task GetAGameObjectByStateProperties()
+        public async Task GetAGameByStateProperties()
         {
             /*
-             * For this test we'll create two gameObjects
+             * For this test we'll create two games
              * We'll set two state properties for each
-             * Only the first gameObject should return based 
+             * Only the first game should return based 
              * on the state properties we set 
             */
 
@@ -150,7 +150,7 @@ namespace MrPitiful.BoardGame.Base.Test
             };
 
             //create good game object we expect to return with state that match filter
-            var goodGameObject = new GameObject()
+            var goodGame = new Game()
             {
                 GameBoxId = mockGameBoxId,
                 StateProperties = new List<StateProperty> {
@@ -160,7 +160,7 @@ namespace MrPitiful.BoardGame.Base.Test
             };
 
             //create bad game object we DON'T expect to return with state properties that don't match filter
-            var badGameObject = new GameObject()
+            var badGame = new Game()
             {
                 GameBoxId = mockGameBoxId,
                 StateProperties = new List<StateProperty> {
@@ -170,19 +170,19 @@ namespace MrPitiful.BoardGame.Base.Test
             };
 
             //post the games
-            goodGameObject = await _gameObjectController.Post(goodGameObject);
-            badGameObject = await _gameObjectController.Post(badGameObject);
+            goodGame = await _gameController.Post(goodGame);
+            badGame = await _gameController.Post(badGame);
 
             //act
             //get games filtered by stateproperties
-            var gotGameObjects = await _gameObjectController.GetByStateProperties(
+            var gotGames = await _gameController.GetByStateProperties(
                 mockGameBoxId, 
                 statePropertiesToFilter
                 );
 
             //assert
-            Assert.Equal(1, gotGameObjects.Count());
-            Assert.Equal(goodGameObject.Id, gotGameObjects[0].Id);
+            Assert.Equal(1, gotGames.Count());
+            Assert.Equal(goodGame.Id, gotGames[0].Id);
         }
 
     }

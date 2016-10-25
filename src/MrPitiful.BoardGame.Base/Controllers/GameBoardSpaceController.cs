@@ -70,5 +70,52 @@ namespace MrPitiful.BoardGame.Base
         {
             return await _context.GamePieces.Where(gp => gp.GameBoardSpaceId == gameBoardSpaceId).ToListAsync();
         }
+
+        [HttpGet]
+        public virtual async Task<List<GameBoardSpace>> Get()
+        {
+            return await _context.GameBoardSpaces.ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public virtual async Task<GameBoardSpace> Get(Guid id)
+        {
+            return await _context.GameBoardSpaces.SingleAsync(gameBoardSpace => gameBoardSpace.Id == id);
+        }
+        
+        [HttpPost]
+        public virtual async Task<GameBoardSpace> Post()
+        {
+            return await Post(new GameBoardSpace());
+        }
+
+        [HttpPost]
+        public virtual async Task<GameBoardSpace> Post([FromBody]GameBoardSpace gameBoardSpace)
+        {
+            _context.GameBoardSpaces.Add(gameBoardSpace);
+            await _context.SaveChangesAsync();
+            return gameBoardSpace;
+        }
+
+        [HttpPut]
+        public virtual async Task<GameBoardSpace> Put([FromBody]GameBoardSpace gameBoardSpace)
+        {
+            _context.Attach(gameBoardSpace);
+            _context.Entry(gameBoardSpace).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return gameBoardSpace;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(Guid id)
+        {
+            if (await _context.GameBoardSpaces.AnyAsync(gameBoardSpace => gameBoardSpace.Id == id))
+            {
+                var deletedGameBoardSpace = await _context.GameBoardSpaces.SingleAsync(gameBoardSpace => gameBoardSpace.Id == id);
+                _context.GameBoardSpaces.Remove(deletedGameBoardSpace);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }

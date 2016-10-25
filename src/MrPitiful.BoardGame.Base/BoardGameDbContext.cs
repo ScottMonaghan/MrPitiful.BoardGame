@@ -11,7 +11,6 @@ namespace MrPitiful.BoardGame.Base
     {
         public BoardGameDbContext(DbContextOptions<BoardGameDbContext> options) : base(options) { }
         public DbSet<GameBox> GameBoxes { get; set; }
-        public DbSet<GameObject> GameObjects { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<GameBoard> GameBoards { get; set; }
         public DbSet<GameBoardSpace> GameBoardSpaces { get; set; }
