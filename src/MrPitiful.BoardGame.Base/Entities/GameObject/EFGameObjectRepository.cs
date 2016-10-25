@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Base
 {
@@ -10,43 +9,44 @@ namespace MrPitiful.BoardGame.Base
     {
         private GameObjectDbContext _context;
 
-        public EFGameObjectRepository(GameObjectDbContext context, GameObject gameObject)
+        public EFGameObjectRepository(GameObjectDbContext context, IGameObject gameObject)
         {
             _context = context;
         }
 
-        public async Task<GameObject> Create(GameObject gameObject)
+        public IGameObject Create(IGameObject gameObject)
         {
             _context.GameObjects.Add(gameObject);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return gameObject;
         }
 
-        public async Task<Dictionary<Guid,GameObject>> Get()
+        public Dictionary<Guid,IGameObject> Get()
         {
-            return await _context.GameObjects.ToDictionaryAsync(x => x.Id);
+            return  _context.GameObjects.ToDictionary(x => x.Id);
         }
 
-        public async Task<GameObject> Get(Guid Id)
+        public IGameObject Get(Guid Id)
         {
-            return await _context.GameObjects.SingleAsync(o => o.Id == Id);
+            return _context.GameObjects.Single(o => o.Id == Id);
         }
     
-        public async Task Save(GameObject gameObject)
+        public void Save(IGameObject gameObject)
         {
-           await _context.SaveChangesAsync();
+            //save game here
+            //this can be removed
         }
 
-        public async Task Delete(GameObject gameObject)
+        public void Delete(IGameObject gameObject)
         {
             _context.GameObjects.Remove(gameObject);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task<List<GameObject>> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
+        public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
             /*this an ugly call to sql and I'd rather filter on SQL side rather than pass all this data over*/
-            List < GameObject > filtereddGameObjects = await _context.GameObjects.Where(x => x.GameId == gameId).ToListAsync();    
+            List < IGameObject > filtereddGameObjects = _context.GameObjects.Where(x => x.GameId == gameId).ToList();    
             foreach (KeyValuePair<string,string> stateProperty in stateProperties)
             {
                 filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();

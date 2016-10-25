@@ -7,7 +7,7 @@ using System.Net.Http;
 namespace MrPitiful.BoardGame.Base
 {
     public interface IGameObjectClient<TGameObject>
-        where TGameObject:GameObject
+        where TGameObject:IGameObject
     {
         HttpClient HttpClient { get; set; }
         String ApiRoute { get; set; }

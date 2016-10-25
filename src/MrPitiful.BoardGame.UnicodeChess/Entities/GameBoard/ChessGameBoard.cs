@@ -6,5 +6,5 @@ using MrPitiful.BoardGame.Base;
 
 namespace MrPitiful.UnicodeChess
 {
-    public class ChessGameBoard : GameBoard {}
+    public class ChessGameBoard : GameBoard, IChessGameBoard {}
 }

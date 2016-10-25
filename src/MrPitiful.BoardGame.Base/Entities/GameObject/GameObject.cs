@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Base
 {
-    public class GameObject
+    public abstract class GameObject:IGameObject
     {
         private Guid _id;
         private Guid _gameId;

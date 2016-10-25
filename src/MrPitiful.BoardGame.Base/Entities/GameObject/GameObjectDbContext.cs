@@ -11,6 +11,6 @@ namespace MrPitiful.BoardGame.Base
         public GameObjectDbContext(DbContextOptions<GameObjectDbContext> options)
             : base(options) { }
 
-        public DbSet<GameObject> GameObjects { get; set; }
+        public DbSet<IGameObject> GameObjects { get; set; }
     }
 }

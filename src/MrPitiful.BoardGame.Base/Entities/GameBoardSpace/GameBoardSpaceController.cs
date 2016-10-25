@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 namespace MrPitiful.BoardGame.Base
 {
 
@@ -11,23 +10,23 @@ namespace MrPitiful.BoardGame.Base
     public abstract class GameBoardSpaceController : GameObjectController
     {
         private IGameBoardSpaceRepository _gameBoardSpaceRepository;
-        private GameBoardSpace _gameBoardSpace;
+        private IGameBoardSpace _gameBoardSpace;
 
-        public GameBoardSpaceController(IGameBoardSpaceRepository gameBoardSpaceRepository, GameBoardSpace gameBoardSpace) : base(gameBoardSpaceRepository, gameBoardSpace) {
+        public GameBoardSpaceController(IGameBoardSpaceRepository gameBoardSpaceRepository, IGameBoardSpace gameBoardSpace) : base(gameBoardSpaceRepository, gameBoardSpace) {
             _gameBoardSpaceRepository = gameBoardSpaceRepository;
             _gameBoardSpace = gameBoardSpace;
         }
 
         //Add remove verify pieceIds
         [HttpGet("AddGamePieceIdToGameBoardSpace/{gamePieceId}/{gameBoardSpaceId}")]
-        public async Task AddGamePieceIdToGameBoardSpace(Guid gamePieceId, Guid gameBoardSpaceId)
+        public void AddGamePieceIdToGameBoardSpace(Guid gamePieceId, Guid gameBoardSpaceId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
 
             if (!(gameBoardSpace.GamePieceIds.Contains(gamePieceId)))
             {
                 gameBoardSpace.GamePieceIds.Add(gamePieceId);
-                await _gameBoardSpaceRepository.Save(gameBoardSpace);
+                _gameBoardSpaceRepository.Save(gameBoardSpace);
             }
             else
             {
@@ -36,21 +35,21 @@ namespace MrPitiful.BoardGame.Base
         }
 
         [HttpGet("GameBoardSpaceContainsGamePieceId/{gameBoardSpaceId}/{gamePieceId}")]
-        public async Task<bool> GameBoardSpaceContainsGamePieceId(Guid gameBoardSpaceId, Guid gamePieceId)
+        public bool GameBoardSpaceContainsGamePieceId(Guid gameBoardSpaceId, Guid gamePieceId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
 
             return gameBoardSpace.GamePieceIds.Contains(gamePieceId);
         }
 
         [HttpGet("RemoveGamePieceIdFromGameBoardSpace/{gamePieceId}/{gameBoardSpaceId}")]
-        public async Task RemoveGamePieceIdFromGameBoardSpace(Guid gamePieceId, Guid gameBoardSpaceId)
+        public void RemoveGamePieceIdFromGameBoardSpace(Guid gamePieceId, Guid gameBoardSpaceId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             if (gameBoardSpace.GamePieceIds.Contains(gamePieceId))
             {
                 gameBoardSpace.GamePieceIds.Remove(gamePieceId);
-                await _gameBoardSpaceRepository.Save(gameBoardSpace);
+                _gameBoardSpaceRepository.Save(gameBoardSpace);
             }
             else
             {
@@ -60,26 +59,26 @@ namespace MrPitiful.BoardGame.Base
 
         //Add remove verify adjacentSpaces
         [HttpGet("AddAdjacentSpaceToGameBoardSpace/{direction}/{adjacentSpaceId}/{gameBoardSpaceId}")]
-        public async Task AddAdjacentSpaceToGameBoardSpace(string direction, Guid adjacentSpaceId, Guid gameBoardSpaceId)
+        public void AddAdjacentSpaceToGameBoardSpace(string direction, Guid adjacentSpaceId, Guid gameBoardSpaceId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
 
             gameBoardSpace.AdjacentSpaceIds[direction] = adjacentSpaceId;
-            await _gameBoardSpaceRepository.Save(gameBoardSpace);
+            _gameBoardSpaceRepository.Save(gameBoardSpace);
         }
 
         [HttpGet("RemoveAdjacentSpaceFromGameBoardSpace/{direction}/{gameBoardSpaceId}")]
-        public async Task RemoveAdjacentSpaceFromGameBoardSpace(string direction, Guid gameBoardSpaceId)
+        public void RemoveAdjacentSpaceFromGameBoardSpace(string direction, Guid gameBoardSpaceId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             gameBoardSpace.AdjacentSpaceIds.Remove(direction);
-            await _gameBoardSpaceRepository.Save(gameBoardSpace);
+            _gameBoardSpaceRepository.Save(gameBoardSpace);
         }
 
         [HttpGet("GetAdjacentSpaceIdByDirection/{gameBoardSpaceId}/{direction}")]
-        public async Task<Guid> GetAdjacentSpaceIdByDirection(Guid gameBoardSpaceId, string direction)
+        public Guid GetAdjacentSpaceIdByDirection(Guid gameBoardSpaceId, string direction)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             return gameBoardSpace.AdjacentSpaceIds[direction];
         }
 
@@ -89,9 +88,9 @@ namespace MrPitiful.BoardGame.Base
          * a single adjacent space may exist in multiple directions.
          */
         [HttpGet("GetDirectionsByAdjacentSpaceId/{gameBoardSpaceId}/{adjacentSpaceId}")]
-        public async Task<List<string>> GetDirectionsByAdjacentSpaceId(Guid gameBoardSpaceId, Guid adjacentSpaceId)
+        public List<string> GetDirectionsByAdjacentSpaceId(Guid gameBoardSpaceId, Guid adjacentSpaceId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             List<string> adjacentSpaces = new List<string>();
 
             if (gameBoardSpace.AdjacentSpaceIds.ContainsValue(adjacentSpaceId))
@@ -108,36 +107,36 @@ namespace MrPitiful.BoardGame.Base
         }
 
         [HttpGet("SetGameBoardSpaceGameId/{gameBoardSpaceId}/{gameId}")]
-        public async Task SetGameBoardSpaceGameId(Guid gameBoardSpaceId, Guid gameId)
+        public void SetGameBoardSpaceGameId(Guid gameBoardSpaceId, Guid gameId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             gameBoardSpace.GameId = gameId;
         }
 
         [HttpGet("GetGameBoardSpaceGameId/{gameBoardSpaceId}")]
-        public async Task<Guid> GetGameBoardSpaceGameId(Guid gameBoardSpaceId)
+        public Guid GetGameBoardSpaceGameId(Guid gameBoardSpaceId)
         {
-            return ((GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId)).GameId;
+            return ((IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId)).GameId;
         }
 
         [HttpGet("SetGameBoardSpaceGameBoardId/{gameBoardSpaceId}/{gameBoardId}")]
-        public async Task SetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId, Guid gameBoardId)
+        public void SetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId, Guid gameBoardId)
         {
-            GameBoardSpace gameBoardSpace = (GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId);
+            IGameBoardSpace gameBoardSpace = (IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId);
             gameBoardSpace.GameBoardId = gameBoardId;
         }
 
         [HttpGet("GetGameBoardSpaceGameBoardId/{gameBoardSpaceId}")]
-        public async Task<Guid> GetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId)
+        public Guid GetGameBoardSpaceGameBoardId(Guid gameBoardSpaceId)
         {
-            return ((GameBoardSpace) await _gameBoardSpaceRepository.Get(gameBoardSpaceId)).GameBoardId;
+            return ((IGameBoardSpace)_gameBoardSpaceRepository.Get(gameBoardSpaceId)).GameBoardId;
         }
 
         [HttpGet("GetGameBoardSpaceGamePieceIds/{gameBoardSpaceId}")]
-        public async Task<ActionResult> GetGameBoardSpaceGamePieceIds(Guid gameBoardSpaceId)
+        public ActionResult GetGameBoardSpaceGamePieceIds(Guid gameBoardSpaceId)
         {
             return new ObjectResult(
-                ((GameBoardSpace)(await _gameBoardSpaceRepository.Get(gameBoardSpaceId))).GamePieceIds
+                ((IGameBoardSpace)(_gameBoardSpaceRepository.Get(gameBoardSpaceId))).GamePieceIds
                 );       
         }
 

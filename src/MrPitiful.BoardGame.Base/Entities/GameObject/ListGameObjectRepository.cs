@@ -1,72 +1,55 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Base
 {
     public abstract class ListGameObjectRepository : IGameObjectRepository
     {
-        private Dictionary<Guid, GameObject> _gameObjects;
+        private Dictionary<Guid, IGameObject> _gameObjects;
 
-        public ListGameObjectRepository(GameObject gameObject)
+        public ListGameObjectRepository(IGameObject gameObject)
         {
-            _gameObjects = new Dictionary<Guid, GameObject>();
+            _gameObjects = new Dictionary<Guid, IGameObject>();
         }
 
-        public async Task<GameObject> Create(GameObject gameObject)
+        public IGameObject Create(IGameObject gameObject)
         {
-            return await Task.Run(() =>
-            {
-                gameObject.Id = Guid.NewGuid();
-                _gameObjects.Add(gameObject.Id, gameObject);
-                return gameObject;
-            });
+            gameObject.Id = Guid.NewGuid();
+            _gameObjects.Add(gameObject.Id, gameObject);
+            return gameObject;
         }
 
-        public async Task<Dictionary<Guid,GameObject>> Get()
+        public Dictionary<Guid,IGameObject> Get()
         {
-            Dictionary<Guid, GameObject> retVal;
-            return await Task.Run(() =>
-            {
-                return _gameObjects;
-            });
+            return _gameObjects;
         }
 
-        public async Task<GameObject> Get(Guid Id)
+        public IGameObject Get(Guid Id)
         {
-            return await Task.Run(() =>
-            {
-                return _gameObjects[Id];
-            });
+            return _gameObjects[Id];
         }
     
-        public async Task Save(GameObject gameObject)
+        public void Save(IGameObject gameObject)
         {
             //save game here
         }
 
-        public async Task Delete(GameObject gameObject)
+        public void Delete(IGameObject gameObject)
         {
-            await Task.Run(() =>
-            {
-                _gameObjects.Remove(gameObject.Id);
-            });
+            _gameObjects.Remove(gameObject.Id);
         }
 
-        public async Task<List<GameObject>> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
+        public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
-            return await Task.Run(() =>
+            List<IGameObject> filtereddGameObjects = _gameObjects.Values.ToList().Where(x => x.GameId == gameId).ToList();
+
+            foreach (KeyValuePair<string,string> stateProperty in stateProperties)
             {
-                List<GameObject> filtereddGameObjects = _gameObjects.Values.ToList().Where(x => x.GameId == gameId).ToList();
+                filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();
+            }
 
-                foreach (KeyValuePair<string, string> stateProperty in stateProperties)
-                {
-                    filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();
-                }
-
-                return filtereddGameObjects;
-            });
+            return filtereddGameObjects;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace MrPitiful.BoardGame.Base
 {
     public abstract class ListGameBoardSpaceRepository : ListGameObjectRepository, IGameBoardSpaceRepository
     {
-        public ListGameBoardSpaceRepository(GameBoardSpace gameBoardSpace) : base(gameBoardSpace)
+        public ListGameBoardSpaceRepository(IGameBoardSpace gameBoardSpace) : base(gameBoardSpace)
         {}
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Base
 {
@@ -19,22 +18,22 @@ namespace MrPitiful.BoardGame.Base
     public abstract class GameController : GameObjectController
     {
         private IGameRepository _gameRepository;
-        private Game _game; 
-        public GameController(IGameRepository gameRepository, Game game) : base(gameRepository, game) {
+        private IGame _game; 
+        public GameController(IGameRepository gameRepository, IGame game) : base(gameRepository, game) {
             _gameRepository = gameRepository;
             _game = game;
         }
 
         // GET api/game/AddPlayerIdToGame/12345/2345
         [HttpGet("AddPlayerIdToGame/{playerId}/{gameId}")]
-        public async Task<IActionResult> AddPlayerIdToGame(Guid playerId, Guid gameId)
+        public IActionResult AddPlayerIdToGame(Guid playerId, Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
 
             if (!(game.PlayerIds.Contains(playerId)))
             {
                 game.PlayerIds.Add(playerId);
-                await _gameRepository.Save(game);
+                _gameRepository.Save(game);
             }
             else
             {
@@ -44,23 +43,23 @@ namespace MrPitiful.BoardGame.Base
         }
 
         [HttpGet("GameContainsPlayerId/{gameId}/{playerId}")]
-        public async Task<IActionResult> GameContainsPlayerId(Guid gameId, Guid playerId)
+        public IActionResult GameContainsPlayerId(Guid gameId, Guid playerId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
 
             return new JsonResult(game.PlayerIds.Contains(playerId));
         }
 
         // GET api/game/RemovePlayerIdFromGame/12345/2345
         [HttpGet("RemovePlayerIdFromGame/{playerId}/{gameId}")]
-        public async Task<IActionResult> RemovePlayerIdFromGame(Guid playerId, Guid gameId)
+        public IActionResult RemovePlayerIdFromGame(Guid playerId, Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
 
             if (game.PlayerIds.Contains(playerId))
             {
                 game.PlayerIds.Remove(playerId);
-                await _gameRepository.Save(game);
+                _gameRepository.Save(game);
             }
             else
             {
@@ -71,14 +70,14 @@ namespace MrPitiful.BoardGame.Base
 
         // GET api/game/AddGamePieceIdToGame/12345/2345
         [HttpGet("AddGamePieceIdToGame/{gamePieceId}/{gameId}")]
-        public async Task<IActionResult> AddGamePieceIdToGame(Guid gamePieceId, Guid gameId)
+        public IActionResult AddGamePieceIdToGame(Guid gamePieceId, Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
 
             if (!(game.GamePieceIds.Contains(gamePieceId)))
             {
                 game.GamePieceIds.Add(gamePieceId);
-                await _gameRepository.Save(game);
+                _gameRepository.Save(game);
             }
             else
             {
@@ -88,22 +87,22 @@ namespace MrPitiful.BoardGame.Base
         }
 
         [HttpGet("GameContainsGamePieceId/{gameId}/{gamePieceId}")]
-        public async Task<IActionResult> GameContainsGamePieceId(Guid gameId, Guid gamePieceId)
+        public IActionResult GameContainsGamePieceId(Guid gameId, Guid gamePieceId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
 
             return new JsonResult(game.GamePieceIds.Contains(gamePieceId));
         }
 
         // GET api/game/RemoveGamePieceIdFromGame/12345/2345
         [HttpGet("RemoveGamePieceIdFromGame/{gamePieceId}/{gameId}")]
-        public async Task<IActionResult> RemoveGamePieceIdFromGame(Guid gamePieceId, Guid gameId)
+        public IActionResult RemoveGamePieceIdFromGame(Guid gamePieceId, Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
             if (game.GamePieceIds.Contains(gamePieceId))
             {
                 game.GamePieceIds.Remove(gamePieceId);
-                await _gameRepository.Save(game);
+                _gameRepository.Save(game);
             }
             else
             {
@@ -114,13 +113,13 @@ namespace MrPitiful.BoardGame.Base
 
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("AddGameBoardSpaceIdToGame/{gameBoardSpaceId}/{gameId}")]
-        public async Task<IActionResult> AddGameBoardSpaceIdToGame(Guid gameBoardSpaceId, Guid gameId)
+        public IActionResult AddGameBoardSpaceIdToGame(Guid gameBoardSpaceId, Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
             if (!(game.GameBoardSpaceIds.Contains(gameBoardSpaceId)))
             {
                 game.GameBoardSpaceIds.Add(gameBoardSpaceId);
-                await _gameRepository.Save(game);
+                _gameRepository.Save(game);
             }
             else
             {
@@ -130,22 +129,22 @@ namespace MrPitiful.BoardGame.Base
         }
 
         [HttpGet("GameContainsGameBoardSpaceId/{gameId}/{gameBoardSpaceId}")]
-        public async Task<bool> GameContainsGameBoardSpaceId(Guid gameId, Guid gameBoardSpaceId)
+        public bool GameContainsGameBoardSpaceId(Guid gameId, Guid gameBoardSpaceId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
 
             return game.GameBoardSpaceIds.Contains(gameBoardSpaceId);
         }
 
         // GET api/game/RemoveGameBoardSpaceIdFromGame/12345/2345
         [HttpGet("RemoveGameBoardSpaceIdFromGame/{gameBoardSpaceId}/{gameId}")]
-        public async Task<IActionResult> RemoveGameBoardSpaceIdFromGame(Guid gameBoardSpaceId, Guid gameId)
+        public IActionResult RemoveGameBoardSpaceIdFromGame(Guid gameBoardSpaceId, Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
             if (game.GameBoardSpaceIds.Contains(gameBoardSpaceId))
             {
                 game.GameBoardSpaceIds.Remove(gameBoardSpaceId);
-                await _gameRepository.Save(game);
+                _gameRepository.Save(game);
             }
             else
             {
@@ -160,7 +159,7 @@ namespace MrPitiful.BoardGame.Base
         [HttpGet("EndGame/{gameId}")]
         public void EndGame(Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
             game.EndTime = DateTime.UtcNow;
             _gameRepository.Save(game);
         }
@@ -168,24 +167,24 @@ namespace MrPitiful.BoardGame.Base
         [HttpGet("StartGame/{gameId}")]
         public void StartGame(Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
             game.StartTime = DateTime.UtcNow;
             _gameRepository.Save(game);
         }
         */
 
         [HttpGet("SetGameBoardId/{gameId}/{gameBoardId}")]
-        public async Task<IActionResult> SetGameBoardId(Guid gameId, Guid gameBoardId)
+        public IActionResult SetGameBoardId(Guid gameId, Guid gameBoardId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
             game.GameBoardId = gameBoardId;
             return new NoContentResult();
         }
 
         [HttpGet("GetGameBoardId/{gameId}")]
-        public async Task<IActionResult> GetGameBoardId(Guid gameId)
+        public IActionResult GetGameBoardId(Guid gameId)
         {
-            Game game = (Game) await _gameRepository.Get(gameId);
+            IGame game = (IGame)_gameRepository.Get(gameId);
             return new JsonResult(game.GameBoardId);
         }
     }

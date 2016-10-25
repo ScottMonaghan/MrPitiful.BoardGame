@@ -64,7 +64,7 @@ namespace MrPitiful.BoardGame.Base.Test
             response.Dispose();
             Assert.False(result);
         }
-/*
+
         [Fact]
         public async void SetAndGetGameBoardGameId()
         {
@@ -92,6 +92,5 @@ namespace MrPitiful.BoardGame.Base.Test
 
             Assert.Equal<Guid>(newGameId, gotGameId);
         }
-        */
     }
 }

@@ -4,4 +4,3 @@ obj
 src/MrPitiful.BoardGame.Base/project.lock.json
 src/MrPitiful.BoardGame.UnicodeChess/project.lock.json
 test/MrPitiful.BoardGame.Base.Test/project.lock.json
-src/MrPitiful.SlackChess/project.lock.json

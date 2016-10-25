@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Base
 {
-    public abstract class GameBoardSpace : GameObject
+    public abstract class GameBoardSpace : GameObject, IGameBoardSpace
     {
         private List<Guid> _gamePieceIds;
         private Dictionary<string, Guid> _adjacentSpaceIds;

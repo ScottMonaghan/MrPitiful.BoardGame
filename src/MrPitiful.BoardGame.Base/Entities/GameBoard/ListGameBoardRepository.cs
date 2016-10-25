@@ -2,7 +2,7 @@
 {
     public abstract class ListGameBoardRepository : ListGameObjectRepository, IGameBoardRepository
     {
-        public ListGameBoardRepository(GameBoard gameBoard) : base(gameBoard)
+        public ListGameBoardRepository(IGameBoard gameBoard) : base(gameBoard)
         {}
     }
 }
