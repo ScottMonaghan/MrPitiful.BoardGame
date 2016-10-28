@@ -98,7 +98,7 @@ namespace MrPitiful.BoardGame.Base
 
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("SetGameId/{gameObjectId}/{gameId}")]
-        public void SetGameBoardGameId(Guid gameObjectId, Guid gameId)
+        public void SetGameId(Guid gameObjectId, Guid gameId)
         {
             IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
             gameObject.GameId = gameId;
@@ -108,7 +108,7 @@ namespace MrPitiful.BoardGame.Base
 
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345
         [HttpGet("GetGameId/{gameObjectId}")]
-        public Guid GetGameBoardGameId(Guid gameObjectId)
+        public Guid GetGameId(Guid gameObjectId)
         {
             return (_gameObjectRepository.Get(gameObjectId)).GameId;
         }
