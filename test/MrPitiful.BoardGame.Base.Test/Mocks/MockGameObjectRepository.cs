@@ -29,6 +29,11 @@ namespace MrPitiful.BoardGame.Base.Test
             return gameObject;
         }
 
+        public List<IGameObject> GetByList(List<Guid> Ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
             return new List<IGameObject>();

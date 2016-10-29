@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Base
 {
-    public abstract class EFGameObjectRepository : IGameObjectRepository
+    public abstract class EFGameObjectRepository //: IGameObjectRepository
     {
         //private Dictionary<Guid, IGameObject> _gameObjects;
         private SerializedGameObjectDbContext _context;
@@ -99,14 +99,15 @@ namespace MrPitiful.BoardGame.Base
 
         public List<IGameObject> GetByStateProperties(Guid gameId, Dictionary<string, string> stateProperties)
         {
-            var filtereddGameObjects = GetByGameId(gameId).Values.ToList();
+            var filteredGameObjects = GetByGameId(gameId).Values.ToList();
             
+            /*
             foreach (KeyValuePair<string,string> stateProperty in stateProperties)
             {
-                filtereddGameObjects = (filtereddGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();
+                filteredGameObjects = (filteredGameObjects.Where(x => x.State[stateProperty.Key] == stateProperty.Value)).ToList();
             }
-
-            return filtereddGameObjects;
+            */
+            return filteredGameObjects;
         }
     }
 }

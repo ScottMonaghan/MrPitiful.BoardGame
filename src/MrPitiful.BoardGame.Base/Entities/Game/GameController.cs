@@ -19,7 +19,7 @@ namespace MrPitiful.BoardGame.Base
     {
         private IGameRepository _gameRepository;
         private IGame _game; 
-        public GameController(IGameRepository gameRepository, IGame game) : base(gameRepository, game) {
+        public GameController(IGameRepository gameRepository, IStatePropertyRepository statePropertyRepository, IGame game) : base(gameRepository, statePropertyRepository, game) {
             _gameRepository = gameRepository;
             _game = game;
         }

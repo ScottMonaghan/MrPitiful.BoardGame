@@ -12,7 +12,7 @@ namespace MrPitiful.BoardGame.Base
         private IGameBoardSpaceRepository _gameBoardSpaceRepository;
         private IGameBoardSpace _gameBoardSpace;
 
-        public GameBoardSpaceController(IGameBoardSpaceRepository gameBoardSpaceRepository, IGameBoardSpace gameBoardSpace) : base(gameBoardSpaceRepository, gameBoardSpace) {
+        public GameBoardSpaceController(IGameBoardSpaceRepository gameBoardSpaceRepository, IStatePropertyRepository statePropertyRepository, IGameBoardSpace gameBoardSpace) : base(gameBoardSpaceRepository, statePropertyRepository, gameBoardSpace) {
             _gameBoardSpaceRepository = gameBoardSpaceRepository;
             _gameBoardSpace = gameBoardSpace;
         }

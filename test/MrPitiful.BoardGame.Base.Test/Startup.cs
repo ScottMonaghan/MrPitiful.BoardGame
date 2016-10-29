@@ -48,7 +48,8 @@ namespace MrPitiful.BoardGame.Base.Test
             services.AddTransient<IGameBoardSpace, GenericGameBoardSpace>();
             services.AddSingleton<IGamePieceRepository, GenericListGamePieceRepository>();
             services.AddTransient<IGamePiece, GenericGamePiece>();
-
+            services.AddSingleton<IStatePropertyRepository, ListStatePropertyRepository>();
+            services.AddTransient<IStateProperty, StateProperty>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

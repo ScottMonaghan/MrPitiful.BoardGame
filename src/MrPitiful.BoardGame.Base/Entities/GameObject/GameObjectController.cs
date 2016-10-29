@@ -13,12 +13,14 @@ namespace MrPitiful.BoardGame.Base
 
         private IGameObjectRepository _gameObjectRepository;
         private IGameObject _gameObject;
+        private IStatePropertyRepository _statePropertyRepository;
         // GET api/values
  
-        public GameObjectController(IGameObjectRepository gameObjectRepository, IGameObject gameObject)
+        public GameObjectController(IGameObjectRepository gameObjectRepository, IStatePropertyRepository statePropertyRepository, IGameObject gameObject)
         {
             _gameObjectRepository = gameObjectRepository;
             _gameObject = gameObject;
+            _statePropertyRepository = statePropertyRepository;
         }
 
         [HttpGet]
@@ -49,10 +51,7 @@ namespace MrPitiful.BoardGame.Base
         [HttpGet("GetStateProperty/{gameObjectId}/{propertyName}")]
         public ActionResult GetStateProperty(Guid gameObjectId, string propertyName)
         {
-            IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
-            return new ObjectResult(
-                gameObject.State[propertyName] 
-            );
+            return Content(_statePropertyRepository.Get(gameObjectId, propertyName));
         }
 
         // GET api/gameObject/SetStateProperty/12345/Name/KnightsOfValor
@@ -60,8 +59,7 @@ namespace MrPitiful.BoardGame.Base
         public ActionResult SetStateProperty(Guid gameObjectId, string propertyName, string propertyValue)
         {
             IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
-            gameObject.State[propertyName] = WebUtility.UrlDecode(propertyValue);
-            _gameObjectRepository.Save(gameObject);
+            _statePropertyRepository.Set(gameObject.GameId, gameObject.Id, propertyName, propertyValue);
             return new NoContentResult();           
         }
 
@@ -69,31 +67,34 @@ namespace MrPitiful.BoardGame.Base
         public ActionResult ClearStateProperty(Guid gameObjectId, string propertyName)
         {
             IGameObject gameObject = _gameObjectRepository.Get(gameObjectId);
-            if (gameObject.State.ContainsKey(propertyName))
-            {
-                gameObject.State[propertyName] = "";
-            } else
-            {
-                gameObject.State.Add(propertyName, "");
-            }
-            _gameObjectRepository.Save(gameObject);
+            _statePropertyRepository.Set(gameObject.GameId, gameObject.Id, propertyName, "");
             return new NoContentResult();
         }
 
         //returns objects with matching state properties
         // GET api/gameObject/GetByStateProperties/propertyName:propertyValue/propertyName:propertyValue...
-        [HttpGet("GetByStateProperties/{gameId}/{*stateProperties}")]
+        [HttpGet("GetByStateProperties/{gameId}")]
         public IActionResult GetByStateProperties(Guid gameId, string stateProperties)
         {
-            Dictionary<string, string> statePropertiesDictionary = new Dictionary<string, string>();
+            //Dictionary<string, string> statePropertiesDictionary = new Dictionary<string, string>();
+            var filterProperties = new List<StateProperty>();
             string[] propertyValuePairs = stateProperties.Split('/');
             foreach (string propertyValuePair in propertyValuePairs)
             {
-                statePropertiesDictionary.Add(propertyValuePair.Split(':')[0], propertyValuePair.Split(':')[1]);
-            }
+                filterProperties.Add(
+                    new StateProperty()
+                    {
+                        Name = propertyValuePair.Split(':')[0],
+                        Value = propertyValuePair.Split(':')[1]
+                    }
+                );
+            }            
             return new ObjectResult(
-                _gameObjectRepository.GetByStateProperties(gameId, statePropertiesDictionary)
+                _gameObjectRepository.GetByList(
+                    _statePropertyRepository.GetGameGameObjectIdsByStateProperties(gameId, filterProperties)
+                    )
             );
+
         }
 
         // GET api/game/AddGameBoardSpaceIdToGame/12345/2345

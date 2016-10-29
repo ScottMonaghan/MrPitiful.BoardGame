@@ -62,7 +62,7 @@ namespace MrPitiful.UnicodeChess
 
             //create the space
             ChessGameBoardSpace chessGameBoardSpace = await _chessGameBoardSpaceClient.Create();
-
+            await _chessGameBoardSpaceClient.SetGameId(chessGameBoardSpace.Id, chessGameId);
             //create a task list to run all our independent client calls in parallel
             List<Task> Tasks = new List<Task>();
 

@@ -117,7 +117,7 @@ namespace MrPitiful.BoardGame.Base.Test
             response.Dispose();
             //set the game id for gameObject1
             //set the gameId
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetGameBoardGameId/{0}/{1}", createdGameObject1.Id, gameId));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetGameId/{0}/{1}", createdGameObject1.Id, gameId));
             response.Dispose();
 
             //create second gameObject
@@ -129,7 +129,7 @@ namespace MrPitiful.BoardGame.Base.Test
             response.Dispose();
             //set the game id for gameObject2
             //set the gameId
-            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetGameBoardGameId/{0}/{1}", createdGameObject2.Id, gameId));
+            response = await _client.GetAsync(string.Format("/api/genericGameObject/SetGameId/{0}/{1}", createdGameObject2.Id, gameId));
             response.Dispose();
 
             //set properties of first game to return
@@ -146,7 +146,7 @@ namespace MrPitiful.BoardGame.Base.Test
 
             //Act
             //Get list of gameObjects where both properties 
-            response = await _client.GetAsync(String.Format("/api/genericGameObject/GetByStateProperties/{0}:{1}/{2}:{3}",property1, goodValue, property2, goodValue));
+            response = await _client.GetAsync(String.Format("/api/genericGameObject/GetByStateProperties/{0}?stateProperties={1}:{2}/{3}:{4}",gameId, property1, goodValue, property2, goodValue));
             List<GenericGameObject> gotGameObjects = JsonConvert.DeserializeObject<List<GenericGameObject>>(
                     await response.Content.ReadAsStringAsync()
              );

@@ -8,7 +8,8 @@ namespace MrPitiful.BoardGame.Base
     {
         Guid Id { get; set; }
         Guid GameId { get; set;}
+        /*
         [JsonIgnore]
-        Dictionary<string, string> State { get; }
+        Dictionary<string, string> State { get; }*/
     }
 }

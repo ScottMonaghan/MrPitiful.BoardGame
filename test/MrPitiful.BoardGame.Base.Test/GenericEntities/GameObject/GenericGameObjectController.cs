@@ -8,7 +8,7 @@ namespace MrPitiful.BoardGame.Base.Test
     [Route("api/[controller]")]
     public class GenericGameObjectController : GameObjectController
     {
-        public GenericGameObjectController(IGameObjectRepository gameObjectRepository, IGameObject gameObject) : base(gameObjectRepository, gameObject)
+        public GenericGameObjectController(IGameObjectRepository gameObjectRepository, IStatePropertyRepository statePropertyRepository, IGameObject gameObject) : base(gameObjectRepository, statePropertyRepository, gameObject)
         {
         }
     }

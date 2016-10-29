@@ -56,6 +56,8 @@ namespace MrPitiful.UnicodeChess.Test
             services.AddTransient<IGamePiece, ChessGamePiece>();
             services.AddTransient<IChessGamePiece, ChessGamePiece>();
             services.AddTransient<IChessGamePieceClient, ChessGamePieceClient>();
+            services.AddSingleton<IStatePropertyRepository, ListStatePropertyRepository>();
+            services.AddTransient<IStateProperty, StateProperty>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

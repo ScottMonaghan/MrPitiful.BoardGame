@@ -94,11 +94,20 @@ namespace MrPitiful.BoardGame.Base
         {
             string propertyString = "";
 
+            var isFirst = true;
             foreach (KeyValuePair<string,string> stateProperty in stateProperties)
             {
-                propertyString += String.Format("/{0}:{1}", WebUtility.UrlEncode(stateProperty.Key), WebUtility.UrlEncode(stateProperty.Value));
+                if (!isFirst)
+                {
+                    propertyString += "/";
+                }else
+                {
+                    isFirst = false;
+                }
+                propertyString += String.Format("{0}:{1}", WebUtility.UrlEncode(stateProperty.Key), WebUtility.UrlEncode(stateProperty.Value));
+                
             }
-            var response = await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/GetByStateProperties/{0}{1}", gameId, propertyString));
+            var response = await _httpClient.GetAsync(string.Format("/" + _apiRoute + "/GetByStateProperties/{0}?stateProperties={1}", gameId, propertyString));
             List<TGameObject> gotGameObjects = JsonConvert.DeserializeObject<List<TGameObject>>(
                     await response.Content.ReadAsStringAsync()
             );
