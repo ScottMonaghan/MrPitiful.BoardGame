@@ -34,26 +34,27 @@ namespace MrPitiful.BoardGame.Web.Controllers
             bool includeGameBoardSpaces = false
             )
         {
-            var gameSet = await _context.GameSets.Where(x => x.Id == id).SingleAsync();
+            var gameSet = _context.GameSets.Where(x => x.Id == id);
+
             if (includeStateProperties)
             {
-                gameSet.StateProperties = await _context.GameSetStateProperties.Where(x => x.GameSetId == gameSet.Id).ToListAsync();
+                gameSet = gameSet.Include(x => x.StateProperties);
             }
             if (includeGamePieces)
             {
-                gameSet.GamePieces = await _context.GamePieces.Where(x => x.GameSetId == gameSet.Id).ToListAsync();
+                gameSet = gameSet.Include(x => x.GamePieces);
             }
             if (includeGameBoard || includeGameBoardSpaces) //if you want the spaces, you need the board:)
             {
-                gameSet.GameBoard = await _context.GameBoards.Where(x => x.GameSetId == gameSet.Id).SingleOrDefaultAsync();
+                gameSet = gameSet.Include(x => x.GameBoard);
             }
             if (includeGameBoardSpaces)
             {
-                gameSet.GameBoard.GameBoardSpaces = await _context.GameBoardSpaces.Where(x => x.GameBoardId == gameSet.GameBoard.Id).ToListAsync();
+                gameSet = gameSet.Include(x => x.GameBoard.GameBoardSpaces);
             }
 
 
-            return gameSet;
+            return await gameSet.SingleAsync();
         }
 
         // POST api/values
@@ -65,12 +66,49 @@ namespace MrPitiful.BoardGame.Web.Controllers
             return obj;
         }
 
+        [HttpPost("GetByStateProperties")]
+        public async Task<List<GameSet>> GetByStatePropertiesAsync([FromBody]List<GameSetStateProperty> statePropertiesToFilter)
+        {
+            //this some crazyass linq               
+            return await _context.GameSetStateProperties.Where(
+                //first filter down to state properties that are equal to the provided filter
+                sp => statePropertiesToFilter.Exists(f => f.Name == sp.Name && f.Value == sp.Value)
+            )
+            //next group by gameSet
+            .GroupBy(sp => sp.GameSet)
+            //now filter down to groups that have the same number of stateproperties as the filter
+            .Where(grp => grp.Count() == statePropertiesToFilter.Count())
+            //now return the remaining gameobjects
+            .Select(grp => grp.Key)
+            .ToListAsync();
+        }
+
         // PUT api/values/5
         [HttpPut]
-        public void Put([FromBody]GameSet obj)
+        public async Task<GameSet> Put([FromBody]GameSet obj)
         {
-            _context.GameSets.Attach(obj);
+            //Because state properties usa a composite key of parentId & Name,
+            //we need to do some extra work here to make sure existing properties
+            //update, and new properties are added.
+            var statePropertiesToUpdate = obj.StateProperties;
+            obj.StateProperties = null;
+            foreach (var statePropertyToUpdate in statePropertiesToUpdate)
+            {
+                var statePropertyToCheck = await _context.GameSetStateProperties
+                    .Where(sp=>sp.GameSetId == obj.Id && sp.Name == statePropertyToUpdate.Name)
+                    .SingleOrDefaultAsync();
+                if (statePropertyToCheck != null)
+                {
+                    statePropertyToCheck.Value = statePropertyToUpdate.Value;
+                } else
+                {
+                    statePropertyToUpdate.GameSetId = obj.Id;
+                    _context.GameSetStateProperties.Add(statePropertyToUpdate);
+                }
+            }
+            _context.GameSets.Update(obj);
             _context.SaveChanges();
+            return obj;
         }
 
         // DELETE api/values/5
