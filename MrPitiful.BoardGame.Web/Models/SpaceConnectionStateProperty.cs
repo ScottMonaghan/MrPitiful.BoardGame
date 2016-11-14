@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Models
 {
-    public class GameBoardStateProperty : StateProperty
+    public class SpaceConnectionStateProperty : StateProperty
     {
         [JsonIgnore]
-        public GameBoard GameBoard { get; set; }
-        public Guid GameBoardId {get;set;}
+        public SpaceConnection ConnectedSpace { get; set; }
+        public Guid SpaceConnectionId {get;set;}
     }
 }

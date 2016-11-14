@@ -7,7 +7,7 @@ namespace MrPitiful.BoardGame.Models
 {
     public class GameBoardSpace 
     {
-        public List<AdjacentSpace> AdjacentSpaces
+        public List<SpaceConnection> SpaceConnections
         {
             get;set;
         }

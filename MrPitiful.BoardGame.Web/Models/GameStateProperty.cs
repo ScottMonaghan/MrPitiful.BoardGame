@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace MrPitiful.BoardGame.Models
 {
-    public abstract class GameStateProperty
+    public class GameStateProperty : StateProperty
     {
-        //public Guid Id { get;set; }
-        public string Name { get; set; }
-        public string Value { get; set; }
+        [JsonIgnore]
+        public Game Game { get; set; }
+        public Guid GameId {get;set;}
     }
 }

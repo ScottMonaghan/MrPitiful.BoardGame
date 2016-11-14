@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Models
 {
-    public class GamePieceStateProperty:GameStateProperty
+    public class GamePieceStateProperty:StateProperty
     {
 
         public GamePiece GamePiece { get; set; }

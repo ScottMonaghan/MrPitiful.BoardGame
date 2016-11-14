@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MrPitiful.BoardGame.Models
 {
-    public class AdjacentSpace
+    public class SpaceConnection
     {
-        public string Direction
-        {
-            get;set;
-        }
-
+        [JsonIgnore]
         public GameBoardSpace GameBoardSpace
         {
             get; set;
@@ -28,6 +25,16 @@ namespace MrPitiful.BoardGame.Models
         }
 
         public GameBoardSpace RemoteSpace
+        {
+            get; set;
+        }
+
+        public Guid? RemoteSpaceId
+        {
+            get;set;
+        }
+
+        public List<SpaceConnectionStateProperty> StateProperties
         {
             get; set;
         }

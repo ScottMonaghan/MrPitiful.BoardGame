@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace MrPitiful.BoardGame.Models
 {
-    public class GameSetStateProperty : GameStateProperty
+    public class GameSetStateProperty : StateProperty
     {
         [JsonIgnore]
         public GameSet GameSet { get; set; }

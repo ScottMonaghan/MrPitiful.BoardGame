@@ -4,19 +4,74 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MrPitiful.BoardGame.Web.Migrations
 {
-    public partial class InitialBoardGameMigration : Migration
+    public partial class v001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "GameSets",
+                name: "Games",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Games", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameSets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GameId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_GameSets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameSets_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameStateProperties",
+                columns: table => new
+                {
+                    GameId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameStateProperties", x => new { x.GameId, x.Name });
+                    table.ForeignKey(
+                        name: "FK_GameStateProperties_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GameId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Players_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,6 +112,25 @@ namespace MrPitiful.BoardGame.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlayerStateProperties",
+                columns: table => new
+                {
+                    PlayerId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerStateProperties", x => new { x.PlayerId, x.Name });
+                    table.ForeignKey(
+                        name: "FK_PlayerStateProperties_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GameBoardSpaces",
                 columns: table => new
                 {
@@ -91,32 +165,6 @@ namespace MrPitiful.BoardGame.Web.Migrations
                         principalTable: "GameBoards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AdjacentSpaces",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Direction = table.Column<string>(nullable: true),
-                    GameBoardSpaceId = table.Column<Guid>(nullable: false),
-                    RemoteSpaceId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AdjacentSpaces", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AdjacentSpaces_GameBoardSpaces_GameBoardSpaceId",
-                        column: x => x.GameBoardSpaceId,
-                        principalTable: "GameBoardSpaces",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AdjacentSpaces_GameBoardSpaces_RemoteSpaceId",
-                        column: x => x.RemoteSpaceId,
-                        principalTable: "GameBoardSpaces",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -164,6 +212,31 @@ namespace MrPitiful.BoardGame.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SpaceConnections",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GameBoardSpaceId = table.Column<Guid>(nullable: false),
+                    RemoteSpaceId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpaceConnections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SpaceConnections_GameBoardSpaces_GameBoardSpaceId",
+                        column: x => x.GameBoardSpaceId,
+                        principalTable: "GameBoardSpaces",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpaceConnections_GameBoardSpaces_RemoteSpaceId",
+                        column: x => x.RemoteSpaceId,
+                        principalTable: "GameBoardSpaces",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GamePieceStateProperties",
                 columns: table => new
                 {
@@ -182,15 +255,24 @@ namespace MrPitiful.BoardGame.Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AdjacentSpaces_GameBoardSpaceId",
-                table: "AdjacentSpaces",
-                column: "GameBoardSpaceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AdjacentSpaces_RemoteSpaceId",
-                table: "AdjacentSpaces",
-                column: "RemoteSpaceId");
+            migrationBuilder.CreateTable(
+                name: "SpaceConnectionStateProperties",
+                columns: table => new
+                {
+                    SpaceConnectionId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpaceConnectionStateProperties", x => new { x.SpaceConnectionId, x.Name });
+                    table.ForeignKey(
+                        name: "FK_SpaceConnectionStateProperties_SpaceConnections_SpaceConnectionId",
+                        column: x => x.SpaceConnectionId,
+                        principalTable: "SpaceConnections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_GameBoards_GameSetId",
@@ -229,16 +311,49 @@ namespace MrPitiful.BoardGame.Web.Migrations
                 column: "GamePieceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GameSets_GameId",
+                table: "GameSets",
+                column: "GameId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GameSetStateProperties_GameSetId",
                 table: "GameSetStateProperties",
                 column: "GameSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameStateProperties_GameId",
+                table: "GameStateProperties",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Players_GameId",
+                table: "Players",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerStateProperties_PlayerId",
+                table: "PlayerStateProperties",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpaceConnections_GameBoardSpaceId",
+                table: "SpaceConnections",
+                column: "GameBoardSpaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpaceConnections_RemoteSpaceId",
+                table: "SpaceConnections",
+                column: "RemoteSpaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpaceConnectionStateProperties_SpaceConnectionId",
+                table: "SpaceConnectionStateProperties",
+                column: "SpaceConnectionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AdjacentSpaces");
-
             migrationBuilder.DropTable(
                 name: "GameBoardSpaceStateProperties");
 
@@ -252,7 +367,22 @@ namespace MrPitiful.BoardGame.Web.Migrations
                 name: "GameSetStateProperties");
 
             migrationBuilder.DropTable(
+                name: "GameStateProperties");
+
+            migrationBuilder.DropTable(
+                name: "PlayerStateProperties");
+
+            migrationBuilder.DropTable(
+                name: "SpaceConnectionStateProperties");
+
+            migrationBuilder.DropTable(
                 name: "GamePieces");
+
+            migrationBuilder.DropTable(
+                name: "Players");
+
+            migrationBuilder.DropTable(
+                name: "SpaceConnections");
 
             migrationBuilder.DropTable(
                 name: "GameBoardSpaces");
@@ -262,6 +392,9 @@ namespace MrPitiful.BoardGame.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "GameSets");
+
+            migrationBuilder.DropTable(
+                name: "Games");
         }
     }
 }

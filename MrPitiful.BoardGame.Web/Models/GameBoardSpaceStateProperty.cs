@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MrPitiful.BoardGame.Models
 {
-    public class GameBoardSpaceStateProperty : GameStateProperty
+    public class GameBoardSpaceStateProperty : StateProperty
     {
         public GameBoardSpace GameBoardSpace { get; set; }
         public Guid GameBoardSpaceId {get;set;}

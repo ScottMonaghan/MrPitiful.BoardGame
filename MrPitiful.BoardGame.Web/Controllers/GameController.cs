@@ -10,82 +10,75 @@ using MrPitiful.BoardGame.Database;
 namespace MrPitiful.BoardGame.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class GameBoardController : Controller
+    public class GameController : Controller
     {
         private BoardGameContext _context; 
-        public GameBoardController(BoardGameContext context)
+        public GameController(BoardGameContext context)
         {
             _context = context;
         }
         // GET api/values
         [HttpGet]
-        public List<GameBoard> Get()
+        public List<Game> Get()
         {
-            return _context.GameBoards.ToList();
+            return _context.Games.ToList();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<GameBoard> GetByIdAsync(
+        public async Task<Game> GetByIdAsync(
             Guid id, 
-            bool includeStateProperties = false, 
-            bool includeGameBoardSpaces = false,
-            bool includeGamePieces = false
+            bool includeStateProperties = false,
+            bool includeGameSet = false,
+            bool includePlayers = false
             )
         {
-            var gameBoard = _context.GameBoards.Where(x => x.Id == id);
+            var Game = _context.Games.Where(x => x.Id == id);
 
             if (includeStateProperties)
             {
-                gameBoard = gameBoard.Include(x => x.StateProperties);
+                Game = Game.Include(x => x.StateProperties);
             }
-            if (includeGameBoardSpaces || includeGamePieces) //if you want the pieces, you need the spaces
+            if (includeGameSet)
             {
-                if (includeGamePieces)
-                {
-                    gameBoard = gameBoard.Include(x => x.GameBoardSpaces)
-                        .ThenInclude(y => y.GamePieces);
-                } else
-                {
-                    gameBoard = gameBoard.Include(x => x.GameBoardSpaces);
-                }
+                Game = Game.Include(x => x.GameSet);
             }
-            return await gameBoard.SingleAsync();
+            if (includePlayers) //if you want the spaces, you need the board:)
+            {
+                Game = Game.Include(x => x.Players);
+            }
+            return await Game.SingleAsync();
         }
 
         // POST api/values
         [HttpPost]
-        public GameBoard Post([FromBody]GameBoard obj)
+        public Game Post([FromBody]Game obj)
         {
-            _context.GameBoards.Add(obj);
+            _context.Games.Add(obj);
             _context.SaveChanges();
             return obj;
         }
 
-        //This method is pretty useless
-        /* 
-        [HttpPost("GetByStateProperties/{GameSetId}")]
-        public async Task<List<GameBoard>> GetByStatePropertiesAsync(Guid GameSetId, [FromBody]List<GameBoardStateProperty> statePropertiesToFilter)
+        [HttpPost("GetByStateProperties")]
+        public async Task<List<Game>> GetByStatePropertiesAsync([FromBody]List<GameStateProperty> statePropertiesToFilter)
         {
             //this some crazyass linq               
-            return await _context.GameBoardStateProperties
-            //filter to gameset
-            .Where(
+            return await _context.GameStateProperties.Where(
                 //first filter down to state properties that are equal to the provided filter
-                sp => sp.GameBoard.GameSetId == GameSetId && statePropertiesToFilter.Exists(f => f.Name == sp.Name && f.Value == sp.Value)
+                sp => statePropertiesToFilter.Exists(f => f.Name == sp.Name && f.Value == sp.Value)
             )
-            //next group by gameBoard
-            .GroupBy(sp => sp.GameBoard)
+            //next group by Game
+            .GroupBy(sp => sp.Game)
             //now filter down to groups that have the same number of stateproperties as the filter
             .Where(grp => grp.Count() == statePropertiesToFilter.Count())
             //now return the remaining gameobjects
             .Select(grp => grp.Key)
             .ToListAsync();
         }
-        */
+
         // PUT api/values/5
         [HttpPut]
-        public async Task<GameBoard> Put([FromBody]GameBoard obj)
+        public async Task<Game> Put([FromBody]Game obj)
         {
             //Because state properties usa a composite key of parentId & Name,
             //we need to do some extra work here to make sure existing properties
@@ -94,19 +87,19 @@ namespace MrPitiful.BoardGame.Web.Controllers
             obj.StateProperties = null;
             foreach (var statePropertyToUpdate in statePropertiesToUpdate)
             {
-                var statePropertyToCheck = await _context.GameBoardStateProperties
-                    .Where(sp=>sp.GameBoardId == obj.Id && sp.Name == statePropertyToUpdate.Name)
+                var statePropertyToCheck = await _context.GameStateProperties
+                    .Where(sp=>sp.GameId == obj.Id && sp.Name == statePropertyToUpdate.Name)
                     .SingleOrDefaultAsync();
                 if (statePropertyToCheck != null)
                 {
                     statePropertyToCheck.Value = statePropertyToUpdate.Value;
                 } else
                 {
-                    statePropertyToUpdate.GameBoardId = obj.Id;
-                    _context.GameBoardStateProperties.Add(statePropertyToUpdate);
+                    statePropertyToUpdate.GameId = obj.Id;
+                    _context.GameStateProperties.Add(statePropertyToUpdate);
                 }
             }
-            _context.GameBoards.Update(obj);
+            _context.Games.Update(obj);
             _context.SaveChanges();
             return obj;
         }
@@ -115,8 +108,8 @@ namespace MrPitiful.BoardGame.Web.Controllers
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
-            var obj = new GameBoard() { Id = id };
-            _context.GameBoards.Remove(obj);
+            var obj = new Game() { Id = id };
+            _context.Games.Remove(obj);
             _context.SaveChanges();
         }
     }

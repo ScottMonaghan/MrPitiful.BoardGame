@@ -8,8 +8,8 @@ using MrPitiful.BoardGame.Database;
 namespace MrPitiful.BoardGame.Web.Migrations
 {
     [DbContext(typeof(BoardGameContext))]
-    [Migration("20161110064411_InitialBoardGameMigration")]
-    partial class InitialBoardGameMigration
+    [Migration("20161114024339_v0.0.1")]
+    partial class v001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,24 +17,14 @@ namespace MrPitiful.BoardGame.Web.Migrations
                 .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MrPitiful.BoardGame.Models.AdjacentSpace", b =>
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Game", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Direction");
-
-                    b.Property<Guid>("GameBoardSpaceId");
-
-                    b.Property<Guid?>("RemoteSpaceId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("GameBoardSpaceId");
-
-                    b.HasIndex("RemoteSpaceId");
-
-                    b.ToTable("AdjacentSpaces");
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("MrPitiful.BoardGame.Models.GameBoard", b =>
@@ -134,7 +124,12 @@ namespace MrPitiful.BoardGame.Web.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("GameId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId")
+                        .IsUnique();
 
                     b.ToTable("GameSets");
                 });
@@ -154,16 +149,81 @@ namespace MrPitiful.BoardGame.Web.Migrations
                     b.ToTable("GameSetStateProperties");
                 });
 
-            modelBuilder.Entity("MrPitiful.BoardGame.Models.AdjacentSpace", b =>
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.GameStateProperty", b =>
                 {
-                    b.HasOne("MrPitiful.BoardGame.Models.GameBoardSpace", "GameBoardSpace")
-                        .WithMany("AdjacentSpaces")
-                        .HasForeignKey("GameBoardSpaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.Property<Guid>("GameId");
 
-                    b.HasOne("MrPitiful.BoardGame.Models.GameBoardSpace", "RemoteSpace")
-                        .WithMany()
-                        .HasForeignKey("RemoteSpaceId");
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("GameId", "Name");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("GameStateProperties");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Player", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("GameId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.PlayerStateProperty", b =>
+                {
+                    b.Property<Guid>("PlayerId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("PlayerId", "Name");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayerStateProperties");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.SpaceConnection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("GameBoardSpaceId");
+
+                    b.Property<Guid?>("RemoteSpaceId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameBoardSpaceId");
+
+                    b.HasIndex("RemoteSpaceId");
+
+                    b.ToTable("SpaceConnections");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.SpaceConnectionStateProperty", b =>
+                {
+                    b.Property<Guid>("SpaceConnectionId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("SpaceConnectionId", "Name");
+
+                    b.HasIndex("SpaceConnectionId");
+
+                    b.ToTable("SpaceConnectionStateProperties");
                 });
 
             modelBuilder.Entity("MrPitiful.BoardGame.Models.GameBoard", b =>
@@ -218,11 +278,62 @@ namespace MrPitiful.BoardGame.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.GameSet", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Game", "Game")
+                        .WithOne("GameSet")
+                        .HasForeignKey("MrPitiful.BoardGame.Models.GameSet", "GameId");
+                });
+
             modelBuilder.Entity("MrPitiful.BoardGame.Models.GameSetStateProperty", b =>
                 {
                     b.HasOne("MrPitiful.BoardGame.Models.GameSet", "GameSet")
                         .WithMany("StateProperties")
                         .HasForeignKey("GameSetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.GameStateProperty", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Game", "Game")
+                        .WithMany("StateProperties")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Player", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Game", "Game")
+                        .WithMany("Players")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.PlayerStateProperty", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Player", "Player")
+                        .WithMany("StateProperties")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.SpaceConnection", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.GameBoardSpace", "GameBoardSpace")
+                        .WithMany("SpaceConnections")
+                        .HasForeignKey("GameBoardSpaceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MrPitiful.BoardGame.Models.GameBoardSpace", "RemoteSpace")
+                        .WithMany()
+                        .HasForeignKey("RemoteSpaceId");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.SpaceConnectionStateProperty", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.SpaceConnection", "ConnectedSpace")
+                        .WithMany("StateProperties")
+                        .HasForeignKey("SpaceConnectionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
