@@ -27,16 +27,12 @@ namespace MrPitiful.BoardGame.Database
         public DbSet<SpaceConnectionStateProperty> SpaceConnectionStateProperties { get; set; }
         public DbSet<GamePiece> GamePieces { get; set; }
         public DbSet<GamePieceStateProperty> GamePieceStateProperties { get; set; }
+        public DbSet<Die> Dice { get; set; }
+        public DbSet<DieStateProperty> DieStateProperties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Adjacent Spaces
-            /*
-            modelBuilder.Entity<GameSet>()
-                .HasOne(gs => gs.Game)
-                .WithOne(gs => gs.GameSet)
-                .HasForeignKey<GameSet>(gs => gs.GameId);*/
-
+            
             modelBuilder.Entity<GameSet>()
                     .HasOne(gs => gs.Game)
                     .WithOne(g => g.GameSet)
@@ -63,6 +59,8 @@ namespace MrPitiful.BoardGame.Database
                 .HasKey(x => new { x.SpaceConnectionId, x.Name });
             modelBuilder.Entity<GamePieceStateProperty>()
                 .HasKey(x => new { x.GamePieceId, x.Name });
+            modelBuilder.Entity<DieStateProperty>()
+                .HasKey(x => new { x.DieId, x.Name });
         }
     }
 }

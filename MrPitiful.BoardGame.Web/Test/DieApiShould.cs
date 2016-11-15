@@ -15,11 +15,11 @@ using MrPitiful.BoardGame.Database;
 
 namespace MrPitiful.BoardGame.Web.Test
 {
-    public class GameBoardApiShould
+    public class DieApiShould
     {
         private readonly TestServer _server;
         private readonly HttpClient _client;
-        public GameBoardApiShould()
+        public DieApiShould()
         {
             _server = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>());
@@ -48,20 +48,19 @@ namespace MrPitiful.BoardGame.Web.Test
         public async void PostAndGetAssignedId()
         {
             //Arrange
-
             var testGameSet = await GetTestGameSet();
-            var testObj = new GameBoard();
+            var testObj = new Die();
             testObj.GameSetId = testGameSet.Id;
             
             //Act
             var response = await _client.PostAsync(
-                "/api/GameBoard", new StringContent(
+                "/api/Die", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     ,Encoding.UTF8
                     ,"application/json"
                     )        
                 );
-            var postedObj = JsonConvert.DeserializeObject<GameBoard>(
+            var postedObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert
@@ -74,26 +73,26 @@ namespace MrPitiful.BoardGame.Web.Test
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
-            var testObj = new GameBoard();
+            var testObj = new Die();
             testObj.GameSetId = testGameSet.Id;
 
             //Act
             var response = await _client.PostAsync(
-                "/api/GameBoard", new StringContent(
+                "/api/Die", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
 
-            var postedObj = JsonConvert.DeserializeObject<GameBoard>(
+            var postedObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Get
             response = await _client.GetAsync(
-                    string.Format("/api/GameBoard/{0}", postedObj.Id)
+                    string.Format("/api/Die/{0}", postedObj.Id)
                 );
-            var gotObj = JsonConvert.DeserializeObject<GameBoard>(
+            var gotObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert   
@@ -102,33 +101,69 @@ namespace MrPitiful.BoardGame.Web.Test
         }
 
         [Fact]
-        public async void PostAndGetByIdWithStateProperties()
+        public async void PostAndRoll()
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
-            var testObj = new GameBoard();
+            var testObj = new Die() { Sides = 2 };
             testObj.GameSetId = testGameSet.Id;
-            var testproperty1 = "testproperty1";
-            var originalValue = "originalvalue";
-            testObj.StateProperties.Add(new GameBoardStateProperty { Name = testproperty1, Value = originalValue });
 
             //Act
             var response = await _client.PostAsync(
-                "/api/GameBoard", new StringContent(
+                "/api/Die", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
 
-            var postedObj = JsonConvert.DeserializeObject<GameBoard>(
+            var postedObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Get
             response = await _client.GetAsync(
-                    string.Format("/api/GameBoard/{0}?includeStateProperties=true", postedObj.Id)
+                    string.Format("/api/Die/Roll/{0}", postedObj.Id)
                 );
-            var gotObj = JsonConvert.DeserializeObject<GameBoard>(
+            var gotObj = JsonConvert.DeserializeObject<Die>(
+                await response.Content.ReadAsStringAsync());
+
+            //Assert   
+            Assert.InRange(gotObj.Value, 1, 2);
+            await DeleteGameSetForCleanup(testGameSet);
+        }
+
+
+
+        [Fact]
+        public async void PostAndGetByIdWithStateProperties()
+        {
+            //Arrange
+            //Arrange
+            var testGameSet = await GetTestGameSet();
+            var testObj = new Die();
+            testObj.GameSetId = testGameSet.Id;
+
+            var testproperty1 = "testproperty1";
+            var originalValue = "originalvalue";
+            testObj.StateProperties.Add(new DieStateProperty { Name = testproperty1, Value = originalValue });
+
+            //Act
+            var response = await _client.PostAsync(
+                "/api/Die", new StringContent(
+                    JsonConvert.SerializeObject(testObj)
+                    , Encoding.UTF8
+                    , "application/json"
+                    )
+                );
+
+            var postedObj = JsonConvert.DeserializeObject<Die>(
+                await response.Content.ReadAsStringAsync());
+
+            //Get
+            response = await _client.GetAsync(
+                    string.Format("/api/Die/{0}?includeStateProperties=true", postedObj.Id)
+                );
+            var gotObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert   
@@ -136,106 +171,32 @@ namespace MrPitiful.BoardGame.Web.Test
             await DeleteGameSetForCleanup(testGameSet);
         }
 
-        [Fact]
-        public async void PostAndGetByIdWithGameBoardSpaces()
-        {
-            //Assert.True(false);
-            //Arrange
-            var testGameSet = await GetTestGameSet();
-            var testObj = new GameBoard();
-            testObj.GameSetId = testGameSet.Id;
-            testObj.GameBoardSpaces.Add(new GameBoardSpace());
-            testObj.GameBoardSpaces.Add(new GameBoardSpace());
-
-            //Act
-            var response = await _client.PostAsync(
-                "/api/GameBoard", new StringContent(
-                    JsonConvert.SerializeObject(testObj)
-                    , Encoding.UTF8
-                    , "application/json"
-                    )
-                );
-
-            var postedObj = JsonConvert.DeserializeObject<GameBoard>(
-                await response.Content.ReadAsStringAsync());
-
-            //Get
-            response = await _client.GetAsync(
-                    string.Format("/api/GameBoard/{0}?includeGameboardSpaces=true", postedObj.Id)
-                );
-            var gotObj = JsonConvert.DeserializeObject<GameBoard>(
-                await response.Content.ReadAsStringAsync());
-
-            //Assert   
-            Assert.Equal(2, postedObj.GameBoardSpaces.Count());
-            await DeleteGameSetForCleanup(testGameSet);
-        }
-
-        [Fact]
-        public async void PostAndGetByIdWithGamePieces()
-        {
-            //Arrange
-            var testGameSet = await GetTestGameSet();
-            var testObj = new GameBoard();
-            testObj.GameSetId = testGameSet.Id;
-            testObj.GameBoardSpaces.Add(new GameBoardSpace()
-            {GamePieces = new List<GamePiece>()
-                {
-                    { new GamePiece() { GameSetId=testGameSet.Id} },
-                    { new GamePiece() { GameSetId=testGameSet.Id} }
-                }
-            });
-
-            //Act
-            var response = await _client.PostAsync(
-                "/api/GameBoard", new StringContent(
-                    JsonConvert.SerializeObject(testObj)
-                    , Encoding.UTF8
-                    , "application/json"
-                    )
-                );
-
-            var postedObj = JsonConvert.DeserializeObject<GameBoard>(
-                await response.Content.ReadAsStringAsync());
-
-            //Get
-            response = await _client.GetAsync(
-                    string.Format("/api/GameBoard/{0}?includeGamePieces=true", postedObj.Id)
-                );
-            var gotObj = JsonConvert.DeserializeObject<GameBoard>(
-                await response.Content.ReadAsStringAsync());
-
-            //Assert   
-            Assert.Equal(2, gotObj.GameBoardSpaces[0].GamePieces.Count());
-            await DeleteGameSetForCleanup(testGameSet);
-        }
-
-        [Fact]
+       [Fact]
         public async void Delete()
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
-            var testObj = new GameBoard();
+            var testObj = new Die();
             testObj.GameSetId = testGameSet.Id;
 
             var response = await _client.PostAsync(
-                "/api/GameBoard", new StringContent(
+                "/api/Die", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
-            var postedObj = JsonConvert.DeserializeObject<GameBoard>(
+            var postedObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Act
-            await _client.DeleteAsync(string.Format("/api/GameBoard/{0}",postedObj.Id));
+            await _client.DeleteAsync(string.Format("/api/Die/{0}",postedObj.Id));
 
             //Assert
             await Assert.ThrowsAsync<InvalidOperationException>(async () => {
                 //Get
                 response = await _client.GetAsync(
-                        string.Format("/api/GameBoard/{0}", postedObj.Id)
+                        string.Format("/api/Die/{0}", postedObj.Id)
                     );
             });
             await DeleteGameSetForCleanup(testGameSet);
@@ -246,32 +207,32 @@ namespace MrPitiful.BoardGame.Web.Test
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
-            var testObj = new GameBoard();
+            var testObj = new Die();
             testObj.GameSetId = testGameSet.Id;
             var testproperty1 = "testproperty1";
             var testproperty2 = "testproperty2";
             var originalValue = "originalValue";
             var updatedValue = "updatedValue";
-            testObj.StateProperties.Add(new GameBoardStateProperty { Name = testproperty1, Value = originalValue });
-            testObj.StateProperties.Add(new GameBoardStateProperty { Name = testproperty2, Value = originalValue });
+            testObj.StateProperties.Add(new DieStateProperty { Name = testproperty1, Value = originalValue });
+            testObj.StateProperties.Add(new DieStateProperty { Name = testproperty2, Value = originalValue });
             //Act 
             //Post test Object
             var response = await _client.PostAsync(
-               "/api/GameBoard", new StringContent(
+               "/api/Die", new StringContent(
                    JsonConvert.SerializeObject(testObj)
                    , Encoding.UTF8
                    , "application/json"
                    )
                );
 
-            var postedObj = JsonConvert.DeserializeObject<GameBoard>(
+            var postedObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Get objectById with State Properties
             response = await _client.GetAsync(
-                   string.Format("/api/GameBoard/{0}?includeStateProperties=true", postedObj.Id)
+                   string.Format("/api/Die/{0}?includeStateProperties=true", postedObj.Id)
                );
-            var gotObj = JsonConvert.DeserializeObject<GameBoard>(
+            var gotObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());//Assert
 
             //Assert
@@ -281,24 +242,24 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Arrange
             //now lets change testproperty1 to updatedValue without including any other stateproperties
-            gotObj.StateProperties = new List<GameBoardStateProperty>()
+            gotObj.StateProperties = new List<DieStateProperty>()
             {
-                new GameBoardStateProperty() {Name=testproperty1, Value=updatedValue }
+                new DieStateProperty() {Name=testproperty1, Value=updatedValue }
             };
 
             //Act
             //update GotObj
             response = await _client.PutAsync(
-                           "/api/GameBoard", new StringContent(
+                           "/api/Die", new StringContent(
                                JsonConvert.SerializeObject(gotObj)
                                , Encoding.UTF8
                                , "application/json"
                                )
                            );
             response = await _client.GetAsync(
-                   string.Format("/api/GameBoard/{0}?includeStateProperties=true", gotObj.Id)
+                   string.Format("/api/Die/{0}?includeStateProperties=true", gotObj.Id)
                );
-            var updatedObj = JsonConvert.DeserializeObject<GameBoard>(
+            var updatedObj = JsonConvert.DeserializeObject<Die>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert
@@ -307,5 +268,72 @@ namespace MrPitiful.BoardGame.Web.Test
             Assert.Equal(originalValue, updatedObj.StateProperties.Where(x => x.Name == testproperty2).Single().Value);
             await DeleteGameSetForCleanup(testGameSet);
         }
+
+        [Fact]
+        public async void PostAndGetByStateProperties()
+        {
+            var testproperty1 = "testproperty1";
+            var testproperty2 = "testproperty2";
+            var goodvalue = "goodvalue";
+            var badvalue = "badvalue";
+
+            //Arrange
+            var testGameSet = await GetTestGameSet();
+            //set up good object with good values
+            var goodObj = new Die();
+            goodObj.GameSetId = testGameSet.Id;
+            goodObj.StateProperties.Add(new DieStateProperty { Name = testproperty1, Value = goodvalue });
+            goodObj.StateProperties.Add(new DieStateProperty { Name = testproperty2, Value = goodvalue });
+            //set up bad object with one bad value
+            var badObj = new Die();
+            badObj.GameSetId = testGameSet.Id;
+            badObj.StateProperties.Add(new DieStateProperty { Name = testproperty1, Value = goodvalue });
+            badObj.StateProperties.Add(new DieStateProperty { Name = testproperty2, Value = badvalue });
+
+            //set up filter
+            var statePropertiesToFilter = new List<StateProperty>() { };
+            statePropertiesToFilter.Add(new DieStateProperty { Name = testproperty1, Value = goodvalue });
+            statePropertiesToFilter.Add(new DieStateProperty { Name = testproperty2, Value = goodvalue });
+
+            //post goodObj
+            var response = await _client.PostAsync(
+                "/api/Die", new StringContent(
+                    JsonConvert.SerializeObject(goodObj)
+                    , Encoding.UTF8
+                    , "application/json"
+                    )
+                );
+            goodObj = JsonConvert.DeserializeObject<Die>(
+                await response.Content.ReadAsStringAsync());
+
+            //post badObj
+            response = await _client.PostAsync(
+                "/api/Die", new StringContent(
+                    JsonConvert.SerializeObject(badObj)
+                    , Encoding.UTF8
+                    , "application/json"
+                    )
+                );
+            badObj = JsonConvert.DeserializeObject<Die>(
+                await response.Content.ReadAsStringAsync());
+
+            //Act 
+            response = await _client.PostAsync(
+               String.Format("/api/Die/GetByStateProperties/{0}",testGameSet.Id), new StringContent(
+                   JsonConvert.SerializeObject(statePropertiesToFilter)
+                   , Encoding.UTF8
+                   , "application/json"
+                   )
+               );
+            var gotObjects = JsonConvert.DeserializeObject<List<Die>>(
+                    await response.Content.ReadAsStringAsync());
+
+            //Assert
+            Assert.Equal(1, gotObjects.Count());
+
+            //Clean up
+            await DeleteGameSetForCleanup(testGameSet);
+        }
+        
     }
 }

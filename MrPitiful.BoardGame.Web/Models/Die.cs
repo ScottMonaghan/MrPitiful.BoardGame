@@ -5,40 +5,34 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace MrPitiful.BoardGame.Models
 {
-    public class GamePiece 
+    public class Die 
     {
-        public GamePiece()
+        public Die()
         {
-            StateProperties = new List<GamePieceStateProperty>();
+            StateProperties = new List<DieStateProperty>();
         }
-        [JsonIgnore]
-        public GameBoardSpace GameBoardSpace
+        public int Sides
         {
             get;set;
         }
-
-        public Guid? GameBoardSpaceId
+        public int Value
         {
-            get; set;
+            get;set;
         }
-
         [JsonIgnore]
         public GameSet GameSet
         {
             get; set;
         }
-
         public Guid GameSetId
         {
             get; set;
         }
-
         public Guid Id
         {
             get; set;
         }
-
-        public List<GamePieceStateProperty> StateProperties
+        public List<DieStateProperty> StateProperties
         {
             get; set;
         }

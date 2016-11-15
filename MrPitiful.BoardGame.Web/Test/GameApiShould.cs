@@ -18,6 +18,14 @@ namespace MrPitiful.BoardGame.Web.Test
     {
         private readonly TestServer _server;
         private readonly HttpClient _client;
+        private async Task DeleteGameSetForCleanup(GameSet gameSet)
+        {
+            await _client.DeleteAsync(string.Format("/api/GameSet/{0}", gameSet.Id));
+        }
+        private async Task DeleteGameForCleanup(Game game)
+        {
+            await _client.DeleteAsync(string.Format("/api/Game/{0}", game.Id));
+        }
         public GameApiShould()
         {
             _server = new TestServer(new WebHostBuilder()
@@ -46,6 +54,7 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Assert
             Assert.NotEqual(Guid.Empty, postedObj.Id);
+            await DeleteGameForCleanup(postedObj);
         }
 
         [Fact]
@@ -75,6 +84,7 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Assert   
             Assert.Equal(postedObj.Id, gotObj.Id);
+            await DeleteGameForCleanup(postedObj);
         }
 
         [Fact]
@@ -107,6 +117,7 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Assert   
             Assert.Equal(testObj.StateProperties.Count(), gotObj.StateProperties.Count());
+            await DeleteGameForCleanup(postedObj);
         }
 
         [Fact]
@@ -137,6 +148,8 @@ namespace MrPitiful.BoardGame.Web.Test
             //Assert   
             Assert.NotEqual(Guid.Empty, postedObj.GameSet.Id);
             Assert.Equal(postedObj.GameSet.Id, gotObj.GameSet.Id);
+            await DeleteGameSetForCleanup(postedObj.GameSet);
+            await DeleteGameForCleanup(postedObj);
         }
 
         [Fact]
@@ -169,6 +182,7 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Assert   
             Assert.Equal(2, postedObj.Players.Count());
+            await DeleteGameForCleanup(postedObj);
         }
 
         [Fact]
@@ -260,9 +274,8 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Clean up
             //Delete goodObj & badObj
-            await _client.DeleteAsync(string.Format("/api/Game/{0}", goodObj.Id));
-            await _client.DeleteAsync(string.Format("/api/Game/{0}", badObj.Id));
-
+            await DeleteGameForCleanup(goodObj);
+            await DeleteGameForCleanup(badObj);
         }
 
         [Fact]
@@ -327,7 +340,7 @@ namespace MrPitiful.BoardGame.Web.Test
             //testproperty1 should be updatedValue and testproperty2 should be originalvalue
             Assert.Equal(updatedValue, updatedObj.StateProperties.Where(x => x.Name == testproperty1).Single().Value);
             Assert.Equal(originalValue, updatedObj.StateProperties.Where(x => x.Name == testproperty2).Single().Value);
-
+            await DeleteGameForCleanup(postedObj);
         }
     }
 }

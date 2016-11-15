@@ -7,6 +7,13 @@ namespace MrPitiful.BoardGame.Models
 {
     public class GameBoardSpace 
     {
+        public GameBoardSpace()
+        {
+            SpaceConnections = new List<SpaceConnection>();
+            GamePieces = new List<GamePiece>();
+            StateProperties = new List<GameBoardSpaceStateProperty>();
+        }
+
         public List<SpaceConnection> SpaceConnections
         {
             get;set;

@@ -7,6 +7,10 @@ namespace MrPitiful.BoardGame.Models
 {
     public class Player 
     {
+        public Player()
+        {
+            StateProperties = new List<PlayerStateProperty>();
+        }
         public Guid GameId { get; set; }
 
         [JsonIgnore]
