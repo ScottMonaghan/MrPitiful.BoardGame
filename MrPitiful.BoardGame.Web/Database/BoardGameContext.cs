@@ -29,10 +29,19 @@ namespace MrPitiful.BoardGame.Database
         public DbSet<GamePieceStateProperty> GamePieceStateProperties { get; set; }
         public DbSet<Die> Dice { get; set; }
         public DbSet<DieStateProperty> DieStateProperties { get; set; }
-
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<CardStateProperty> CardStateProperties { get; set; }
+        public DbSet<Deck> Decks { get; set; }
+        public DbSet<DeckStateProperty> DeckStateProperties { get; set; }
+        public DbSet<CardInDeck> CardsInDecks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
+            modelBuilder.Entity<CardInDeck>()
+                .HasOne(cid => cid.Card)
+                .WithOne(c => c.CardInDeck)
+                .IsRequired(false);
+
             modelBuilder.Entity<GameSet>()
                     .HasOne(gs => gs.Game)
                     .WithOne(g => g.GameSet)
@@ -61,6 +70,10 @@ namespace MrPitiful.BoardGame.Database
                 .HasKey(x => new { x.GamePieceId, x.Name });
             modelBuilder.Entity<DieStateProperty>()
                 .HasKey(x => new { x.DieId, x.Name });
+            modelBuilder.Entity<CardStateProperty>()
+                .HasKey(x => new { x.CardId, x.Name });
+            modelBuilder.Entity<DeckStateProperty>()
+                .HasKey(x => new { x.DeckId, x.Name });
         }
     }
 }

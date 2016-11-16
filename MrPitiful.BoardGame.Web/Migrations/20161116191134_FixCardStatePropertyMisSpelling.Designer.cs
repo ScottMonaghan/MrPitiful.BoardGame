@@ -8,9 +8,10 @@ using MrPitiful.BoardGame.Database;
 namespace MrPitiful.BoardGame.Web.Migrations
 {
     [DbContext(typeof(BoardGameContext))]
-    partial class BoardGameContextModelSnapshot : ModelSnapshot
+    [Migration("20161116191134_FixCardStatePropertyMisSpelling")]
+    partial class FixCardStatePropertyMisSpelling
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

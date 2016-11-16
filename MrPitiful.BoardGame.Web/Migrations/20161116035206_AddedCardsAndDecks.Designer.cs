@@ -8,9 +8,10 @@ using MrPitiful.BoardGame.Database;
 namespace MrPitiful.BoardGame.Web.Migrations
 {
     [DbContext(typeof(BoardGameContext))]
-    partial class BoardGameContextModelSnapshot : ModelSnapshot
+    [Migration("20161116035206_AddedCardsAndDecks")]
+    partial class AddedCardsAndDecks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -65,7 +66,7 @@ namespace MrPitiful.BoardGame.Web.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("CardStateProperties");
+                    b.ToTable("CardStateProperites");
                 });
 
             modelBuilder.Entity("MrPitiful.BoardGame.Models.Deck", b =>

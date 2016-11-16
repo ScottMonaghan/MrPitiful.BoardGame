@@ -36,5 +36,9 @@ namespace MrPitiful.BoardGame.Models
         {
             get;set;
         }
+        public List<Deck> Decks
+        { get; set;}
+        public List<Card> Cards
+        { get; set; }
     }
 }
