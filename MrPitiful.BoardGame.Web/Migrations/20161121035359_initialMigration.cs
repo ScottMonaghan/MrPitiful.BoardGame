@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MrPitiful.BoardGame.Web.Migrations
 {
-    public partial class v001 : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,6 +75,62 @@ namespace MrPitiful.BoardGame.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GameSetId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cards_GameSets_GameSetId",
+                        column: x => x.GameSetId,
+                        principalTable: "GameSets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Decks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GameSetId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Decks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Decks_GameSets_GameSetId",
+                        column: x => x.GameSetId,
+                        principalTable: "GameSets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dice",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    GameSetId = table.Column<Guid>(nullable: false),
+                    Sides = table.Column<int>(nullable: false),
+                    Value = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dice_GameSets_GameSetId",
+                        column: x => x.GameSetId,
+                        principalTable: "GameSets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GameBoards",
                 columns: table => new
                 {
@@ -126,6 +182,89 @@ namespace MrPitiful.BoardGame.Web.Migrations
                         name: "FK_PlayerStateProperties_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CardStateProperties",
+                columns: table => new
+                {
+                    CardId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardStateProperties", x => new { x.CardId, x.Name });
+                    table.ForeignKey(
+                        name: "FK_CardStateProperties_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CardsInDecks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CardId = table.Column<Guid>(nullable: true),
+                    DeckId = table.Column<Guid>(nullable: false),
+                    Position = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardsInDecks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CardsInDecks_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CardsInDecks_Decks_DeckId",
+                        column: x => x.DeckId,
+                        principalTable: "Decks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DeckStateProperties",
+                columns: table => new
+                {
+                    DeckId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeckStateProperties", x => new { x.DeckId, x.Name });
+                    table.ForeignKey(
+                        name: "FK_DeckStateProperties_Decks_DeckId",
+                        column: x => x.DeckId,
+                        principalTable: "Decks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DieStateProperties",
+                columns: table => new
+                {
+                    DieId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DieStateProperties", x => new { x.DieId, x.Name });
+                    table.ForeignKey(
+                        name: "FK_DieStateProperties_Dice_DieId",
+                        column: x => x.DieId,
+                        principalTable: "Dice",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -275,6 +414,47 @@ namespace MrPitiful.BoardGame.Web.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cards_GameSetId",
+                table: "Cards",
+                column: "GameSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardsInDecks_CardId",
+                table: "CardsInDecks",
+                column: "CardId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardsInDecks_DeckId",
+                table: "CardsInDecks",
+                column: "DeckId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardStateProperties_CardId",
+                table: "CardStateProperties",
+                column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Decks_GameSetId",
+                table: "Decks",
+                column: "GameSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DeckStateProperties_DeckId",
+                table: "DeckStateProperties",
+                column: "DeckId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dice_GameSetId",
+                table: "Dice",
+                column: "GameSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DieStateProperties_DieId",
+                table: "DieStateProperties",
+                column: "DieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GameBoards_GameSetId",
                 table: "GameBoards",
                 column: "GameSetId",
@@ -355,6 +535,18 @@ namespace MrPitiful.BoardGame.Web.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CardsInDecks");
+
+            migrationBuilder.DropTable(
+                name: "CardStateProperties");
+
+            migrationBuilder.DropTable(
+                name: "DeckStateProperties");
+
+            migrationBuilder.DropTable(
+                name: "DieStateProperties");
+
+            migrationBuilder.DropTable(
                 name: "GameBoardSpaceStateProperties");
 
             migrationBuilder.DropTable(
@@ -374,6 +566,15 @@ namespace MrPitiful.BoardGame.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "SpaceConnectionStateProperties");
+
+            migrationBuilder.DropTable(
+                name: "Cards");
+
+            migrationBuilder.DropTable(
+                name: "Decks");
+
+            migrationBuilder.DropTable(
+                name: "Dice");
 
             migrationBuilder.DropTable(
                 name: "GamePieces");

@@ -20,8 +20,8 @@ namespace MrPitiful.BoardGame.Models
         {
             get; set;
         }
-        public CardInDeck CardInDeck
-        { get; set; }
+        //public CardInDeck CardInDeck
+        //{ get; set; }
         public Guid Id
         {
             get; set;

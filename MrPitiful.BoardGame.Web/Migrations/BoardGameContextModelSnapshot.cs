@@ -35,9 +35,7 @@ namespace MrPitiful.BoardGame.Web.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CardId");
-
-                    b.Property<Guid?>("CardId1");
+                    b.Property<Guid?>("CardId");
 
                     b.Property<Guid>("DeckId");
 
@@ -45,7 +43,7 @@ namespace MrPitiful.BoardGame.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CardId1")
+                    b.HasIndex("CardId")
                         .IsUnique();
 
                     b.HasIndex("DeckId");
@@ -88,15 +86,11 @@ namespace MrPitiful.BoardGame.Web.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<Guid?>("DeckId1");
-
                     b.Property<string>("Value");
 
                     b.HasKey("DeckId", "Name");
 
                     b.HasIndex("DeckId");
-
-                    b.HasIndex("DeckId1");
 
                     b.ToTable("DeckStateProperties");
                 });
@@ -354,8 +348,8 @@ namespace MrPitiful.BoardGame.Web.Migrations
             modelBuilder.Entity("MrPitiful.BoardGame.Models.CardInDeck", b =>
                 {
                     b.HasOne("MrPitiful.BoardGame.Models.Card", "Card")
-                        .WithOne("CardInDeck")
-                        .HasForeignKey("MrPitiful.BoardGame.Models.CardInDeck", "CardId1");
+                        .WithOne()
+                        .HasForeignKey("MrPitiful.BoardGame.Models.CardInDeck", "CardId");
 
                     b.HasOne("MrPitiful.BoardGame.Models.Deck", "Deck")
                         .WithMany("CardsInDeck")
@@ -381,14 +375,10 @@ namespace MrPitiful.BoardGame.Web.Migrations
 
             modelBuilder.Entity("MrPitiful.BoardGame.Models.DeckStateProperty", b =>
                 {
-                    b.HasOne("MrPitiful.BoardGame.Models.Deck")
+                    b.HasOne("MrPitiful.BoardGame.Models.Deck", "Deck")
                         .WithMany("StateProperties")
                         .HasForeignKey("DeckId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MrPitiful.BoardGame.Models.Card", "Deck")
-                        .WithMany()
-                        .HasForeignKey("DeckId1");
                 });
 
             modelBuilder.Entity("MrPitiful.BoardGame.Models.Die", b =>

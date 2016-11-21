@@ -17,10 +17,11 @@ namespace MrPitiful.BoardGame.Models
         {
             get; set;
         }
+        [JsonIgnore]
         public Card Card {
             get; set;
         }
-        public Guid CardId
+        public Guid? CardId
         {
             get;set;
         }

@@ -8,14 +8,126 @@ using MrPitiful.BoardGame.Database;
 namespace MrPitiful.BoardGame.Web.Migrations
 {
     [DbContext(typeof(BoardGameContext))]
-    [Migration("20161114024339_v0.0.1")]
-    partial class v001
+    [Migration("20161121035359_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Card", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("GameSetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameSetId");
+
+                    b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.CardInDeck", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("CardId");
+
+                    b.Property<Guid>("DeckId");
+
+                    b.Property<int>("Position");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId")
+                        .IsUnique();
+
+                    b.HasIndex("DeckId");
+
+                    b.ToTable("CardsInDecks");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.CardStateProperty", b =>
+                {
+                    b.Property<Guid>("CardId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("CardId", "Name");
+
+                    b.HasIndex("CardId");
+
+                    b.ToTable("CardStateProperties");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Deck", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("GameSetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameSetId");
+
+                    b.ToTable("Decks");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.DeckStateProperty", b =>
+                {
+                    b.Property<Guid>("DeckId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("DeckId", "Name");
+
+                    b.HasIndex("DeckId");
+
+                    b.ToTable("DeckStateProperties");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Die", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("GameSetId");
+
+                    b.Property<int>("Sides");
+
+                    b.Property<int>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameSetId");
+
+                    b.ToTable("Dice");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.DieStateProperty", b =>
+                {
+                    b.Property<Guid>("DieId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("DieId", "Name");
+
+                    b.HasIndex("DieId");
+
+                    b.ToTable("DieStateProperties");
+                });
 
             modelBuilder.Entity("MrPitiful.BoardGame.Models.Game", b =>
                 {
@@ -224,6 +336,66 @@ namespace MrPitiful.BoardGame.Web.Migrations
                     b.HasIndex("SpaceConnectionId");
 
                     b.ToTable("SpaceConnectionStateProperties");
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Card", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.GameSet", "GameSet")
+                        .WithMany("Cards")
+                        .HasForeignKey("GameSetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.CardInDeck", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Card", "Card")
+                        .WithOne()
+                        .HasForeignKey("MrPitiful.BoardGame.Models.CardInDeck", "CardId");
+
+                    b.HasOne("MrPitiful.BoardGame.Models.Deck", "Deck")
+                        .WithMany("CardsInDeck")
+                        .HasForeignKey("DeckId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.CardStateProperty", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Card", "Card")
+                        .WithMany("StateProperties")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Deck", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.GameSet", "GameSet")
+                        .WithMany("Decks")
+                        .HasForeignKey("GameSetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.DeckStateProperty", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Deck", "Deck")
+                        .WithMany("StateProperties")
+                        .HasForeignKey("DeckId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.Die", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.GameSet", "GameSet")
+                        .WithMany()
+                        .HasForeignKey("GameSetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MrPitiful.BoardGame.Models.DieStateProperty", b =>
+                {
+                    b.HasOne("MrPitiful.BoardGame.Models.Die", "Die")
+                        .WithMany("StateProperties")
+                        .HasForeignKey("DieId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MrPitiful.BoardGame.Models.GameBoard", b =>

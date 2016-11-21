@@ -8,7 +8,7 @@ namespace MrPitiful.BoardGame.Models
     public class DeckStateProperty : StateProperty
     {
         [JsonIgnore]
-        public Card Deck { get; set; }
+        public Deck Deck { get; set; }
         public Guid DeckId {get;set;}
     }
 }

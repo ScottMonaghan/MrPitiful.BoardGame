@@ -39,7 +39,7 @@ namespace MrPitiful.BoardGame.Database
 
             modelBuilder.Entity<CardInDeck>()
                 .HasOne(cid => cid.Card)
-                .WithOne(c => c.CardInDeck)
+                .WithOne()
                 .IsRequired(false);
 
             modelBuilder.Entity<GameSet>()
