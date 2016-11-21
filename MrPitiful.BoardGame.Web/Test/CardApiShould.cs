@@ -15,9 +15,11 @@ using MrPitiful.BoardGame.Database;
 
 namespace MrPitiful.BoardGame.Web.Test
 {
+    public class CardApiShould
     {
         private readonly TestServer _server;
         private readonly HttpClient _client;
+        public CardApiShould()
         {
             _server = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>());
@@ -47,15 +49,18 @@ namespace MrPitiful.BoardGame.Web.Test
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
+            var testObj = new Card();
             testObj.GameSetId = testGameSet.Id;
             
             //Act
             var response = await _client.PostAsync(
+                "/api/Card", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     ,Encoding.UTF8
                     ,"application/json"
                     )        
                 );
+            var postedObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert
@@ -68,21 +73,26 @@ namespace MrPitiful.BoardGame.Web.Test
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
+            var testObj = new Card();
             testObj.GameSetId = testGameSet.Id;
 
             //Act
             var response = await _client.PostAsync(
+                "/api/Card", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
 
+            var postedObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Get
             response = await _client.GetAsync(
+                    string.Format("/api/Card/{0}", postedObj.Id)
                 );
+            var gotObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert   
@@ -96,24 +106,30 @@ namespace MrPitiful.BoardGame.Web.Test
             //Arrange
             //Arrange
             var testGameSet = await GetTestGameSet();
+            var testObj = new Card();
             testObj.GameSetId = testGameSet.Id;
 
             var testproperty1 = "testproperty1";
             var originalValue = "originalvalue";
+            testObj.StateProperties.Add(new CardStateProperty { Name = testproperty1, Value = originalValue });
 
             //Act
             var response = await _client.PostAsync(
+                "/api/Card", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
 
+            var postedObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Get
             response = await _client.GetAsync(
+                    string.Format("/api/Card/{0}?includeStateProperties=true", postedObj.Id)
                 );
+            var gotObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert   
@@ -126,22 +142,27 @@ namespace MrPitiful.BoardGame.Web.Test
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
+            var testObj = new Card();
             testObj.GameSetId = testGameSet.Id;
 
             var response = await _client.PostAsync(
+                "/api/Card", new StringContent(
                     JsonConvert.SerializeObject(testObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
+            var postedObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Act
+            await _client.DeleteAsync(string.Format("/api/Card/{0}",postedObj.Id));
 
             //Assert
             await Assert.ThrowsAsync<InvalidOperationException>(async () => {
                 //Get
                 response = await _client.GetAsync(
+                        string.Format("/api/Card/{0}", postedObj.Id)
                     );
             });
             await DeleteGameSetForCleanup(testGameSet);
@@ -152,25 +173,32 @@ namespace MrPitiful.BoardGame.Web.Test
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
+            var testObj = new Card();
             testObj.GameSetId = testGameSet.Id;
             var testproperty1 = "testproperty1";
             var testproperty2 = "testproperty2";
             var originalValue = "originalValue";
             var updatedValue = "updatedValue";
+            testObj.StateProperties.Add(new CardStateProperty { Name = testproperty1, Value = originalValue });
+            testObj.StateProperties.Add(new CardStateProperty { Name = testproperty2, Value = originalValue });
             //Act 
             //Post test Object
             var response = await _client.PostAsync(
+               "/api/Card", new StringContent(
                    JsonConvert.SerializeObject(testObj)
                    , Encoding.UTF8
                    , "application/json"
                    )
                );
 
+            var postedObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Get objectById with State Properties
             response = await _client.GetAsync(
+                   string.Format("/api/Card/{0}?includeStateProperties=true", postedObj.Id)
                );
+            var gotObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());//Assert
 
             //Assert
@@ -180,19 +208,24 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Arrange
             //now lets change testproperty1 to updatedValue without including any other stateproperties
+            gotObj.StateProperties = new List<CardStateProperty>()
             {
+                new CardStateProperty() {Name=testproperty1, Value=updatedValue }
             };
 
             //Act
             //update GotObj
             response = await _client.PutAsync(
+                           "/api/Card", new StringContent(
                                JsonConvert.SerializeObject(gotObj)
                                , Encoding.UTF8
                                , "application/json"
                                )
                            );
             response = await _client.GetAsync(
+                   string.Format("/api/Card/{0}?includeStateProperties=true", gotObj.Id)
                );
+            var updatedObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Assert
@@ -213,38 +246,52 @@ namespace MrPitiful.BoardGame.Web.Test
             //Arrange
             var testGameSet = await GetTestGameSet();
             //set up good object with good values
+            var goodObj = new Card();
             goodObj.GameSetId = testGameSet.Id;
+            goodObj.StateProperties.Add(new CardStateProperty { Name = testproperty1, Value = goodvalue });
+            goodObj.StateProperties.Add(new CardStateProperty { Name = testproperty2, Value = goodvalue });
             //set up bad object with one bad value
+            var badObj = new Card();
             badObj.GameSetId = testGameSet.Id;
+            badObj.StateProperties.Add(new CardStateProperty { Name = testproperty1, Value = goodvalue });
+            badObj.StateProperties.Add(new CardStateProperty { Name = testproperty2, Value = badvalue });
 
             //set up filter
             var statePropertiesToFilter = new List<StateProperty>() { };
+            statePropertiesToFilter.Add(new CardStateProperty { Name = testproperty1, Value = goodvalue });
+            statePropertiesToFilter.Add(new CardStateProperty { Name = testproperty2, Value = goodvalue });
 
             //post goodObj
             var response = await _client.PostAsync(
+                "/api/Card", new StringContent(
                     JsonConvert.SerializeObject(goodObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
+            goodObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //post badObj
             response = await _client.PostAsync(
+                "/api/Card", new StringContent(
                     JsonConvert.SerializeObject(badObj)
                     , Encoding.UTF8
                     , "application/json"
                     )
                 );
+            badObj = JsonConvert.DeserializeObject<Card>(
                 await response.Content.ReadAsStringAsync());
 
             //Act 
             response = await _client.PostAsync(
+               String.Format("/api/Card/GetByStateProperties/{0}",testGameSet.Id), new StringContent(
                    JsonConvert.SerializeObject(statePropertiesToFilter)
                    , Encoding.UTF8
                    , "application/json"
                    )
                );
+            var gotObjects = JsonConvert.DeserializeObject<List<Card>>(
                     await response.Content.ReadAsStringAsync());
 
             //Assert
