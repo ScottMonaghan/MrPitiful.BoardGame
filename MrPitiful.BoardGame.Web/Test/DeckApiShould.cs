@@ -25,6 +25,7 @@ namespace MrPitiful.BoardGame.Web.Test
                 .UseStartup<Startup>());
             _client = _server.CreateClient();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
         }
         private async Task<GameSet> GetTestGameSet()
         {
@@ -158,7 +159,7 @@ namespace MrPitiful.BoardGame.Web.Test
         }
 
         [Fact]
-        public async void PostAndGetByIdWithCards()
+        public async void PostAndGetByIdWithCardsAndStateProperties()
         {
             //Arrange
             var testGameSet = await GetTestGameSet();
@@ -171,8 +172,7 @@ namespace MrPitiful.BoardGame.Web.Test
                 var cardToShuffle = new Card();
                 cardToShuffle.GameSetId = testGameSet.Id;
                 cardToShuffle.StateProperties.Add(new CardStateProperty() { Name = "originalIndex", Value = i.ToString() });
-                cardToShuffle = await PostNewCard(cardToShuffle);
-                testDeck.CardsInDeck.Add(new CardInDeck() { CardId = cardToShuffle.Id });
+                testDeck.CardsInDeck.Add(new CardInDeck() { Card = cardToShuffle});
             }
 
             //Act
@@ -189,7 +189,7 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Get
             response = await _client.GetAsync(
-                    string.Format("/api/Deck/{0}?IncludeCards=true", postedObj.Id)
+                    string.Format("/api/Deck/{0}?IncludeCards=true&IncludeStateProperties=true", postedObj.Id)
                 );
             var gotObj = JsonConvert.DeserializeObject<Deck>(
                 await response.Content.ReadAsStringAsync());
@@ -202,7 +202,7 @@ namespace MrPitiful.BoardGame.Web.Test
             var weHaventProvedChangedOrder = true;
             while (weHaventProvedChangedOrder && j < gotObj.CardsInDeck.Count())
             {
-                var gotCard = await GetCardByIdWithProperties(gotObj.CardsInDeck[j].CardId.Value);
+                var gotCard = gotObj.CardsInDeck[j].Card;//await GetCardByIdWithProperties(gotObj.CardsInDeck[j].CardId.Value);
                 if (gotCard.StateProperties.Find(x => x.Name == "originalIndex").Value != j.ToString())
                 {
                     weHaventProvedChangedOrder = false;
@@ -230,8 +230,8 @@ namespace MrPitiful.BoardGame.Web.Test
                 var cardToShuffle = new Card();
                 cardToShuffle.GameSetId = testGameSet.Id;
                 cardToShuffle.StateProperties.Add(new CardStateProperty() { Name = "originalIndex", Value = i.ToString() });
-                cardToShuffle = await PostNewCard(cardToShuffle);
-                testDeck.CardsInDeck.Add(new CardInDeck() { CardId = cardToShuffle.Id });
+                //cardToShuffle = await PostNewCard(cardToShuffle);
+                testDeck.CardsInDeck.Add(new CardInDeck() { Card = cardToShuffle});
             }
 
             //Act
@@ -248,7 +248,7 @@ namespace MrPitiful.BoardGame.Web.Test
 
             //Get
             response = await _client.GetAsync(
-                    string.Format("/api/Deck/{0}?IncludeCards=true&shuffle=true", postedObj.Id)
+                    string.Format("/api/Deck/{0}?includeStateProperties=true&includeCards=true&shuffle=true", postedObj.Id)
                 );
             var gotObj = JsonConvert.DeserializeObject<Deck>(
                 await response.Content.ReadAsStringAsync());
@@ -261,7 +261,7 @@ namespace MrPitiful.BoardGame.Web.Test
             var weHaventProvedChangedOrder = true;
             while (weHaventProvedChangedOrder && j < gotObj.CardsInDeck.Count())
             {
-                var gotCard = await GetCardByIdWithProperties(gotObj.CardsInDeck[j].CardId.Value);
+                var gotCard = gotObj.CardsInDeck[j].Card;//await GetCardByIdWithProperties(gotObj.CardsInDeck[j].CardId.Value);
                 if (gotCard.StateProperties.Find(x => x.Name == "originalIndex").Value != j.ToString())
                 {
                     weHaventProvedChangedOrder = false;
@@ -271,7 +271,6 @@ namespace MrPitiful.BoardGame.Web.Test
             Assert.False(weHaventProvedChangedOrder);
             await DeleteGameSetForCleanup(testGameSet);
         }
-
 
         [Fact]
         public async void Delete()

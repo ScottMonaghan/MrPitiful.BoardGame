@@ -17,7 +17,7 @@ namespace MrPitiful.BoardGame.Models
         {
             get; set;
         }
-        [JsonIgnore]
+        //[JsonIgnore]
         public Card Card {
             get; set;
         }

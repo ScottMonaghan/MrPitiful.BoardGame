@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using MrPitiful.BoardGame.Models;
 using MrPitiful.BoardGame.Database;
+using Microsoft.EntityFrameworkCore.Query;
 namespace MrPitiful.BoardGame.Web.Controllers
 {
     [Route("api/[controller]")]
@@ -72,11 +73,18 @@ namespace MrPitiful.BoardGame.Web.Controllers
                  * According to http://stackoverflow.com/questions/15378136/entity-framework-ordering-includes EF doesn't support ordering includes,
                  * so since the order of the cardsInDeck is important, we get those with a separate call
                  */
-                
-                deck.CardsInDeck = await _context.CardsInDecks
+
+                IQueryable<CardInDeck> cardQuery = _context.CardsInDecks
                     .Where(cardInDeck => cardInDeck.DeckId == id)
-                    .OrderBy(cardInDeck => cardInDeck.Position)
-                    .ToListAsync();
+                    .Include(cardInDeck => cardInDeck.Card);
+                if (includeStateProperties)
+                {
+                    cardQuery = ((IIncludableQueryable<CardInDeck,Card>) cardQuery)
+                        .ThenInclude(card => card.StateProperties);
+                }
+               cardQuery = cardQuery.OrderBy(cardInDeck => cardInDeck.Position);
+
+                deck.CardsInDeck = await ((IOrderedQueryable<CardInDeck>) cardQuery).ToListAsync();
 
                 if (shuffle)
                 {
