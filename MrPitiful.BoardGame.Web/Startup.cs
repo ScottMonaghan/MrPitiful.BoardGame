@@ -31,7 +31,12 @@ namespace MrPitiful.BoardGame.Web
         {
             // Add framework services.
             services.AddMvc();
-            services.AddDbContext<BoardGameContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = "DefaultConnection";
+            if (Environment.GetEnvironmentVariable("APPVEYOR") == "True")
+            {
+                connectionString = "AppVeyorConnection";
+            }
+            services.AddDbContext<BoardGameContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString(connectionString)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
