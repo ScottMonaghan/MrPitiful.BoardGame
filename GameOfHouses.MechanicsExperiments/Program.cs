@@ -365,7 +365,7 @@ namespace GameOfHouses.MechanicsExperiments
                 target.Sex = Sex.Male;
             }
         }
-        public static void CreateMarriages(List<Person> unmarriedPeople, Random rnd)
+        public static void CreateMarriages(List<Person> unmarriedPeople, Random rnd, bool echo = false)
         {
             var unmarriedMenInPrime = unmarriedPeople.Where(x => x.Sex == Sex.Male).OrderBy(x => x.Age).ToList();
             var unmarriedWomenInPrime = unmarriedPeople.Where(x => x.Sex == Sex.Female).OrderBy(x => x.Age).ToList();
@@ -427,13 +427,11 @@ namespace GameOfHouses.MechanicsExperiments
                         spouse = bride;
                     }
 
-                    //if (headOfHousehold.Household.HouseholdClass == HouseholdClass.Noble)
-                    //{
-                    //    Console.WriteLine(spouse.FullNameAndAge + " MARRIED INTO House " + headOfHousehold.House + ", marrying " + headOfHousehold.FullNameAndAge + " in the year " + headOfHousehold.Year + ".");
-                    //    
-                    //    Console.WriteLine("------------------------");
-                    //}
-                    Household.CreateMarriageHousehold(headOfHousehold, spouse);
+                    if (echo)
+                    {
+                        Console.WriteLine(spouse.FullNameAndAge + " MARRIED " + headOfHousehold.FullNameAndAge + " in " + headOfHousehold.Year + ".");
+                        Household.CreateMarriageHousehold(headOfHousehold, spouse);
+                    }
                 }
                 unmarriedMenInPrime.Remove(groom);
                 unmarriedWomenInPrime.Remove(bride);
@@ -515,7 +513,6 @@ namespace GameOfHouses.MechanicsExperiments
                         Vacant = true;
                         Console.WriteLine("The Lordship of " + Name + " is vacant.");
                     }
-                    Console.WriteLine("------------------------");
                 }
                 //6. Give jobs to unemployed villagers in prime
                 var unemployedVillagersInPrime = villagersInPrime.Where(x => x.Profession == Profession.Dependant).ToList();
@@ -632,6 +629,7 @@ namespace GameOfHouses.MechanicsExperiments
                 newVillage.Households.Add(settlerHousehold);
                 settlerHousehold.Village = newVillage;
             }
+            Console.WriteLine(newLord.FullNameAndAge + " FOUNDED " + newVillage.Name + " in " + newVillage.Year);
             newVillage.Vacant = false;
         }
     }
@@ -798,7 +796,7 @@ namespace GameOfHouses.MechanicsExperiments
                     }
                 }*/
                 //marry villagers 
-                Person.CreateMarriages(eligibleNobles, rnd);
+                Person.CreateMarriages(eligibleNobles, rnd,true);
                 if (Villages[0].Year % 10 == 0)
                 {
                     Console.WriteLine("Year: " + Villages[0].Year);
@@ -809,9 +807,12 @@ namespace GameOfHouses.MechanicsExperiments
                     var housePower = Villages.Where(v => !v.Vacant).GroupBy(v => v.Lords.Last().Household.HouseFounder);
                     foreach (var houseGrouping in housePower)
                     {
-                        Console.WriteLine(houseGrouping.Key.Name + ":" + houseGrouping.Count() + ", wealth:" + houseGrouping.Sum(x => x.Wealth));
+                        Console.WriteLine("House " + houseGrouping.Key.Name);
+                        Console.WriteLine("\tLordships:" + houseGrouping.Count());
+                        Console.WriteLine("\tWealth:" + houseGrouping.Sum(x => x.Wealth));
                     }
                     Console.WriteLine("------------------------");
+                    Console.WriteLine("Enter to continue. CTRL-C to quit.");
                     Console.ReadLine();
                 }
             }
