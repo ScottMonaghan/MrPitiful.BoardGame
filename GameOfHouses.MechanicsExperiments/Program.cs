@@ -33,9 +33,10 @@ namespace GameOfHouses.MechanicsExperiments
         public const int GENERATIONS_WITHOUT_SHARED_ANCESTOR = 3;
         public const int AGE_OF_MAJORITY = 18;
         public const int MAX_BETROTHAL_AGE_DIFFERENCE = 10;
-        public const double CHANCE_OF_RECRUITING_FOREIGN_HOUSE = 0.2;
+        public const double CHANCE_OF_RECRUITING_FOREIGN_HOUSE = 1;
         public const int NUMBER_OF_CHILDREN_FOR_NEW_LORD = 10;
-        public const int YEARS_TO_ITERATE_NEW_HOUSES = 20;
+        public const int YEARS_TO_ITERATE_NEW_HOUSES = 30;
+        public const int MAX_RECRUITMENTS = 3;
     }
 
     public enum Sex
@@ -202,19 +203,22 @@ namespace GameOfHouses.MechanicsExperiments
         {
             var retString = "";
             var world = this;
-            retString += ("Villages: " + world.Towns.Count(x => x.Households.Count() > 0)) +"\n";
+            retString += ("Dane Noble Houses: " + world.NobleHouses.Count(x => !x.Vacant && x.Lords.Last().People == People.Dane) + "\n");
+            retString += ("Saxon Noble Houses: " + world.NobleHouses.Count(x => !x.Vacant && x.Lords.Last().People == People.Saxon) + "\n");
+            retString += ("Towns: " + world.Towns.Count(x => x.Households.Count() > 0)) +"\n";
             retString += ("Total Population: " + world.Population.Count(x=>x.IsAlive)) + "\n";
             retString += ("Total Saxon Population: " + world.Population.Count(x => x.IsAlive && x.People ==People.Saxon)) + "\n";
             retString += ("Total Dane Population: " + world.Population.Count(x => x.IsAlive && x.People == People.Dane)) + "\n";
             retString += ("Total Noble Households: " + world.Towns.Sum(x => x.Households.Count(y => y.HouseholdClass == SocialClass.Noble))) + "\n";
             retString += ("Total Peasant Households: " + world.Towns.Sum(x => x.Households.Count(y => y.HouseholdClass == SocialClass.Peasant))) + "\n";
+            /*
             var housePower = world.Towns.Where(v => !v.Vacant).GroupBy(v => v.Lords.Last().House);
             foreach (var houseGrouping in housePower)
             {
                 retString += ("House " + houseGrouping.Key.Symbol + "-" + houseGrouping.Key.Name) + "\n";
                 retString += ("\tLordships:" + houseGrouping.Count()) + "\n";
                 retString += ("\tWealth:" + houseGrouping.Sum(x => x.Wealth)) + "\n";
-            }
+            }*/
             retString += ("------------------------") + "\n";
             return retString;
         }
@@ -262,7 +266,9 @@ namespace GameOfHouses.MechanicsExperiments
             Members = new List<Person>();
             AvailableUnmarriedMembers = new List<Person>();
             Vassles = new List<House>();
+            Recruitments = 0;
         }
+        public int Recruitments { get; set; }
         public Town Seat { get; set; }
         public House Allegience { get; set; }
         public List<House> Vassles { get; set; }
@@ -1367,10 +1373,10 @@ namespace GameOfHouses.MechanicsExperiments
                 eligibleLordsAndLikelyHeirs.Remove(eligableLordOrHeir);
             }
             
-            if (unmatchedLordsAndHeirs.Count(x=>x.Age>13 && x.GetHeirs().Count == 0) > 0 && matchcount == 0)
+            if (unmatchedLordsAndHeirs.Count(x=>x.Age>5 && x.Age<23 && x.GetHeirs().Count == 0) > 0 && matchcount == 0)
             {
                 //no heirs!  Try to invite a new house from the homeland!
-                if (rnd.NextDouble() <= Constants.CHANCE_OF_RECRUITING_FOREIGN_HOUSE)
+                if (rnd.NextDouble() <= Constants.CHANCE_OF_RECRUITING_FOREIGN_HOUSE && house.Recruitments<Constants.MAX_RECRUITMENTS)
                 {
                     unclaimedLands = GetUnclaimedLands(house);
                     if (unclaimedLands.Count() > 0)
@@ -1386,6 +1392,7 @@ namespace GameOfHouses.MechanicsExperiments
                         {
                             Console.WriteLine(recruitingLord.FullNameAndAge + " RECRUITED " + recruitedLord.FullNameAndAge + " from the " + recruitingLord.People + " homeland.");
                         }
+                        house.Recruitments++;
                     }
                 }
             }
@@ -1406,7 +1413,8 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public static House CreateNewHouse(string name, char symbol, People people, Town town, Random rnd, House allegience = null, int eldest = 18)
         {
-            var world = town.World;
+            var oldWorld = new World(rnd) { Year = town.World.Year - Constants.YEARS_TO_ITERATE_NEW_HOUSES };//town.World;
+            var newWorld = town.World;
             //create settlers
             var firstSettlers = new List<Household>();
             for (int i = 0; i < 100; i++)
@@ -1420,7 +1428,7 @@ namespace GameOfHouses.MechanicsExperiments
                     People = people
                 };
                 husband.House = new House() { Name = husband.Name };
-                world.AddPerson(husband);
+                oldWorld.AddPerson(husband);
                 var wife = new Person(rnd)
                 {
                     Age = husband.Age,
@@ -1429,7 +1437,7 @@ namespace GameOfHouses.MechanicsExperiments
                     Class = SocialClass.Peasant,
                     People = people
                 };
-                world.AddPerson(wife);
+                oldWorld.AddPerson(wife);
                 for (int j = 18 - 5; j < (wife.Age - 17) && j <= 17; j++)
                 {
                     var kid = new Person(rnd)
@@ -1440,14 +1448,14 @@ namespace GameOfHouses.MechanicsExperiments
                         Profession = Profession.Dependant,
                         Class = SocialClass.Peasant,
                         People = people,
-                        BirthYear = world.Year - j
+                        BirthYear = oldWorld.Year - j
                     };
                     kid.Ancestors.Add(husband);
                     kid.Ancestors.Add(wife);
                     wife.Children.Add(kid);
                     husband.Children.Add(kid);
                     husband.House.AddMember(kid);
-                    world.AddPerson(kid);
+                    oldWorld.AddPerson(kid);
                 }
                 var settlerHousehold = Household.CreateMarriageHousehold(husband, wife);
                 settlerHousehold.HouseholdClass = SocialClass.Peasant;
@@ -1456,53 +1464,62 @@ namespace GameOfHouses.MechanicsExperiments
 
             var lord = new Person(rnd)
             {
-                Age = eldest + 18,
+                Age = 18,
                 Sex = Sex.Male,
                 Profession = Profession.Noble,
                 Class = SocialClass.Noble,
-                People = people
+                People = people,
+                BirthYear = oldWorld.Year - 18
             };
-            world.AddPerson(lord);
+            oldWorld.AddPerson(lord);
             var lady = new Person(rnd)
             {
-                Age = eldest + 18,
+                Age = 18,
                 Sex = Sex.Female,
                 Profession = Profession.Noble,
                 Class = SocialClass.Noble,
-                People = people
+                People = people,
+                BirthYear = oldWorld.Year - 18
             };
-            world.AddPerson(lady);
+            oldWorld.AddPerson(lady);
             lord.House = new House() { Name = name, Symbol = symbol, Seat = town};
+            lord.House.AddLord(lord);
+            oldWorld.AddHouse(lord.House);
+            var lordsHousehold = Household.CreateMarriageHousehold(lord, lady);
+            lordsHousehold.HouseholdClass = SocialClass.Noble;
+            for (var i = 0; i < Constants.YEARS_TO_ITERATE_NEW_HOUSES; i++)
+            { 
+                oldWorld.IncrementYear();
+                var eligibleNobles = oldWorld.Population.Where(x => x.Class == SocialClass.Noble && x.IsEligibleForMarriage());
+                while (eligibleNobles.Count() > 0)
+                {
+                    //create a spouse for each
+                    var eligibleNoble = eligibleNobles.First();
+                    var spouse = new Person(rnd) { Age = eligibleNoble.Age, Class = SocialClass.Noble, BirthYear = eligibleNoble.BirthYear, People = people };
+                    if (eligibleNoble.Sex == Sex.Male)
+                    {
+                        spouse.Sex = Sex.Female;
+                    } else
+                    {
+                        spouse.Sex = Sex.Male;
+                    }
+                    oldWorld.AddPerson(spouse);
+                    var marriageHousehold = Household.CreateMarriageHousehold(eligibleNoble, spouse);
+                    if (!firstSettlers.Contains(marriageHousehold))
+                    {
+                        firstSettlers.Add(marriageHousehold);
+                    }
+                }
+            }
             if (allegience != null)
             {
                 allegience.AddVassle(lord.House);
             }
-            lord.House.AddLord(lord);
-            world.AddHouse(lord.House);
-            for (int j = eldest-Constants.NUMBER_OF_CHILDREN_FOR_NEW_LORD; j <= eldest; j++)
+            newWorld.AddHouse(lord.House);
+            while (oldWorld.Population.Count() > 0)
             {
-                var kid = new Person(rnd)
-                {
-                    Age = j,
-                    Mother = lady,
-                    Father = lord,
-                    Profession = Profession.Noble,
-                    People = people,
-                    BirthYear = world.Year - j
-                };
-                kid.Ancestors.Add(lord);
-                kid.Ancestors.Add(lady);
-                world.AddPerson(kid);
-                lady.Children.Add(kid);
-                lord.Children.Add(kid);
-                lord.House.AddMember(kid);
+                newWorld.AddPerson(oldWorld.Population[0]);
             }
-            var lordsHousehold = Household.CreateMarriageHousehold(lord, lady);
-            foreach(var adultChild in lord.Children)
-            {
-                lordsHousehold.AddMember(adultChild);
-            }
-            lordsHousehold.HouseholdClass = SocialClass.Noble;
             Town.PopulateTown(town, lordsHousehold, firstSettlers);
             return lord.House;
         }
