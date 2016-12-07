@@ -37,8 +37,14 @@ namespace GameOfHouses.MechanicsExperiments
         public const int NUMBER_OF_CHILDREN_FOR_NEW_LORD = 10;
         public const int YEARS_TO_ITERATE_NEW_HOUSES = 30;
         public const int MAX_RECRUITMENTS = 3;
+        public const int NUMBER_OF_INDESPENSIBLE_HEIRS = 3;
     }
 
+    public class AssessedIncome
+    {
+        public int Year { get; set; }
+        public double Income { get; set; }
+    }
     public enum Sex
     {
         Female = 0,
@@ -245,7 +251,7 @@ namespace GameOfHouses.MechanicsExperiments
             
             if (echo && headOfHouseoldToBe.House.Name == "Stark")
             {
-                Console.WriteLine(bethrothal.HeadOfHouseholdToBe.FullNameAndAge + " was BETROTHED to " + bethrothal.SpouseToBe.FullNameAndAge + " in " + year);
+                Console.WriteLine("BETROTHAL: " + bethrothal.HeadOfHouseholdToBe.FullNameAndAge + " was BETROTHED to " + bethrothal.SpouseToBe.FullNameAndAge + " in " + year);
             }
             return bethrothal;
         }
@@ -266,6 +272,7 @@ namespace GameOfHouses.MechanicsExperiments
             Members = new List<Person>();
             AvailableUnmarriedMembers = new List<Person>();
             Vassles = new List<House>();
+            AssessedIncome = new List<AssessedIncome>();
             Recruitments = 0;
         }
         public int Recruitments { get; set; }
@@ -321,6 +328,7 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public void IncrementYear() {
             var incumbentLord = Lords.Last();
+            CollectTaxes();
             if (!incumbentLord.IsAlive)
             {
                 //The lord is Dead!  Long live the lord!
@@ -411,6 +419,13 @@ namespace GameOfHouses.MechanicsExperiments
             retString += ("House: " + Name + '\n');
             var incumentlord = Lords.Last();
             retString += ("Lord: " + incumentlord.FullNameAndAge + '\n');
+            retString += ("Wealth: " + Wealth.ToString("0.00") + '\n');
+            var lastYear = World.Year - 1;
+            var lastYearsIncome = AssessedIncome.FirstOrDefault(x => x.Year == lastYear);
+            if (lastYearsIncome != null)
+            {
+                retString += lastYear + " Income: " + lastYearsIncome.Income.ToString("0.00") + "\n"; 
+            }
             retString += ("Order of Succession:" + '\n');
             var orderOfSuccession = GetOrderOfSuccession(10);
             for (int i = 0; i < orderOfSuccession.Count(); i++)
@@ -448,7 +463,74 @@ namespace GameOfHouses.MechanicsExperiments
                 Vassles.Remove(vassle);
             }
         }
+        public List<Person> GetIndespensibleMembers()
+        {
+            var allLivingHeirs = Lords[0].GetHeirs().Where(x => x.IsAlive && x.House==this).ToList();
+            var indespensibleLivingHeirs = new List<Person>();
+            foreach (var livingHeir in allLivingHeirs)
+            {
+                var positionInMothersLivingChildren = 1;
+                var positionInFathersLivingChildern = 1;
+                if (livingHeir.Father != null)
+                {
+                    positionInFathersLivingChildern = livingHeir.Father.Children.Where(child => child.IsAlive).ToList().IndexOf(livingHeir) + 1;
+                }
+                if (livingHeir.Mother != null)
+                {
+                    positionInMothersLivingChildren = livingHeir.Mother.Children.Where(child => child.IsAlive).ToList().IndexOf(livingHeir) + 1;
+                }
+                if(positionInFathersLivingChildern <= Constants.NUMBER_OF_INDESPENSIBLE_HEIRS || positionInMothersLivingChildren <= Constants.NUMBER_OF_INDESPENSIBLE_HEIRS)
+                {
+                    indespensibleLivingHeirs.Add(livingHeir);
+                }
+            }
+            return indespensibleLivingHeirs;
+        }
+        public List<Person> GetDispensibleMembers()
+        {
+            return Members.Except(GetIndespensibleMembers()).ToList();
+        }
+        public double Wealth { get; set; }
+        public List<Town> GetTowns()
+        {
+            return World.Towns.Where(town => !town.Vacant && town.Lords.Last().House == this).ToList();
+        }
+        public void CollectTaxes()
+        {
+            //set tax year for tax collection
+            var previousTaxYear = World.Year - 1;
+            double houseIncome = 0; 
 
+            //first collect assessed taxes from previous year from each town under house control
+            var houseTowns = GetTowns();
+            foreach(var houseTown in houseTowns)
+            {
+                var assessedTownIncome = houseTown.AssessedIncome.FirstOrDefault(income => income.Year == previousTaxYear);
+                if (assessedTownIncome != null)
+                {
+                    //move ALL income from town wealth to house coffers (the house lord controls all wealth for the house)
+                    houseTown.Wealth -= assessedTownIncome.Income;
+                    houseIncome += assessedTownIncome.Income;
+                }
+            }
+            //next collect assessed taxes from all vassle houses
+            foreach(var vassle in Vassles)
+            {
+                var assessedVassleIncome = vassle.AssessedIncome.FirstOrDefault(income => income.Year == previousTaxYear);
+                if (assessedVassleIncome !=null)
+                {
+                    //tax vassle income at tax rate
+                    var tax = assessedVassleIncome.Income * Constants.MIN_TAX_RATE;
+                    vassle.Wealth -= tax;
+                    houseIncome += tax;
+                }
+            }
+            //add income to wealth
+            Wealth += houseIncome;
+            //add assessment for taxes
+            AssessedIncome.Add(new AssessedIncome() { Year = World.Year, Income = houseIncome });
+        } 
+        public List<AssessedIncome> AssessedIncome { get; set; }
     }
     public class Household
     {
@@ -513,7 +595,7 @@ namespace GameOfHouses.MechanicsExperiments
             if (echo)
             {
                 if (headOfHousehold.House.Name == "Stark") {
-                    Console.WriteLine(headOfHousehold.FullNameAndAge + " MARRIED " + spouse.FullNameAndAge + " in " + headOfHousehold.World.Year);
+                    Console.WriteLine("MARRIAGE: " + headOfHousehold.FullNameAndAge + " MARRIED " + spouse.FullNameAndAge + " in " + headOfHousehold.World.Year);
                 }
             } 
             //if headOfHousehold is already head then their house is the marriageHousehold
@@ -792,7 +874,7 @@ namespace GameOfHouses.MechanicsExperiments
                         World.AddPerson(newborn);
                         if ((newborn.Mother.TownLordships.Count()> 0 || newborn.Father.TownLordships.Count() > 0) && House.Name=="Stark")
                         {
-                            Console.WriteLine(newborn.Name + " WAS BORN to " +  newborn.Mother.FullNameAndAge + " and " + newborn.Father.FullNameAndAge + " in " + World.Year);
+                            Console.WriteLine("BIRTH: " + newborn.Name + " WAS BORN to " +  newborn.Mother.FullNameAndAge + " and " + newborn.Father.FullNameAndAge + " in " + World.Year);
                         }
                     }
                 }
@@ -1025,6 +1107,7 @@ namespace GameOfHouses.MechanicsExperiments
             Wealth = 0;
             Surplus = 0;
             _maxYeild = _rnd.Next(Constants.MAX_YEILD_LOW, Constants.MAX_YEILD_HIGH);
+            AssessedIncome = new List<AssessedIncome>();
             Vacant = true;
         }
         public World World { get; set; }
@@ -1035,7 +1118,8 @@ namespace GameOfHouses.MechanicsExperiments
         public int FoundingYear { get; set; }
         public String Name { get; set; }
         public List<Household> Households { get; set; }
-        public double Income { get; set; }
+        public List<AssessedIncome> AssessedIncome { get; set; }
+        //public double Income { get; set; }
         public double Yeild { get; set; }
         public double Cost { get; set; }
         public double Surplus { get; set; }
@@ -1060,7 +1144,7 @@ namespace GameOfHouses.MechanicsExperiments
 
                     if (incumbentLord.House.Name == "Stark")
                     {
-                        Console.WriteLine(incumbentLord.FullNameAndAge + " DIED in " + World.Year);
+                        Console.WriteLine("DEATH: " + incumbentLord.FullNameAndAge + " DIED in " + World.Year);
                     }
 
                     Person heir = null;
@@ -1074,7 +1158,7 @@ namespace GameOfHouses.MechanicsExperiments
                         AddLord(heir);
                         if (heir.House.Name == "Stark" || incumbentLord.House.Name == "Stark")
                         {
-                            Console.WriteLine(heir.FullNameAndAge + " INHERITED the Lordship of " + Name + " in " + World.Year);
+                            Console.WriteLine("INHERITANCE: " + heir.FullNameAndAge + " INHERITED the Lordship of " + Name + " in " + World.Year);
                             if (heir.House != incumbentLord.House)
                             {
                                 Console.WriteLine("CHANGE OF HOUSE! " + Name + " passed from House " + incumbentLord.House.Name + " to " + heir.House.Name + " in " + World.Year);
@@ -1086,7 +1170,7 @@ namespace GameOfHouses.MechanicsExperiments
                         Vacant = true;
                         if (incumbentLord.House.Name == "Stark")
                         {
-                            Console.WriteLine("The Lordship of " + Name + " is vacant.");
+                            Console.WriteLine("VACANCY: The Lordship of " + Name + " is vacant.");
                         }
                     }
                 }
@@ -1107,13 +1191,15 @@ namespace GameOfHouses.MechanicsExperiments
                     Yeild = thisYearsMaxYeild;
                 }
                 //9. Add tax to income
-                Income = Math.Round(Yeild * Constants.MIN_TAX_RATE,2);
+                var income = Math.Round(Yeild * Constants.MIN_TAX_RATE,2);
                 //10. Calculate surplus/deficit
-                Surplus = Yeild - Cost - Income;
+                Surplus = Yeild - Cost - income;
                 //11. Add surplus to income if positive
-                if (Surplus > 0) { Income += Surplus; }
+                if (Surplus > 0) { income += Surplus; }
                 //12. Add Income to treasury
-                Wealth += Income;
+                Wealth += income;
+                //Add income to assessedIncome (for tax to house)
+                AssessedIncome.Add(new AssessedIncome() { Year = World.Year, Income = income });
                 //13. If there is a deficit then villagers die :(
                 if (Surplus < 0)
                 {
@@ -1219,7 +1305,7 @@ namespace GameOfHouses.MechanicsExperiments
             retString+=("Yeild: " + Yeild + '\n');
             retString+=("Cost: " + Cost + '\n');
             retString+=("Surplus: " + Surplus + '\n');
-            retString+=("Income: " + Income + '\n');
+            retString+=("Income: " + AssessedIncome.Last().Income.ToString("0.00") + '\n');
             retString+=("Wealth: " + Wealth + '\n');
             retString+=("------------------------" + '\n');
             return retString;
@@ -1238,7 +1324,7 @@ namespace GameOfHouses.MechanicsExperiments
             }
             if (newLord.House.Name == "Stark")
             {
-                Console.WriteLine(newLord.FullNameAndAge + " FOUNDED " + newVillage.Name + " in " + newVillage.World.Year);
+                Console.WriteLine("EXPANSION: " + newLord.FullNameAndAge + " FOUNDED " + newVillage.Name + " in " + newVillage.World.Year);
             }
             newVillage.Vacant = false;
         }
@@ -1316,7 +1402,8 @@ namespace GameOfHouses.MechanicsExperiments
 
             //perform marriages
             //find good matches for 1st & 2nd children
-            var eligibleLordsAndLikelyHeirs = new List<Person>();
+            /* var eligibleLordsAndLikelyHeirs = new List<Person>();
+            
             //first add house lord
             if (house.Lords.Last().IsEligableForBetrothal())
             {
@@ -1338,24 +1425,25 @@ namespace GameOfHouses.MechanicsExperiments
 
             }
             eligibleLordsAndLikelyHeirs.AddRange(topHouseHeirs);
+            */
+            var indespensibleEligibleMembers = house.GetIndespensibleMembers().Where(x => x.IsEligableForBetrothal()).ToList();
             //advertise everyone else on the marriage market
-            var eligibleUnlikelyHeirs = house.Members.Where(x => x.IsEligableForBetrothal() && !eligibleLordsAndLikelyHeirs.Contains(x));
-            house.AvailableUnmarriedMembers = eligibleUnlikelyHeirs.ToList();
+            //var eligibleUnlikelyHeirs = house.Members.Where(x => x.IsEligableForBetrothal() && !eligibleLordsAndLikelyHeirs.Contains(x));
+            //house.AvailableUnmarriedMembers = eligibleUnlikelyHeirs.ToList();
             //clean up list removing ineligable members
-            house.AvailableUnmarriedMembers.RemoveAll(x => !x.IsEligableForBetrothal());
+            //house.AvailableUnmarriedMembers.RemoveAll(x => !x.IsEligableForBetrothal());
 
             var potentialMatches = new List<Person>();
             foreach (var otherHouse in house.World.NobleHouses)
             {
-                potentialMatches.AddRange(otherHouse.AvailableUnmarriedMembers);
+                potentialMatches.AddRange(otherHouse.GetDispensibleMembers().Where(x=>x.IsEligableForBetrothal()));
             }
-            potentialMatches = potentialMatches.OrderByDescending(x => x.Age).ToList();
-
+            //potentialMatches = potentialMatches.OrderByDescending(x => x.Age).ToList();
             var matchcount = 0;
             var unmatchedLordsAndHeirs = new List<Person>();
-            while (eligibleLordsAndLikelyHeirs.Count() > 0 && potentialMatches.Count() > 0)
+            while (indespensibleEligibleMembers.Count() > 0 && potentialMatches.Count() > 0)
             {
-                var eligableLordOrHeir = eligibleLordsAndLikelyHeirs.First();
+                var eligableLordOrHeir = indespensibleEligibleMembers.First();
                 var matches = potentialMatches.Where(x => x.IsCompatibleForBetrothal(eligableLordOrHeir)).ToList();
 
                 if (matches.Count() >0)
@@ -1370,10 +1458,10 @@ namespace GameOfHouses.MechanicsExperiments
                 {
                     unmatchedLordsAndHeirs.Add(eligableLordOrHeir);
                 }
-                eligibleLordsAndLikelyHeirs.Remove(eligableLordOrHeir);
+                indespensibleEligibleMembers.Remove(eligableLordOrHeir);
             }
             
-            if (unmatchedLordsAndHeirs.Count(x=>x.Age>5 && x.Age<23 && x.GetHeirs().Count == 0) > 0 && matchcount == 0)
+            if (unmatchedLordsAndHeirs.Count(x=>x.Age>5 && x.Age<25 && x.GetHeirs().Count == 0) > 0 && matchcount == 0)
             {
                 //no heirs!  Try to invite a new house from the homeland!
                 if (rnd.NextDouble() <= Constants.CHANCE_OF_RECRUITING_FOREIGN_HOUSE && house.Recruitments<Constants.MAX_RECRUITMENTS)
@@ -1390,7 +1478,7 @@ namespace GameOfHouses.MechanicsExperiments
                         var recruitedLord = newHouse.Lords.Last();
                         if (recruitingLord.House.Name == "Stark")
                         {
-                            Console.WriteLine(recruitingLord.FullNameAndAge + " RECRUITED " + recruitedLord.FullNameAndAge + " from the " + recruitingLord.People + " homeland.");
+                            Console.WriteLine("RECRUITMENT: " + recruitingLord.FullNameAndAge + " RECRUITED " + recruitedLord.FullNameAndAge + " from the " + recruitingLord.People + " homeland.");
                         }
                         house.Recruitments++;
                     }
@@ -1628,9 +1716,21 @@ namespace GameOfHouses.MechanicsExperiments
                         {
                             case "town":
                                 {
-                                    var x = int.Parse(command[1]);
-                                    var y = int.Parse(command[2]);
-                                    var town = world.Towns.FirstOrDefault(t => t.MapX == x && t.MapY == y);
+                                    int x;
+                                    int y;
+                                    Town town;
+                                    if (int.TryParse(command[1], out x) && int.TryParse(command[2], out y))
+                                    {
+                                        town = world.Towns.FirstOrDefault(t => t.MapX == x && t.MapY == y);
+                                    } else
+                                    {
+                                        var townName = command[1];
+                                        for (int i = 2; i < command.Length; i++)
+                                        {
+                                            townName += " " + command[i];
+                                        }
+                                        town = world.Towns.FirstOrDefault(t => t.Name.ToLower() == townName.ToLower());
+                                    }
                                     Console.WriteLine(town.GetDetailsAsString());
                                 }
                                 break;
