@@ -41,6 +41,11 @@ namespace GameOfHouses.MechanicsExperiments
         public const int HEIRS_TO_REPORT_ON = 1;
     }
 
+    public class Player
+    {
+        public House house { get; set; }
+    }
+
     public class AssessedIncome
     {
         public int Year { get; set; }
@@ -1623,7 +1628,7 @@ namespace GameOfHouses.MechanicsExperiments
                 bethrothalsToCheck.Remove(betrothalToCheck);
             }
         }
-        public static void InitializeWorld(World world, Random rnd)
+        public static void InitializeWorld(World world, Random rnd, Player player)
         {
             var townNames = Constants.TOWN_NAMES.Split(',').ToList();
             for (var y = 1; y <= Constants.MAP_HEIGHT; y++)
@@ -1678,7 +1683,7 @@ namespace GameOfHouses.MechanicsExperiments
             //create first dane house
             var daneTown = westernTowns[rnd.Next(0, westernTowns.Count())];
             daneTown.Name = "Winterfell";
-            CreateNewHouse("Stark", '*', People.Dane, daneTown, rnd);
+            player.house = CreateNewHouse("Stark", '*', People.Dane, daneTown, rnd);
             //create first saxon house
             var saxonTown = easternTowns[rnd.Next(0, easternTowns.Count())];
             saxonTown.Name = "Casterly Rock";
@@ -1695,7 +1700,12 @@ namespace GameOfHouses.MechanicsExperiments
         {
             var rnd = new Random();
             var world = new World(rnd);
-            InitializeWorld(world, rnd);
+            var player = new Player();
+            InitializeWorld(world, rnd, player);
+            var playerLord = player.house.Lords.Last();
+            Console.Write(
+                "You are " + playerLord.Name + ", the lord of House " + player.house.Name + "\n"
+                );
             while (world.Year < 500)
             {
                 Console.WriteLine("Year: " + world.Year);
