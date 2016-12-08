@@ -218,7 +218,7 @@ namespace GameOfHouses.MechanicsExperiments
             Bethrothals.RemoveAll(b => b.HeadOfHouseholdToBe == headOfHouseoldToBe || b.SpouseToBe == spouseToBe);
             Bethrothals.Add(bethrothal);
             
-            if (echo && headOfHouseoldToBe.House.Name == "Stark" && headOfHouseoldToBe.House.GetPossibleHeirs(1).Contains(headOfHouseoldToBe))
+            if (echo && headOfHouseoldToBe.House.Name == "Stark" && headOfHouseoldToBe.House.Lords.Last().GetCurrentHeirs().Contains(headOfHouseoldToBe))
             {
                 Console.WriteLine("BETROTHAL: " + bethrothal.HeadOfHouseholdToBe.FullNameAndAge + " was BETROTHED to " + bethrothal.SpouseToBe.FullNameAndAge + " in " + year);
             }
@@ -570,7 +570,7 @@ namespace GameOfHouses.MechanicsExperiments
             var spousesOldHousehold = spouse.Household;
             if (echo)
             {
-                if (headOfHousehold.House.Name == "Stark" && headOfHousehold.House.GetPossibleHeirs(Constants.HEIRS_TO_REPORT_ON).Contains(headOfHousehold)) {
+                if (headOfHousehold.House.Name == "Stark" && headOfHousehold.House.Lords.Last().GetCurrentHeirs().Contains(headOfHousehold)) {
                     Console.WriteLine("MARRIAGE: " + headOfHousehold.FullNameAndAge + " MARRIED " + spouse.FullNameAndAge + " in " + headOfHousehold.World.Year);
                 }
             } 
@@ -823,7 +823,7 @@ namespace GameOfHouses.MechanicsExperiments
                 //Death Check
                 if (_rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age)
                 {
-                    if(House.Name=="Stark" && House.GetPossibleHeirs(1).Contains(this))
+                    if(House.Name=="Stark" && House.Lords.Last().GetCurrentHeirs().Contains(this))
                     {
                         Console.WriteLine("DEATH OF HEIR: " + FullNameAndAge + " DIED in " + World.Year);
                     }
@@ -874,7 +874,7 @@ namespace GameOfHouses.MechanicsExperiments
                         Household.AddMember(newborn);
                         House.AddMember(newborn);
                         World.AddPerson(newborn);
-                        if (House.Name=="Stark" && House.GetPossibleHeirs(1).Contains(newborn))
+                        if (House.Name=="Stark" && House.Lords.Last().GetCurrentHeirs().Contains(newborn))
                         {
                             Console.WriteLine("BIRTH OF HEIR: " + newborn.FullNameAndAge + " was BORN in " + World.Year);
                         }
@@ -1032,6 +1032,28 @@ namespace GameOfHouses.MechanicsExperiments
             }
             return heirs;
         }
+        public List<Person> GetCurrentHeirs()
+        {
+            var heirs = new List<Person>();
+            var ChildrenOrderedByAge = Children.OrderBy(child => child.BirthYear);
+            var heirBranchIdentified = false;
+            foreach (var child in ChildrenOrderedByAge)
+            {
+                if (!heirBranchIdentified)
+                {
+                    if (child.IsAlive)
+                    {
+                        heirs.Add(child);
+                    }
+                    heirs.AddRange(child.GetCurrentHeirs());
+                    if (heirs.Count() > 0)
+                    {
+                        heirBranchIdentified = true;
+                    }
+                }
+            }
+            return heirs;
+        }
         public static void CreateMarriages(List<Person> unmarriedPeople, Random rnd, bool echo = false)
         {
             var unmarriedMenInPrime = unmarriedPeople.Where(x => x.Sex == Sex.Male).OrderBy(x => x.Age).ToList();
@@ -1159,7 +1181,7 @@ namespace GameOfHouses.MechanicsExperiments
                     if (heir != null)
                     {
                         AddLord(heir);
-                        if ((heir.House.Name == "Stark" || incumbentLord.House.Name == "Stark") && heir.House.GetPossibleHeirs(Constants.HEIRS_TO_REPORT_ON).Contains(heir))
+                        if ((heir.House.Name == "Stark" || incumbentLord.House.Name == "Stark") && heir.House.Lords.Last().GetCurrentHeirs().Contains(heir))
                         {
                             Console.WriteLine("INHERITANCE: " + heir.FullNameAndAge + " INHERITED the Lordship of " + Name + " from " + incumbentLord.FullNameAndAge + " in " + World.Year);
                             if (heir.House != incumbentLord.House)
@@ -1325,7 +1347,7 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 newVillage.AddHousehold(settlerHousehold);
             }
-            if (newLord.House.Name == "Stark" && newLord.House.GetPossibleHeirs(Constants.HEIRS_TO_REPORT_ON).Contains(newLord))
+            if (newLord.House.Name == "Stark" && newLord.House.Lords.Last().GetCurrentHeirs().Contains(newLord))
             {
                 Console.WriteLine("EXPANSION: " + newLord.FullNameAndAge + " FOUNDED " + newVillage.Name + " in " + newVillage.World.Year);
             }
@@ -1753,7 +1775,7 @@ namespace GameOfHouses.MechanicsExperiments
                                     foreach (var house in houses)
                                     {
                                         Console.WriteLine("Heirs of House " + houseName + ":");
-                                        var heirs = house.GetPossibleHeirs(1);
+                                        var heirs = house.Lords[0].GetCurrentHeirs();
                                         foreach (var heir in heirs)
                                         {
                                             Console.WriteLine("\t" + heir.FullNameAndAge);
