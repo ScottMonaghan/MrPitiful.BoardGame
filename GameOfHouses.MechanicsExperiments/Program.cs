@@ -33,7 +33,7 @@ namespace GameOfHouses.MechanicsExperiments
         public const int GENERATIONS_WITHOUT_SHARED_ANCESTOR = 3;
         public const int AGE_OF_MAJORITY = 18;
         public const int MAX_BETROTHAL_AGE_DIFFERENCE = 10;
-        public const double CHANCE_OF_RECRUITING_FOREIGN_HOUSE = 0.2;
+        public const double CHANCE_OF_RECRUITING_FOREIGN_HOUSE = 0.8;
         public const int NUMBER_OF_CHILDREN_FOR_NEW_LORD = 10;
         public const int YEARS_TO_ITERATE_NEW_HOUSES = 30;
         public const int MAX_RECRUITMENTS = 3;
@@ -41,9 +41,28 @@ namespace GameOfHouses.MechanicsExperiments
         public const int HEIRS_TO_REPORT_ON = 1;
     }
 
+    public static class Utility
+    {
+        public static string GetName(Sex sex, Random rnd)
+        {
+            var maleNames = Constants.MALE_NAMES.Split(',');
+            var femaleNames = Constants.FEMALE_NAMES.Split(',');
+            if (sex == Sex.Male)
+            {
+                return maleNames[rnd.Next(0, maleNames.Count())];
+            } else
+            {
+                return femaleNames[rnd.Next(0, femaleNames.Count())];
+            }
+        }
+    }
     public class Player
     {
-        public House house { get; set; }
+        public Player()
+        {
+            House = new House();
+        }
+        public House House { get; set; }
     }
 
     public class AssessedIncome
@@ -82,8 +101,10 @@ namespace GameOfHouses.MechanicsExperiments
             Population = new List<Person>();
             NobleHouses = new List<House>();
             Bethrothals = new List<Bethrothal>();
+            Player = new Player();
             _rnd = rnd;
         }
+        public Player Player { get; set; }
         public int Year { get; set; }
         public List<Town> Towns { get; set; }
         public List<Person> Population { get; set; }
@@ -223,7 +244,7 @@ namespace GameOfHouses.MechanicsExperiments
             Bethrothals.RemoveAll(b => b.HeadOfHouseholdToBe == headOfHouseoldToBe || b.SpouseToBe == spouseToBe);
             Bethrothals.Add(bethrothal);
             
-            if (echo && headOfHouseoldToBe.House.Name == "Stark" && headOfHouseoldToBe.House.Lords.Last().GetCurrentHeirs().Contains(headOfHouseoldToBe))
+            if (echo && headOfHouseoldToBe.House == headOfHouseoldToBe.World.Player.House && headOfHouseoldToBe.World.Player.House.Lords.Last().GetCurrentHeirs().Contains(headOfHouseoldToBe))
             {
                 Console.WriteLine("BETROTHAL: " + bethrothal.HeadOfHouseholdToBe.FullNameAndAge + " was BETROTHED to " + bethrothal.SpouseToBe.FullNameAndAge + " in " + year);
             }
@@ -307,9 +328,9 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 //The lord is Dead!  Long live the lord!
 
-                if (incumbentLord.House.Name == "Stark")
+                if (incumbentLord.House == World.Player.House)
                 {
-                    Console.WriteLine("DEATH OF HOUSE LORD: " + incumbentLord.FullNameAndAge + " DIED in " + World.Year);
+                    Console.WriteLine(String.Format("In {0} YOU DIED. Your family and your kingdom mourn for you.", World.Year));
                 }
 
                 Person heir = null;
@@ -321,19 +342,25 @@ namespace GameOfHouses.MechanicsExperiments
                 if (heir != null)
                 {
                     AddLord(heir);
-                    if (heir.House.Name == "Stark" || incumbentLord.House.Name == "Stark")
+                    if (heir.House == World.Player.House || incumbentLord.House == World.Player.House)
                     {
-                        Console.WriteLine("HOUSE INHERITANCE: " + heir.FullNameAndAge + " INHERITED the Lordship of House " + Name + " from " + incumbentLord.FullNameAndAge + " in " + World.Year);
+                        Console.WriteLine();
+                        Console.WriteLine(heir.FullNameAndAge + " INHERITED the Lordship of House " + Name + " from " + incumbentLord.FullNameAndAge + " in " + World.Year);
                         if (heir.House != incumbentLord.House)
                         {
                             Console.WriteLine("LOSS OF HOUSE! Control of House " + Name + " passed to " + heir.House.Name + " in " + World.Year);
                         }
+                        Console.WriteLine("Enter to continue...");
+                        Console.ReadLine();
+                        Console.WriteLine("You are " + heir.FullNameAndAge);
+                        Console.WriteLine("Enter to continue...");
+                        Console.ReadLine();
                     }
                 }
                 else
                 {
                     Vacant = true;
-                    if (incumbentLord.House.Name == "Stark")
+                    if (incumbentLord.House == World.Player.House)
                     {
                         Console.WriteLine("END OF HOUSE: The Lordship of House " + Name + " is vacant.");
                     }
@@ -347,18 +374,18 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 newLord.HouseLordships.Add(this);
             }
-            if(newLord.Household!=null && newLord != newLord.Household.HeadofHousehold)
+            if (newLord.Household != null && newLord != newLord.Household.HeadofHousehold)
             {
                 var newHousehold = new Household()
                 {
                     HeadofHousehold = newLord
                 };
                 newHousehold.AddMember(newLord);
-                if (newLord.Spouse!=null && newLord.Spouse.IsAlive)
+                if (newLord.Spouse != null && newLord.Spouse.IsAlive)
                 {
                     newHousehold.AddMember(newLord.Spouse);
                     var spousesMinorChildren = newLord.Spouse.Children.Where(x => x.Age < Constants.AGE_OF_MAJORITY);
-                    foreach(var child in spousesMinorChildren)
+                    foreach (var child in spousesMinorChildren)
                     {
                         newHousehold.AddMember(child);
                     }
@@ -398,7 +425,7 @@ namespace GameOfHouses.MechanicsExperiments
             var lastYearsIncome = AssessedIncome.FirstOrDefault(x => x.Year == lastYear);
             if (lastYearsIncome != null)
             {
-                retString += lastYear + " Income: " + lastYearsIncome.Income.ToString("0.00") + "\n"; 
+                retString += lastYear + " Income: " + lastYearsIncome.Income.ToString("0.00") + "\n";
             }
             retString += ("Order of Succession:" + '\n');
             var orderOfSuccession = GetOrderOfSuccession(10);
@@ -437,39 +464,24 @@ namespace GameOfHouses.MechanicsExperiments
                 Vassles.Remove(vassle);
             }
         }
-        public List<Person> GetPossibleHeirs(int numberOfPossibleHeirsPerGeneration = Constants.NUMBER_OF_POSSIBLE_HEIRS_PER_GENERATION)
+        public List<Person> GetIndespensibleMembers(int numberOfPossibleHeirsPerGeneration = Constants.NUMBER_OF_POSSIBLE_HEIRS_PER_GENERATION)
         {
-            var allHeirs = Lords[0].GetHeirs();
-            var allLivingHeirs = allHeirs.Where(x => x.IsAlive && x.House==this).ToList();
-            var indespensibleLivingHeirs = new List<Person>();
-            foreach (var livingHeir in allLivingHeirs)
-            {
-                //var positionInMothersLivingChildren = 1;
-                //var positionInFathersLivingChildern = 1;
-                if (livingHeir.Father != null && livingHeir.Mother !=null)
-                {
-                    //get parent that is actual heir
-                    Person inheritanceParent;
-                    if(livingHeir.Father == Lords[0] || allHeirs.Contains(livingHeir.Father))
-                    {
-                        inheritanceParent = livingHeir.Father;
-                    } else
-                    {
-                        inheritanceParent = livingHeir.Mother;
-                    }
-                    var positionInParentsLivingChildern = inheritanceParent.Children.Where(child => child.IsAlive).ToList().IndexOf(livingHeir) + 1;
-                    //var positionInMothersLivingChildren = livingHeir.Mother.Children.Where(child => child.IsAlive).ToList().IndexOf(livingHeir) + 1;
-                    if (positionInParentsLivingChildern <= numberOfPossibleHeirsPerGeneration)
-                    {
-                        indespensibleLivingHeirs.Add(livingHeir);
-                    }
-                }
-            }
-            return indespensibleLivingHeirs;
+            var livingHeirs = Lords[0].GetHeirs().Where(member =>
+                member.IsAlive
+                &&
+                (member.Father != null && member.Mother != null)
+                && (
+                    member.Father.Children.Where(child => child.IsAlive).OrderByDescending(child => child.Age).ToList().IndexOf(member) < numberOfPossibleHeirsPerGeneration
+                    || member.Mother.Children.Where(child => child.IsAlive).OrderByDescending(child => child.Age).ToList().IndexOf(member) < numberOfPossibleHeirsPerGeneration
+                )
+            ).ToList();
+
+            return livingHeirs;
         }
         public List<Person> GetDispensibleMembers()
         {
-            return Members.Except(GetPossibleHeirs()).ToList();
+            //return Members.Except(GetPossibleHeirs()).ToList();
+            return Members.Except(GetIndespensibleMembers()).ToList();
         }
         public double Wealth { get; set; }
         public List<Town> GetTowns()
@@ -575,7 +587,7 @@ namespace GameOfHouses.MechanicsExperiments
             var spousesOldHousehold = spouse.Household;
             if (echo)
             {
-                if (headOfHousehold.House.Name == "Stark" && headOfHousehold.House.Lords.Last().GetCurrentHeirs().Contains(headOfHousehold)) {
+                if (headOfHousehold.House == headOfHousehold.World.Player.House &&  headOfHousehold.House.World.Player.House.Lords.Last().GetCurrentHeirs().Contains(headOfHousehold)) {
                     Console.WriteLine("MARRIAGE: " + headOfHousehold.FullNameAndAge + " MARRIED " + spouse.FullNameAndAge + " in " + headOfHousehold.World.Year);
                 }
             } 
@@ -730,7 +742,7 @@ namespace GameOfHouses.MechanicsExperiments
                 {
                     foreach (var house in World.NobleHouses)
                     {
-                        var houseHeirs = house.GetPossibleHeirs(1);
+                        var houseHeirs = house.Lords.Last().GetCurrentHeirs();
                         if (houseHeirs.Contains(this))
                         {
                             fullNameAndAge += string.Format(", heir of House {1}", houseHeirs.IndexOf(this) + 1, house.Name);
@@ -828,7 +840,7 @@ namespace GameOfHouses.MechanicsExperiments
                 //Death Check
                 if (_rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age)
                 {
-                    if(House.Name=="Stark" && House.Lords.Last().GetCurrentHeirs().Contains(this))
+                    if(House == World.Player.House &&  World.Player.House.Lords.Count() > 0 && World.Player.House.Lords.Last().GetCurrentHeirs().Contains(this))
                     {
                         Console.WriteLine("DEATH OF HEIR: " + FullNameAndAge + " DIED in " + World.Year);
                     }
@@ -879,9 +891,16 @@ namespace GameOfHouses.MechanicsExperiments
                         Household.AddMember(newborn);
                         House.AddMember(newborn);
                         World.AddPerson(newborn);
-                        if (House.Name=="Stark" && House.Lords.Last().GetCurrentHeirs().Contains(newborn))
+                        if (newborn.House == World.Player.House && World.Player.House.Lords.Count() > 0 && World.Player.House.Lords.Last().GetCurrentHeirs().Contains(newborn))
                         {
-                            Console.WriteLine("BIRTH OF HEIR: " + newborn.FullNameAndAge + " was BORN in " + World.Year);
+                            Console.WriteLine(String.Format("REJOICE! A new heir, a {0}, was born to {1} and {2}.\n What name do you give {3}?"
+                                , newborn.Sex == Sex.Male ? "son" : "daughter",
+                                Household.HeadofHousehold.FullNameAndAge,
+                                Household.HeadofHousehold.Spouse.FullNameAndAge, newborn.Sex == Sex.Male?"him":"her"));
+                            newborn.Name = Console.ReadLine();
+                            Console.WriteLine("The kingdom rejoices at the news of the new heir, " + newborn.FullNameAndAge);
+                            Console.WriteLine("Enter to continue...");
+                            Console.ReadLine();
                         }
                     }
                 }
@@ -1171,12 +1190,6 @@ namespace GameOfHouses.MechanicsExperiments
                 {
                     //The lord is Dead!  Long live the lord!
 
-                    /*
-                    if (incumbentLord.House.Name == "Stark")
-                    {
-                        Console.WriteLine("DEATH: " + incumbentLord.FullNameAndAge + " DIED in " + World.Year);
-                    }*/
-
                     Person heir = null;
                     var orderOfSuccession = GetOrderOfSuccession(1);
                     if (orderOfSuccession.Count > 0)
@@ -1186,7 +1199,7 @@ namespace GameOfHouses.MechanicsExperiments
                     if (heir != null)
                     {
                         AddLord(heir);
-                        if ((heir.House.Name == "Stark" || incumbentLord.House.Name == "Stark") && heir.House.Lords.Last().GetCurrentHeirs().Contains(heir))
+                        if (heir.House == World.Player.House && World.Player.House.Lords.Last().GetCurrentHeirs().Contains(heir))
                         {
                             Console.WriteLine("INHERITANCE: " + heir.FullNameAndAge + " INHERITED the Lordship of " + Name + " from " + incumbentLord.FullNameAndAge + " in " + World.Year);
                             if (heir.House != incumbentLord.House)
@@ -1352,7 +1365,8 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 newVillage.AddHousehold(settlerHousehold);
             }
-            if (newLord.House.Name == "Stark" && newLord.House.Lords.Last().GetCurrentHeirs().Contains(newLord))
+            var playerLords = newVillage.World.Player.House.Lords;
+            if (newLord.House == newLord.World.Player.House && playerLords.Count > 0 && playerLords.Last().GetCurrentHeirs().Contains(newLord))
             {
                 Console.WriteLine("EXPANSION: " + newLord.FullNameAndAge + " FOUNDED " + newVillage.Name + " in " + newVillage.World.Year);
             }
@@ -1429,7 +1443,7 @@ namespace GameOfHouses.MechanicsExperiments
                     Town.PopulateTown(settlerTown, settlerLord.Household, settlerPeasantHouseholds);
                 }
             }
-            var indespensibleEligibleMembers = house.GetPossibleHeirs().Where(x => x.IsEligableForBetrothal()).ToList();
+            var indespensibleEligibleMembers = house.GetIndespensibleMembers().Where(x => x.IsEligableForBetrothal()).ToList();
           
             var potentialMatches = new List<Person>();
             foreach (var otherHouse in house.World.NobleHouses)
@@ -1473,7 +1487,7 @@ namespace GameOfHouses.MechanicsExperiments
                         var newHouse = CreateNewHouse(newHouseName, (char)rnd.Next(33,126), house.Lords.Last().People, newLand, rnd, house,eldest);
                         var recruitingLord = house.Lords.Last();
                         var recruitedLord = newHouse.Lords.Last();
-                        if (recruitingLord.House.Name == "Stark")
+                        if (recruitingLord.House == house.World.Player.House)
                         {
                             Console.WriteLine("RECRUITMENT: " + recruitingLord.FullNameAndAge + " RECRUITED " + recruitedLord.FullNameAndAge + " from the " + recruitingLord.People + " homeland.");
                         }
@@ -1628,7 +1642,7 @@ namespace GameOfHouses.MechanicsExperiments
                 bethrothalsToCheck.Remove(betrothalToCheck);
             }
         }
-        public static void InitializeWorld(World world, Random rnd, Player player)
+        public static void InitializeWorld(World world, Random rnd, Player player, string playerName = "Eddard", string playerHouse ="Stark", Sex playerSex = Sex.Male)
         {
             var townNames = Constants.TOWN_NAMES.Split(',').ToList();
             for (var y = 1; y <= Constants.MAP_HEIGHT; y++)
@@ -1683,7 +1697,24 @@ namespace GameOfHouses.MechanicsExperiments
             //create first dane house
             var daneTown = westernTowns[rnd.Next(0, westernTowns.Count())];
             daneTown.Name = "Winterfell";
-            player.house = CreateNewHouse("Stark", '*', People.Dane, daneTown, rnd);
+            player.House = CreateNewHouse("Stark", '*', People.Dane, daneTown, rnd);
+            var playerLord = player.House.Lords.Last();
+            player.House.Name = playerHouse;
+            playerLord.Name = playerName;
+            playerLord.Sex = playerSex;
+            if (playerLord.Spouse != null)
+            {
+                if (playerLord.Sex == Sex.Male)
+                {
+                    playerLord.Spouse.Sex = Sex.Female;
+                    playerLord.Spouse.Name = Utility.GetName(Sex.Female, rnd);
+                }else
+                {
+                    playerLord.Spouse.Sex = Sex.Male;
+                    playerLord.Spouse.Name = Utility.GetName(Sex.Male, rnd);
+                }
+            }
+
             //create first saxon house
             var saxonTown = easternTowns[rnd.Next(0, easternTowns.Count())];
             saxonTown.Name = "Casterly Rock";
@@ -1701,11 +1732,98 @@ namespace GameOfHouses.MechanicsExperiments
             var rnd = new Random();
             var world = new World(rnd);
             var player = new Player();
-            InitializeWorld(world, rnd, player);
-            var playerLord = player.house.Lords.Last();
+            world.Player = player;
+            Console.WriteLine("What is your name?");
+            var playerName = Console.ReadLine();
+            Sex playerSex = Sex.Male;
+            var sexResponse = "";
+            while (sexResponse == "")
+            {
+                Console.WriteLine("Are you a man or a woman?");
+                sexResponse = Console.ReadLine();
+                switch (sexResponse.ToLower())
+                {
+                    case "man":
+                        playerSex = Sex.Male;
+                        break;
+                    case "woman":
+                        playerSex = Sex.Female;
+                        break;
+                    default:
+                        sexResponse = "";
+                        break;
+                }
+            }
+            Console.WriteLine("What is the name of your house?");
+            var playerHouse = Console.ReadLine();
+            InitializeWorld(world, rnd, player, playerName,playerHouse, playerSex);
+            var playerLord = player.House.Lords.Last();
             Console.Write(
-                "You are " + playerLord.Name + ", the lord of House " + player.house.Name + "\n"
+                "You are " + playerLord.FullNameAndAge + "\n"
                 );
+            var playerHeirs = playerLord.GetCurrentHeirs();
+            if (playerHeirs.Count() > 0 ) {
+                var output = String.Format("You have {0} living heir{1}: ", playerHeirs.Count(), playerHeirs.Count > 1 ? "s" : "");
+                foreach (var heir in playerHeirs)
+                {
+                    if (heir == playerHeirs.First())
+                    {
+                        output += "a ";
+                    } else if (heir == playerHeirs.Last())
+                    {
+                        output += ", and a ";
+                    } else
+                    {
+                        output += ", a ";
+                    }
+                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 6)
+                    {
+                        output += "great ";
+                    }
+                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 2)
+                    {
+                        output += "gand";
+                    }
+                    if (heir.Sex == Sex.Male)
+                    {
+                        output += "son";
+                    } else {
+                        output += "daughter";
+                    }
+                }
+                output += ". By tradition, you as head of the house name your heirs.";
+                Console.WriteLine(output);
+                foreach (var heir in playerHeirs)
+                {
+                    var relation = "";
+                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 6)
+                    {
+                        relation += "great ";
+                    }
+                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 2)
+                    {
+                        relation += "gand";
+                    }
+                    if (heir.Sex == Sex.Male)
+                    {
+                        relation += "son";
+                    }
+                    else
+                    {
+                        relation += "daughter";
+                    }
+                    Console.WriteLine(String.Format("What is your {0}'s name?", relation));
+                    heir.Name = Console.ReadLine();
+
+                }
+                Console.WriteLine("Your heirs are:");
+                foreach (var heir in playerHeirs)
+                {
+                    Console.WriteLine(heir.FullNameAndAge);
+                }               
+                Console.WriteLine("Enter to continue..");
+                Console.ReadLine();
+            }
             while (world.Year < 500)
             {
                 Console.WriteLine("Year: " + world.Year);
