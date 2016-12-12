@@ -7,11 +7,15 @@ namespace GameOfHouses.MechanicsExperiments
 {
     public class Constants
     {
+        public const bool PLAY_INTRO = false;
         public const double CHILDBEARING_CHANCE_IN_PRIME = 0.6;
         public const double DEPENDENT_COST = 1;
         public const double DEPENDENT_INCOME = 0;
         public const double PEASANT_COST = 1;
         public const double PEASANT_INCOME = 10;
+        public const double SOLDIER_TOWN_COST = 0;
+        public const double SOLDIER_HOUSE_COST = 2;
+        public const double SOLDIER_INCOME = 0;
         public const string MALE_NAMES =
             "Abelar,Addam,Addison,Adrack,Adrian,Aegon,Aegor,Aemon,Aemond,Aenar,Aenys,Aerion,Aeron,Aerys,Aethan,Aethelmure,Aggar,Aladale,Alan,Alaric,Albar,Albett,Alebelly,Alekyne,Alesander,Alesandor,Alester,Alf,Alfred,Alfyn,Alios,Allaquo,Allar,Allard,Alleras,Alliser,Alvyn,Alyn,Alys,Ambrose,Amory,Andahar,Andar,Anders,Andrew,Andrey,Andrik,Andros,Androw,Anguy,Antario,Archibald,Ardrian,Areo,Argilac,Arlan,Armen,Armond,Arneld,Arnell,Arnolf,Aron,Arrec,Arron,Arryk,Arson,Arstan,Arthor,Arthur,Artos,Artys,Arwood,Arys,Aurane,Axell,Ayrmidon,Azor Ahai,Bael,Baelon,Baelor,Balaq,Ballabar,Balman,Balon,Bannen,Baqq,Barre,Barristan,Barth,Bartimos,Bartimus,Bass,Bayard,Bean,Beans,Beck,Bedwyck,Belaquo,Beldecar,Belicho,Belis,Belwas,Ben,Benedar,Benedict,Benerro,Benethon,Benfred,Benfrey,Benjen,Benjicot,Bennarion,Bennet,Beqqo,Beren,Beric,Bernarr,Beron,Bertram,Bhakaz,Bharbo,Big Boil,Bill,Billy,Biter,Black Fist,Blane,Bloodbeard,Bluetooth,Bodger,Bokkoko,Bonifer,Books,Borcas,Boremund,Boros,Borroq,Borros,Bors,Bowen,Bradamar,Brandon,Brendel,Brenett,Briar,Brogg,Bronn,Brus,Brusco,Bryan,Bryce,Bryen,Brynden,Bryndon,Bump,Burton,Butterbumps,Butts,Byam,Byan,Byron,Cadwyl,Cadwyle,Cadwyn,Caggo,Caleotte,Calon,Calor,Camarron,Canty,Carrot,Casper,Caspor,Casso,Cayn,Cedric,Cedrik,Cellador,Cetherys,Chains,Chayle,Chett,Chezdhar,Chiggen,Chiswyck,Clarence,Clarent,Clayton,Clement,Cleon,Cleos,Cletus,Cley,Clifford,Clydas,Cohollo,Colemon,Colen,Colin,Collio,Colloquo,Colmar,Conn,Conwy,Coratt,Corliss,Corlys,Cortnay,Cossomo,Cotter,Courtenay,Craghas,Cragorn,Craster,Crawn,Cregan,Creighton,Cressen,Creylen,Criston,Cromm,Cugen,Cuger,Cutjack,Daario,Dacks,Daegon,Daemon,Daeron,Dafyn,Dagmer,Dagon,Dagos,Dake,Dalbridge,Dale,Dalton,Damion,Damon,Dan,Dannel,Danny,Danos,Danwell,Dareon,Darla,Daryn,Daven,Davos,Del,Delp,Denestan,Dennet,Dennett,Dennis,Denyo,Denys,Denzo,Dermot,Desmond,Devan,Devyn,Deziel,Dick,Dickon,Dirk,Dobber,Dolf,Domeric,Donal,Donel,Doniphos,Donnel,Donnis,Donnor,Dontos,Doran,Dorden,Dormund,Dorren,Doss,Drennan,Drogo,Dryn,Dudley,Dunaver,Duncan,Dunsen,Dunstan,Duram,Duran,Durran,Dykk,Dywen,Earl,Easy,Ebben,Ebrose,Eddard,Edderion,Eddison,Edgerran,Edmund,Edmure,Edmyn,Edric,Edrick,Edwyd,Edwyle,Edwyn,Eggen,Eggon,Egon,Eladon Goldenhair,Elbert,Eldiss,Eldon,Eldred,Ellendor,Ellery,Elmar,Elron,Elwood,Elyas,Elys,Emmett,Emmon,Emmond,Emrick,Endehar,Endrew,Enger,Eon,Erik,Erreck,Erreg,Erren,Errok,Erryk,Ethan,Euron,Eustace,Eyron,Ezzelyno,Faezhar,Farlen,Ferrego,Fingers,Flement,Florian,Fogo,Forley,Fornio,Forrest,Fralegg,Franklyn,Frenken,Frynne,Fulk,Gage,Galbart,Galendro,Galladon,Galyeon,Gared,Garibald,Garigus,Garin,Garlan,Garrett,Garrison,Garse,Garth,Gascoyne,Gavin,Gawen,Gelmar,Gendel,Gendry,Gerald,Gerardys,Geremy,Gergen,Gerion,Germund,Gerold,Gerren,Gerrick,Gerris,Gerrold,Gevin,Ghael,Ghazdor,Gilbert,Gillam,Gilwood,Gladden,Glendon,Goady,Godric,Godry,Godwyn,Goghor,Gorghan,Gormon,Gormond,Gorne,Gorold,Gorys,Gorzhak,Gowen,Gran,Grance,Grazdan,Grazdar,Grazdhan,Grazhar,Greenguts,Gregor,Grenn,Grey Worm,Greydon,Grigg,Grimtongue,Groleo,Grubbs,Grunt,Gueren,Gulian,Guncer,Gunthor,Gurn,Guthor,Guyard,Gwayne,Gylbert,Gyldayn,Gyleno,Gyles,Gylo,Gyloro,Gynir,Haereg,Hagen,Haggo,Haggon,Hake,Hal,Halder,Haldon,Halleck,Hallis,Hallyne,Halmon,Halys,Hamish,Hammer,Harbert,Hareth,Harghaz,Harl,Harlan,Harle,Harlen,Harlon,Harmen,Harmond,Harmund,Harmune,Harrag,Harras,Harren,Harrion,Harrold,Harry,Harsley,Harwin,Harwood,Harwyn,Harys,Hayhead,Hazrak,Heke,Helliweg,Helman,Hendry,Henk,Henly,Herbert,Hero,Heward,Hibald,Hildy,Hilmar,Hizdahr,Hoarfrost,Hobb,Hobber,Hobert,Hod,Hoke,Holger,Hop-Bean,Hop-Robin,Horas,Horonno,Horton,Hosman,Hosteen,Hoster,Hot Pie,Hother,Hotho,Howd,Howland,Hubard,Hugh,Hugo,Hugor,Hullen,Humfrey,Hunnimore,Husband,Hyle,Iggo,Igon,Illifer,Illyrio,Ilyn,Imry,Ironbelly,Ithoke,Izembaro,Jacaerys,Jace,Jacelyn,Jack,Jack-Be-Lucky,Jacks,Jaehaerys,Jafer,Jaggot,Jaime,Jalabhar,Jammos,Janos,Jaqen,Jared,Jaremy,Jarl,Jarman,Jason,Jasper,Jate,Jax,Jeffory,Jeor,Jeren,Jhaqo,Jhogo,Jodge,Joffrey,John,Jojen,Jokin,Jommo,Jommy,Jon,Jonnel,Jonos,Jonothor,Jorah,Joramun,Jorquen,Jory,Joseran,Joseth,Josmyn,Joss,Josua,Joth,Jothos,Jurne,Justin,Jyck,Kaeth,Karl,Karlon,Karyl,Kasporio,Kedge,Kedry,Kegs,Kem,Kemmett,Kenned,Kennet,Kennos,Kerwin,Ketter,Kevan,Khorane,Khrazz,Kirth,Koss,Kraznys,Kromm,Kurleket,Kurz,Kyle,Kyleg,Kym,Laenor,Lambert,Lancel,Lann,Larence,Lark,Larraq,Larys,Laswell,Leathers,Lem,Lenn,Lennocks,Lenwood,Lenyl,Leo,Leobald,Leslyn,Lester,Lew,Lewyn,Lewys,Leyton,Lharys,Lister,Lomas,Lommy,Lomys,Longleaf,Longwater,Loras,Loren,Lorent,Loreth,Lorimas,Lorimer,Lormelle,Lorren,Lothar,Lotho,Lothor,Loyal Spear,Lucamore,Lucan,Lucantine,Lucas,Luceon,Lucerys,Lucias,Lucifer,Lucimore,Lucion,Luco,Lucos,Luke,Lum,Lump,Luthor,Luton,Luwin,Lyle,Lyman,Lymond,Lyn,Lync,Lyonel,Lysono,Mace,Mad Axe,Maegor,Maekar,Maelor,Maelys,Maezon,Mag,Maggo,Mago,Malaquo,Malcolm,Malegorn,Mallador,Malleon,Malliard,Mallor,Malo,Malwyn,Mance,Mandon,Manfred,Manfrey,Manfryd,Manly,Marghaz,Maric,Marillion,Mark,Marlon,Maron,Marq,Marselen,Marston,Martyn,Marwyn,Maslyn,Matarys,Mathis,Mathos,Matt,Matthar,Matthos,Mawney,Maynard,Mazdhan,Mebble,Medger,Medrick,Medwick,Meizo,Mekko,Meldred,Mellos,Melwys,Meribald,Merion,Mern,Mero,Merrel,Merrell,Merrett,Merriman,Merrit,Methyso,Michael,Mikken,Mohor,Mollander,Mollono,Mollos,Monford,Monterys,Moon Boy,Moqorro,Mord,Moredo,Moreo,Morgan,Morgarth,Morghaz,Morgil,Morgo,Moribald,Moro,Moroggo,Morosh,Morrec,Morros,Mors,Morton,Moryn,Mossador,Motho,Mudge,Mullin,Mully,Munciter,Munken,Murch,Murenmure,Murmison,Mushroom,Mycah,Mychel,Myles,Myrio,Myrmello,Nage,Nagga,Naggle,Nail,Narbert,Narbo,Ned,Nestor,Noho,Norbert,Norjen,Normund,Norne,Norren,Notch,Nurse,Nute,Nyessos,Oberyn,Ogo,Ollidor,Ollo,Olymer,Olyvar,Omer,Ondrew,Oppo,Orbelo,Orbert,Ordello,Orell,Orivel,Orland,Ormond,Ormund,Oro,Orson,Orton,Orwyle,Orys,Osbert,Osfryd,Osgood,Osmund,Osmynd,Osney,Osric,Oss,Ossifer,Ossy,Oswell,Oswyn,Othell,Otho,Othor,Otter,Otto,Ottyn,Owen,Oznak,Paezhar,Parmen,Parquello,Patchface,Pate,Patrek,Paul,Paxter,Pearse,Pello,Perestan,Perkin,Perros,Perwyn,Peter,Petyr,Philip,Plummer,Podrick,Pollitor,Pono,Porther,Portifer,Poul,Poxy Tym,Praed,Prendahl,Preston,Puckens,Puddingfoot,Pyat,Pycelle,Pyg,Pykewood,Pylos,Pynto,Pypar,Pytho,Qalen,Qarl,Qarlton,Qarro,Qavo,Qhored,Qhorin,Qos,Qotho,Quaro,Quellon,Quence,Quenn,Quent,Quenten,Quentin,Quenton,Quentyn,Quhuru,Quill,Quincy,Quort,Qyburn,Qyle,Racallio,Rafford,Ragnor,Ragwyle,Rakharo,Ralf,Ralph,Ramsay,Randyll,Rast,Rattleshirt,Rawney,Raymar,Raymond,Raymun,Raymund,Raynald,Raynard,Redwyn,Regenard,Renfred,Renly,Rennifer,Rey,Reysen,Reznak,Rhaegar,Rhaegel,Rhodry,Rhogoro,Ricasso,Richard,Rickard,Rickon,Rigney,Robar,Robb,Robert,Robett,Robin,Robyn,Roderick,Rodrik,Rodwell,Roger,Roggo,Roggon,Roland,Rolder,Rolfe,Rollam,Rolland,Rolley,Rolly,Rolph,Rommo,Romny,Ronald,Ronel,Ronnel,Ronnet,Rook,Roone,Roose,Rorge,Roro,Rory,Roryn,Rossart,Royce,Rudge,Rufus,Rugen,Runceford,Runcel,Runciter,Rupert,Rus,Russ,Russell,Rusty,Ryam,Rycherd,Ryger,Ryk,Ryles,Ryman,Rymolf,Rymund,Ryn,Ryon,Saathos,Salladhor,Sallor,Salloreon,Samwell,Sandor,Sargon,Satin,Sawane,Sawwood,Scar,Scarb,Sebastion,Sebaston,Sedgekins,Selmond,Selwyn,Serwyn,Shadd,Shadrich,Shagga,Shagwell,Sharako,Sherrit,Shortear,Sigfry,Sigfryd,Sigorn,Sigrin,Silveraxe,Simon,Skahaz,Skinner,Skittrick,Skyte,Snatch,Softfoot,Soren,Spare Boot,Squint,Stafford,Stalwart,Stannis,Steelskin,Steffar,Steffarion,Steffon,Stevron,Stiv,Stone Thumbs,Stonehand,Stonesnake,Stygg,Styr,Sumner,Sybassion,Sylas,Symeon,Symon,Symond,Syrio,Tagganaro,Tal,Talbert,Tallad,Tanton,Tarber,Tarle,Temmo,Ternesio,Terrance,Terrence,Terro,Thaddeus,The Tickler,Theo,Theobald,Theodan,Theodore,Theomar,Theomore,Theon,Therry,Thomax,Thoren,Thormor,Thoros,Three Toes,Tim,Timeon,Timett,Timon,Timoth,Tion,Titus,Tobbot,Tobho,Todder,Todric,Toefinger,Togg,Tom,Tomard,Tommen,TomToo,Torbert,Toregg,Torghen,Torgon,Torman,Tormo,Tormund,Torrek,Torren,Torrhen,Torwold,Torwynd,Tothmure,Trebor,Tregar,Tremond,Tristan,Tristifer,Tristimun,Triston,Trombo,Trystane,Tuffleberry,Tumberjon,Tumco,Turnip,Turquin,Ty,Tybero,Tybolt,Tycho,Tygett,Tyland,Tyler,Tymor,Tyrek,Tyrion,Tytos,Tywin,Uhlan,Ulf,Uller,Ulmer,Ulwyck,Umar,Umfred,Unwin,Urek,Urho,Urragon,Urras,Urrathon,Urreg,Urrigon,Urron,Urswyck,Urzen,Uthero,Utherydes,Uthor,Utt,Vaellyn,Vaemond,Valarr,Vardis,Vargo,Varly,Varys,Vayon,Vickon,Victarion,Victor,Viserys,Vogarro,Vortimer,Vylarr,Vyman,Walder,Waldon,Walgrave,Wallace,Wallen,Walton,Waltyr,Walys,Warren,Warrick,Wat,Wate,Watkyn,Watt,Watty,Waymar,Wayn,Webber,Weese,Wendamyr,Wendel,Wendello,Werlag,Wex,Whalen,Wick,Wilbert,Will,Willam,Willamen,Willas,Willem,William,Willis,Willit,Woth,Wulfe,Wun,Wyl,Wylis,Wyman,Wynton,Xaro,Xhondo,Yandry,Yezzan,Ygon,Yohn,Yoren,Yorkel,Yorko,Yormwell,Yurkhaz,Zachery,Zharaq,Zollo";
         //"Recene,Wregan,Scur,Bealohydig,Paige,Gimm,Tamar,Nechtan,Sihtric,Bronson,Aldfrith,Ormod,Boniface,Gram,Earm,Irwyn,Ethelwulf,Alchfrith,Eamon,Earl,Gordie,Beowulf,Ord,Sherwin,Grimme,Aethelfrith,Jeffrey,Edward,Acennan,Tobrecan,Orvyn,Lin,Bryce,Felix,Snell,Courtland,Aethelbald,Earm,Rinc,Deman,Ethelbert,List,Agiefan,Cadwallon,Eldrid,Lynn,Shelley,Desmond,Geoff,Agilberht,Ancenned,Manton,Lyn,Beorn,Tracy,Agyfen,Offa,Egesa,Raedwald,Ine,Lynn,Scur,Edlin,Scead,Beadurinc,Putnam,Edgar,Baldlice,Abrecan,Arlice,Earle,Lyn,Bliss,Maccus,Edsel,Werian,Tracey,Germian,Caedwalla,Andsaca,Gordie,Broga,Treddian,Garrett,Cynric,Shelby,Beornwulf,Banan,Eldwin,Gareth,Alwin,Agyfen,Courtney,Stewart,Elmer,Kenway,Scrydan,Garberend,Banning,Sibley,Leof,Alwin,Raedwald,Pleoh,Eldwyn,Irwin,Shepard,Ruadson,Kim,Lufian,Wurt,Storm,Arlice,Ethelred,Pearce,Rinan,Eldwyn,Sherwin,Eadwyn,Beorn,Ethelbert,Beadurof,Sheply,Archard,Wallis,Fairfax,Sheply,Agiefan,Grimme,Selwin,Ahreddan,Eamon,Douglas,Govannon,Maccus,Wissian,Ethelbald,Geraint,Germian,Tedmund,Nodons,Seber,Cadman,Ord,Wright,Aethelbald,Ham,Woden,Shephard,Earle,Scowyrhta,Hererinc,Baldlice,Holt,Druce,Odi,Alden,Toland,Raedan,Lunden,Eadwyn,Edgar,Bordan,Aidan,Kent,Eddison,Brun,Athelstan,Bellinus,Feran,Isen,Wurt,Cynric,Wilbur,Verge,Bayen,Cyst,Camden,Theomund,Sheply,Andsaca,Earm,Andswarian,Ruadson,Atyhtan,Edwin,Aidan,Corey,Ealdian,Edred,Penda,Scand,Pleoh,Cerdic,Bowden,Kenway,Ceawlin,Roweson,Orlege,Caedwalla,Eldred,Seaver,Temman,Aldred,Ethelred,Brice,Stillman,Brecc,Shelby,Ealdian,Wright,Ine,Sceotend,Ruadson,Courtney,Birdoswald,Grendel,Hlaford,Penda,Tilian,Grendel,Anson,Hilderinc,Seaver,Ecgfrith,Courtland,Selwyn,Wann,Cynewulf,Algar,Ody,Bearn,Ethelwulf,Row,Leanian,Cnut,Anson,Devyn,Oswiu,Athelstan,Scand,Scowyrhta,Linn,Ware,Bronson,Drew,List,Benoic,Bronson,Sheldon,Seaver,Erian,Eldwin,Geoff,Wyman,Odel,Piers,Beornwulf,Devyn,Durwin,Wilbur,Audley,Selwyn,Aldred,Wallace,Cynegils,Faran,Denby,Larcwide,Ine,Acwellen,Albinus,Ceolfrith,Ealdian,Cyst,Tolan,Isen,Kent,Eadgard,Wregan,Bowden,Alden,Rinan,Stilwell,Cynegils,Aldfrith,Rinc,Maxwell,Andweard,Lange,Dalston,Rinan,Iden,Wulf,Agyfen,Awiergan,Courtland,Wyman,Aethelwulf,Tredan,Andswaru,Ro,Torhte,Birdoswald,Acey,Kenway,Durwin,Halwende,Awiergan,Tedman,Dreng,Tedman,Raedan,Atol,Awiergan,Arlys,Edwy,Erian,Anhaga,Geoff,Arlyss,Anson,Douglas,Godric,Werian,Boniface,Devyn,Penrith,Rawlins,Rodor,Woden,Aldwyn,Oswy,Tobrecan,Boden,Beowulf,Trace,Worthington,Arian,Rodor,Anfeald,Grindan,Alden,Scead,Gifre,Wright,Garrett,Wade,Govannon,Newton,Seber,Avery,Aethelbert,Alwalda,Caflice,Slecg,Aethelbald,Shelby,Grindan,Earm,Renweard,Raedwald,Cedd,Albinus,Astyrian,Paige,Stearc,Godric,Wissian,Rowe,Ahreddan,Gareth,Odel,Ellen,Beorn,Boniface,Betlic,Merton,Gildas,Deman,Trymian,Sihtric,Ahebban,Geoff,Gordie,Archibald,Douglas,Sheply,Iuwine,Stillman,Gordon,Aethelbald,Jeffrey,Archard,Wine,Shepard,Hlaford,Aldin,Oswald,Penrith,Agiefan,Leng,Orvin,Gildas,Adamnan,Slecg,Rheged,Lin,Byrtwold,Anfeald,Wallis,Holt,Attor,Steadman,Larcwide,Rodor,Kent,Halwende,Egesa,Gimm,Synn,Waelfwulf,Abeodan,Waelfwulf,Grahem,Page,Tedmund,Bordan,Arlys,Oxa,Firman,Ware,Barclay,Wyne,Arth,Edlin,Grimm,Mann,Drefan,Aldfrith,Desmond,Arlyss,Earh,Cyst,Sever,Kent,Rinc,Grindan,Wright,Norville,Bede,Bealohydig,Ablendan,Anhaga,Grindan,Finan,Seamere,Modig,Theomund,Benoic,Erian,Ord,Cnut,Wallis,Bowden,Alchfrith,Dalston,Norvel,Feran,Lufian,Temman,Erconberht,Odon,Kenway,Torhte,Gram,Anwealda,Sheply,Warian,Upton,Hengist,Birdoswald,Sherwyn,Wirt,Camden,Cynric,Ancenned,Eldwyn,Kim,Edmond,Andettan,Winchell,Dreng,Atelic,Grimbold,Lin,Torht,Bliss,Rodor,Agilberht,Snell,Andwyrdan,Ryce,Anna,Hlisa,Shephard,Andsaca,Fraomar,Scead,Grahem,Rowe,Firman,Kimball,Ruadson,Erian,Bar,Mann,Wilfrid,Tellan,Sar,Ahreddan,Eddison,Tolan,Fleming,Odell,Aart,Eadig,Kenric,Ormod,Fleming,Lange,Atelic,Beircheart,Wallis,Trymman,Nerian,Seaver,Winchell,Leng,Aglaeca,Wilbur,Fairfax,Stewart,Offa,Wilbur,Kent,Beadurof,Edlin,Edsel,Archard,Edric,Eldrid,Rinc,Temman,Gifre,Edgard,Acey,Slecg,Feran,Andwyrdan,Aglaeca,Nyle,Colby,Lidmann,Roweson,Aart,Aethelstan,Cynegils,Oswiu,Beadurof,Albinus,Boden,Sceadu,Orvin,Andswarian,Edmund,Lyn,Corey,Caedmon,Stewart,Roe,Sherwyn,Boden,Strang,Worthington,Denisc,Tedman,Isen,Kendrick,Sherard,Storm,Stefn,Tolan,Ruadson,Stedman,List,Nechtan,Lar,Offa,Norvel,Garberend,Arth,Gareth,Tobrytan,Caedmon,Garberend,Seaton,Selwin,Avery,Attor,Banan,Fairfax,Freeman,Lucan,Roweson,Ord,Camdene,Wylie,Eddison,Benoic,Earm,Garr,Finan,Freeman,Lang,Arlys,Bordan,Lar,Bealohydig,Stepan,Seward,Ace,Leng,Durwin,Broga,Toland,Bealohydig,Aethelfrith,Edson,Ethelred,Waelfwulf,Werian,Stewart,Aethelwulf,Alger,Ham,Tracy,Galan,Yrre,Garr,Erconberht,Tracy,Aethelred,Hrypa,Larcwide,Verge,Derian,Seward,Anfeald,Norvel,Ethelbert,Arlys,Andswarian,Byrtwold,Oxa,Ine,Brun,Snell,Iden,Bayen,Shelley,Earle,Stuart,Abrecan,Earm,Nerian,Rinan,Egbert,Linn,Cynewulf,Nyle,Ahreddan,Willan,Ham,Raedbora,Edwy,Cerdic,Aheawan,Archard,Aethelred,Orlege,Earm,Cerdic,Wilfrid,Rodor,Pierce,Pleoh,Edwin,Wissian,Rowson,Iuwine,Amaethon,Raedwald,Teon,Ordway,Byrtwold,Seaton,Teon,Halwende,Grahem,Broga,Tamar,Cadman,Slecg,Nerian,Beowulf,Upton,Teon,Acennan,Odell,Denby,Besyrwan,Edlin,Octha,Synn,Piers,Fyren,Lange,Scand,Row,Tolan,Aldwyn,Camdene,Eldwyn,Willan,Nyle,Awiergan,Gaderian,Kendryck,Cyneric,Wann,Cynegils,Bar,Archibald,Abrecan,Wulfgar,Nodons,Bede,Arth,Chad,Ody,Ethelbert,Elmer,Fugol,Baldlice,Ethelred,Eldwin,Manton,Edgard,Wellington,Ormod,Tedmund,Cynewulf,Gimm,Ody,Boden,Brun,Wright,Wann,Banan,Acennan,Birdoswald,Berkeley,Aethelhere,Grahem,Durwin,Raedan,Audley,Feran,Norton,Eadig,Hlaford,Putnam,Benwick,Chapman,Paige,Norton,Beadurinc,Tolan,Daegal,Bliss,Irwyn,Firman,Selwin,Aethelhere,Brogan,Alwalda,Perry,Aethelbert,Graeme,Trymian,Faran,Nyle,Bealohydig,Yrre,Chapman,Rypan,Anbidian,Hrypa,Maponus,Winter,Ham,Stefn,Ethelbald,Treddian,Perry,Birdoswald,Aethelbald,Nodons,Sever,Aethelbald,Nyle,Swift,Dalston,Teon,Toland,Synn,Tobrecan,Kent,Brogan,Cadman,Sherwyn,Ceawlin,Hrypa,Offa,Ormod,Sheply,Cyneric,Octha,Sever,Edwy,Gimm,Wulfgar,Byrtwold,Aglaeca,Geoffrey,Alwalda,Archard,Aethelfrith,Swithun,Germian,Boyden,Aidan,Bestandan,Aidan,Eldred,Bana,Swift,Daegal,Devyn,Bron,Birdoswald,Roe,Iuwine,Beadurof,Edgar,Fairfax,Bowdyn,Firman,Gildas,Wissian,Rodor,Kendryck,Eldwyn,Agyfen,Denby,Gar,Andwearde,Edsel,Ane,Aethelhere,Woden,Aethelbald,Octha,Brogan,Cyneric,Tredan,Tredan,Beorn,Acennan,Bowdyn,Oswald,Bana,Beornwulf,Courtnay,Wann,Andweard,Eorl,Tellan,Archibald,Trace,Tedman,Grimme,Grendel,Denby,Wilbur,Druce,Scead,Sherwin,Trace,Alger,Irwin,Courtland,Seward,Cedd,Heolstor,Earl,Andweard,Fleming,Grendel,Anfeald,Rice,Garberend,Farmon,Bawdewyn,Wallis,Grendel,Drefan,Druce,Awiergan,Baldlice,Aldwyn,Graham,Torht,Rinc,Elmer,Roweson,Halig,Aldin,Wyman,Wulfhere,Devon,Orvin,Norton,Woden,Mann,Edgar,Prasutagus,Avery,Seaver,Attor,Wissian,Andweard,Earle,Fairfax,Graeme,Raedwald,Cenwalh,Winchell,Andweard,Synn,Ator,Rheged,Wallace,Godric,Row,Geraint,Almund,Ann,Bertie,Woden,Norville,Aethelbald,Aldhelm,Rypan,Bealohydig,Anfeald,Bellinus,Shepard,Egbert,Alwin,Wissian,Edwy,Aethelhere,Nechtan,Norvel,Baecere,Lucan,Ine,Snell,Odon,Grimbold,Oswiu,Edwin,Acwel,Octa,Aglaeca,Snell,Camden,Eldred";
@@ -26,21 +30,23 @@ namespace GameOfHouses.MechanicsExperiments
         public const double MIN_TAX_RATE = 0.1;
         public const int MAX_YEILD_HIGH = 10000;
         public const int MAX_YEILD_LOW = 5000;
-        public const string TOWN_NAMES = "Doddingtree,Winstree,Pershore,Uggescombe,Merton,Kerswell,Bountisborough,Patton,Bowcombe,Gartree,Hormer,Wotton,Spelhoe,Chilford,Arringford,Bibury,Amesbury,Blackwell,Calcewath,Ainsty,Cleyley,Land of Count Alan,Boldre,Redbridge,Navisford,Leintwardine,Acklam,Langbaurgh,Wittery,Agbrigg,Osgodcross,Walsham,Freebridge,[South] Greenhoe,Loningborough,Warmundestrou,Ailwood,Babergh,Condover,Bagstone,Baschurch,Cuttlestone,Grimboldestou,Pirehill,Horethorne,Rushcliffe,Bloxham,Hodnet,Dolesfield,Burghshire,Craven,Ixhill,Mow,Larkfield,Navisland,Wallington,Candleshoe,Skyrack,Beltisloe,Eastry,Salmonsbury,Staincross,Hamestan,Celfledetorn,North Petherton,Foxley,Lewknor,Strafforth,Witheridge,Langport,Bere[Regis],Offlow,Street,Amounderness,Sneculfcros,Elsdon,Tremlowe,Upton,Allerton,[West] Derby,Barkston,Corringham,Threo,Cannington,Dic,Lawress,Merset,Stotfold,Claydon,Lothingland,Leominster,Reweset,Wrockwardine,Alnodestreu,Earsham,Edwinstree,Thame,Blackheath,South Erpingham,Stradel,Rotherfield,Wandelmestrei,Lodding,Carhampton,Leightonstone,North Erpingham,Selkley,Holderness[Middle Hundred],Tring,Plomesgate,Clavering,St Albans,Danish,Alderbury,Hinckford,Reading,Frustfield,Tewkesbury,Wilford,Dunley,Ongar,Bircholt,Lexden,Cosford,Boxgrove,Eyhorne,Fishborough,Culvestan,Ruloe,Bishop's,Aldrington,Bulford,Hartcliffe,Huxloe,Nakedthorn,Gallow,Sandford,Blachethorna,Williton,Scarsdale,Kirton,Whitstone,Manley,Blachelaue,Berkeley,Appletree,Bledisloe,Silverton,South Molton,Somerton,Pocklington,Bempstone,Morley,Litchurch,Goscote,Exestan,Goderthorn,Mansbridge,Winnibriggs,Barcombe,Studfold,Diptford,Chillington,Hartland,Broadwater,Fernecumbe,Carlford,Blything,Wonford,Henstead,Rushton,Axminster,Tendring,Fawley,Tunendune,Middlewich,Hamston,Coleshill,Colnes,Oswaldslow,Huntspill,Totmonslow,Nobottle,Epworth,Neatham,Stretford,Swanborough,Cerne, Totcombe and Modbury,Stratton,Came,Seisdon,Fremington,Meonstoke,Lydney,Connerton,Newark,Bampton,Langley,Pathlow,Bradford,Louthesk,Bromsash,Normancross,Black Torrington,Thurgarton,Uttlesford,Tornelaus,Easwrithe,Headington,Burnham,Maneshou,Gersdones,Andover,Redbornstoke,Thedwastre,Hertford,Glastonbury,Holderness[South Hundred],Risberg,Hessle,Welford,Broxtowe,Steyning,Bumbelowe,Dunworth,Rillaton,Flaxwell,Hoddington,Willybrook,Portsdown,Wraggoe,Forehoe,Walecros,Halberton,North Tawton,Blackbourne,Sutton,Marcham,Bucklow,Bewsbury,Milverton,Elmbridge,Odsey,Yarlestre,Wantage,Kirtlington,Torbar,Hunesberi,Clifton,Shirwell,Polebrook,Guthlaxton,Holderness[North Hundred],Rowditch,Faversham,Tybesta,Wetherley,Rothwell,Binsted,Shipton,Bolingbroke,Braunton,Pimperne,Axton,Loose,Alleriga,Kingsbury West,Bosmere,Foxearle,Teignbridge,Hildslow,Shropham,West Flegg,Wymersley,Guilsborough,Haverstoe,Hamfordshoe,Hill,Gravesend,Horncastle,Cliston,Exminster,Winterstoke,Whitley,Freshwell,Overton,Archenfield,Wibrihtesherne,Ashendon,Wye,Blackburn,Longbridge,Spelthorne,Wayland,Abdick,Rochford,Stone,Lifton,Cheveley,Cicementone,Stoke,Cranborne,Stoneleigh,Radlow,Copthorne,Whorwellsdown,Pucklechurch,Heytesbury,Cricklade,Tibblestone,Salford,Alstoe[South],Kilmersdon,Eggardon,Bassetlaw,Aveland,Depwade,Bingham,Hartismere,Manshead,Howden,Towcester,Ati's Cross,Hezetre,Cottesloe,Wacrescumbe,Aylesbury,Yardley,Warden,Wootton,Greston,Blewbury,Alboldstow,Biggleswade,Moulsoe,Ash,Aswardhurn,Puddletown,Whitchurch[Canonicorum],Taverham,Graffoe,Hunthow,Yarborough,Cave,Brentry,Fawton,Chafford,Plegelgete,Longtree,Lythe,Kintbury,Shirley,Somborne,Hemyock,Axmouth,Budleigh,Bradley,Plympton,Tunstead,Thornhill,Chelmsford,Binfield,Dudstone,Crondall,Staploe,Risbridge,Taunton,Wimundestreu,Cirencester,Thatcham,Brothercross,Driffield,Holt,Brixton,Thunderlow,Falmer,Radfield,Banbury,Guiltcross,Witley,Ness,Alwardsley,Barcheston,Gainfield,Downton,Barford,Cadworth,Barham,Framland,Charldon,Ruston,Becontree,Rotherbridge,Rinlau,Maidstone,Lothing,[North] Greenhoe,Willaston,Dunmow,South Petherton,Barrington,Thingoe,Witchley,Wangford,Barstable,Greytree,Odiham,Dinedor,Clackclose,Rowley,Flitton,Lackford,Swineshead,Barton,Docking,Edgegate,Slotisford,Basingstoke,Mitford,Staple,Bath,Branchbury,Hailesaltede,Conditre,Eynesford,Holford,Beaminster,Felborough,Cornilo,Willingdon,Bromley,Shrivenham,Oswaldbeck,Frome,Shamwell,Totnore,Fordingbridge,Buckelowe,Kinwardstone,Burghbeach,Rowbury,Colyton,Wichestanestou,Laundich,Bridge,Clent,Heane,Rolvenden,Keynsham,Hitchin,Wyndham,Loveden,Benson,Twyford,Bentley,Broughton,Welton,Witham,Marton,Easebourne,Roborough,Streat,Winfrith[Newburgh],Duddeston,Eastbourne,Kingsbridge,Parham,Bexhill,Helmestrei,Dorchester,Westbury,Chippenham,Chuteley,Bury,Langoe,Stanbridge,Newchurch,Walshcroft,Cullifordtree,Singleton,Burton,Droxford,Wittering,Scard,Beynhurst,Ossulstone,Stepleset,Tintinhull,Flexborough,Warminster,Bisley,Ringwood,Overs,Hasler,Worth,Combsditch,Thurstable,Corby,Andersfield,Whitstable,Tandridge,Risborough,Collingtree,Blofield,Scipa,Hurstingstone,Aslacoe,Stowting,Lambourn,Winnianton,Rialton,Tiverton,Stodden,Effingham,Boothby,Rochester,Bosham,Staine,Toseland,Boughton,Botloe,Longstowe,Deerhurst,Pevensey,Papworth,Higham,Humbleyard,Desborough,Startley,Sherborne,Morleystone,Mere,Seckley,Fexhole,East Grinstead,Ashley,Well,Hallikeld,Holdshott,Westerham,Wincanton,Braughing,Bray,Aloesbridge,Diss,Bruton,Welesmere,Rapsgate,Cutestornes,Cresslow,Cawdon,Mawsley,Brightford,Cheltenham,Thriplow,Fleamdyke,Bosbarrow,Knowlton,Calne,Orlingbury,Avronhelle,Titchfield,Happing,Grimshoe,Reigate,Buckland[Newton],Bucklebury,Edivestone,Henhurst,Romney Marsh,Woking,Weighton,Wyfold,Wolmersty,Stowmarket,Godley,Castlery,Edlogan,Is Coed,East Flegg,Calbourne,Cambridge,Chewton,Wellow,Mainsborough,Bermondspit,Cogdean,[Bishops] Cannings,Canterbury,Willey,Ninfield,Brunsell,Eagle,Stowford,Chalton,Charborough,Kingsbury Episcopi,Calehill,Greenwich,Chart,Chatham,Ely 1,Langtree,Tollerford,Hilton,Kingston,Chester,Chesterton,Rowborough,Chew,Stockbridge,Buddlesgate,Falemere,Waltham,Houndsborough,Elstub,Chislet,Dumpford,Portbury,Waddesdon,Buttinghill,Kingsclere,Evingar,Ripplesmere,York,Yetminster,Kiftsgate,[Sturminster] Newton,Colchester,Highworth,Elthorne,Brightwells Barrow,Hurstbourne,Thorngrove,Godalming,Ghidenetroi,Sixpenny,Baldslow,Toreshou,Alstoe[North],Ludborough,Micheldever,Litlelee,Crediton,Crewkerne,Badbury,Wolfhay,Elloe,North Curry,Welsh District,Warter,Damerham,Wormelow,Eddredestane,Ely 2,Mursley,Whittlesford,Summerdene,Lene,Ramsbury,West Grinstead,Edmonton,Blagrove,Preston,Harlow,Goldspur,Weneslawe,Fareham,Farnham,Gillingham,Wingham,Folkestone,Fordwich,Poynings,Downhamford,Bunsty,Northstowe,Smethdon,Tollingtrough,Guestling,Littlefeld,Martinsley,Hounslow,Samford,Holmestrow,Gore,Hartfield,Dill,Shoyswell,Henfield,Cutsthorn,Langebrige,Hoo,Framfield,Pyrton,Ifield,WOR,Suffolk,Ipswich,Babinrerode,Letberge,Leyland,Wells,Ewias,Wyvern,Reculver,Maldon,Malling,Thanet,Martock,Melksham,Shrewsbury,East Meon,Milton,Castle,Silverden,Newton,Norwich,Ham,Codsheath,Ottery St Mary,Pagham,Oxney,Pawton,Petham,Stursete,Sandwich,Somerley,Teynham,Crickland,Sellack,Sturry,Thetford,Tidenham,Lowy of Tonbridge,Wechylstone,Hawkesborough,Warrington,Wonderditch,Wrotham,Hemreswel";
-        public const int MINIMUM_VILLAGE_SIZE = 50;
+        public const string TOWN_NAMES = "Doddingtree,Winstree,Pershore,Uggescombe,Merton,Kerswell,Bountisborough,Patton,Bowcombe,Gartree,Hormer,Wotton,Spelhoe,Chilford,Arringford,Bibury,Amesbury,Blackwell,Calcewath,Ainsty,Cleyley,Land of Count Alan,Boldre,Redbridge,Navisford,Leintwardine,Acklam,Langbaurgh,Wittery,Agbrigg,Osgodcross,Walsham,Freebridge,[South] Greenhoe,Loningborough,Warmundestrou,Ailwood,Babergh,Condover,Bagstone,Baschurch,Cuttlestone,Grimboldestou,Pirehill,Horethorne,Rushcliffe,Bloxham,Hodnet,Dolesfield,Burghshire,Craven,Ixhill,Mow,Larkfield,Navisland,Wallington,Candleshoe,Skyrack,Beltisloe,Eastry,Salmonsbury,Staincross,Hamestan,Celfledetorn,North Petherton,Foxley,Lewknor,Strafforth,Witheridge,Langport,Bere[Regis],Offlow,Street,Amounderness,Sneculfcros,Elsdon,Tremlowe,Upton,Allerton,[West] Derby,Barkston,Corringham,Threo,Cannington,Dic,Lawress,Merset,Stotfold,Claydon,Lothingland,Leominster,Reweset,Wrockwardine,Alnodestreu,Earsham,Edwinstree,Thame,Blackheath,South Erpingham,Stradel,Rotherfield,Wandelmestrei,Lodding,Carhampton,Leightonstone,North Erpingham,Selkley,Holderness[Middle Hundred],Tring,Plomesgate,Clavering,St Albans,Danish,Alderbury,Hinckford,Reading,Frustfield,Tewkesbury,Wilford,Dunley,Ongar,Bircholt,Lexden,Cosford,Boxgrove,Eyhorne,Fishborough,Culvestan,Ruloe,Bishop's,Aldrington,Bulford,Hartcliffe,Huxloe,Nakedthorn,Gallow,Sandford,Blachethorna,Williton,Scarsdale,Kirton,Whitstone,Manley,Blachelaue,Berkeley,Appletree,Bledisloe,Silverton,South Molton,Somerton,Pocklington,Bempstone,Morley,Litchurch,Goscote,Exestan,Goderthorn,Mansbridge,Winnibriggs,Barcombe,Studfold,Diptford,Chillington,Hartland,Broadwater,Fernecumbe,Carlford,Blything,Wonford,Henstead,Rushton,Axminster,Tendring,Fawley,Tunendune,Middlewich,Hamston,Coleshill,Colnes,Oswaldslow,Huntspill,Totmonslow,Nobottle,Epworth,Neatham,Stretford,Swanborough,Cerne, Totcombe and Modbury,Stratton,Came,Seisdon,Fremington,Meonstoke,Lydney,Connerton,Newark,Bampton,Langley,Pathlow,Bradford,Louthesk,Bromsash,Normancross,Black Torrington,Thurgarton,Uttlesford,Tornelaus,Easwrithe,Headington,Burnham,Maneshou,Gersdones,Andover,Redbornstoke,Thedwastre,Hertford,Glastonbury,Holderness[South Hundred],Risberg,Hessle,Welford,Broxtowe,Steyning,Bumbelowe,Dunworth,Rillaton,Flaxwell,Hoddington,Willybrook,Portsdown,Wraggoe,Forehoe,Walecros,Halberton,North Tawton,Blackbourne,Sutton,Marcham,Bucklow,Bewsbury,Milverton,Elmbridge,Odsey,Yarlestre,Wantage,Kirtlington,Torbar,Hunesberi,Clifton,Shirwell,Polebrook,Guthlaxton,Holderness[North Hundred],Rowditch,Faversham,Tybesta,Wetherley,Rothwell,Binsted,Shipton,Bolingbroke,Braunton,Pimperne,Axton,Loose,Alleriga,Kingsbury West,Bosmere,Foxearle,Teignbridge,Hildslow,Shropham,West Flegg,Wymersley,Guilsborough,Haverstoe,Hamfordshoe,Hill,Gravesend,Horncastle,Cliston,Exminster,Winterstoke,Whitley,Freshwell,Overton,Archenfield,Wibrihtesherne,Ashendon,Wye,Blackburn,Longbridge,Spelthorne,Wayland,Abdick,Rochford,Stone,Lifton,Cheveley,Cicementone,Stoke,Cranborne,Stoneleigh,Radlow,Copthorne,Whorwellsdown,Pucklechurch,Heytesbury,Cricklade,Tibblestone,Salford,Alstoe[South],Kilmersdon,Eggardon,Bassetlaw,Aveland,Depwade,Bingham,Hartismere,Manshead,Howden,Towcester,Ati's Cross,Hezetre,Cottesloe,Wacrescumbe,Aylesbury,Yardley,Warden,Wootton,Greston,Blewbury,Alboldstow,Biggleswade,Moulsoe,Ash,Aswardhurn,Puddlelordship,Whitchurch[Canonicorum],Taverham,Graffoe,Hunthow,Yarborough,Cave,Brentry,Fawton,Chafford,Plegelgete,Longtree,Lythe,Kintbury,Shirley,Somborne,Hemyock,Axmouth,Budleigh,Bradley,Plympton,Tunstead,Thornhill,Chelmsford,Binfield,Dudstone,Crondall,Staploe,Risbridge,Taunton,Wimundestreu,Cirencester,Thatcham,Brothercross,Driffield,Holt,Brixton,Thunderlow,Falmer,Radfield,Banbury,Guiltcross,Witley,Ness,Alwardsley,Barcheston,Gainfield,Downton,Barford,Cadworth,Barham,Framland,Charldon,Ruston,Becontree,Rotherbridge,Rinlau,Maidstone,Lothing,[North] Greenhoe,Willaston,Dunmow,South Petherton,Barrington,Thingoe,Witchley,Wangford,Barstable,Greytree,Odiham,Dinedor,Clackclose,Rowley,Flitton,Lackford,Swineshead,Barton,Docking,Edgegate,Slotisford,Basingstoke,Mitford,Staple,Bath,Branchbury,Hailesaltede,Conditre,Eynesford,Holford,Beaminster,Felborough,Cornilo,Willingdon,Bromley,Shrivenham,Oswaldbeck,Frome,Shamwell,Totnore,Fordingbridge,Buckelowe,Kinwardstone,Burghbeach,Rowbury,Colyton,Wichestanestou,Laundich,Bridge,Clent,Heane,Rolvenden,Keynsham,Hitchin,Wyndham,Loveden,Benson,Twyford,Bentley,Broughton,Welton,Witham,Marton,Easebourne,Roborough,Streat,Winfrith[Newburgh],Duddeston,Eastbourne,Kingsbridge,Parham,Bexhill,Helmestrei,Dorchester,Westbury,Chippenham,Chuteley,Bury,Langoe,Stanbridge,Newchurch,Walshcroft,Cullifordtree,Singleton,Burton,Droxford,Wittering,Scard,Beynhurst,Ossulstone,Stepleset,Tintinhull,Flexborough,Warminster,Bisley,Ringwood,Overs,Hasler,Worth,Combsditch,Thurstable,Corby,Andersfield,Whitstable,Tandridge,Risborough,Collingtree,Blofield,Scipa,Hurstingstone,Aslacoe,Stowting,Lambourn,Winnianton,Rialton,Tiverton,Stodden,Effingham,Boothby,Rochester,Bosham,Staine,Toseland,Boughton,Botloe,Longstowe,Deerhurst,Pevensey,Papworth,Higham,Humbleyard,Desborough,Startley,Sherborne,Morleystone,Mere,Seckley,Fexhole,East Grinstead,Ashley,Well,Hallikeld,Holdshott,Westerham,Wincanton,Braughing,Bray,Aloesbridge,Diss,Bruton,Welesmere,Rapsgate,Cutestornes,Cresslow,Cawdon,Mawsley,Brightford,Cheltenham,Thriplow,Fleamdyke,Bosbarrow,Knowlton,Calne,Orlingbury,Avronhelle,Titchfield,Happing,Grimshoe,Reigate,Buckland[Newton],Bucklebury,Edivestone,Henhurst,Romney Marsh,Woking,Weighton,Wyfold,Wolmersty,Stowmarket,Godley,Castlery,Edlogan,Is Coed,East Flegg,Calbourne,Cambridge,Chewton,Wellow,Mainsborough,Bermondspit,Cogdean,[Bishops] Cannings,Canterbury,Willey,Ninfield,Brunsell,Eagle,Stowford,Chalton,Charborough,Kingsbury Episcopi,Calehill,Greenwich,Chart,Chatham,Ely 1,Langtree,Tollerford,Hilton,Kingston,Chester,Chesterton,Rowborough,Chew,Stockbridge,Buddlesgate,Falemere,Waltham,Houndsborough,Elstub,Chislet,Dumpford,Portbury,Waddesdon,Buttinghill,Kingsclere,Evingar,Ripplesmere,York,Yetminster,Kiftsgate,[Sturminster] Newton,Colchester,Highworth,Elthorne,Brightwells Barrow,Hurstbourne,Thorngrove,Godalming,Ghidenetroi,Sixpenny,Baldslow,Toreshou,Alstoe[North],Ludborough,Micheldever,Litlelee,Crediton,Crewkerne,Badbury,Wolfhay,Elloe,North Curry,Welsh District,Warter,Damerham,Wormelow,Eddredestane,Ely 2,Mursley,Whittlesford,Summerdene,Lene,Ramsbury,West Grinstead,Edmonton,Blagrove,Preston,Harlow,Goldspur,Weneslawe,Fareham,Farnham,Gillingham,Wingham,Folkestone,Fordwich,Poynings,Downhamford,Bunsty,Northstowe,Smethdon,Tollingtrough,Guestling,Littlefeld,Martinsley,Hounslow,Samford,Holmestrow,Gore,Hartfield,Dill,Shoyswell,Henfield,Cutsthorn,Langebrige,Hoo,Framfield,Pyrton,Ifield,WOR,Suffolk,Ipswich,Babinrerode,Letberge,Leyland,Wells,Ewias,Wyvern,Reculver,Maldon,Malling,Thanet,Martock,Melksham,Shrewsbury,East Meon,Milton,Castle,Silverden,Newton,Norwich,Ham,Codsheath,Ottery St Mary,Pagham,Oxney,Pawton,Petham,Stursete,Sandwich,Somerley,Teynham,Crickland,Sellack,Sturry,Thetford,Tidenham,Lowy of Tonbridge,Wechylstone,Hawkesborough,Warrington,Wonderditch,Wrotham,Hemreswel";
+        public const int MINIMUM_VILLAGE_SIZE = 25;
         public const int MAP_WIDTH = 39;
         public const int MAP_HEIGHT = 19;
         public const int GENERATIONS_WITHOUT_SHARED_ANCESTOR = 3;
         public const int AGE_OF_MAJORITY = 18;
+        public const int AGE_OF_RETIREMENT = 50;
         public const int MAX_BETROTHAL_AGE_DIFFERENCE = 10;
-        public const double CHANCE_OF_RECRUITING_FOREIGN_HOUSE = 0.8;
+        public const double CHANCE_OF_RECRUITING_FOREIGN_HOUSE = 0.33;
         public const int NUMBER_OF_CHILDREN_FOR_NEW_LORD = 10;
-        public const int YEARS_TO_ITERATE_NEW_HOUSES = 80;
-        public const int MAX_RECRUITMENTS = 3;
+        public const int YEARS_TO_ITERATE_NEW_HOUSES = 30;
+        public const int YEARS_TO_ITERATE_PLAYER_HOUSES = 30;
+        public const int MAX_RECRUITMENTS = 100;
         public const int NUMBER_OF_POSSIBLE_HEIRS_PER_GENERATION = 3;
         public const int HEIRS_TO_REPORT_ON = 1;
+        public const double PERCENTAGE_OF_INCOME_TOWARD_SOLDIERS = 0.8;
     }
-
     public static class Utility
     {
         public static string GetName(Sex sex, Random rnd)
@@ -65,7 +71,6 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public House House { get; set; }
     }
-
     public class AssessedIncome
     {
         public int Year { get; set; }
@@ -80,7 +85,8 @@ namespace GameOfHouses.MechanicsExperiments
     {
         Dependant = 0,
         Peasant = 1,
-        Noble = 2
+        Noble = 2,
+        Soldier = 3
     }
     public enum SocialClass
     {
@@ -98,7 +104,7 @@ namespace GameOfHouses.MechanicsExperiments
         public World(Random rnd)
         {
             Year = 0;
-            Towns = new List<Town>();
+            Lordships = new List<Lordship>();
             Population = new List<Person>();
             NobleHouses = new List<House>();
             Bethrothals = new List<Bethrothal>();
@@ -107,27 +113,27 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public Player Player { get; set; }
         public int Year { get; set; }
-        public List<Town> Towns { get; set; }
+        public List<Lordship> Lordships { get; set; }
         public List<Person> Population { get; set; }
         public List<House> NobleHouses { get; set; }
-        public void AddTown(Town town)
+        public void AddLordship(Lordship lordship)
         {
-            if (!Towns.Contains(town))
+            if (!Lordships.Contains(lordship))
             {
-                if (town.World != null)
+                if (lordship.World != null)
                 {
-                    town.World.RemoveTown(town);
+                    lordship.World.RemoveLordship(lordship);
                 }
-                Towns.Add(town);
-                town.World = this;
+                Lordships.Add(lordship);
+                lordship.World = this;
             }
         }
-        public void RemoveTown(Town town)
+        public void RemoveLordship(Lordship lordship)
         {
-            if (Towns.Contains(town))
+            if (Lordships.Contains(lordship))
             {
-                Towns.Remove(town);
-                town.World = null;
+                Lordships.Remove(lordship);
+                lordship.World = null;
             }
         }
         public void AddHouse(House house)
@@ -152,39 +158,33 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public void AddPerson(Person person)
         {
-            //if (!People.Contains(person))
-            //{
             if (person.World != null)
             {
                 person.World.RemovePerson(person);
             }
             Population.Add(person);
             person.World = this;
-            //}
         }
         public void RemovePerson(Person person)
         {
-            //if (Population.Contains(person))
-            //{
             Population.Remove(person);
             person.World = null;
-            //}
         }
         public void IncrementYear()
         {
             Year++;
             var population = new List<Person>();
             var nobleHouses = new List<House>();
-            var towns = new List<Town>();
+            var lordships = new List<Lordship>();
 
             population.AddRange(Population);
             nobleHouses.AddRange(NobleHouses);
-            towns.AddRange(Towns);
+            lordships.AddRange(Lordships);
             population.ForEach(person => person.IncrementYear());
-            nobleHouses.ForEach(house => house.IncrementYear());
-            towns.ForEach(town => town.IncrementYear());
+            nobleHouses.ForEach(house => house.IncrementYear(_rnd));
+            lordships.ForEach(lordship => lordship.IncrementYear());
         }
-        public string GetMapAsString()
+        public string GetMapAsString(House house = null, Lordship lordship = null, int? people = null)
         {
             //output map
             var map = "  |01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|\n";
@@ -194,14 +194,17 @@ namespace GameOfHouses.MechanicsExperiments
                 for (var x = 1; x <= Constants.MAP_WIDTH; x++)
                 {
                     map += "| ";
-                    var village = Towns.First(v => v.MapX == x && v.MapY == y);
-                    if (village.Vacant)
-                    {
-                        map += " ";
-                    }
-                    else
+                    var village = Lordships.First(v => v.MapX == x && v.MapY == y);
+                    if (!village.Vacant 
+                        && (house == null || village.Lords.Last().House == house) 
+                        && (lordship == null || village == lordship) 
+                        && (people == null || (int)village.Lords.Last().People == people.Value))
                     {
                         map += village.Lords.Last().House.Symbol;
+                    }
+                    else 
+                    {
+                        map += " ";
                     }
                 }
                 map += "|\n";
@@ -212,22 +215,15 @@ namespace GameOfHouses.MechanicsExperiments
         {
             var retString = "";
             var world = this;
+            retString += world.GetMapAsString();
             retString += ("Dane Noble Houses: " + world.NobleHouses.Count(x => !x.Vacant && x.Lords.Last().People == People.Dane) + "\n");
             retString += ("Saxon Noble Houses: " + world.NobleHouses.Count(x => !x.Vacant && x.Lords.Last().People == People.Saxon) + "\n");
-            retString += ("Towns: " + world.Towns.Count(x => x.Households.Count() > 0)) + "\n";
+            retString += ("Lordships: " + world.Lordships.Count(x => x.Households.Count() > 0)) + "\n";
             retString += ("Total Population: " + world.Population.Count(x => x.IsAlive)) + "\n";
             retString += ("Total Saxon Population: " + world.Population.Count(x => x.IsAlive && x.People == People.Saxon)) + "\n";
             retString += ("Total Dane Population: " + world.Population.Count(x => x.IsAlive && x.People == People.Dane)) + "\n";
-            retString += ("Total Noble Households: " + world.Towns.Sum(x => x.Households.Count(y => y.HouseholdClass == SocialClass.Noble))) + "\n";
-            retString += ("Total Peasant Households: " + world.Towns.Sum(x => x.Households.Count(y => y.HouseholdClass == SocialClass.Peasant))) + "\n";
-            /*
-            var housePower = world.Towns.Where(v => !v.Vacant).GroupBy(v => v.Lords.Last().House);
-            foreach (var houseGrouping in housePower)
-            {
-                retString += ("House " + houseGrouping.Key.Symbol + "-" + houseGrouping.Key.Name) + "\n";
-                retString += ("\tLordships:" + houseGrouping.Count()) + "\n";
-                retString += ("\tWealth:" + houseGrouping.Sum(x => x.Wealth)) + "\n";
-            }*/
+            retString += ("Total Noble Households: " + world.Lordships.Sum(x => x.Households.Count(y => y.HouseholdClass == SocialClass.Noble))) + "\n";
+            retString += ("Total Peasant Households: " + world.Lordships.Sum(x => x.Households.Count(y => y.HouseholdClass == SocialClass.Peasant))) + "\n";
             retString += ("------------------------") + "\n";
             return retString;
         }
@@ -273,13 +269,15 @@ namespace GameOfHouses.MechanicsExperiments
         {
             Lords = new List<Person>();
             Members = new List<Person>();
+            //Soldiers = new List<Person>();
             AvailableUnmarriedMembers = new List<Person>();
             Vassles = new List<House>();
             AssessedIncome = new List<AssessedIncome>();
             Recruitments = 0;
         }
+        //public List<Person> Soldiers { get; set; }
         public int Recruitments { get; set; }
-        public Town Seat { get; set; }
+        public Lordship Seat { get; set; }
         public House Allegience { get; set; }
         public List<House> Vassles { get; set; }
         public World World { get; set; }
@@ -330,10 +328,41 @@ namespace GameOfHouses.MechanicsExperiments
             }
             return successionList.Take(depth).ToList();
         }
-        public void IncrementYear()
+        //public void RecruitSoldiers(Random rnd)
+        //{
+        //    //remove dead and retired soldiers from ranks
+        //    Soldiers.RemoveAll(s => !s.IsAlive || s.Age >= Constants.AGE_OF_RETIREMENT);
+        //    var lastYearsAssessedIncome = AssessedIncome.FirstOrDefault(ai => ai.Year == World.Year - 1);
+        //    if (lastYearsAssessedIncome != null)
+        //    {
+        //        var soldierBudget = lastYearsAssessedIncome.Income * Constants.PERCENTAGE_OF_INCOME_TOWARD_SOLDIERS;
+        //        var soldierCost = Soldiers.Count() * Constants.SOLDIER_HOUSE_COST;
+        //        var remainingSoldierBudget = soldierBudget - soldierCost;
+        //        if (remainingSoldierBudget > 0)
+        //        {
+        //            var soldiersToRecruit = (int)Math.Floor(remainingSoldierBudget / Constants.SOLDIER_HOUSE_COST);
+        //            var recruitableSubjects = World.Population.Where(p =>
+        //                p.IsAlive
+        //                && p.Profession != Profession.Soldier
+        //                && p.Age >= Constants.AGE_OF_MAJORITY
+        //                && p.Age <= Constants.AGE_OF_RETIREMENT
+        //                && p.Household != null
+        //                && p.Household.Lordship != null
+        //                && p.Household.Lordship.Lords.Last().House == this
+        //            ).ToList();
+        //            while (soldiersToRecruit > 0 && recruitableSubjects.Count() > 0)
+        //            {
+        //                Soldiers.Add(recruitableSubjects[rnd.Next(0, recruitableSubjects.Count())]);
+        //                soldiersToRecruit--;
+        //            }
+        //        }
+        //    }
+        //}
+        public void IncrementYear(Random rnd)
         {
             var incumbentLord = Lords.Last();
             CollectTaxes();
+            //RecruitSoldiers(rnd);
             if (!incumbentLord.IsAlive)
             {
                 //The lord is Dead!  Long live the lord!
@@ -406,7 +435,7 @@ namespace GameOfHouses.MechanicsExperiments
                     newHousehold.AddMember(child);
                 }
             }
-            if (Seat != null && (newLord.Household.Town == null || newLord.Household.Town != Seat))
+            if (Seat != null && (newLord.Household.Lordship == null || newLord.Household.Lordship != Seat))
             {
                 Seat.AddHousehold(newLord.Household);
             }
@@ -424,12 +453,12 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public string GetDetailsAsString()
         {
-            var retString = "";
-            retString += ("YEAR " + World.Year + '\n');
-            retString += ("------------------------\n");
+            var retString = World.GetMapAsString(this);
             retString += ("House: " + Name + '\n');
             var incumentlord = Lords.Last();
             retString += ("Lord: " + incumentlord.FullNameAndAge + '\n');
+            retString += ("Total Noble Households: " + World.Lordships.Sum(x => x.Households.Count(y => y.HeadofHousehold.Class == SocialClass.Noble && y.HeadofHousehold.House == this))) + "\n";
+            retString += ("Total Peasant Households: " + World.Lordships.Where(ls=>!ls.Vacant && ls.Lords.Last().House == this).Sum(x => x.Households.Count(y => y.HeadofHousehold.Class == SocialClass.Peasant))) + "\n";
             retString += ("Wealth: " + Wealth.ToString("0.00") + '\n');
             var lastYear = World.Year - 1;
             var lastYearsIncome = AssessedIncome.FirstOrDefault(x => x.Year == lastYear);
@@ -437,11 +466,17 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 retString += lastYear + " Income: " + lastYearsIncome.Income.ToString("0.00") + "\n";
             }
+            retString += "Lordships: " + World.Lordships.Where(t => !t.Vacant && t.Lords.Last().House == this).Count() + "\n";
+            //retString += "Soldiers: " + Soldiers.Count(s => s.IsAlive) + "\n";
             retString += ("Order of Succession:" + '\n');
             var orderOfSuccession = GetOrderOfSuccession(10);
             for (int i = 0; i < orderOfSuccession.Count(); i++)
             {
                 retString += ((i + 1) + ": " + orderOfSuccession[i].FullNameAndAge + '\n');
+            }
+            if (Allegience != null)
+            {
+                retString += "Allegience: " + Allegience.Name + "\n";
             }
             retString += "Vassles:\n";
             var nobleVassles = Vassles.Where(v => v.Lords.Count > 0 && v.Lords.Last().Class == SocialClass.Noble);
@@ -476,6 +511,8 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public List<Person> GetIndespensibleMembers(int numberOfPossibleHeirsPerGeneration = Constants.NUMBER_OF_POSSIBLE_HEIRS_PER_GENERATION)
         {
+            var indespensibleMembers = new List<Person>();
+            //get house heirs
             var livingHeirs = Lords[0].GetHeirs().Where(member =>
                 member.IsAlive
                 &&
@@ -485,8 +522,23 @@ namespace GameOfHouses.MechanicsExperiments
                     || member.Mother.Children.Where(child => child.IsAlive).OrderByDescending(child => child.Age).ToList().IndexOf(member) < numberOfPossibleHeirsPerGeneration
                 )
             ).ToList();
-
-            return livingHeirs;
+            // get heirs of each house lordship
+            var houseLordshipLords = Members.Where(m => m.Lordships.Count > 0).ToList();
+            var lordshipHeirs = new List<Person>();
+            houseLordshipLords.ForEach(lordshipLord =>
+                lordshipHeirs.Union(
+                    lordshipLord.GetHeirs().Where(member =>
+                        member.IsAlive
+                        &&
+                        (member.Father != null && member.Mother != null)
+                        && (
+                            member.Father.Children.Where(child => child.IsAlive).OrderByDescending(child => child.Age).ToList().IndexOf(member) < numberOfPossibleHeirsPerGeneration
+                            || member.Mother.Children.Where(child => child.IsAlive).OrderByDescending(child => child.Age).ToList().IndexOf(member) < numberOfPossibleHeirsPerGeneration
+                        )
+                    )
+                )
+            );
+            return livingHeirs.Union(houseLordshipLords).Union(lordshipHeirs).ToList();
         }
         public List<Person> GetDispensibleMembers()
         {
@@ -494,9 +546,9 @@ namespace GameOfHouses.MechanicsExperiments
             return Members.Except(GetIndespensibleMembers()).ToList();
         }
         public double Wealth { get; set; }
-        public List<Town> GetTowns()
+        public List<Lordship> GetLordships()
         {
-            return World.Towns.Where(town => !town.Vacant && town.Lords.Last().House == this).ToList();
+            return World.Lordships.Where(lordship => !lordship.Vacant && lordship.Lords.Last().House == this).ToList();
         }
         public void CollectTaxes()
         {
@@ -504,16 +556,16 @@ namespace GameOfHouses.MechanicsExperiments
             var previousTaxYear = World.Year - 1;
             double houseIncome = 0;
 
-            //first collect assessed taxes from previous year from each town under house control
-            var houseTowns = GetTowns();
-            foreach (var houseTown in houseTowns)
+            //first collect assessed taxes from previous year from each lordship under house control
+            var houseLordships = GetLordships();
+            foreach (var houseLordship in houseLordships)
             {
-                var assessedTownIncome = houseTown.AssessedIncome.FirstOrDefault(income => income.Year == previousTaxYear);
-                if (assessedTownIncome != null)
+                var assessedLordshipIncome = houseLordship.AssessedIncome.FirstOrDefault(income => income.Year == previousTaxYear);
+                if (assessedLordshipIncome != null)
                 {
-                    //move ALL income from town wealth to house coffers (the house lord controls all wealth for the house)
-                    houseTown.Wealth -= assessedTownIncome.Income;
-                    houseIncome += assessedTownIncome.Income;
+                    //move ALL income from lordship wealth to house coffers (the house lord controls all wealth for the house)
+                    houseLordship.Wealth -= assessedLordshipIncome.Income;
+                    houseIncome += assessedLordshipIncome.Income;
                 }
             }
             //next collect assessed taxes from all vassle houses
@@ -534,13 +586,73 @@ namespace GameOfHouses.MechanicsExperiments
             AssessedIncome.Add(new AssessedIncome() { Year = World.Year, Income = houseIncome });
         }
         public List<AssessedIncome> AssessedIncome { get; set; }
+        public List<Person> GetPotentialSettlerLords()
+        {
+            var house = this;
+            var potentialSettlerLords = house.Members.Where(x =>
+            x.Lordships.Count() == 0
+            && x.Household != null
+            && x.Household.HeadofHousehold == x
+            && x.GetHeirs().Count(heir => heir.House != house) == 0
+            ).ToList();
+            return potentialSettlerLords;
+
+        }
+        public void Attack(Lordship target, Person attackingLord, List<Person> attackingArmy, Random rnd)
+        {
+            //1-on-1 battle
+            var defenders = new List<Person>();
+            //var attackers = new List<Person>();
+            //attackers.AddRange(army);
+            //int defenderCasulties = 0;
+            //int attackerCasulties = 0;
+            foreach(var household in target.Households.Where(h=>h.HeadofHousehold.Class==SocialClass.Peasant))
+            {
+                defenders.AddRange(household.Members.Where(
+                    m => m.IsAlive
+                    && m.Age >= Constants.AGE_OF_MAJORITY
+                    && m.Age <= Constants.AGE_OF_RETIREMENT)
+                    );
+            }
+            var livingDefenders = defenders.ToList();
+            var livingAttackers = attackingArmy.ToList();
+            while (livingDefenders.Count()>0 && livingAttackers.Count() > 0)
+            {
+                var defender = livingDefenders[rnd.Next(0, livingDefenders.Count())];
+                var attacker = livingAttackers[rnd.Next(0, livingAttackers.Count())];
+                var battleResult = rnd.Next(0, 2);
+                if (battleResult == 0)
+                {
+                    attacker.IsAlive = false;
+                } else
+                {
+                    defender.IsAlive = false;
+                }
+                livingDefenders = defenders.Where(d => d.IsAlive).ToList();
+                livingAttackers = attackingArmy.Where(a => a.IsAlive).ToList();
+            }
+            Console.WriteLine("ATTACK: " + attackingLord.FullNameAndAge + " ATTACKED " + target.Name);
+            Console.WriteLine("\tAttacker Total: " + attackingArmy.Count());
+            Console.WriteLine("\tDefender Total: " + defenders.Count());
+            Console.WriteLine("\tAttacker Casulties: " + attackingArmy.Where(p=>!p.IsAlive).Count());
+            Console.WriteLine("\tDefender Casulties: " + defenders.Where(p => !p.IsAlive).Count());
+            Console.WriteLine("\tRemaining Attackers: " + attackingArmy.Where(p => p.IsAlive).Count());
+            Console.WriteLine("\tDefender Defenders: " + defenders.Where(p => p.IsAlive).Count());
+            if (livingDefenders.Count() == 0)
+            {
+                //clear the lords and make the town vacant
+                target.Lords.Last().Lordships.Remove(target);
+                target.Lords.Clear();
+                target.Vacant = true;
+            }
+        }
     }
     public class Household
     {
         public Household()
         {
             Members = new List<Person>();
-            Town = null;
+            Lordship = null;
             HouseholdClass = SocialClass.Peasant;
         }
         //The members of the family
@@ -548,7 +660,7 @@ namespace GameOfHouses.MechanicsExperiments
         public Person HeadofHousehold { get; set; }
         public List<Person> Members { get; set; }
         //Where the family currently lives
-        public Town Town { get; set; }
+        public Lordship Lordship { get; set; }
         public SocialClass HouseholdClass { get; set; }
         public void AddMember(Person newMember)
         {
@@ -568,10 +680,10 @@ namespace GameOfHouses.MechanicsExperiments
             oldMember.Household = null;
             if (Members.Count == 0)
             {
-                if (Town != null)
+                if (Lordship != null)
                 {
-                    Town.Households.Remove(this);
-                    Town = null;
+                    Lordship.Households.Remove(this);
+                    Lordship = null;
                 }
             }
             else if (oldMember == HeadofHousehold)
@@ -584,7 +696,7 @@ namespace GameOfHouses.MechanicsExperiments
         {
             var retStr = "";
             retStr += "Class:" + HouseholdClass + "\n"
-            + "Town: " + Town.Name + "\n"
+            + "Lordship: " + Lordship.Name + "\n"
             + "Head of Household: " + HeadofHousehold.Name + "\n"
             + "Members:" + "\n";
             foreach (var member in Members)
@@ -619,15 +731,15 @@ namespace GameOfHouses.MechanicsExperiments
                 if (headsOldHousehold != null)
                 {
                     marriageHousehold.HouseholdClass = headsOldHousehold.HouseholdClass;
-                    marriageHousehold.Town = headsOldHousehold.Town;
+                    marriageHousehold.Lordship = headsOldHousehold.Lordship;
                 }
             }
             marriageHousehold.AddMember(headOfHousehold);
             marriageHousehold.AddMember(spouse);
             headOfHousehold.House.AddMember(spouse);
-            if (marriageHousehold.Town != null)
+            if (marriageHousehold.Lordship != null)
             {
-                marriageHousehold.Town.AddHousehold(marriageHousehold);
+                marriageHousehold.Lordship.AddHousehold(marriageHousehold);
             }
 
             //add head's minor children to household
@@ -683,7 +795,7 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 Profession = Profession.Dependant;
             }
-            TownLordships = new List<Town>();
+            Lordships = new List<Lordship>();
             HouseLordships = new List<House>();
             Ancestors = new List<Person>();
         }
@@ -696,7 +808,7 @@ namespace GameOfHouses.MechanicsExperiments
         //public int Year { get; set; }
         public Household Household { get; set; }
         public int BirthYear { get; set; }
-        public Town BirthPlace { get; set; }
+        public Lordship BirthPlace { get; set; }
         public string Name { get; set; }
         public string FullNameAndAge
         {
@@ -731,21 +843,21 @@ namespace GameOfHouses.MechanicsExperiments
                     }
 
                 }
-                if (this.TownLordships.Count > 0)
+                if (this.Lordships.Count > 0)
                 {
                     if (Sex == Sex.Male)
                     {
-                        fullNameAndAge += ", Lord of " + TownLordships[0].Name;
+                        fullNameAndAge += ", Lord of " + Lordships[0].Name;
                     }
                     else
                     {
-                        fullNameAndAge += ", Lady of " + TownLordships[0].Name;
+                        fullNameAndAge += ", Lady of " + Lordships[0].Name;
                     }
-                    if (TownLordships.Count > 1)
+                    if (Lordships.Count > 1)
                     {
-                        for (int i = 1; i < TownLordships.Count(); i++)
+                        for (int i = 1; i < Lordships.Count(); i++)
                         {
-                            if (i == TownLordships.Count - 1)
+                            if (i == Lordships.Count - 1)
                             {
                                 fullNameAndAge += ", and ";
                             }
@@ -753,7 +865,7 @@ namespace GameOfHouses.MechanicsExperiments
                             {
                                 fullNameAndAge += ", ";
                             }
-                            fullNameAndAge += TownLordships[i].Name;
+                            fullNameAndAge += Lordships[i].Name;
                         }
                     }
                 }
@@ -767,14 +879,14 @@ namespace GameOfHouses.MechanicsExperiments
                             fullNameAndAge += string.Format(", heir of House {1}", houseHeirs.IndexOf(this) + 1, house.Name);
                         }
                     }
-                    foreach (var town in World.Towns)
+                    foreach (var lordship in World.Lordships)
                     {
-                        if (!town.Vacant)
+                        if (!lordship.Vacant)
                         {
-                            var townHeirs = town.GetOrderOfSuccession(1);
-                            if (townHeirs.Contains(this))
+                            var lordshipHeirs = lordship.GetOrderOfSuccession(1);
+                            if (lordshipHeirs.Contains(this))
                             {
-                                fullNameAndAge += string.Format(", heir of {1}", townHeirs.IndexOf(this) + 1, town.Name);
+                                fullNameAndAge += string.Format(", heir of {1}", lordshipHeirs.IndexOf(this) + 1, lordship.Name);
                             }
                         }
                     }
@@ -791,9 +903,9 @@ namespace GameOfHouses.MechanicsExperiments
                     }
                     fullNameAndAge += this.Father.Name + " " + Father.House.Name + " and " + this.Mother.Name + " " + Mother.House.Name;
                 }
-                if (Household != null && Household.Town != null)
+                if (Household != null && Household.Lordship != null)
                 {
-                    fullNameAndAge += ", residing in " + Household.Town.Name;
+                    fullNameAndAge += ", residing in " + Household.Lordship.Name;
                 }
                 fullNameAndAge += ", age " + this.Age;
                 return fullNameAndAge;
@@ -825,6 +937,9 @@ namespace GameOfHouses.MechanicsExperiments
                     case Profession.Noble:
                         income = Constants.NOBLE_INCOME;
                         break;
+                    //case Profession.Soldier:
+                    //    income = Constants.SOLDIER_INCOME;
+                    //    break;
                 }
                 // +/- 50%
                 return Math.Round(income + (income * (_rnd.NextDouble() * 0.5) * _rnd.Next(-1, 2)), 2);
@@ -846,11 +961,14 @@ namespace GameOfHouses.MechanicsExperiments
                     case Profession.Noble:
                         cost = Constants.NOBLE_COST;
                         break;
+                    case Profession.Soldier:
+                        cost = Constants.SOLDIER_TOWN_COST;
+                        break;
                 }
                 return cost;
             }
         }
-        public List<Town> TownLordships { get; set; }
+        public List<Lordship> Lordships { get; set; }
         public List<House> HouseLordships { get; set; }
         public void IncrementYear()
         {
@@ -890,7 +1008,7 @@ namespace GameOfHouses.MechanicsExperiments
                         {
                             Household = childsMother.Household,
                             BirthYear = World.Year,
-                            BirthPlace = childsMother.Household.Town,
+                            BirthPlace = childsMother.Household.Lordship,
                             Father = childsFather,
                             Mother = childsMother,
                             Profession = Profession.Dependant,
@@ -1131,11 +1249,42 @@ namespace GameOfHouses.MechanicsExperiments
         public Bethrothal Bethrothal { get; set; }
         public string GetDetailsAsString()
         {
-            string retString = "";
+            string retString = World.GetMapAsString(null, Household.Lordship);
 
             retString += "Name: " + FullNameAndAge + "\n";
             retString += "People: " + People + "\n";
             retString += "Class: " + Class + "\n";
+            retString += "Lordships: ";
+            if (Lordships.Count > 0)
+            {
+                foreach (var lordship in Lordships)
+                {
+                    retString += lordship.Name;
+                    if (lordship != Lordships.Last())
+                    {
+                        retString += ", ";
+                    } else
+                    {
+                        retString += "\n";
+                    }
+                }
+            }else
+            {
+                retString += "none\n";
+            }
+            retString += "Fighters: ";
+            var fighterCount = 0;
+            if (Lordships.Count > 0)
+            {
+                foreach (var lordship in Lordships)
+                {
+                   foreach (var houseHold in lordship.Households)
+                    {
+                        fighterCount += houseHold.Members.Count(m=>m.IsAlive && m.Age >= Constants.AGE_OF_MAJORITY && m.Age <= Constants.AGE_OF_RETIREMENT);
+                    }
+                }
+            }
+            retString += fighterCount + "\n";
             if (Spouse != null && Spouse.IsAlive)
             {
                 retString += "Spouse: " + Spouse.FullNameAndAge + "\n";
@@ -1163,11 +1312,11 @@ namespace GameOfHouses.MechanicsExperiments
             return retString;
         }
     }
-    public class Town
+    public class Lordship
     {
         private Random _rnd;
         private int _maxYeild;
-        public Town(Random rnd)
+        public Lordship(Random rnd)
         {
             _rnd = rnd;
             Households = new List<Household>();
@@ -1182,7 +1331,7 @@ namespace GameOfHouses.MechanicsExperiments
         public bool Vacant { get; set; }
         public int MapX { get; set; }
         public int MapY { get; set; }
-        //public List<Town> Villages { get; set; }
+        //public List<Lordship> Villages { get; set; }
         public int FoundingYear { get; set; }
         public String Name { get; set; }
         public List<Household> Households { get; set; }
@@ -1195,8 +1344,8 @@ namespace GameOfHouses.MechanicsExperiments
         public void IncrementYear()
         {
             //lets fix this economy!
-
-            if (Households.Count() > 0)
+            //var currentHeirs = 
+            if (!Vacant)
             {
                 var villagers = new List<Person>();
                 Households.ForEach(x => villagers.AddRange(x.Members));
@@ -1231,7 +1380,7 @@ namespace GameOfHouses.MechanicsExperiments
                     else
                     {
                         Vacant = true;
-                        if (incumbentLord.House.Name == "Stark")
+                        if (incumbentLord.House == World.Player.House)
                         {
                             Console.WriteLine("VACANCY: The Lordship of " + Name + " is vacant.");
                         }
@@ -1277,6 +1426,7 @@ namespace GameOfHouses.MechanicsExperiments
                         {
                             //kill a random villager
                             var deadOne = villagers[_rnd.Next(0, villagers.Count())];
+
                             deadOne.IsAlive = false;
                             if (deadOne.Household != null)
                             {
@@ -1295,34 +1445,34 @@ namespace GameOfHouses.MechanicsExperiments
         {
             if (!Households.Contains(newHousehold))
             {
-                if (newHousehold.Town != null)
+                if (newHousehold.Lordship != null)
                 {
-                    newHousehold.Town.Households.Remove(newHousehold);
-                    newHousehold.Town = null;
+                    newHousehold.Lordship.Households.Remove(newHousehold);
+                    newHousehold.Lordship = null;
                 }
                 Households.Add(newHousehold);
-                newHousehold.Town = this;
+                newHousehold.Lordship = this;
             }
         }
         public void Removehousehold(Household oldHousehold)
         {
             if (Households.Contains(oldHousehold))
             {
-                oldHousehold.Town = null;
+                oldHousehold.Lordship = null;
                 Households.Remove(oldHousehold);
             }
         }
         public void AddLord(Person newLord)
         {
-            if (!newLord.TownLordships.Contains(this))
+            if (!newLord.Lordships.Contains(this))
             {
-                newLord.TownLordships.Add(this);
+                newLord.Lordships.Add(this);
             }
             Lords.Add(newLord);
         }
-        public List<Town> GetAdjacentTowns()
+        public List<Lordship> GetAdjacentLordships()
         {
-            return World.Towns.Where(v => v != this && (Math.Abs(v.MapX - MapX) == 1 || v.MapX == MapX) && (Math.Abs(v.MapY - MapY) == 1 || v.MapY == MapY)).ToList();
+            return World.Lordships.Where(v => v != this && (Math.Abs(v.MapX - MapX) == 1 || v.MapX == MapX) && (Math.Abs(v.MapY - MapY) == 1 || v.MapY == MapY)).ToList();
         }
         public List<Person> Lords { get; set; }
         public List<Person> GetOrderOfSuccession(int depth)
@@ -1345,37 +1495,44 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public string GetDetailsAsString()
         {
-            var retString = "";
-            retString += ("YEAR " + World.Year + '\n');
-            retString += ("------------------------\n");
-            retString += ("Town: " + Name + '\n');
-            retString += ("Founding Year: " + FoundingYear + '\n');
-            var incumentlord = Lords.Last();
-            retString += ("Lord: " + incumentlord.FullNameAndAge + '\n');
-            retString += ("Order of Succession:" + '\n');
-            var orderOfSuccession = GetOrderOfSuccession(10);
-            for (int i = 0; i < orderOfSuccession.Count(); i++)
+            var retString = ""; 
+            if (!Vacant)
             {
-                retString += ((i + 1) + ": " + orderOfSuccession[i].FullNameAndAge + '\n');
+                retString += World.GetMapAsString(null, this);
+                retString += ("Lordship: " + Name + '\n');
+                retString += ("Founding Year: " + FoundingYear + '\n');
+                var incumentlord = Lords.Last();
+                retString += ("Lord: " + incumentlord.FullNameAndAge + '\n');
+                retString += ("Order of Succession:" + '\n');
+                var orderOfSuccession = GetOrderOfSuccession(10);
+                for (int i = 0; i < orderOfSuccession.Count(); i++)
+                {
+                    retString += ((i + 1) + ": " + orderOfSuccession[i].FullNameAndAge + '\n');
+                }
+                var villagers = new List<Person>();
+                Households.ForEach(v => villagers.AddRange(v.Members));
+                retString += ("Noble Households:" + Households.Count(v => v.HouseholdClass == SocialClass.Noble) + '\n');
+                retString += ("Peasant Households:" + Households.Count(v => v.HouseholdClass == SocialClass.Peasant) + '\n');
+                retString += ("Population:" + villagers.Count() + '\n');
+                retString += ("Defenders:" + villagers.Count(m => m.IsAlive
+                        && m.Age >= Constants.AGE_OF_MAJORITY
+                        && m.Age <= Constants.AGE_OF_RETIREMENT) + '\n');
+                retString += ("Seniors >= 50:" + villagers.Count(v => v.IsAlive && v.Age > 50) + '\n');
+                retString += ("Children < 18: " + villagers.Count(v => v.IsAlive && v.Age < 18) + '\n');
+                retString += ("Nobles: " + villagers.Count(v => v.Household.HouseholdClass == SocialClass.Noble && v.IsAlive) + '\n');
+                retString += ("Peasants: " + villagers.Count(v => v.Household.HouseholdClass == SocialClass.Peasant && v.IsAlive) + '\n');
+                retString += ("Yeild: " + Yeild + '\n');
+                retString += ("Cost: " + Cost + '\n');
+                retString += ("Surplus: " + Surplus + '\n');
+                if (AssessedIncome.Count > 0) { 
+                retString += ("Income: " + AssessedIncome.Last().Income.ToString("0.00") + '\n');
+                }
+                retString += ("Wealth: " + Wealth + '\n');
+                retString += ("------------------------" + '\n');
             }
-            var villagers = new List<Person>();
-            Households.ForEach(v => villagers.AddRange(v.Members));
-            retString += ("Noble Households:" + Households.Count(v => v.HouseholdClass == SocialClass.Noble) + '\n');
-            retString += ("Peasant Households:" + Households.Count(v => v.HouseholdClass == SocialClass.Peasant) + '\n');
-            retString += ("Population:" + villagers.Count() + '\n');
-            retString += ("Seniors >= 50:" + villagers.Count(v => v.IsAlive && v.Age > 50) + '\n');
-            retString += ("Children < 18: " + villagers.Count(v => v.IsAlive && v.Age < 18) + '\n');
-            retString += ("Nobles: " + villagers.Count(v => v.Household.HouseholdClass == SocialClass.Noble && v.IsAlive) + '\n');
-            retString += ("Peasants: " + villagers.Count(v => v.Household.HouseholdClass == SocialClass.Peasant && v.IsAlive) + '\n');
-            retString += ("Yeild: " + Yeild + '\n');
-            retString += ("Cost: " + Cost + '\n');
-            retString += ("Surplus: " + Surplus + '\n');
-            retString += ("Income: " + AssessedIncome.Last().Income.ToString("0.00") + '\n');
-            retString += ("Wealth: " + Wealth + '\n');
-            retString += ("------------------------" + '\n');
             return retString;
         }
-        public static void PopulateTown(Town newVillage, Household lordsHouseHold, List<Household> peasantHouseholds)
+        public static void PopulateLordship(Lordship newVillage, Household lordsHouseHold, List<Household> peasantHouseholds)
         {
             //add lord
             var newLord = lordsHouseHold.HeadofHousehold;
@@ -1387,8 +1544,10 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 newVillage.AddHousehold(settlerHousehold);
             }
+            settlerHouseholds.ForEach(household => household.Members.ForEach(member => newVillage.World.AddPerson(member)));
             var playerLords = newVillage.World.Player.House.Lords;
-            if (newLord.World!= null && newLord.World.Player != null && newLord.House == newLord.World.Player.House && playerLords.Count > 0 && playerLords.Last().GetCurrentHeirs().Contains(newLord))
+
+            if (newLord.World!= null && newLord.World.Player != null && newLord.House == newLord.World.Player.House) //&& playerLords.Count > 0 && playerLords.Last().GetCurrentHeirs().Contains(newLord))
             {
                 Console.WriteLine("EXPANSION: " + newLord.FullNameAndAge + " FOUNDED " + newVillage.Name + " in " + newVillage.World.Year);
             }
@@ -1413,101 +1572,145 @@ namespace GameOfHouses.MechanicsExperiments
             //2. Increment Word Year
             world.IncrementYear();
         }
+        public static List<Household> GetRandomSettlerHouseholds(House house, Random rnd, int numberOfHouseHolds = Constants.MINIMUM_VILLAGE_SIZE)
+        {
+            var housesLordships = house.GetLordships();
+            var potentialSettlerPeasantHouseholds = new List<Household>();
+            var settlerHouseholds = new List<Household>();
+            foreach (var housesLordship in housesLordships)
+            {
+                var peasantHouseholds = housesLordship.Households.Where(x => x.HeadofHousehold.Class == SocialClass.Peasant).ToList();
+                while (peasantHouseholds.Count() > Constants.MINIMUM_VILLAGE_SIZE)
+                {
+                    var potentialSettlerPeasantHousehold = peasantHouseholds[rnd.Next(0, peasantHouseholds.Count())];
+                    potentialSettlerPeasantHouseholds.Add(potentialSettlerPeasantHousehold);
+                    peasantHouseholds.Remove(potentialSettlerPeasantHousehold);
+                }
+            }
+            while (potentialSettlerPeasantHouseholds.Count() > 0 && settlerHouseholds.Count() < numberOfHouseHolds)
+            {
+                var settlerHousehold = potentialSettlerPeasantHouseholds[rnd.Next(0, potentialSettlerPeasantHouseholds.Count())];
+                settlerHouseholds.Add(settlerHousehold);
+                potentialSettlerPeasantHouseholds.Remove(settlerHousehold);
+            }
+            return settlerHouseholds;
+        }
+        public static List<Person> RaiseARandomArmy(House house, Random rnd, int armySize = 100)
+        {
+            var housesLordships = house.GetLordships();
+            var potentialRecruits = new List<Person>();
+            var army = new List<Person>();
+            foreach (var housesLordship in housesLordships)
+            {
+                var peasantHouseholds = housesLordship.Households.Where(x => x.HeadofHousehold.Class == SocialClass.Peasant).ToList();
+                foreach(var peasantHousehold in peasantHouseholds)
+                {
+                    potentialRecruits.AddRange(peasantHousehold.Members.Where(m => 
+                    m.IsAlive
+                    &&m.Age>=Constants.AGE_OF_MAJORITY
+                    &&m.Age<=Constants.AGE_OF_RETIREMENT
+                    ));
+                }
+            }
+            while(potentialRecruits.Count() > 0 && army.Count() <= armySize)
+            {
+                var recruit = potentialRecruits[rnd.Next(0, potentialRecruits.Count())];
+                army.Add(recruit);
+                potentialRecruits.Remove(recruit);
+            }
+            return army;
+        }
+
+
+
         public static void HouseMoves(House house, Random rnd)
         {
 
             //colonize
             //determine potential settler households
             //find heads of households that don't hold a lordship and don't have any heirs from other houses
-
-            var houseAndSubVassles = new List<House>();
-            houseAndSubVassles.Add(house);
-            houseAndSubVassles.AddRange(house.GetAllSubVassles());
-            var houseTowns = house.World.Towns.Where(town => !town.Vacant && houseAndSubVassles.Contains(town.Lords.Last().House)).ToList();
-            var potentialSettlerLords = house.Members.Where(x =>
-                x.TownLordships.Count() == 0
-                && x.Household != null
-                && x.Household.HeadofHousehold == x
-                && x.GetHeirs().Count(heir => heir.House != house) == 0
-                ).ToList();
-            List<Town> unclaimedLands;
-            if (potentialSettlerLords.Count() > 0)
+            if (house != house.World.Player.House)
             {
-                //get potential settler peasants
-                //get towns the house controls
-                var potentialSettlerPeasantHouseholds = new List<Household>();
-                unclaimedLands = GetUnclaimedLands(house);
-                foreach (var houseTown in houseTowns)
+                //var houseAndSubVassles = new List<House>();
+                //houseAndSubVassles.Add(house);
+                //houseAndSubVassles.AddRange(house.GetAllSubVassles());
+                var housesLordships = house.GetLordships();//= house.World.Lordships.Where(lordship => !lordship.Vacant && house == lordship.Lords.Last().House).ToList();
+                var potentialSettlerLords = house.GetPotentialSettlerLords();
+                List<Lordship> adjacentUnclaimedLands;
+                if (potentialSettlerLords.Count() > 0)
                 {
-                    var peasantHouseholds = houseTown.Households.Where(x => x.HeadofHousehold.Class == SocialClass.Peasant).ToList();
-                    while (peasantHouseholds.Count() > Constants.MINIMUM_VILLAGE_SIZE)
+                    adjacentUnclaimedLands = GetAdjacentUnclaimedLands(house);
+                    //get potential settler peasants
+                    //get lordships the house controls
+                    /*
+                    var potentialSettlerPeasantHouseholds = new List<Household>();
+                    foreach (var housesLordship in housesLordships)
                     {
-                        var potentialSettlerPeasantHousehold = peasantHouseholds.First();
-                        potentialSettlerPeasantHouseholds.Add(potentialSettlerPeasantHousehold);
-                        peasantHouseholds.Remove(potentialSettlerPeasantHousehold);
-                    }
-                }
-                while (potentialSettlerLords.Count() > 0 && potentialSettlerPeasantHouseholds.Count() >= Constants.MINIMUM_VILLAGE_SIZE && unclaimedLands.Count > 0)
-                {
-                    var settlerTown = unclaimedLands[rnd.Next(0, unclaimedLands.Count())];
-                    settlerTown.FoundingYear = house.World.Year;
-                    unclaimedLands.Remove(settlerTown);
-                    var settlerLord = potentialSettlerLords[rnd.Next(0, potentialSettlerLords.Count())];
-                    potentialSettlerLords.Remove(settlerLord);
-                    settlerTown.AddLord(settlerLord);
-                    var settlerPeasantHouseholds = new List<Household>();
-                    for (int i = 0; i < Constants.MINIMUM_VILLAGE_SIZE; i++)
+                        var peasantHouseholds = housesLordship.Households.Where(x => x.HeadofHousehold.Class == SocialClass.Peasant).ToList();
+                        while (peasantHouseholds.Count() > Constants.MINIMUM_VILLAGE_SIZE)
+                        {
+                            var potentialSettlerPeasantHousehold = peasantHouseholds.First();
+                            potentialSettlerPeasantHouseholds.Add(potentialSettlerPeasantHousehold);
+                            peasantHouseholds.Remove(potentialSettlerPeasantHousehold);
+                        }
+                    }*/
+                    var settlerPeasantHouseholds = GetRandomSettlerHouseholds(house, rnd);
+                    while (potentialSettlerLords.Count() > 0 && settlerPeasantHouseholds.Count() >= Constants.MINIMUM_VILLAGE_SIZE && adjacentUnclaimedLands.Count > 0)
                     {
-                        var settlerPeasantHousehold = potentialSettlerPeasantHouseholds[rnd.Next(0, potentialSettlerPeasantHouseholds.Count())];
-                        potentialSettlerPeasantHouseholds.Remove(settlerPeasantHousehold);
-                        settlerPeasantHouseholds.Add(settlerPeasantHousehold);
+                        var settlerLordship = adjacentUnclaimedLands[rnd.Next(0, adjacentUnclaimedLands.Count())];
+                        settlerLordship.FoundingYear = house.World.Year;
+                        adjacentUnclaimedLands.Remove(settlerLordship);
+                        var settlerLord = potentialSettlerLords[rnd.Next(0, potentialSettlerLords.Count())];
+                        potentialSettlerLords.Remove(settlerLord);
+                        settlerLordship.AddLord(settlerLord);
+                        //var settlerPeasantHouseholds = new List<Household>();
+                        //for (int i = 0; i < Constants.MINIMUM_VILLAGE_SIZE; i++)
+                        //{
+                        //    var settlerPeasantHousehold = potentialSettlerPeasantHouseholds[rnd.Next(0, potentialSettlerPeasantHouseholds.Count())];
+                        //    potentialSettlerPeasantHouseholds.Remove(settlerPeasantHousehold);
+                        //    settlerPeasantHouseholds.Add(settlerPeasantHousehold);
+                        //}
+                        Lordship.PopulateLordship(settlerLordship, settlerLord.Household, settlerPeasantHouseholds);
+                        settlerPeasantHouseholds = GetRandomSettlerHouseholds(house, rnd);
                     }
-                    Town.PopulateTown(settlerTown, settlerLord.Household, settlerPeasantHouseholds);
                 }
             }
-            var indespensibleEligibleMembers = house.GetIndespensibleMembers().Where(x => x.IsEligableForBetrothal()).ToList();
+            var potentialHeads = house.GetIndespensibleMembers().Where(x => x.IsEligableForBetrothal()).ToList();
 
-            var potentialMatches = new List<Person>();
+            var potentialSpouses= new List<Person>();
             foreach (var otherHouse in house.World.NobleHouses)
             {
-                potentialMatches.AddRange(otherHouse.GetDispensibleMembers().Where(x => x.IsEligableForBetrothal()));
+                potentialSpouses.AddRange(otherHouse.GetDispensibleMembers().Where(x => x.IsEligableForBetrothal()));
             }
-            var matchcount = 0;
-            var unmatchedLordsAndHeirs = new List<Person>();
-            while (indespensibleEligibleMembers.Count() > 0 && potentialMatches.Count() > 0)
-            {
-                var eligableLordOrHeir = indespensibleEligibleMembers.First();
-                var matches = potentialMatches.Where(x => x.IsCompatibleForBetrothal(eligableLordOrHeir)).ToList();
-
-                if (matches.Count() > 0)
-                {
-                    //find match closest in age
-                    matches = matches.OrderBy(m => Math.Abs(m.Age - eligableLordOrHeir.Age)).ToList();
-                    var match = matches.First();
-                    house.World.CreateBethrothal(eligableLordOrHeir, match, house.World.Year, true);
-                    potentialMatches.Remove(match);
-                    matchcount++;
-                }
-                else
-                {
-                    unmatchedLordsAndHeirs.Add(eligableLordOrHeir);
-                }
-                indespensibleEligibleMembers.Remove(eligableLordOrHeir);
-            }
-
-            if (unmatchedLordsAndHeirs.Count(x => x.Age > 5 && x.Age < 25 && x.GetHeirs().Count == 0) > 0)
+            MatchBetrothals(potentialHeads, potentialSpouses);
+        
+            if (potentialHeads.Count(x => x.Age > 5 && x.Age < 25 && x.IsEligableForBetrothal() && x.GetHeirs().Count == 0) > 0)
             {
                 //no heirs!  Try to invite a new house from the homeland!
                 if (rnd.NextDouble() <= Constants.CHANCE_OF_RECRUITING_FOREIGN_HOUSE && house.Recruitments < Constants.MAX_RECRUITMENTS)
                 {
-                    unclaimedLands = GetUnclaimedLands(house);
+                    var maxX = Constants.MAP_WIDTH;
+                    var minX = 1;
+                    if(house.Lords.Last().People == People.Dane)
+                    {
+                        minX = Constants.MAP_WIDTH / 2;
+                    } else
+                    {
+                        maxX = Constants.MAP_WIDTH / 2;
+                    }
+
+                    var unclaimedLands = house.World.Lordships.Where(t => t.Vacant && t.MapX >= minX && t.MapX <= maxX).ToList();//GetUnclaimedLands(house);
                     if (unclaimedLands.Count() > 0)
                     {
-                        var eldest = unmatchedLordsAndHeirs.Max(h => h.Age) + 5;
+                        //var eldest = unmatchedLordsAndHeirs.Max(h => h.Age) + 5;
                         var newLand = unclaimedLands[rnd.Next(0, unclaimedLands.Count())];
                         var surnames = Constants.SURNAMES.Split(',');
-                        var newHouseName = surnames[rnd.Next(0, surnames.Count())];
-                        var newHouse = CreateNewHouse(newHouseName, (char)rnd.Next(33, 126), house.Lords.Last().People, newLand, rnd, house, eldest);
+                        var newHouseName = "";
+                        while (newHouseName == "" || house.World.NobleHouses.Any(h => h.Name == newHouseName)){
+                            newHouseName = surnames[rnd.Next(0, surnames.Count())];
+                        }
+
+                        var newHouse = CreateNewHouse(newHouseName, (char)rnd.Next(33, 126), house.Lords.Last().People, newLand, rnd,null);
                         var recruitingLord = house.Lords.Last();
                         var recruitedLord = newHouse.Lords.Last();
                         if (recruitingLord.House == house.World.Player.House)
@@ -1515,31 +1718,63 @@ namespace GameOfHouses.MechanicsExperiments
                             Console.WriteLine("RECRUITMENT: " + recruitingLord.FullNameAndAge + " RECRUITED " + recruitedLord.FullNameAndAge + " from the " + recruitingLord.People + " homeland.");
                         }
                         house.Recruitments++;
+                        MatchBetrothals(potentialHeads, newHouse.GetDispensibleMembers());
                     }
                 }
             }
 
         }
-        public static List<Town> GetUnclaimedLands(House house)
+        public static void MatchBetrothals(List<Person> potentialHeads, List<Person> potentialSpouses)
         {
-            var unclaimedLands = new List<Town>();
-            var houseAndSubVassles = new List<House>();
-            houseAndSubVassles.Add(house);
-            houseAndSubVassles.AddRange(house.GetAllSubVassles());
-            var houseTowns = house.World.Towns.Where(town => !town.Vacant && houseAndSubVassles.Contains(town.Lords.Last().House)).ToList();
-            foreach (var houseTown in houseTowns)
+            var headsLeftToMatch = new List<Person>();
+            var spousesLeftToMatch = new List<Person>();
+            headsLeftToMatch.AddRange(potentialHeads);
+            spousesLeftToMatch.AddRange(potentialSpouses);
+
+            while (headsLeftToMatch.Count() > 0 && spousesLeftToMatch.Count() > 0)
             {
-                unclaimedLands.AddRange(houseTown.GetAdjacentTowns().Where(x => x.Vacant && !unclaimedLands.Contains(x)));
+                var eligableLordOrHeir = headsLeftToMatch.First();
+                var matches = spousesLeftToMatch.Where(x => x.IsCompatibleForBetrothal(eligableLordOrHeir)).ToList();
+
+                if (matches.Count() > 0)
+                {
+                    //find match closest in age
+                    matches = matches.OrderBy(m => Math.Abs(m.Age - eligableLordOrHeir.Age)).ToList();
+                    var match = matches.First();
+                    eligableLordOrHeir.World.CreateBethrothal(eligableLordOrHeir, match, eligableLordOrHeir.World.Year, true);
+                    spousesLeftToMatch.Remove(match);
+                }
+                headsLeftToMatch.Remove(eligableLordOrHeir);
+            }
+        }
+        public static List<Lordship> GetAdjacentUnclaimedLands(House house)
+        {
+            var unclaimedLands = new List<Lordship>();
+            var houseAndSubVassles = new List<House>();
+            //houseAndSubVassles.Add(house);
+            //houseAndSubVassles.AddRange(house.GetAllSubVassles());
+            var houseLordships = house.World.Lordships.Where(lordship => !lordship.Vacant && lordship.Lords.Last().House == house).ToList();
+            foreach (var houseLordship in houseLordships)
+            {
+                unclaimedLands.AddRange(houseLordship.GetAdjacentLordships().Where(x => x.Vacant && !unclaimedLands.Contains(x)));
             }
             return unclaimedLands;
         }
-        public static House CreateNewHouse(string name, char symbol, People people, Town town, Random rnd, House allegience = null, int eldest = 18)
+        public static House CreateNewHouse(string name, char symbol, People people, Lordship lordship, Random rnd, House allegience = null, int yearsToIterate = Constants.YEARS_TO_ITERATE_NEW_HOUSES)
         {
-            var oldWorld = new World(rnd) { Year = town.World.Year - Constants.YEARS_TO_ITERATE_NEW_HOUSES };//town.World;
-            var newWorld = town.World;
+            Person newLord = null;
+            World oldWorld = null;
+            World newWorld = null;
+            Lordship oldLordship = null;
+            Person lord = null;
+            while (newLord == null || !newLord.IsAlive) { 
+            oldWorld = new World(rnd) { Year = lordship.World.Year - Constants.YEARS_TO_ITERATE_NEW_HOUSES };//lordship.World;
+            newWorld = lordship.World;
+            oldLordship = new Lordship(rnd) { Name = "OldLordship" };
+            oldWorld.AddLordship(oldLordship);
             //create settlers
             var firstSettlers = new List<Household>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 25; i++)
             {
                 var husband = new Person(rnd)
                 {
@@ -1584,7 +1819,7 @@ namespace GameOfHouses.MechanicsExperiments
                 firstSettlers.Add(settlerHousehold);
             }
 
-            var lord = new Person(rnd)
+            lord = new Person(rnd)
             {
                 Age = 18,
                 Sex = Sex.Male,
@@ -1609,7 +1844,8 @@ namespace GameOfHouses.MechanicsExperiments
             oldWorld.AddHouse(lord.House);
             var lordsHousehold = Household.CreateMarriageHousehold(lord, lady);
             lordsHousehold.HouseholdClass = SocialClass.Noble;
-            for (var i = 0; i < Constants.YEARS_TO_ITERATE_NEW_HOUSES; i++)
+            Lordship.PopulateLordship(oldLordship, lordsHousehold, firstSettlers);
+            for (var i = 0; i < yearsToIterate; i++)
             {
                 oldWorld.IncrementYear();
                 var eligibleNobles = oldWorld.Population.Where(x => x.Class == SocialClass.Noble && x.IsEligibleForMarriage());
@@ -1634,17 +1870,28 @@ namespace GameOfHouses.MechanicsExperiments
                     }
                 }
             }
+            //old world is iterated now prepare for the new world
+            //1. get the lord's household
+            newLord = oldLordship.Lords.Last();
+        }
+            var newLordsHouseHold = oldLordship.Lords.Last().Household;
+            //2. get the households with all of the lords decendents
+            var newLordsDescendents = newLord.GetHeirs();
+            var nobleHouseholds = oldLordship.Households.ToList(); //.Where(h => h.Members.Intersect(newLordsDescendents).Count() > 0).ToList();
+            //3. get commoners
+            var peasantHouseholds = oldLordship.Households.ToList(); //.Where(h => h.HeadofHousehold.Class == SocialClass.Peasant).Take(Constants.MINIMUM_VILLAGE_SIZE).ToList();
             if (allegience != null)
             {
                 allegience.AddVassle(lord.House);
             }
             newWorld.AddHouse(lord.House);
-            lord.House.Seat = town;
-            while (oldWorld.Population.Count() > 0)
-            {
-                newWorld.AddPerson(oldWorld.Population[0]);
-            }
-            Town.PopulateTown(town, lordsHousehold, firstSettlers);
+            lord.House.Seat = lordship;
+            var settlerHouseholds = new List<Household>();
+            settlerHouseholds.AddRange(nobleHouseholds);
+            settlerHouseholds.AddRange(peasantHouseholds);
+            //everyone else from the old world dies.  It's rough out there.
+            oldWorld.Population.Where(p => !newLordsHouseHold.Members.Contains(p) && settlerHouseholds.Count(sh => sh.Members.Contains(p)) == 0).ToList().ForEach(p => p.IsAlive = false);
+            Lordship.PopulateLordship(lordship, newLordsHouseHold, settlerHouseholds);
             return lord.House;
         }
         public static void PerformNobleMarriages(World world)
@@ -1669,14 +1916,14 @@ namespace GameOfHouses.MechanicsExperiments
         }
         public static void InitializeWorld(World world, Random rnd, Player player, string playerName = "Eddard", string playerHouse = "Stark", Sex playerSex = Sex.Male)
         {
-            var townNames = Constants.TOWN_NAMES.Split(',').ToList();
+            var lordshipNames = Constants.TOWN_NAMES.Split(',').ToList();
             for (var y = 1; y <= Constants.MAP_HEIGHT; y++)
             {
                 for (var x = 1; x <= Constants.MAP_WIDTH; x++)
                 {
-                    var villageName = townNames[0];
-                    world.AddTown(new Town(rnd) { Name = villageName, MapX = x, MapY = y });
-                    townNames.Remove(villageName);
+                    var villageName = lordshipNames[0];
+                    world.AddLordship(new Lordship(rnd) { Name = villageName, MapX = x, MapY = y });
+                    lordshipNames.Remove(villageName);
                 }
             }
             var houseNames = new List<string>()
@@ -1716,13 +1963,20 @@ namespace GameOfHouses.MechanicsExperiments
                 '+'
             };
             //}
-            var easternTowns = world.Towns.Where(x => x.Vacant && x.MapX == 1).ToList();
-            var westernTowns = world.Towns.Where(x => x.Vacant && x.MapX == Constants.MAP_WIDTH).ToList();
+            var easternLordships = world.Lordships.Where(x => x.Vacant && x.MapX == 1).ToList();
+            var westernLordships = world.Lordships.Where(x => x.Vacant && x.MapX == Constants.MAP_WIDTH).ToList();
 
             //create first dane house
-            var daneTown = westernTowns[rnd.Next(0, westernTowns.Count())];
-            daneTown.Name = "Winterfell";
-            player.House = CreateNewHouse("Stark", '*', People.Dane, daneTown, rnd);
+            var daneLordship = westernLordships[rnd.Next(0, westernLordships.Count())];
+            daneLordship.Name = "Winterfell";
+            var firstHouse = CreateNewHouse("Firstmen", '@', People.Dane, daneLordship, rnd, null, Constants.YEARS_TO_ITERATE_PLAYER_HOUSES);
+            /*
+            while (firstHouse.Vassles.Count() == 0)
+            {
+                IncrementYear(world,rnd);
+            }*/
+            player.House = firstHouse;
+            player.House.Symbol = '*';
             var playerLord = player.House.Lords.Last();
             player.House.Name = playerHouse;
             playerLord.Name = playerName;
@@ -1742,30 +1996,26 @@ namespace GameOfHouses.MechanicsExperiments
             }
 
             //create first saxon house
-            var saxonTown = easternTowns[rnd.Next(0, easternTowns.Count())];
-            saxonTown.Name = "Casterly Rock";
-            CreateNewHouse("Lannister", '$', People.Saxon, saxonTown, rnd);
+            var saxonLordship = easternLordships[rnd.Next(0, easternLordships.Count())];
+            saxonLordship.Name = "Casterly Rock";
+            CreateNewHouse("Lannister", '$', People.Saxon, saxonLordship, rnd);
             //for (int k = 0; k < houseNames.Count(); k++)
             //{
-            //    var vacantVillages = world.Towns.Where(x => x.Vacant && (x.MapY == 1 || x.MapY == Constants.MAP_HEIGHT)).ToList();
+            //    var vacantVillages = world.Lordships.Where(x => x.Vacant && (x.MapY == 1 || x.MapY == Constants.MAP_HEIGHT)).ToList();
             //    var firstVillage = vacantVillages[rnd.Next(0, vacantVillages.Count)];
             //    firstVillage.Name = houseSeats[k];
             //    CreateNewHouse(houseNames[k], houseSymbols[k], People.Saxon, firstVillage, rnd);
             //}
         }
-        public static void Main(string[] args)
+        public static void InitializeWorldWithIntro(World world, Random rnd, Player player, string playerName = "Eddard", string playerHouse = "Stark", Sex playerSex = Sex.Male)
         {
-            var rnd = new Random();
-            var world = new World(rnd);
-            var player = new Player();
-            world.Player = player;
             Console.WriteLine("What is your name?");
-            var playerName = Console.ReadLine();
-            Sex playerSex = Sex.Male;
+            playerName = Console.ReadLine();
+            playerSex = Sex.Male;
             var sexResponse = "";
             while (sexResponse == "")
             {
-                Console.WriteLine(string.Format("\nHello {0}!\n\nAre you a man or a woman?",playerName));
+                Console.WriteLine(string.Format("\nHello {0}!\n\nAre you a man or a woman?", playerName));
                 sexResponse = Console.ReadLine();
                 switch (sexResponse.ToLower())
                 {
@@ -1787,13 +2037,17 @@ namespace GameOfHouses.MechanicsExperiments
                 + "\n"
                 + "What is the name of your house?",
                 playerName,
-                playerSex == Sex.Male?"Lord and Patriarch":"Lady and Matriarch"
+                playerSex == Sex.Male ? "Lord and Patriarch" : "Lady and Matriarch"
             ));
-            var playerHouse = Console.ReadLine();
+            playerHouse = Console.ReadLine();
 
             InitializeWorld(world, rnd, player, playerName, playerHouse, playerSex);
 
             var playerLord = player.House.Lords.Last();
+            if (playerLord.Father == null)
+            {
+                playerLord.Father = new Person(rnd);
+            }
 
             Console.Write(
                 "\nYou are " + playerLord.FullNameAndAge + "\n\n"
@@ -1816,7 +2070,7 @@ namespace GameOfHouses.MechanicsExperiments
                     {
                         output += ", a ";
                     }
-                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 6)
+                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 4)
                     {
                         output += "great ";
                     }
@@ -1833,12 +2087,12 @@ namespace GameOfHouses.MechanicsExperiments
                         output += "daughter";
                     }
                 }
-                output += string.Format(".\nBy tradition, you as {0} of the house, name your heirs.\n",playerLord.Sex==Sex.Male?"Lord and Patriarch":"Lady and Matriarch");
+                output += string.Format(".\nBy tradition, you as {0} of the house, name your heirs.\n", playerLord.Sex == Sex.Male ? "Lord and Patriarch" : "Lady and Matriarch");
                 Console.WriteLine(output);
                 foreach (var heir in playerHeirs)
                 {
                     var relation = "";
-                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 6)
+                    if (heir.Ancestors.IndexOf(playerLord) + 1 > 4)
                     {
                         relation += "great ";
                     }
@@ -1865,26 +2119,43 @@ namespace GameOfHouses.MechanicsExperiments
                 }
                 Console.WriteLine("Enter to continue..");
                 Console.ReadLine();
-                Console.WriteLine(string.Format(
-                "\n"
-                + "The great house of {0} has fallen on hard times.\n\n"
-                + "The rich soil that has provided bounty for uncounted generations of your people has turned rocky and fruitless.\n\n"
-                + "The surrounding land is racked with strife, banditry, and civil war. The sway that House {0} once held over lords and kings alike is a distant memory.\n\n"
-                + "Nought remains of the once-great wealth of House {0} except for your family and the good men and women in your service -- and your renouned, sturdy long-ships.\n\n"
-                + "Days ago, in a feverish state, lying in his death bed, your father, staring wide-eyed, speaking to no-one, had been raving madly for days-on of a land of plenty to the east.\n\n"
-                + "As you knelt at the foot of his bed for his final hours, his eyes suddenly grew sharp and fixed on you with steel-blue intensity that instantly\n"
-                + "transformed him from this pitiful frail wretch into the powerful man-god whose presence dominated your childhood heart with equal parts awe, love and fear.\n\n"
-                + "And, for the last time, {1}, Lord and Patriarch of House {0}, filled the room with that oh-so-familiar baritone of command:\n"
-                + "'{2}! GATHER OUR PEOPLE INTO OUR LONGSHIPS AND SAIL EAST TO SALVATION! IF NOT, ALL IS LOST AND HOUSE {3} WILL BE NO MORE!'\n\n"
-                + "He then collapsed into a fugue and spoke naught another word."
-                , playerLord.House.Name
-                , playerLord.Father.Name
-                , playerLord.Name.ToUpper()
-                , playerLord.House.Name.ToUpper()
-                ));
-                Console.WriteLine("Enter to continue..");
-                Console.ReadLine();
+            }          
+            Console.WriteLine(string.Format(
+            "\n"
+            + "The great house of {0} has fallen on hard times.\n\n"
+            + "The rich soil that has provided bounty for uncounted generations of your people has turned rocky and fruitless.\n\n"
+            + "The surrounding land is racked with strife, banditry, and civil war. The sway that House {0} once held over lords and kings alike is a distant memory.\n\n"
+            + "Nought remains of the once-great wealth of House {0} except for your family and the good men and women in your service -- and your renouned, sturdy long-ships.\n\n"
+            + "Days ago, in a feverish state, lying in his death bed, your father, staring wide-eyed, speaking to no-one, had been raving madly for days-on of a land of plenty to the east.\n\n"
+            + "As you knelt at the foot of his bed for his final hours, his eyes suddenly grew sharp and fixed on you with steel-blue intensity that instantly\n"
+            + "transformed him from this pitiful frail wretch into the powerful man-god whose presence dominated your childhood heart with equal parts awe, love and fear.\n\n"
+            + "And, for the last time, {1}, Lord and Patriarch of House {0}, filled the room with that oh-so-familiar baritone of command:\n"
+            + "'{2}! GATHER OUR PEOPLE INTO OUR LONGSHIPS AND SAIL EAST TO SALVATION! IF NOT, ALL IS LOST AND HOUSE {3} WILL BE NO MORE!'\n\n"
+            + "He then collapsed into a fugue and spoke naught another word."
+            , playerLord.House.Name
+            , playerLord.Father.Name
+            , playerLord.Name.ToUpper()
+            , playerLord.House.Name.ToUpper()
+            ));
+            Console.WriteLine("Enter to continue..");
+            Console.ReadLine();
+            
+
+        }
+        public static void Main(string[] args)
+        {
+            var rnd = new Random();
+            var world = new World(rnd);
+            var player = new Player();
+            world.Player = player;
+            if (Constants.PLAY_INTRO)
+            {
+                InitializeWorldWithIntro(world, rnd, player);
+            } else
+            {
+                InitializeWorld(world, rnd, player);
             }
+
             while (world.Year < 500)
             {
                 Console.WriteLine("Year: " + world.Year);
@@ -1900,33 +2171,50 @@ namespace GameOfHouses.MechanicsExperiments
 
                         switch (command[0])
                         {
-                            case "town":
+                            case "people":
+                                {
+                                    var peopleName = command[1];
+                                    switch (peopleName.ToLower())
+                                    {
+                                        case "dane":
+                                            Console.WriteLine(world.GetMapAsString(null, null, (int)People.Dane));
+                                            break;
+                                        case "saxon":
+                                            Console.WriteLine(world.GetMapAsString(null, null, (int)People.Saxon));
+                                            break;
+                                    }
+                                }
+                                break;
+                            case "lordship":
                                 {
                                     int x;
                                     int y;
-                                    Town town;
-                                    if (int.TryParse(command[1], out x) && int.TryParse(command[2], out y))
+                                    Lordship lordship;
+                                    if (command.Count() >= 3 && int.TryParse(command[1], out x) && int.TryParse(command[2], out y))
                                     {
-                                        town = world.Towns.FirstOrDefault(t => t.MapX == x && t.MapY == y);
+                                        lordship = world.Lordships.FirstOrDefault(t => t.MapX == x && t.MapY == y);
                                     }
                                     else
                                     {
-                                        var townName = command[1];
+                                        var lordshipName = command[1];
                                         for (int i = 2; i < command.Length; i++)
                                         {
-                                            townName += " " + command[i];
+                                            lordshipName += " " + command[i];
                                         }
-                                        town = world.Towns.FirstOrDefault(t => t.Name.ToLower() == townName.ToLower());
+                                        lordship = world.Lordships.FirstOrDefault(t => t.Name.ToLower() == lordshipName.ToLower());
                                     }
-                                    Console.WriteLine(town.GetDetailsAsString());
+                                    if (lordship != null)
+                                    {
+                                        Console.WriteLine(lordship.GetDetailsAsString());
+                                    }
                                 }
                                 break;
                             case "households":
                                 {
                                     var x = int.Parse(command[1]);
                                     var y = int.Parse(command[2]);
-                                    var town = world.Towns.FirstOrDefault(t => t.MapX == x && t.MapY == y);
-                                    foreach (var household in town.Households)
+                                    var lordship = world.Lordships.FirstOrDefault(t => t.MapX == x && t.MapY == y);
+                                    foreach (var household in lordship.Households)
                                     {
                                         Console.WriteLine(household.GetDetailsAsString());
                                     }
@@ -1971,6 +2259,68 @@ namespace GameOfHouses.MechanicsExperiments
                                             Console.WriteLine("\t" + heir.FullNameAndAge);
                                         }
 
+                                    }
+
+                                }
+                                break;
+                            case "landlessNobles":
+                                {
+                                    var house = player.House;
+                                    var landlessNobles = house.Members.Where(
+                                        m => m.IsAlive
+                                        && m.Household != null
+                                        && m.Household.HeadofHousehold == m
+                                        && m.Lordships.Count == 0
+                                        );
+                                    foreach (var noble in landlessNobles)
+                                    {
+                                        Console.WriteLine(noble.FullNameAndAge);
+                                    }
+                                }
+                                break;
+                            case "settle":
+                                {
+                                    int x;
+                                    int y;
+                                    Lordship lordship;
+                                    if (command.Count() == 3 && int.TryParse(command[1], out x) && int.TryParse(command[2], out y))
+                                    {
+                                        lordship = world.Lordships.FirstOrDefault(t => t.MapX == x && t.MapY == y);
+                                        if (lordship.Vacant)
+                                        {
+
+                                            var settlerLord = world.Player.House.GetPotentialSettlerLords().FirstOrDefault();
+                                            if (settlerLord != null)
+                                            {
+                                                var settlerPeasantHouseholds = GetRandomSettlerHouseholds(world.Player.House, rnd);
+                                                if (settlerPeasantHouseholds.Count() >= Constants.MINIMUM_VILLAGE_SIZE)
+                                                {
+                                                    Lordship.PopulateLordship(lordship, settlerLord.Household, settlerPeasantHouseholds);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                break;
+                            case "attack":
+                                {
+                                    int x;
+                                    int y;
+                                    int armySize;
+                                    Lordship lordship;
+                                    if (int.TryParse(command[1], out x) && int.TryParse(command[2], out y) && int.TryParse(command[3], out armySize))
+                                    {
+                                        lordship = world.Lordships.FirstOrDefault(t => t.MapX == x && t.MapY == y);
+                                        if (!lordship.Vacant)
+                                        {
+                                            var attackingLord = world.Player.House.GetPotentialSettlerLords().FirstOrDefault();
+                                            if (attackingLord != null)
+                                            {
+                                                var attackingArmy = RaiseARandomArmy(player.House, rnd, armySize);
+                                                player.House.Attack(lordship, attackingLord, attackingArmy, rnd);
+                                            }
+                                        }
                                     }
 
                                 }
