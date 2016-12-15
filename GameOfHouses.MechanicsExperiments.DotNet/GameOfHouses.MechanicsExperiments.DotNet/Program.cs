@@ -47,7 +47,7 @@ namespace GameOfHouses.MechanicsExperiments
         public const int NUMBER_OF_POSSIBLE_HEIRS_PER_GENERATION = 3;
         public const int HEIRS_TO_REPORT_ON = 1;
         public const double PERCENTAGE_OF_INCOME_TOWARD_SOLDIERS = 0.8;
-        public const double PLAYER_MOVES_PER_YEAR = 1;
+        public const double PLAYER_MOVES_PER_YEAR = 1000;
     }
     public static class Utility
     {
@@ -644,37 +644,64 @@ namespace GameOfHouses.MechanicsExperiments
         public void Attack(Lordship target, Person attackingLord, List<Person> attackingArmy, Random rnd)
         {
             //1-on-1 battle
-            var defenders = new List<Person>();
-            //var attackers = new List<Person>();
-            //attackers.AddRange(army);
-            //int defenderCasulties = 0;
-            //int attackerCasulties = 0;
-            foreach(var household in target.Households.Where(h=>h.HeadofHousehold.Class==SocialClass.Peasant))
-            {
-                defenders.AddRange(household.Members.Where(
-                    m => m.IsAlive
-                    && m.Age >= Constants.AGE_OF_MAJORITY
-                    && m.Age <= Constants.AGE_OF_RETIREMENT)
-                    );
-            }
+            var defenders = target.Fighters.ToList();
             var livingDefenders = defenders.ToList();
             var livingAttackers = attackingArmy.ToList();
-            while (livingDefenders.Count()>0 && livingAttackers.Count() > 0)
+            var attackWave = 0;
+            var retreat = false;
+            Console.WriteLine("ATTACK: " + attackingLord.FullNameAndAge + " IS ATTACKING " + target.Name);
+            while (livingDefenders.Count()>0 && livingAttackers.Count() > 0 && !retreat)
             {
-                var defender = livingDefenders[rnd.Next(0, livingDefenders.Count())];
-                var attacker = livingAttackers[rnd.Next(0, livingAttackers.Count())];
-                var battleResult = rnd.Next(0, 2);
-                if (battleResult == 0)
+                var waveOfAttackers = livingAttackers.ToList();
+                //var waveOfDefenders = livingDefenders.ToList();
+                var countOfAttackersInWave = waveOfAttackers.Count();
+                var countOfDefendersInWave = livingDefenders.Count();
+                int attackerCasultiesInWave = 0;
+                int defenderCasultiesInWave = 0;
+                attackWave++;
+                while (waveOfAttackers.Count() > 0 && livingDefenders.Count > 0)
                 {
-                    attacker.IsAlive = false;
-                } else
-                {
-                    defender.IsAlive = false;
+                    var defender = livingDefenders[rnd.Next(0, livingDefenders.Count())];
+                    var attacker = waveOfAttackers[rnd.Next(0, waveOfAttackers.Count())];
+                    waveOfAttackers.Remove(attacker);
+                    var battleResult = rnd.Next(0, 2);
+                    if (battleResult == 0)
+                    {
+                        attacker.IsAlive = false;
+                        attackerCasultiesInWave++;
+                    }
+                    else
+                    {
+                        defender.IsAlive = false;
+                        defenderCasultiesInWave++;
+                    }
+                    livingDefenders = defenders.Where(d => d.IsAlive).ToList();
+                    livingAttackers = attackingArmy.Where(a => a.IsAlive).ToList();
                 }
-                livingDefenders = defenders.Where(d => d.IsAlive).ToList();
-                livingAttackers = attackingArmy.Where(a => a.IsAlive).ToList();
+                Console.WriteLine(string.Format("ATTACK WAVE {0} RESULTS:",attackWave));
+                Console.WriteLine("\tAttackers in Wave: " + countOfAttackersInWave);
+                Console.WriteLine("\tDefender in Wave: " + countOfDefendersInWave);
+                Console.WriteLine("\tAttacker Casulties: " + attackerCasultiesInWave);
+                Console.WriteLine("\tDefender Casulties: " + defenderCasultiesInWave);
+                Console.WriteLine("\tRemaining Attackers: " + livingAttackers.Count());
+                Console.WriteLine("\tDefender Defenders: " + livingDefenders.Count());
+                var validInput = false;
+                while (!validInput) {
+                    Console.WriteLine("[R]etreat or [A]ttack again?");
+                    var command = Console.ReadLine();
+                    switch (command.ToUpper().Trim())
+                    {
+                        case "R":
+                            validInput = true;
+                            retreat = true;
+                            break;
+                        case "A":
+                            validInput = true;
+                            retreat = false;
+                            break;
+                    }
+                }
             }
-            Console.WriteLine("ATTACK: " + attackingLord.FullNameAndAge + " ATTACKED " + target.Name);
             Console.WriteLine("\tAttacker Total: " + attackingArmy.Count());
             Console.WriteLine("\tDefender Total: " + defenders.Count());
             Console.WriteLine("\tAttacker Casulties: " + attackingArmy.Where(p=>!p.IsAlive).Count());
