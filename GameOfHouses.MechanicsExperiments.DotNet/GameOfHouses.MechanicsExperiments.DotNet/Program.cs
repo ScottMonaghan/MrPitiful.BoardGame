@@ -14,7 +14,7 @@ namespace GameOfHouses.MechanicsExperiments
         public const double PEASANT_COST = 1;
         public const double PEASANT_INCOME = 10;
         public const double SOLDIER_TOWN_COST = 0;
-        public const double SOLDIER_HOUSE_COST = 2;
+        public const double SOLDIER_HOUSE_COST = 1;
         public const double SOLDIER_INCOME = 0;
         public const string MALE_NAMES =
             "Abelar,Addam,Addison,Adrack,Adrian,Aegon,Aegor,Aemon,Aemond,Aenar,Aenys,Aerion,Aeron,Aerys,Aethan,Aethelmure,Aggar,Aladale,Alan,Alaric,Albar,Albett,Alebelly,Alekyne,Alesander,Alesandor,Alester,Alf,Alfred,Alfyn,Alios,Allaquo,Allar,Allard,Alleras,Alliser,Alvyn,Alyn,Alys,Ambrose,Amory,Andahar,Andar,Anders,Andrew,Andrey,Andrik,Andros,Androw,Anguy,Antario,Archibald,Ardrian,Areo,Argilac,Arlan,Armen,Armond,Arneld,Arnell,Arnolf,Aron,Arrec,Arron,Arryk,Arson,Arstan,Arthor,Arthur,Artos,Artys,Arwood,Arys,Aurane,Axell,Ayrmidon,AzorAhai,Bael,Baelon,Baelor,Balaq,Ballabar,Balman,Balon,Bannen,Baqq,Barre,Barristan,Barth,Bartimos,Bartimus,Bass,Bayard,Bean,Beans,Beck,Bedwyck,Belaquo,Beldecar,Belicho,Belis,Belwas,Ben,Benedar,Benedict,Benerro,Benethon,Benfred,Benfrey,Benjen,Benjicot,Bennarion,Bennet,Beqqo,Beren,Beric,Bernarr,Beron,Bertram,Bhakaz,Bharbo,BigBoil,Bill,Billy,Biter,BlackFist,Blane,Bloodbeard,Bluetooth,Bodger,Bokkoko,Bonifer,Books,Borcas,Boremund,Boros,Borroq,Borros,Bors,Bowen,Bradamar,Brandon,Brendel,Brenett,Briar,Brogg,Bronn,Brus,Brusco,Bryan,Bryce,Bryen,Brynden,Bryndon,Bump,Burton,Butterbumps,Butts,Byam,Byan,Byron,Cadwyl,Cadwyle,Cadwyn,Caggo,Caleotte,Calon,Calor,Camarron,Canty,Carrot,Casper,Caspor,Casso,Cayn,Cedric,Cedrik,Cellador,Cetherys,Chains,Chayle,Chett,Chezdhar,Chiggen,Chiswyck,Clarence,Clarent,Clayton,Clement,Cleon,Cleos,Cletus,Cley,Clifford,Clydas,Cohollo,Colemon,Colen,Colin,Collio,Colloquo,Colmar,Conn,Conwy,Coratt,Corliss,Corlys,Cortnay,Cossomo,Cotter,Courtenay,Craghas,Cragorn,Craster,Crawn,Cregan,Creighton,Cressen,Creylen,Criston,Cromm,Cugen,Cuger,Cutjack,Daario,Dacks,Daegon,Daemon,Daeron,Dafyn,Dagmer,Dagon,Dagos,Dake,Dalbridge,Dale,Dalton,Damion,Damon,Dan,Dannel,Danny,Danos,Danwell,Dareon,Darla,Daryn,Daven,Davos,Del,Delp,Denestan,Dennet,Dennett,Dennis,Denyo,Denys,Denzo,Dermot,Desmond,Devan,Devyn,Deziel,Dick,Dickon,Dirk,Dobber,Dolf,Domeric,Donal,Donel,Doniphos,Donnel,Donnis,Donnor,Dontos,Doran,Dorden,Dormund,Dorren,Doss,Drennan,Drogo,Dryn,Dudley,Dunaver,Duncan,Dunsen,Dunstan,Duram,Duran,Durran,Dykk,Dywen,Earl,Easy,Ebben,Ebrose,Eddard,Edderion,Eddison,Edgerran,Edmund,Edmure,Edmyn,Edric,Edrick,Edwyd,Edwyle,Edwyn,Eggen,Eggon,Egon,EladonGoldenhair,Elbert,Eldiss,Eldon,Eldred,Ellendor,Ellery,Elmar,Elron,Elwood,Elyas,Elys,Emmett,Emmon,Emmond,Emrick,Endehar,Endrew,Enger,Eon,Erik,Erreck,Erreg,Erren,Errok,Erryk,Ethan,Euron,Eustace,Eyron,Ezzelyno,Faezhar,Farlen,Ferrego,Fingers,Flement,Florian,Fogo,Forley,Fornio,Forrest,Fralegg,Franklyn,Frenken,Frynne,Fulk,Gage,Galbart,Galendro,Galladon,Galyeon,Gared,Garibald,Garigus,Garin,Garlan,Garrett,Garrison,Garse,Garth,Gascoyne,Gavin,Gawen,Gelmar,Gendel,Gendry,Gerald,Gerardys,Geremy,Gergen,Gerion,Germund,Gerold,Gerren,Gerrick,Gerris,Gerrold,Gevin,Ghael,Ghazdor,Gilbert,Gillam,Gilwood,Gladden,Glendon,Goady,Godric,Godry,Godwyn,Goghor,Gorghan,Gormon,Gormond,Gorne,Gorold,Gorys,Gorzhak,Gowen,Gran,Grance,Grazdan,Grazdar,Grazdhan,Grazhar,Greenguts,Gregor,Grenn,GreyWorm,Greydon,Grigg,Grimtongue,Groleo,Grubbs,Grunt,Gueren,Gulian,Guncer,Gunthor,Gurn,Guthor,Guyard,Gwayne,Gylbert,Gyldayn,Gyleno,Gyles,Gylo,Gyloro,Gynir,Haereg,Hagen,Haggo,Haggon,Hake,Hal,Halder,Haldon,Halleck,Hallis,Hallyne,Halmon,Halys,Hamish,Hammer,Harbert,Hareth,Harghaz,Harl,Harlan,Harle,Harlen,Harlon,Harmen,Harmond,Harmund,Harmune,Harrag,Harras,Harren,Harrion,Harrold,Harry,Harsley,Harwin,Harwood,Harwyn,Harys,Hayhead,Hazrak,Heke,Helliweg,Helman,Hendry,Henk,Henly,Herbert,Hero,Heward,Hibald,Hildy,Hilmar,Hizdahr,Hoarfrost,Hobb,Hobber,Hobert,Hod,Hoke,Holger,Hop-Bean,Hop-Robin,Horas,Horonno,Horton,Hosman,Hosteen,Hoster,HotPie,Hother,Hotho,Howd,Howland,Hubard,Hugh,Hugo,Hugor,Hullen,Humfrey,Hunnimore,Husband,Hyle,Iggo,Igon,Illifer,Illyrio,Ilyn,Imry,Ironbelly,Ithoke,Izembaro,Jacaerys,Jace,Jacelyn,Jack,Jack-Be-Lucky,Jacks,Jaehaerys,Jafer,Jaggot,Jaime,Jalabhar,Jammos,Janos,Jaqen,Jared,Jaremy,Jarl,Jarman,Jason,Jasper,Jate,Jax,Jeffory,Jeor,Jeren,Jhaqo,Jhogo,Jodge,Joffrey,John,Jojen,Jokin,Jommo,Jommy,Jon,Jonnel,Jonos,Jonothor,Jorah,Joramun,Jorquen,Jory,Joseran,Joseth,Josmyn,Joss,Josua,Joth,Jothos,Jurne,Justin,Jyck,Kaeth,Karl,Karlon,Karyl,Kasporio,Kedge,Kedry,Kegs,Kem,Kemmett,Kenned,Kennet,Kennos,Kerwin,Ketter,Kevan,Khorane,Khrazz,Kirth,Koss,Kraznys,Kromm,Kurleket,Kurz,Kyle,Kyleg,Kym,Laenor,Lambert,Lancel,Lann,Larence,Lark,Larraq,Larys,Laswell,Leathers,Lem,Lenn,Lennocks,Lenwood,Lenyl,Leo,Leobald,Leslyn,Lester,Lew,Lewyn,Lewys,Leyton,Lharys,Lister,Lomas,Lommy,Lomys,Longleaf,Longwater,Loras,Loren,Lorent,Loreth,Lorimas,Lorimer,Lormelle,Lorren,Lothar,Lotho,Lothor,LoyalSpear,Lucamore,Lucan,Lucantine,Lucas,Luceon,Lucerys,Lucias,Lucifer,Lucimore,Lucion,Luco,Lucos,Luke,Lum,Lump,Luthor,Luton,Luwin,Lyle,Lyman,Lymond,Lyn,Lync,Lyonel,Lysono,Mace,MadAxe,Maegor,Maekar,Maelor,Maelys,Maezon,Mag,Maggo,Mago,Malaquo,Malcolm,Malegorn,Mallador,Malleon,Malliard,Mallor,Malo,Malwyn,Mance,Mandon,Manfred,Manfrey,Manfryd,Manly,Marghaz,Maric,Marillion,Mark,Marlon,Maron,Marq,Marselen,Marston,Martyn,Marwyn,Maslyn,Matarys,Mathis,Mathos,Matt,Matthar,Matthos,Mawney,Maynard,Mazdhan,Mebble,Medger,Medrick,Medwick,Meizo,Mekko,Meldred,Mellos,Melwys,Meribald,Merion,Mern,Mero,Merrel,Merrell,Merrett,Merriman,Merrit,Methyso,Michael,Mikken,Mohor,Mollander,Mollono,Mollos,Monford,Monterys,MoonBoy,Moqorro,Mord,Moredo,Moreo,Morgan,Morgarth,Morghaz,Morgil,Morgo,Moribald,Moro,Moroggo,Morosh,Morrec,Morros,Mors,Morton,Moryn,Mossador,Motho,Mudge,Mullin,Mully,Munciter,Munken,Murch,Murenmure,Murmison,Mushroom,Mycah,Mychel,Myles,Myrio,Myrmello,Nage,Nagga,Naggle,Nail,Narbert,Narbo,Ned,Nestor,Noho,Norbert,Norjen,Normund,Norne,Norren,Notch,Nurse,Nute,Nyessos,Oberyn,Ogo,Ollidor,Ollo,Olymer,Olyvar,Omer,Ondrew,Oppo,Orbelo,Orbert,Ordello,Orell,Orivel,Orland,Ormond,Ormund,Oro,Orson,Orton,Orwyle,Orys,Osbert,Osfryd,Osgood,Osmund,Osmynd,Osney,Osric,Oss,Ossifer,Ossy,Oswell,Oswyn,Othell,Otho,Othor,Otter,Otto,Ottyn,Owen,Oznak,Paezhar,Parmen,Parquello,Patchface,Pate,Patrek,Paul,Paxter,Pearse,Pello,Perestan,Perkin,Perros,Perwyn,Peter,Petyr,Philip,Plummer,Podrick,Pollitor,Pono,Porther,Portifer,Poul,PoxyTym,Praed,Prendahl,Preston,Puckens,Puddingfoot,Pyat,Pycelle,Pyg,Pykewood,Pylos,Pynto,Pypar,Pytho,Qalen,Qarl,Qarlton,Qarro,Qavo,Qhored,Qhorin,Qos,Qotho,Quaro,Quellon,Quence,Quenn,Quent,Quenten,Quentin,Quenton,Quentyn,Quhuru,Quill,Quincy,Quort,Qyburn,Qyle,Racallio,Rafford,Ragnor,Ragwyle,Rakharo,Ralf,Ralph,Ramsay,Randyll,Rast,Rattleshirt,Rawney,Raymar,Raymond,Raymun,Raymund,Raynald,Raynard,Redwyn,Regenard,Renfred,Renly,Rennifer,Rey,Reysen,Reznak,Rhaegar,Rhaegel,Rhodry,Rhogoro,Ricasso,Richard,Rickard,Rickon,Rigney,Robar,Robb,Robert,Robett,Robin,Robyn,Roderick,Rodrik,Rodwell,Roger,Roggo,Roggon,Roland,Rolder,Rolfe,Rollam,Rolland,Rolley,Rolly,Rolph,Rommo,Romny,Ronald,Ronel,Ronnel,Ronnet,Rook,Roone,Roose,Rorge,Roro,Rory,Roryn,Rossart,Royce,Rudge,Rufus,Rugen,Runceford,Runcel,Runciter,Rupert,Rus,Russ,Russell,Rusty,Ryam,Rycherd,Ryger,Ryk,Ryles,Ryman,Rymolf,Rymund,Ryn,Ryon,Saathos,Salladhor,Sallor,Salloreon,Samwell,Sandor,Sargon,Satin,Sawane,Sawwood,Scar,Scarb,Sebastion,Sebaston,Sedgekins,Selmond,Selwyn,Serwyn,Shadd,Shadrich,Shagga,Shagwell,Sharako,Sherrit,Shortear,Sigfry,Sigfryd,Sigorn,Sigrin,Silveraxe,Simon,Skahaz,Skinner,Skittrick,Skyte,Snatch,Softfoot,Soren,SpareBoot,Squint,Stafford,Stalwart,Stannis,Steelskin,Steffar,Steffarion,Steffon,Stevron,Stiv,StoneThumbs,Stonehand,Stonesnake,Stygg,Styr,Sumner,Sybassion,Sylas,Symeon,Symon,Symond,Syrio,Tagganaro,Tal,Talbert,Tallad,Tanton,Tarber,Tarle,Temmo,Ternesio,Terrance,Terrence,Terro,Thaddeus,TheTickler,Theo,Theobald,Theodan,Theodore,Theomar,Theomore,Theon,Therry,Thomax,Thoren,Thormor,Thoros,ThreeToes,Tim,Timeon,Timett,Timon,Timoth,Tion,Titus,Tobbot,Tobho,Todder,Todric,Toefinger,Togg,Tom,Tomard,Tommen,TomToo,Torbert,Toregg,Torghen,Torgon,Torman,Tormo,Tormund,Torrek,Torren,Torrhen,Torwold,Torwynd,Tothmure,Trebor,Tregar,Tremond,Tristan,Tristifer,Tristimun,Triston,Trombo,Trystane,Tuffleberry,Tumberjon,Tumco,Turnip,Turquin,Ty,Tybero,Tybolt,Tycho,Tygett,Tyland,Tyler,Tymor,Tyrek,Tyrion,Tytos,Tywin,Uhlan,Ulf,Uller,Ulmer,Ulwyck,Umar,Umfred,Unwin,Urek,Urho,Urragon,Urras,Urrathon,Urreg,Urrigon,Urron,Urswyck,Urzen,Uthero,Utherydes,Uthor,Utt,Vaellyn,Vaemond,Valarr,Vardis,Vargo,Varly,Varys,Vayon,Vickon,Victarion,Victor,Viserys,Vogarro,Vortimer,Vylarr,Vyman,Walder,Waldon,Walgrave,Wallace,Wallen,Walton,Waltyr,Walys,Warren,Warrick,Wat,Wate,Watkyn,Watt,Watty,Waymar,Wayn,Webber,Weese,Wendamyr,Wendel,Wendello,Werlag,Wex,Whalen,Wick,Wilbert,Will,Willam,Willamen,Willas,Willem,William,Willis,Willit,Woth,Wulfe,Wun,Wyl,Wylis,Wyman,Wynton,Xaro,Xhondo,Yandry,Yezzan,Ygon,Yohn,Yoren,Yorkel,Yorko,Yormwell,Yurkhaz,Zachery,Zharaq,Zollo";
@@ -24,7 +24,7 @@ namespace GameOfHouses.MechanicsExperiments
         //"Viradecthis,Rheda,Whitney,Bodicea,Tate,Daryl,Ora,Silver,Hilda,Cyst,Engel,Nelda,Edith,Meghan,Bliss,Alodie,Etheswitha,Loretta,Eldrida,Edrys,Viradecthis,Moira,Ifield,Hamia,Chelsea,Beornia,Anlicnes,Juliana,Elga,Kendra,May,Garmangabis,Darel,Aethelflaed,Blythe,Eldrida,Bernia,Annis,Lyn,Daisy,Udele,Udele,Bliss,Megan,Eldrida,Darel,Anlicnes,Darlene,Arianrod,Moira,Dawn,Edrys,Eda,Odelia,Ellenweorc,Lora,Cwen,Darline,May,Nerthus,Sulis,Edlyn,Osberga,Elga,Elvina,Esma,Bisgu,Freya,Kendra,Tate,Aefentid,Estra,Don,Estra,Sibley,Kendra,Cartimandua,Silver,Ora,Diera,Mildred,Maida,Aethelthryth,Don,Rheda,Darelle,Mildred,Silver,Blythe,Bletsung,Odelia,Megan,Edrys,Cwen,Edris,Daisy,Brigantia,Engel,Lora,Wilona,Etheswitha,Wilona,Elvina,Diera,Juliana,Willa,Anlicnes,Aefentid,Andsware,Chelsea,Bernia,Eadgyth,Kendra,Alodie,Darline,Daryl,Orva,Andsware,Alodie,Don,Odelia,Diera,Mercia,Ashley,Claennis,Ellette,Cyst,Nelda,Cearo,Elswyth,Rowena,Cartimandua,Loretta,Elga,Freya,Alodie,Hilda,Sibley,Aethelflaed,Loretta,Catherine,Ifield,Ora,Dohtor,Aefre,Bletsung,Ellenweorc,Wilda,Aethelflaed,Maida,Anlicnes,Alodie,Elswyth,Linette,Silver,Kendra,Bliss,Ashley,Ifield,Maida,Juliana,Cearo,Harimilla,Bysen,Loretta,Freya,Edrys,Annis,Linette,Bearrocscir,Edmunda,Mae,Darlene,Mercia,Elene,Bodicea,Daisy,Ellette,Estra,Elga,Darel,Bliss,Darelle,Edrys,Ellette,Etheswitha,Garmangabis,Maida,Daedbot,May,Wilona,Elva,Edlyn,Brigantia,Brimlad,Sibley,Maida,Easter,Lyn,Ellenweorc,Megan,Mildred,Meghan,Anlicnes,Darelene,Ifield,Elvina,Bodicea,Odelia,Chelsea,Harimilla,Lyn,Bysen,Easter,Annis,Loretta,Wilona,Edlyn,Darel,Garmangabis,Viradecthis,Darel,Whitney,Etheswitha,Bodicea,Bernia,Cwen,Lyn,Maida,Aefre,Kendra,Don,Willa,Eacnung,Darelle,Eda,Cartimandua,Aethelthryth,Kendra,Coventina,Silver,Odelia,Sibley,Erlina,Dohtor,Hilda,Hamia,Moira,Estra,Hilda,Arianrod,Bletsung,Darline,Daryl,Lora,Edrys,Kendra,Kendra,Ashley,Easter,Coventina,Udele,Aefre,Eda,Harimilla,Daisy,Dawn,Darel,Mae,Aefentid,Cyst,Orva,Darel,Claennis,Alodie,Elene,Mercia,Coventina,Darel,Ar,Silver,Sibley,Elene,Mae,Megan,Cwen,Devona,Aefentid,Daryl,Estra,Loretta,Coventina,Don,Osberga,Odelia,Linette,Blythe,Edmunda,Daisy,Claennis,Bliss,May,Elvina,Arianrod,Sunniva,Whitney,Tate,Cyst,Mae,Esma,Bletsung,Nerthus,Megan,Silver,Ellette,Lora,Devona,Nerthus,Edris,Edmunda,Edith,Cyst,Coventina,Sulis,Aedre,Chelsea,Ashley,Daedbot,Elga,Hamia,Mercia,Edlyn,Audrey,Wilona,Ar,Aedre,Elene,Bletsung,Aethelthryth,Cyst,Estra,Ardith,Osberga,Orva,Don,Elvina,Cwen,Ar,Lora,Elga,Mildred,Mae,Bysen,Viradecthis,Engel,Odelia,Easter,Claennis,Aethelthryth,Elva,Edrys,Silver,Beornia,Blythe,Easter,Alodia,Bletsung,Loretta,Nerthus,Elvina,Esma,Udele,Elvina,Osberga,Rheda,Hamia,Lyn,Megan,Kendra,Cyst,Brigantia,Edlyn,Clover,Dawn,Orva,Cyst,Darelene,Claennis,Elva,Eadgyth,Lyn,Edmunda,Catherine,Coventina,Claennis,Bearrocscir,Aefentid,Mercia,Sibley,Beornia,Edmunda,Bliss,Lyn,Mercia,Harimilla,Aedre,Odelia,Cartimandua,Daryl,Rowena,Edith,Mildred,Shelley,Elene,Claennis,Eadgyth,Kendra,Claennis,Sunniva,Bisgu,Erlina,Hamia,Edith,Eadgyth,Ellette,Erlina,Cwen,Chelsea,Moira,Elswyth,Darelle,Orva,Aedre,Lora,Daisy,Elene,Edris,Rheda,Udele,Bernia,Mae,Estra,Bearrocscir,Cearo,Elswyth,Rowena,Edlyn,Elene,Erlina,Kendra,Eda,Sunniva,Megan,Claennis,Cartimandua,Eacnung,Edmunda,Engel,Chelsea,Bernia,Daisy,Bearrocscir,Sibley,Estra,Aefre,Wilda,Don,Arianrod,Elga,Eldrida,Nelda,Megan,Brigantia,Tate,Rheda,Chelsea,Whitney,Ifield,Elga,Nerthus,Meghan,Erlina,Harimilla,Elga,Beornia,Estra,Beornia,Viradecthis,Easter,Mae,Darlene,Alodie,Bearrocscir,Osberga,Eostre,Viradecthis,Silver,Eldrida,Darelene,Bletsung,Clover,Edith,Ardith,Don,Eostre,Darline,Aefentid,Eostre,Eostre,Kendra,Elvina,Orva,Maida,Mildred,Ashley,Eldrida,Eldrida,Edmunda,Meghan,Ifield,Cearo,Devona,Elvina,Ellenweorc,Estra,Audrey,Eacnung,Garmangabis,Esma,Ashley,Ardith,Brimlad,Aedre,Eadgyth,Wilda,Brigantia,Lyn,May,Ar,Chelsea,Claennis,Darelene,Whitney,Edith,Daisy,Eacnung,Sulis,Eadgyth,Bodicea,Shelley,Aethelflaed,Aefentid,Tate,Loretta,Sulis,Mercia,Edmunda,Darlene,Elene,Eda,Brigantia,Udele,Diera,Sunniva,Aedre,Claennis,Dawn,Bisgu,Bliss,Andsware,Esma,Audrey,Engel,Hamia,Brimlad,Cartimandua,Daryl,May,Osberga,Loretta,Alodia,Udele,Don,Garmangabis,Maida,Orva,May,Ora,Don,Acca,Viradecthis,Wilona,Bearrocscir,Wilona,Eacnung,Ifield,Garmangabis,Viradecthis,Wilona,Darelene,Eostre,Hilda,Lyn,Darelene,Darelle,Rheda,Osberga,Ellette,Tate,Aedre,Elvina,Bisgu,Blythe,Don,Viradecthis,Moira,Easter,Bletsung,Freya,Odelia,Willa,Ora,Linette,Brigantia,Aethelthryth,Daedbot,Alodia,Harimilla,Dohtor,Darel,Brimlad,Daisy,Alodie,Elva,Osberga,Edrys,Eda,Acca,Alodia,Sunniva,Eostre,Ashley,Engel,Arianrod,Elvina,Aefentid,Cwen,Annis,Devona,Nerthus,Juliana,Esma,Anlicnes,Aefre,Catherine,Lora,Bliss,Freya,Silver,Coventina,Aefre,Alodie,Daryl,Clover,Elvina,Aethelthryth,Andsware,Estra,Alodia,Sunniva,Hilda,Shelley,Darelle,Daryl,Elvina,Elva,Ellenweorc,Garmangabis,Bletsung,Audrey,Garmangabis,Ellenweorc,Bletsung,Sulis,Mae,Hilda,Moira,Ellenweorc,Bearrocscir,Andsware,Dawn,Mercia,Freya,Arianrod,Darlene,Darel,Acca,Eacnung,Rowena,Bernia,Brigantia,Elswyth,Willa,Darlene,Aefentid,Edith,Ardith,Claennis,Freya,Edmunda,Erlina,Coventina,Daisy,Darelene,Dohtor,Freya,Ellette,Aethelflaed,Mildred,Acca,Cearo,Lyn,Esma,Linette,Dawn,Dohtor,Bernia,Sulis,Darlene,Bernia,Shelley,Ar,Ar,Edlyn,Hilda,Garmangabis,Edith,Rowena,Alodia,Loretta,Bletsung,Mercia,Estra,Elswyth,Maida,Elene,Aefentid,Beornia,Diera,Arianrod,Bodicea,Dawn,Udele,Shelley,Diera,Engel,Aedre,Alodia,Ifield,Eda,Elvina,Megan,Garmangabis,May,Engel,Elvina,Linette,Cyst,Sibley,Wilda,Eacnung,Clover,Aedre,Wilona,Ellenweorc,Elvina,Lyn,Aedre,Easter,Nerthus,Esma,Beornia,Audrey,Elene,Edmunda,Viradecthis,Elga,Odelia,Meghan,Edith,Juliana,Aethelthryth,Clover,Sibley,Alodia,Aethelflaed,Odelia,Whitney,Aethelflaed,Bearrocscir,Blythe,Viradecthis,Clover,Mae,Ardith,Clover,Bernia,Viradecthis,Meghan,Rheda,Dawn,Maida,Catherine,Andsware,Nerthus,Eda,Whitney,Eacnung,Esma,Aefre,Anlicnes,Wilona,Andsware,Annis,Bletsung,Linette,Eadignes,Erlina,Bysen,Megan,Aedre,Udele,Daedbot,Bearrocscir,Edrys,Viradecthis,Shelley,Whitney,Rheda,Chelsea,Loretta,Orva,Ellenweorc,Daryl,Darlene,Chelsea,Ar,Chelsea,Elga,Ashley,Ellette,Dawn,Willa,Nelda,Catherine,Alodia,Juliana,Loretta,Erlina,Ar,Chelsea,Esma,Aefre,Wilona,Claennis,Diera,Bisgu,Elva,Osberga,Rowena,Don,Edmunda,Elvina,Ar,Silver,Nelda,Daryl,Mildred,Cearo,Bearrocscir,Cwen,Willa,Cartimandua,Rheda,Bernia,Aefentid,Elva,Tate,Edlyn,Edlyn,Lora,Viradecthis,Bysen,Bisgu,Bearrocscir,Lyn,Engel,Daryl,Orva,Mildred,Ifield,Brimlad,Harimilla,Andsware,Mae,Viradecthis,Darelene,Acca,Rowena,Loretta,Juliana,Darel,Sunniva,Tate,Willa,Lora,Darel,Osberga,Etheswitha,Lora,Sulis,Elga,Clover,Aethelthryth,Dawn,Bearrocscir,Mercia,Bodicea,Ora,Eostre,Alodie,Chelsea,Acca,Willa,Whitney,Ellette,Willa,Elga,Freya,Bisgu,Freya,Arianrod,Wilda,Elvina,Bysen,Brimlad,Megan,Andsware,Ashley,Aethelflaed,Ora,Cyst,Eostre,Nelda,Chelsea,Linette,Arianrod,Audrey,Hilda,Bernia,Eda,Acca,Odelia,Edith,Meghan,Bernia,Coventina,Bisgu,Darlene,Edrys,Chelsea,Eadgyth,Sulis,Bernia,Anlicnes,Acca,Meghan,Edrys,Beornia,Dohtor,Anlicnes,Cyst,Esma,Daisy,Daedbot,Tate,Sulis,Elva,Dawn,Diera,Eda,Elvina,Moira,Megan,Garmangabis,Cearo,Ardith,Chelsea,Cwen,Linette";
         public const string SURNAMES =
             "Allyrion,Ambrose,Antaryon,Arryn,Ashford,Baelish,Banefort,BarEmmon,Baratheon,Barleycorn,Beesbury,Belgrave,Belmore,Bentley,Bettley,Bigglestone,Blackbar,Blackberry,Blackfyre,Blackmont,Blacktyde,Blackwood,Blount,Bolling,Bolton,Bone,Borrell,Botley,Bracken,Branch,Brax,Broom,Broome,Browntooth,Brune,Buckler,Buckwell,Bulwer,Burley,Bushy,Butterwell,Byrch,Byrne,Bywater,Cafferen,Cargyll,Caron,Cassel,Caswell,Celtigar,Cerwyn,Chambers,Charlton,Chelsted,Chester,Chyttering,Clegane,Clifton,Cobb,Codd,Coldwater,Cole,Condon,Connington,Corbray,Corne,Correy,Costayne,Cox,Crabb,Crakehall,Crane,Cuy,D'han,Dalt,Darke,Darklyn,Darry,Dayne,Dedding,Deddings,Deem,Deremond,Dimittis,Dondarrion,Dothare,Drahar,Drinkwater,Drumm,Duckfield,Durrandon,Dustin,Edoryen,Egen,Emeros,Errol,Estermont,Estren,Farman,Farring,Farrow,Farwynd,Fell,Flatnose,Flint,Florent,Flowers,Follard,Foote,Footly,Forel,Fossoway,Fowler,Foxglove,Freeborn,Fregar,Frey,Galarre,Gardener,Gargalen,Gaunt,Gimpknee,Glover,Godsgrief,Goodbrook,Goodbrother,Goode,Gower,Graceford,Grafton,Grandison,Greenfield,Greenhill,Grell,Grey,Greyiron,Greyjoy,Greysteel,Grimm,H'ghar,Haigh,Harclay,Hardy,Hardyng,Harlaw,Harte,Hasty,Hayford,Heddle,Hetherspoon,Hewett,Hightower,Hill,Hoare,Hoat,Hogg,Hollard,Holt,Hornwood,Horpe,Hotah,Humble,Hungerford,Hunt,Hunter,Inchfield,Ironfoot,Ironmaker,Istarion,Jast,Jayn,Jordayne,Joth,Karstark,Kenning,Kettleblack,Kingsblood,Ladybright,Lannister,Lansdale,Lanster,Largent,Leek,Lefford,Lho,Liddle,Locke,Lohar,Long,Longaxe,Longbough,Longstrider,Longthorpe,Longwaters,Lonmouth,Lorch,Lornel,Lothston,Lychester,Lydden,Lynderly,Maar,Maegyr,Mahr,Malanon,Mallarawan,Mallery,Mallister,Manderly,Mandrake,Manwoody,MarTunDohWeg,Marbrand,Marsh,Martell,Massey,MazDuur,Meadows,Merlyn,Merrell,Merryweather,Mertyns,Mo,moEraz,moKandaq,moNakloz,moReznak,moUllhor,Mogat,Mollen,Moore,Mooton,Mopatis,Moreland,Mormont,Morrigen,Mott,Mudd,Mullendore,Musgood,Myrakis,Myre,naGhezn,Naharis,Nayland,Nestoris,Nogarys,Norcross,Norrey,Noye,Oakheart,OfDorne,OfSisterton,Oldfather,Orkwood,Ormollen,Otherys,Paege,Paenymion,Payne,Peake,Pease,Peasebury,Peckledon,Pemford,Penny,Penrose,Perryn,Piper,Plumm,Poole,Potter,Pox,Pree,Prestayn,Prester,Pyke,QarDeeth,Qhaedar,Qorgyle,Quaynis,Quickaxe,Quince,Rambton,Rankenfell,Rayder,Redback,Redbeard,Redfort,Redwyne,Reed,Reyne,Rhee,Rhegan,Rhysling,Rivers,Rodden,Roote,Rosby,Rowan,Roxton,Royce,Rustbeard,Ruttiger,Ryger,Rykker,Ryndoon,Ryswell,Saan,Saltcliffe,Sand,Santagar,Sarsfield,Sathmantes,Sawyer,Scales,Sealskinner,Seastar,Seaworth,Selmy,Serrett,Serry,Sharp,Shepherd,Shett,Shield,Shieldbreaker,Short,Slate,Slynt,Smallwood,Snow,Sparr,Spicer,Stackspear,Staedmon,Staegone,Stark,Staunton,Stilwood,Stokeworth,Stone,Stonehouse,Stonetree,Storm,Stormdrunk,Stout,Straw,Strickland,Stripeback,Strong,Suggs,Sunderland,Sunderly,Sunglass,Swann,Sweet,Swyft,Tallhart,Tangletongue,Tanner,Tarbeck,Targaryen,Tarly,Tarth,Tawney,Templeton,Tendyris,Terys,Thorne,Tidewood,Toland,Tollett,Toraq,Torrent,Toyne,Tully,Tumitis,Turnberry,Tyrell,Uhoris,Uller,Umber,Vaelaros,Vaith,Vance,Varner,Velaryon,Vhassar,Vikary,Volentin,Volmark,Votar,Votyris,Vypren,Vyrwel,Wagstaff,Wanderer,Waters,Waxley,Wayn,Waynwood,Weaver,WegWunDarWun,Wells,Westerling,Wheaton,Whent,Whitewater,Whittlestick,Willum,Wode,Woods,Woodwright,Wull,Wylde,Wynch,Wythers,Xho,XhoanDaxos,Yarwyck,Yew,YosDob,Yronwood,zoAhlaq,zoEraz,zoFaez,zoGalare,zoLoraq,zoMyraq,zoPahl,zoQaggaz,zoRhaezn,zoYunzak,zoZherzyn";
-        public const double NOBLE_COST = 5;
+        public const double NOBLE_COST = 1;
         public const double NOBLE_INCOME = 0;
         public const double SOLDIER_RATIO = 0.1;
         public const double MIN_TAX_RATE = 0.1;
@@ -47,7 +47,8 @@ namespace GameOfHouses.MechanicsExperiments
         public const int NUMBER_OF_POSSIBLE_HEIRS_PER_GENERATION = 3;
         public const int HEIRS_TO_REPORT_ON = 1;
         public const double PERCENTAGE_OF_INCOME_TOWARD_SOLDIERS = 0.8;
-        public const double PLAYER_MOVES_PER_YEAR = 1000;
+        public const double ALLOWED_MOVES_PER_YEAR = 1;
+        public const double SURRENDER_RATIO = 1.5;
     }
     public static class Utility
     {
@@ -74,7 +75,7 @@ namespace GameOfHouses.MechanicsExperiments
         public House House { get; set; }
         public void SettleNewLordship(Lordship sourceLordship, Lordship targetLordship, Household lordsHouseHold, List<Household> peasantHouseholds)
         {
-            if (sourceLordship.PlayerMoves.Count(p=>p==this) < Constants.PLAYER_MOVES_PER_YEAR) { 
+            if (sourceLordship.PlayerMoves.Count(p=>p==this) < Constants.ALLOWED_MOVES_PER_YEAR) { 
                 Lordship.PopulateLordship(targetLordship, lordsHouseHold, peasantHouseholds);
                 sourceLordship.PlayerMoves.Add(this);
                 sourceLordship.AddVassle(targetLordship);
@@ -222,7 +223,7 @@ namespace GameOfHouses.MechanicsExperiments
                         && (people == null || (int)lordshipOnMap.Lords.Last().People == people.Value))
                     {
                         if (house != null || (subVassles != null && subVassles.Contains(lordshipOnMap))){
-                            map += lordshipOnMap.Fighters.Count.ToString("000");
+                            map += lordshipOnMap.Defenders.Count.ToString("000");
                         } 
                         else
                         {
@@ -441,7 +442,7 @@ namespace GameOfHouses.MechanicsExperiments
                 else
                 {
                     Vacant = true;
-                    if (incumbentLord.House == World.Player.House)
+                    if (World.Player!=null && incumbentLord.House == World.Player.House)
                     {
                         Console.WriteLine("END OF HOUSE: The Lordship of House " + Name + " is vacant.");
                     }
@@ -641,81 +642,6 @@ namespace GameOfHouses.MechanicsExperiments
             return potentialSettlerLords;
 
         }
-        public void Attack(Lordship target, Person attackingLord, List<Person> attackingArmy, Random rnd)
-        {
-            //1-on-1 battle
-            var defenders = target.Fighters.ToList();
-            var livingDefenders = defenders.ToList();
-            var livingAttackers = attackingArmy.ToList();
-            var attackWave = 0;
-            var retreat = false;
-            Console.WriteLine("ATTACK: " + attackingLord.FullNameAndAge + " IS ATTACKING " + target.Name);
-            while (livingDefenders.Count()>0 && livingAttackers.Count() > 0 && !retreat)
-            {
-                var waveOfAttackers = livingAttackers.ToList();
-                //var waveOfDefenders = livingDefenders.ToList();
-                var countOfAttackersInWave = waveOfAttackers.Count();
-                var countOfDefendersInWave = livingDefenders.Count();
-                int attackerCasultiesInWave = 0;
-                int defenderCasultiesInWave = 0;
-                attackWave++;
-                while (waveOfAttackers.Count() > 0 && livingDefenders.Count > 0)
-                {
-                    var defender = livingDefenders[rnd.Next(0, livingDefenders.Count())];
-                    var attacker = waveOfAttackers[rnd.Next(0, waveOfAttackers.Count())];
-                    waveOfAttackers.Remove(attacker);
-                    var battleResult = rnd.Next(0, 2);
-                    if (battleResult == 0)
-                    {
-                        attacker.IsAlive = false;
-                        attackerCasultiesInWave++;
-                    }
-                    else
-                    {
-                        defender.IsAlive = false;
-                        defenderCasultiesInWave++;
-                    }
-                    livingDefenders = defenders.Where(d => d.IsAlive).ToList();
-                    livingAttackers = attackingArmy.Where(a => a.IsAlive).ToList();
-                }
-                Console.WriteLine(string.Format("ATTACK WAVE {0} RESULTS:",attackWave));
-                Console.WriteLine("\tAttackers in Wave: " + countOfAttackersInWave);
-                Console.WriteLine("\tDefender in Wave: " + countOfDefendersInWave);
-                Console.WriteLine("\tAttacker Casulties: " + attackerCasultiesInWave);
-                Console.WriteLine("\tDefender Casulties: " + defenderCasultiesInWave);
-                Console.WriteLine("\tRemaining Attackers: " + livingAttackers.Count());
-                Console.WriteLine("\tDefender Defenders: " + livingDefenders.Count());
-                var validInput = false;
-                while (!validInput) {
-                    Console.WriteLine("[R]etreat or [A]ttack again?");
-                    var command = Console.ReadLine();
-                    switch (command.ToUpper().Trim())
-                    {
-                        case "R":
-                            validInput = true;
-                            retreat = true;
-                            break;
-                        case "A":
-                            validInput = true;
-                            retreat = false;
-                            break;
-                    }
-                }
-            }
-            Console.WriteLine("\tAttacker Total: " + attackingArmy.Count());
-            Console.WriteLine("\tDefender Total: " + defenders.Count());
-            Console.WriteLine("\tAttacker Casulties: " + attackingArmy.Where(p=>!p.IsAlive).Count());
-            Console.WriteLine("\tDefender Casulties: " + defenders.Where(p => !p.IsAlive).Count());
-            Console.WriteLine("\tRemaining Attackers: " + attackingArmy.Where(p => p.IsAlive).Count());
-            Console.WriteLine("\tDefender Defenders: " + defenders.Where(p => p.IsAlive).Count());
-            if (livingDefenders.Count() == 0)
-            {
-                //clear the lords and make the town vacant
-                target.Lords.Last().Lordships.Remove(target);
-                target.Lords.Clear();
-                target.Vacant = true;
-            }
-        }
     }
     public class Household
     {
@@ -741,6 +667,7 @@ namespace GameOfHouses.MechanicsExperiments
                     newMember.Household.RemoveMember(newMember);
                 }
                 Members.Add(newMember);
+                newMember.MoveToLocation(Lordship);
                 newMember.Household = this;
             }
         }
@@ -1044,6 +971,7 @@ namespace GameOfHouses.MechanicsExperiments
         {
             if (IsAlive)
             {
+                NumberOfMovesThisYear = 0;
                 //Death Check
                 if (_rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age && _rnd.Next(1, 100) < Age)
                 {
@@ -1381,6 +1309,16 @@ namespace GameOfHouses.MechanicsExperiments
 
             return retString;
         }
+        public Lordship Location { get; set; }
+        public int NumberOfMovesThisYear { get; set; }
+        public void MoveToLocation(Lordship targetLocation)
+        {
+            if(targetLocation!=null && targetLocation != Location) { 
+                Location = targetLocation;
+                targetLocation.Population.Add(this);
+                NumberOfMovesThisYear++;
+            }
+        }
     }
     public class Lordship
     {
@@ -1398,11 +1336,85 @@ namespace GameOfHouses.MechanicsExperiments
             Vassles = new List<Lordship>();
             Vacant = true;
             PlayerMoves = new List<Player>();
+            Army = new List<Person>();
+            Population = new List<Person>();
         }
+        public Person Lord { get {
+                if(!Vacant)
+                {
+                    return Lords.Last();
+                } else
+                {
+                    return null;
+                }
+            }
+        }
+        public List<Person> Population { get; set; }
         public World World { get; set; }
+        public List<Person> Army { get; set; }
+        public void ConscriptSoldiers(int totalToConscript)
+        {
+            var eligibleForConcription = EligibleForConscription.ToList();
+            var conscripts = new List<Person>();
+            while(conscripts.Count() < totalToConscript && eligibleForConcription.Count() > 0)
+            {
+                var conscript = eligibleForConcription[_rnd.Next(0, eligibleForConcription.Count())];
+                conscript.Profession = Profession.Soldier;
+                eligibleForConcription.Remove(conscript);
+                conscripts.Add(conscript);
+                conscript.MoveToLocation(LocationOfLordAndArmy);
+            }
+            Army.AddRange(conscripts);
+        }
+        public List<Person> EligibleForConscription
+        {
+            get
+            {
+                return Households.SelectMany(h => h.Members.Where(
+                    m =>
+                    m.IsAlive
+                    && m.Class == SocialClass.Peasant
+                    && m.Age >= Constants.AGE_OF_MAJORITY
+                    && m.Age <= Constants.AGE_OF_RETIREMENT
+                    && m.Profession != Profession.Soldier
+                    )).ToList();
+            }
+        }
+        public List<Person> Farmers
+        {
+            get
+            {
+                return Households.SelectMany(h => h.Members.Where(
+                    m =>
+                    m.IsAlive
+                    && m.Class == SocialClass.Peasant
+                    && m.Age >= Constants.AGE_OF_MAJORITY
+                    && m.Age <= Constants.AGE_OF_RETIREMENT
+                    && m.Profession == Profession.Peasant
+                    )).ToList();
+            }
+        }
+        public void DischargeSoldiers(int totalToDischarge)
+        {
+            var eligibleForDischarge = Army.Where(s => s.IsAlive).ToList();
+            var dischargedSoldiers = new List<Person>();
+            while (eligibleForDischarge.Count() > 0 && dischargedSoldiers.Count() <= totalToDischarge)
+            {
+                var dischargedSoldier = eligibleForDischarge[_rnd.Next(0, eligibleForDischarge.Count())];
+                dischargedSoldier.Profession = Profession.Peasant;
+                eligibleForDischarge.Remove(dischargedSoldier);
+                dischargedSoldiers.Add(dischargedSoldier);
+                dischargedSoldier.MoveToLocation(this);
+            }
+            Army.RemoveAll(s => dischargedSoldiers.Contains(s));
+        }
         public List<Lordship> Vassles { get; set; }
         public List<Player> PlayerMoves { get; set; }
         public Lordship Allegience { get; set; }
+        public List<Person> GetReinforcements()
+        {
+            return Defenders;
+        }
         public void AddVassle(Lordship vassle)
         {
             if (!Vassles.Contains(vassle))
@@ -1410,6 +1422,11 @@ namespace GameOfHouses.MechanicsExperiments
                 if (vassle.Allegience != null)
                 {
                     vassle.Allegience.RemoveVassle(vassle);
+                    if (vassle.GetAllSubVassles().Contains(this))
+                    {
+                        //can't have circular allegience
+                        this.Allegience.RemoveVassle(this);
+                    }
                 }
                 Vassles.Add(vassle);
                 vassle.Allegience = this;
@@ -1447,15 +1464,16 @@ namespace GameOfHouses.MechanicsExperiments
             ).ToList();
             return potentialSettlerLordHouseholds;
         }
-        public List<Person> Fighters {
+        public List<Person> Defenders {
             get {
-                return Households.SelectMany(h => h.Members.Where(
+                //includes occupying armies
+                return Population.Where(
                     m =>
                     m.IsAlive
                     && m.Class == SocialClass.Peasant
                     && m.Age >= Constants.AGE_OF_MAJORITY
                     && m.Age <= Constants.AGE_OF_RETIREMENT
-                    )).ToList();
+                    ).ToList();
             }
         }
         public bool Vacant { get; set; }
@@ -1509,7 +1527,7 @@ namespace GameOfHouses.MechanicsExperiments
                     else
                     {
                         Vacant = true;
-                        if (incumbentLord.House == World.Player.House)
+                        if (World.Player != null && incumbentLord.House == World.Player.House)
                         {
                             Console.WriteLine("VACANCY: The Lordship of " + Name + " is vacant.");
                         }
@@ -1551,10 +1569,11 @@ namespace GameOfHouses.MechanicsExperiments
                 //    }
                 //    while (deficit > 0)
                 //    {
-                //        if (villagers.Count() > 0)
+                //        var peasantVillagers = villagers.Where(v => v.Class == SocialClass.Peasant).ToList();
+                //        if (peasantVillagers.Count() > 0)
                 //        {
                 //            //kill a random villager
-                //            var deadOne = villagers[_rnd.Next(0, villagers.Count())];
+                //            var deadOne = peasantVillagers[_rnd.Next(0, peasantVillagers.Count())];
 
                 //            deadOne.IsAlive = false;
                 //            if (deadOne.Household != null)
@@ -1581,6 +1600,7 @@ namespace GameOfHouses.MechanicsExperiments
                 }
                 Households.Add(newHousehold);
                 newHousehold.Lordship = this;
+                newHousehold.Members.ForEach(m => m.MoveToLocation(this));
             }
         }
         public void Removehousehold(Household oldHousehold)
@@ -1630,33 +1650,40 @@ namespace GameOfHouses.MechanicsExperiments
                 retString += World.GetMapAsString(null, this);
                 retString += ("Lordship: " + Name + '\n');
                 retString += ("Founding Year: " + FoundingYear + '\n');
-                var incumentlord = Lords.Last();
-                retString += ("Lord: " + incumentlord.FullNameAndAge + '\n');
+                retString += ("Lord: " + Lord.FullNameAndAge + '\n');
                 retString += ("Order of Succession:" + '\n');
                 var orderOfSuccession = GetOrderOfSuccession(10);
                 for (int i = 0; i < orderOfSuccession.Count(); i++)
                 {
                     retString += ((i + 1) + ": " + orderOfSuccession[i].FullNameAndAge + '\n');
                 }
-                var villagers = Households.SelectMany(h => h.Members);
+                //var villagers = Households.SelectMany(h => h.Members);
+                retString += ("Army: " + Army.Count(s=>s.IsAlive) + '\n');
+                retString += ("Occupying Armies: " + '\n');
+                foreach (var occupyingArmy in OccupyingLordsAndArmies)
+                {
+                    retString += "\t" + occupyingArmy.Name + "(" + occupyingArmy.Army.Count(s=>s.IsAlive) + ")\n";
+                }
+                retString += ("Eligible for Conscription: " + EligibleForConscription.Count() + '\n');
+                retString += ("Location of Lord and Army: " + LocationOfLordAndArmy.Name + '\n');
                 retString += ("Noble Households:" + Households.Count(v => v.HouseholdClass == SocialClass.Noble) + '\n');
                 retString += ("Peasant Households:" + Households.Count(v => v.HouseholdClass == SocialClass.Peasant) + '\n');
-                retString += ("Population:" + villagers.Count() + '\n');
-                retString += ("Defenders:" + villagers.Count(m => m.IsAlive
-                        && m.Age >= Constants.AGE_OF_MAJORITY
-                        && m.Age <= Constants.AGE_OF_RETIREMENT
-                        && m.Class == SocialClass.Peasant) + '\n');
-                retString += ("Seniors >= 50:" + villagers.Count(v => v.IsAlive && v.Age > 50) + '\n');
-                retString += ("Children < 18: " + villagers.Count(v => v.IsAlive && v.Age < 18) + '\n');
-                retString += ("Nobles: " + villagers.Count(v => v.Household.HouseholdClass == SocialClass.Noble && v.IsAlive) + '\n');
-                retString += ("Peasants: " + villagers.Count(v => v.Household.HouseholdClass == SocialClass.Peasant && v.IsAlive) + '\n');
+                retString += ("Native Population:" + Households.SelectMany(h=>h.Members).Count() + '\n');
+                retString += ("Total Population:" + Population.Count() + '\n');
+                retString += ("Defenders:" + Defenders.Count() + '\n');
+                retString += ("Farmers: " + Farmers.Count() + '\n');
                 retString += ("Yeild: " + Yeild + '\n');
                 retString += ("Cost: " + Cost + '\n');
                 retString += ("Surplus: " + Surplus + '\n');
                 if (AssessedIncome.Count > 0) { 
-                retString += ("Income: " + AssessedIncome.Last().Income.ToString("0.00") + '\n');
+                    retString += ("Income: " + AssessedIncome.Last().Income.ToString("0.00") + '\n');
                 }
                 retString += ("Wealth: " + Wealth + '\n');
+                retString += "Vassles:\n";
+                foreach (var vassle in Vassles)
+                {
+                    retString += "\t" + vassle.Name + "(" + vassle.GetAllSubVassles().Count() + " sub-vassles)\n";
+                }
                 retString += ("------------------------" + '\n');
             }
             return retString;
@@ -1673,7 +1700,7 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 newVillage.AddHousehold(settlerHousehold);
             }
-            settlerHouseholds.ForEach(household => household.Members.ForEach(member => newVillage.World.AddPerson(member)));
+            settlerHouseholds.ForEach(household => household.Members.ForEach(member => { newVillage.World.AddPerson(member); member.MoveToLocation(newVillage); }));
             //var playerLords = newVillage.World.Player.House.Lords;
 
             if (newLord.World!= null && newLord.World.Player != null && newLord.House == newLord.World.Player.House) //&& playerLords.Count > 0 && playerLords.Last().GetCurrentHeirs().Contains(newLord))
@@ -1682,6 +1709,284 @@ namespace GameOfHouses.MechanicsExperiments
             }
             newVillage.Vacant = false;
         }
+        public double GetShortestAvailableDistanceToLordship(Lordship targetLordship, List<Lordship> allowedPath)
+        {
+            //calculate shortest available distance between lorships based on variant of Dijkstra's Algorithm taking into account the 
+            //allowed path
+
+            //Pseudocode from https://en.wikipedia.org/wiki/Dijkstra's_algorithm#Pseudocode
+            // 1  function Dijkstra(Graph, source):
+            //-- Graph is allowed path, source is this
+            // 2
+            // 3      create vertex set Q
+            if (!allowedPath.Contains(this))
+            {
+                allowedPath.Add(this);
+            }
+            if (!allowedPath.Contains(targetLordship))
+            {
+                allowedPath.Add(targetLordship);
+            }
+            var Q = new List<Lordship>(); 
+            // 4
+            var dist = new Dictionary<Lordship, double>();
+            var prev = new Dictionary<Lordship, Lordship>();
+            // 5      for each vertex v in Graph:             // Initialization
+            foreach (var lordship in allowedPath)
+            {
+                // 6          dist[v] ← INFINITY                  // Unknown distance from source to v
+                dist[lordship] = double.PositiveInfinity;
+                // 7          prev[v] ← UNDEFINED                 // Previous node in optimal path from source
+                prev[lordship] = null; 
+                // 8          add v to Q                          // All nodes initially in Q (unvisited nodes)
+                Q.Add(lordship);
+                // 9
+            }
+            //10      dist[source] ← 0                        // Distance from source to source
+            dist[this] = 0;
+            //11
+            //12      while Q is not empty:
+            while (Q.Count() > 0) {
+                //13          u ← vertex in Q with min dist[u]    // Source node will be selected first
+                var closestRemainingLordship = Q.OrderBy(lordship => dist[lordship]).First();
+                //14          remove u from Q
+                Q.Remove(closestRemainingLordship);
+                //15
+                //16          for each neighbor v of u:           // where v is still in Q.
+                var allowedNeighbors = closestRemainingLordship.GetAdjacentLordships().Where(neighbor => Q.Contains(neighbor) && allowedPath.Contains(neighbor)).ToList();
+                foreach (var v in allowedNeighbors)
+                {
+                    //17              alt ← dist[u] + length(u, v)
+                    var alt = dist[closestRemainingLordship] + 1; //in our map neighbors are ALWAYS a distance of 1 away
+                    //18              if alt < dist[v]:               // A shorter path to v has been found
+                    if (alt < dist[v])
+                    {
+                        //19                  dist[v] ← alt
+                        dist[v] = alt;
+                        //20                  prev[v] ← u
+                        prev[v] = closestRemainingLordship;
+                        //21
+                    }
+                }
+             }
+            //22      return dist[], prev[]
+            return dist[targetLordship];
+        }
+        public Lordship LocationOfLordAndArmy { get { return Lord.Location; } }
+        public List<Lordship> OccupyingLordsAndArmies { get { return World.Lordships.Where(ls => !ls.Vacant && ls.Lord.Location == this).ToList(); } }
+        public void AddOccupyingLordAndArmy(Lordship occupyingLordAndArmy)
+        {
+            if (!OccupyingLordsAndArmies.Contains(occupyingLordAndArmy))
+            {
+                occupyingLordAndArmy.Lord.MoveToLocation(this);
+                occupyingLordAndArmy.Army.ForEach(soldier => soldier.MoveToLocation(this));
+            }
+        }
+        public Lordship GetSovereign()
+        {
+            var sovreign = this;
+            while (sovreign.Allegience != null)
+            {
+                sovreign = sovreign.Allegience;
+            }
+            return sovreign;
+        }
+        public List<Lordship> GetAllies()
+        {
+            //for now return all vassles of sovereign
+            return GetSovereign().GetAllSubVassles();
+        }
+        public void Attack(Lordship target, Random rnd)
+        {
+            //var defenders = target.EligibleFighters.ToList();
+            //var attackers = attackingLordship.EligibleFighters.ToList();
+            var attackingLordship = this;
+            var livingDefenders = target.Defenders.ToList();
+            var livingAttackers = attackingLordship.Army.ToList();
+            //include vassles if their overlords in the same location
+            foreach (var vassle in attackingLordship.GetAllSubVassles())
+            {
+                if(vassle.Allegience.LocationOfLordAndArmy == attackingLordship.LocationOfLordAndArmy && vassle.LocationOfLordAndArmy.LocationOfLordAndArmy == attackingLordship.LocationOfLordAndArmy)
+                {
+                    livingAttackers.AddRange(vassle.Army);
+                }
+            }
+            var totalDefenderCount = livingDefenders.Count();
+            var totalAttackerCount = livingAttackers.Count();
+            var totalDefenderCasulties = 0;
+            var totalAttackerCasulties = 0;
+            var timeForReinforcements = 0;
+            var retreat = false;
+            var surrender = false;
+            var defendersAllies = target.GetAllies().ToList();
+            var unarrivedDefendersAllies = defendersAllies.ToList();
+            Console.WriteLine("ATTACK: " + attackingLordship.Lords.Last().FullNameAndAge + " IS ATTACKING " + target.Name);
+            while (livingDefenders.Count() > 0 && livingAttackers.Count() > 0 && !retreat && !surrender)
+            {
+                timeForReinforcements++;
+                if (timeForReinforcements < attackingLordship.LocationOfLordAndArmy.GetShortestAvailableDistanceToLordship(target, attackingLordship.GetAllies()))
+                {
+                    Console.WriteLine(attackingLordship.Lords.Last().FullNameAndAge + " is on the march!");
+                }
+                else
+                {
+                    if (livingAttackers.Count() > livingDefenders.Count() * Constants.SURRENDER_RATIO)
+                    {
+                        //SURRENDER 
+                        attackingLordship.AddVassle(target);
+                        Console.WriteLine("SURRENDER: " + target.Lord.FullNameAndAge + " SURRENDERED and PLEDGED FEALTY to " + attackingLordship.Lord);
+                        surrender = true;
+                    }
+                    else
+                    {
+                        //proceed with attack
+                        var waveOfAttackers = livingAttackers.ToList();
+                        var countOfAttackersInWave = waveOfAttackers.Count();
+                        var countOfDefendersInWave = livingDefenders.Count();
+                        int attackerCasultiesInWave = 0;
+                        int defenderCasultiesInWave = 0;
+                        while (waveOfAttackers.Count() > 0 && livingDefenders.Count > 0)
+                        {
+                            var defender = livingDefenders[rnd.Next(0, livingDefenders.Count())];
+                            var attacker = waveOfAttackers[rnd.Next(0, waveOfAttackers.Count())];
+                            waveOfAttackers.Remove(attacker);
+                            var battleResult = rnd.Next(0, 2);
+                            if (battleResult == 0)
+                            {
+                                attacker.IsAlive = false;
+                                attackerCasultiesInWave++;
+                                totalAttackerCasulties++;
+                            }
+                            else
+                            {
+                                defender.IsAlive = false;
+                                defenderCasultiesInWave++;
+                                totalDefenderCasulties++;
+                            }
+                            livingDefenders.RemoveAll(p => !p.IsAlive);
+                            livingAttackers.RemoveAll(p => !p.IsAlive);
+                        }
+                        Console.WriteLine(string.Format("ATTACK WAVE {0} RESULTS:", timeForReinforcements));
+                        Console.WriteLine("\tAttackers in Wave: " + countOfAttackersInWave);
+                        Console.WriteLine("\tDefender in Wave: " + countOfDefendersInWave);
+                        Console.WriteLine("\tAttacker Casulties in Wave: " + attackerCasultiesInWave);
+                        Console.WriteLine("\tDefender Casulties in Wave: " + defenderCasultiesInWave);
+                        Console.WriteLine("\tTotal Attacker Casulties: " + totalAttackerCasulties);
+                        Console.WriteLine("\tDefender Defender Casulties: " + totalDefenderCasulties);
+                    }
+                }
+                for (var i = 0; i < unarrivedDefendersAllies.Count && !surrender; i++)
+                {
+                    var unarrivedAlly = unarrivedDefendersAllies[i];
+                    if (target.GetShortestAvailableDistanceToLordship(unarrivedAlly, defendersAllies) <= timeForReinforcements)
+                    {
+                        unarrivedDefendersAllies.Remove(unarrivedAlly);
+                        var reinforcements = unarrivedAlly.Defenders.ToList();
+                        Console.WriteLine(unarrivedAlly.Lords.Last().FullNameAndAge + " arrived with " + reinforcements.Count() + " reinforcements!");
+                        livingDefenders.AddRange(unarrivedAlly.Defenders);
+                        totalDefenderCount += reinforcements.Count();
+                    }
+                }
+                Console.WriteLine("\tRemaining Attackers: " + livingAttackers.Count());
+                Console.WriteLine("\tRemaining Defenders: " + livingDefenders.Count());
+                var validInput = false;
+                while (!validInput && !surrender)
+                {
+                    Console.WriteLine("[R]etreat or Continue [A]ttack?");
+                    var command = Console.ReadLine();
+                    switch (command.ToUpper().Trim())
+                    {
+                        case "R":
+                            validInput = true;
+                            retreat = true;
+                            break;
+                        case "A":
+                            validInput = true;
+                            retreat = false;
+                            break;
+                    }
+                }
+            }
+            Console.WriteLine("\tAttacker Total: " + totalAttackerCount);
+            Console.WriteLine("\tDefender Total: " + totalDefenderCount);
+            Console.WriteLine("\tAttacker Casulties: " + totalAttackerCasulties);
+            Console.WriteLine("\tDefender Casulties: " + totalDefenderCasulties);
+            Console.WriteLine("\tRemaining Attackers: " + livingAttackers.Count());
+            Console.WriteLine("\tRemaining Defenders: " + livingDefenders.Count());
+            if (livingDefenders.Count() == 0)
+            {
+                //clear the lords and make the town vacant
+                target.Lords.Last().Lordships.Remove(target);
+                target.Lords.Clear();
+                target.Vacant = true;
+            }
+        }
+        public List<Lordship> GetVisibleLordships()
+        {
+            var visibleLorships = new List<Lordship>();
+            var allies = GetAllies();
+            var neighbors = allies.SelectMany(v => v.GetAdjacentLordships()).Union(GetAdjacentLordships()).Distinct().Where(v => !allies.Contains(v)).ToList();
+            visibleLorships.Add(this);
+            visibleLorships = visibleLorships.Union(allies).Union(neighbors).ToList();
+            return visibleLorships;
+        }
+        public string GetMapOfKnownWorld(Lordship lordship = null)
+        {
+            //output map
+            //List<Lordship> subVassles = null;
+            if (lordship == null || !GetAllSubVassles().Contains(lordship))
+            {
+                lordship = this;
+            }
+            var allies = lordship.GetAllies();
+            var neighbors = allies.SelectMany(v => v.GetAdjacentLordships()).Union(GetAdjacentLordships()).Distinct().Where(v => !allies.Contains(v)).ToList();
+
+            var map = "    |";
+            for (var x = 1; x <= Constants.MAP_WIDTH; x++)
+            {
+                map += x.ToString("0000") + "|";
+            }
+            map += "\n";
+            for (var y = 1; y <= Constants.MAP_HEIGHT; y++)
+            {
+                map += y.ToString("0000");
+                for (var x = 1; x <= Constants.MAP_WIDTH; x++)
+                {
+                    map += "|";
+                    var lordshipOnMap = World.Lordships.First(v => v.MapX == x && v.MapY == y);
+                    var mapsymbol = "?";
+                    if (lordshipOnMap == this)
+                    {
+                        mapsymbol = "U";
+                    }else if (allies.Contains(lordshipOnMap))
+                    {
+                        mapsymbol = "+";
+                    }else if (neighbors.Contains(lordshipOnMap))
+                    {
+                        mapsymbol = "-";
+                    }
+
+                    //var vassles = lordshipOnMap
+                    if (mapsymbol != "?")
+                    {
+                            map += mapsymbol + lordshipOnMap.Defenders.Count.ToString("000");
+                    }
+                    else
+                    {
+                        map += " ?? ";
+                    }
+                }
+                map += "|" + y.ToString("0000") + "\n";
+            }
+            map += "    |";
+            for (var x = 1; x <= Constants.MAP_WIDTH; x++)
+            {
+                map += x.ToString("0000") + "|";
+            }
+            map += "\n";
+            return map;
+        }
+
     }
     public class Program
     {
@@ -1701,57 +2006,10 @@ namespace GameOfHouses.MechanicsExperiments
             //2. Increment Word Year
             world.IncrementYear();
         }
-        public static List<Household> GetRandomSettlerHouseholds(House house, Random rnd, int numberOfHouseHolds = Constants.MINIMUM_VILLAGE_SIZE)
-        {
-            var housesLordships = house.GetLordships();
-            var potentialSettlerPeasantHouseholds = new List<Household>();
-            var settlerHouseholds = new List<Household>();
-            foreach (var housesLordship in housesLordships)
-            {
-                var peasantHouseholds = housesLordship.Households.Where(x => x.HeadofHousehold.Class == SocialClass.Peasant).ToList();
-                while (peasantHouseholds.Count() > Constants.MINIMUM_VILLAGE_SIZE)
-                {
-                    var potentialSettlerPeasantHousehold = peasantHouseholds[rnd.Next(0, peasantHouseholds.Count())];
-                    potentialSettlerPeasantHouseholds.Add(potentialSettlerPeasantHousehold);
-                    peasantHouseholds.Remove(potentialSettlerPeasantHousehold);
-                }
-            }
-            while (potentialSettlerPeasantHouseholds.Count() > 0 && settlerHouseholds.Count() < numberOfHouseHolds)
-            {
-                var settlerHousehold = potentialSettlerPeasantHouseholds[rnd.Next(0, potentialSettlerPeasantHouseholds.Count())];
-                settlerHouseholds.Add(settlerHousehold);
-                potentialSettlerPeasantHouseholds.Remove(settlerHousehold);
-            }
-            return settlerHouseholds;
-        }
-        public static List<Person> RaiseARandomArmy(House house, Random rnd, int armySize = 100)
-        {
-            var housesLordships = house.GetLordships();
-            var potentialRecruits = new List<Person>();
-            var army = new List<Person>();
-            foreach (var housesLordship in housesLordships)
-            {
-                var peasantHouseholds = housesLordship.Households.Where(x => x.HeadofHousehold.Class == SocialClass.Peasant).ToList();
-                foreach(var peasantHousehold in peasantHouseholds)
-                {
-                    potentialRecruits.AddRange(peasantHousehold.Members.Where(m => 
-                    m.IsAlive
-                    &&m.Age>=Constants.AGE_OF_MAJORITY
-                    &&m.Age<=Constants.AGE_OF_RETIREMENT
-                    ));
-                }
-            }
-            while(potentialRecruits.Count() > 0 && army.Count() <= armySize)
-            {
-                var recruit = potentialRecruits[rnd.Next(0, potentialRecruits.Count())];
-                army.Add(recruit);
-                potentialRecruits.Remove(recruit);
-            }
-            return army;
-        }
         public static void HouseMoves(House house, Random rnd)
         {
-
+            /*
+             * hold of on colonization for now
             //colonize
             if (house != house.World.Player.House)
             {
@@ -1773,7 +2031,7 @@ namespace GameOfHouses.MechanicsExperiments
                     }
                 }
             }
-
+            */
             //Matchmaker
             var potentialHeads = house.GetIndespensibleMembers().Where(x => x.IsEligableForBetrothal()).ToList();
 
@@ -1783,45 +2041,47 @@ namespace GameOfHouses.MechanicsExperiments
                 potentialSpouses.AddRange(otherHouse.GetDispensibleMembers().Where(x => x.IsEligableForBetrothal()));
             }
             MatchBetrothals(potentialHeads, potentialSpouses);
-        
-            if (potentialHeads.Count(x => x.Age > 5 && x.Age < 25 && x.IsEligableForBetrothal() && x.GetHeirs().Count == 0) > 0)
+
+            /* hold off on recruiting for now
+        if (potentialHeads.Count(x => x.Age > 5 && x.Age < 25 && x.IsEligableForBetrothal() && x.GetHeirs().Count == 0) > 0)
+        {
+            //no heirs!  Try to invite a new house from the homeland!
+            if (rnd.NextDouble() <= Constants.CHANCE_OF_RECRUITING_FOREIGN_HOUSE && house.Recruitments < Constants.MAX_RECRUITMENTS)
             {
-                //no heirs!  Try to invite a new house from the homeland!
-                if (rnd.NextDouble() <= Constants.CHANCE_OF_RECRUITING_FOREIGN_HOUSE && house.Recruitments < Constants.MAX_RECRUITMENTS)
+                var maxX = Constants.MAP_WIDTH;
+                var minX = 1;
+                if(house.Lords.Last().People == People.Dane)
                 {
-                    var maxX = Constants.MAP_WIDTH;
-                    var minX = 1;
-                    if(house.Lords.Last().People == People.Dane)
-                    {
-                        minX = Constants.MAP_WIDTH / 2;
-                    } else
-                    {
-                        maxX = Constants.MAP_WIDTH / 2;
-                    }
-
-                    var unclaimedLands = house.World.Lordships.Where(t => t.Vacant && t.MapX >= minX && t.MapX <= maxX).ToList();//GetUnclaimedLands(house);
-                    if (unclaimedLands.Count() > 0)
-                    {
-                        //var eldest = unmatchedLordsAndHeirs.Max(h => h.Age) + 5;
-                        var newLand = unclaimedLands[rnd.Next(0, unclaimedLands.Count())];
-                        var surnames = Constants.SURNAMES.Split(',');
-                        var newHouseName = "";
-                        while (newHouseName == "" || house.World.NobleHouses.Any(h => h.Name == newHouseName)){
-                            newHouseName = surnames[rnd.Next(0, surnames.Count())];
-                        }
-
-                        var newHouse = CreateNewHouse(newHouseName, (char)rnd.Next(33, 126), house.Lords.Last().People, newLand, rnd,null);
-                        var recruitingLord = house.Lords.Last();
-                        var recruitedLord = newHouse.Lords.Last();
-                        if (recruitingLord.House == house.World.Player.House)
-                        {
-                            Console.WriteLine("RECRUITMENT: " + recruitingLord.FullNameAndAge + " RECRUITED " + recruitedLord.FullNameAndAge + " from the " + recruitingLord.People + " homeland.");
-                        }
-                        house.Recruitments++;
-                        MatchBetrothals(potentialHeads, newHouse.GetDispensibleMembers());
-                    }
+                    minX = Constants.MAP_WIDTH / 2;
+                } else
+                {
+                    maxX = Constants.MAP_WIDTH / 2;
                 }
-            }
+
+                var unclaimedLands = house.World.Lordships.Where(t => t.Vacant && t.MapX >= minX && t.MapX <= maxX).ToList();//GetUnclaimedLands(house);
+                if (unclaimedLands.Count() > 0)
+                {
+                    //var eldest = unmatchedLordsAndHeirs.Max(h => h.Age) + 5;
+                    var newLand = unclaimedLands[rnd.Next(0, unclaimedLands.Count())];
+                    var surnames = Constants.SURNAMES.Split(',');
+                    var newHouseName = "";
+                    while (newHouseName == "" || house.World.NobleHouses.Any(h => h.Name == newHouseName)){
+                        newHouseName = surnames[rnd.Next(0, surnames.Count())];
+                    }
+
+                    var newHouse = CreateNewHouse(newHouseName, (char)rnd.Next(33, 126), house.Lords.Last().People, newLand, rnd,null);
+                    var recruitingLord = house.Lords.Last();
+                    var recruitedLord = newHouse.Lords.Last();
+                    if (recruitingLord.House == house.World.Player.House)
+                    {
+                        Console.WriteLine("RECRUITMENT: " + recruitingLord.FullNameAndAge + " RECRUITED " + recruitedLord.FullNameAndAge + " from the " + recruitingLord.People + " homeland.");
+                    }
+                    house.Recruitments++;
+                    MatchBetrothals(potentialHeads, newHouse.GetDispensibleMembers());
+                }
+            
+                }
+            }*/
 
         }
         public static void MatchBetrothals(List<Person> potentialHeads, List<Person> potentialSpouses)
@@ -1847,21 +2107,7 @@ namespace GameOfHouses.MechanicsExperiments
                 headsLeftToMatch.Remove(eligableLordOrHeir);
             }
         }
-        public static List<Lordship> GetAdjacentUnclaimedLands(Lordship lordship)
-        {
-            var unclaimedLands = new List<Lordship>();
-            var lordshipAndSubVassles = new List<Lordship>();
-            lordshipAndSubVassles.Add(lordship);
-            lordshipAndSubVassles.AddRange(lordship.GetAllSubVassles());
-            //houseAndSubVassles.AddRange(house.GetAllSubVassles());
-            //var houseLordships = house.World.Lordships.Where(lordship => !lordship.Vacant && lordship.Lords.Last().House == house).ToList();
-            foreach (var controlledLordship in lordshipAndSubVassles)
-            {
-                unclaimedLands.AddRange(controlledLordship.GetAdjacentLordships().Where(x => x.Vacant && !unclaimedLands.Contains(x)));
-            }
-            return unclaimedLands;
-        }
-        public static House CreateNewHouse(string name, char symbol, People people, Lordship lordship, Random rnd, Lordship allegience = null, int yearsToIterate = Constants.YEARS_TO_ITERATE_NEW_HOUSES)
+        public static House CreateNewHouse(string name, char symbol, People people, Lordship lordship, Random rnd, Lordship allegience = null, int yearsToIterate = Constants.YEARS_TO_ITERATE_NEW_HOUSES, int numberOfPeasantHouseholds = Constants.MINIMUM_VILLAGE_SIZE)
         {
             Person newLord = null;
             World oldWorld = null;
@@ -1875,7 +2121,7 @@ namespace GameOfHouses.MechanicsExperiments
             oldWorld.AddLordship(oldLordship);
             //create settlers
             var firstSettlers = new List<Household>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < Constants.MINIMUM_VILLAGE_SIZE; i++)
             {
                 var husband = new Person(rnd)
                 {
@@ -1960,9 +2206,9 @@ namespace GameOfHouses.MechanicsExperiments
             var newLordsHouseHold = oldLordship.Lords.Last().Household;
             //2. get the households with all of the lords decendents
             var newLordsDescendents = newLord.GetHeirs();
-            var nobleHouseholds = oldLordship.Households.ToList(); //.Where(h => h.Members.Intersect(newLordsDescendents).Count() > 0).ToList();
+            var nobleHouseholds = oldLordship.Households.Where(h => h.Members.Intersect(newLordsDescendents).Count() > 0).ToList();
             //3. get commoners
-            var peasantHouseholds = oldLordship.Households.ToList(); //.Where(h => h.HeadofHousehold.Class == SocialClass.Peasant).Take(Constants.MINIMUM_VILLAGE_SIZE).ToList();
+            var peasantHouseholds = oldLordship.Households.Where(h => h.HeadofHousehold.Class == SocialClass.Peasant).Take(numberOfPeasantHouseholds).ToList();
             if (allegience != null)
             {
                 allegience.AddVassle(lordship);
@@ -2009,6 +2255,7 @@ namespace GameOfHouses.MechanicsExperiments
                     lordshipNames.Remove(villageName);
                 }
             }
+            
             var houseNames = new List<string>()
             {
                 "Stark",
@@ -2025,10 +2272,10 @@ namespace GameOfHouses.MechanicsExperiments
             {
                 "Winterfell",
                 "Riverrun",
-                "The Eyrie",
-                "Casterly Rock",
-                "Storm's End",
-                "High Garden",
+                "TheEyrie",
+                "CasterlyRock",
+                "Storm'sEnd",
+                "HighGarden",
                 "Dorne",
                 "Pyke",
                 "Dragonstone"
@@ -2045,19 +2292,16 @@ namespace GameOfHouses.MechanicsExperiments
                 '*',
                 '+'
             };
-            //}
-            var easternLordships = world.Lordships.Where(x => x.Vacant && x.MapX == 1).ToList();
-            var westernLordships = world.Lordships.Where(x => x.Vacant && x.MapX == Constants.MAP_WIDTH).ToList();
+            //}*/
+            var unclaimedEasternLordships = world.Lordships.Where(x => x.Vacant && x.MapX < Constants.MAP_WIDTH/2).ToList();
+            var unclaimedWesternLordships = world.Lordships.Where(x => x.Vacant && x.MapX > Constants.MAP_WIDTH/2).ToList();
 
             //create first dane house
-            var daneLordship = westernLordships[rnd.Next(0, westernLordships.Count())];
-            daneLordship.Name = "Winterfell";
-            var firstHouse = CreateNewHouse("Firstmen", '@', People.Dane, daneLordship, rnd, null, Constants.YEARS_TO_ITERATE_PLAYER_HOUSES);
-            /*
-            while (firstHouse.Vassles.Count() == 0)
-            {
-                IncrementYear(world,rnd);
-            }*/
+            var playerLordship = unclaimedWesternLordships[rnd.Next(0, unclaimedWesternLordships.Count())];
+            playerLordship.Name = "Winterfell";
+            var firstHouse = CreateNewHouse("Stark", '*', People.Dane, playerLordship, rnd, null, Constants.YEARS_TO_ITERATE_PLAYER_HOUSES, 50);
+            unclaimedWesternLordships.Remove(playerLordship);
+            Console.WriteLine(firstHouse.Name + " populated");
             firstHouse.AddPlayer(player);
             player.House.Symbol = '*';
             var playerLord = player.House.Lords.Last();
@@ -2077,11 +2321,31 @@ namespace GameOfHouses.MechanicsExperiments
                     playerLord.Spouse.Name = Utility.GetName(Sex.Male, rnd);
                 }
             }
+            //seed other major houses
+            for (int i = 1; i<8; i++)
+            {
+                var majorLordship = unclaimedWesternLordships[rnd.Next(0, unclaimedWesternLordships.Count())];
+                majorLordship.Name = houseSeats[i];
+                CreateNewHouse(houseNames[i], houseSymbols[i], (People)rnd.Next(0, 2), majorLordship, rnd, null, Constants.YEARS_TO_ITERATE_PLAYER_HOUSES, 50);
+            }
+            //seed whole world
+            foreach (var lordship in world.Lordships.Where(l => l.Vacant))
+            {
+                var newLand = lordship;
+                var surnames = Constants.SURNAMES.Split(',');
+                var newHouseName = "";
+                while (newHouseName == "" || world.NobleHouses.Any(h => h.Name == newHouseName))
+                {
+                    newHouseName = surnames[rnd.Next(0, surnames.Count())];
+                }
+                var newHouse = CreateNewHouse(newHouseName, (char)rnd.Next(33, 126), unclaimedEasternLordships.Contains(lordship) ? People.Saxon : People.Dane, newLand, rnd, null, rnd.Next(20, 40));
+                Console.WriteLine(lordship.Name + " populated");
+            }
 
-            //create first saxon house
-            var saxonLordship = easternLordships[rnd.Next(0, easternLordships.Count())];
-            saxonLordship.Name = "Casterly Rock";
-            CreateNewHouse("Lannister", '$', People.Saxon, saxonLordship, rnd);
+            ////create first saxon house
+            //var saxonLordship = easternLordships[rnd.Next(0, easternLordships.Count())];
+            //saxonLordship.Name = "Casterly Rock";
+            //CreateNewHouse("Lannister", '$', People.Saxon, saxonLordship, rnd);
             //for (int k = 0; k < houseNames.Count(); k++)
             //{
             //    var vacantVillages = world.Lordships.Where(x => x.Vacant && (x.MapY == 1 || x.MapY == Constants.MAP_HEIGHT)).ToList();
@@ -2089,6 +2353,7 @@ namespace GameOfHouses.MechanicsExperiments
             //    firstVillage.Name = houseSeats[k];
             //    CreateNewHouse(houseNames[k], houseSymbols[k], People.Saxon, firstVillage, rnd);
             //}
+
         }
         public static void InitializeWorldWithIntro(World world, Random rnd, Player player, string playerName = "Eddard", string playerHouse = "Stark", Sex playerSex = Sex.Male)
         {
@@ -2242,7 +2507,7 @@ namespace GameOfHouses.MechanicsExperiments
             while (world.Year < 500)
             {
                 Console.WriteLine("Year: " + world.Year);
-                Console.WriteLine(world.GetMapAsString());
+                Console.WriteLine(player.House.Seat.GetMapOfKnownWorld());
                 Console.WriteLine("Enter to continue. CTRL-C to quit.");
                 var input = "hacky";
                 while (input != "")
@@ -2251,163 +2516,180 @@ namespace GameOfHouses.MechanicsExperiments
                     var command = input.Split(' ');
                     if (command.Length > 0)
                     {
-
-                        switch (command[0])
+                        var subjectLordship = world.Lordships.FirstOrDefault(l => l.Name.ToLower() == command[0].ToLower());
+                        if (subjectLordship != null)
                         {
-                            case "people":
+                            if (command.Length == 1)
+                            {
+                                //get details on lordship
+                                Console.WriteLine(subjectLordship.GetDetailsAsString());
+                            } else if (command.Length > 1)
+                            {
+                                switch (command[1].ToLower())
                                 {
-                                    var peopleName = command[1];
-                                    switch (peopleName.ToLower())
-                                    {
-                                        case "dane":
-                                            Console.WriteLine(world.GetMapAsString(null, null, (int)People.Dane));
-                                            break;
-                                        case "saxon":
-                                            Console.WriteLine(world.GetMapAsString(null, null, (int)People.Saxon));
-                                            break;
-                                    }
-                                }
-                                break;
-                            case "lordship":
-                                {
-                                    int x;
-                                    int y;
-                                    Lordship lordship;
-                                    if (command.Count() >= 3 && int.TryParse(command[1], out x) && int.TryParse(command[2], out y))
-                                    {
-                                        lordship = world.Lordships.FirstOrDefault(t => t.MapX == x && t.MapY == y);
-                                    }
-                                    else
-                                    {
-                                        var lordshipName = command[1];
-                                        for (int i = 2; i < command.Length; i++)
+                                    case "investigate":
                                         {
-                                            lordshipName += " " + command[i];
-                                        }
-                                        lordship = world.Lordships.FirstOrDefault(t => t.Name.ToLower() == lordshipName.ToLower());
-                                    }
-                                    if (lordship != null)
-                                    {
-                                        Console.WriteLine(lordship.GetDetailsAsString());
-                                    }
-                                }
-                                break;
-                            case "households":
-                                {
-                                    var x = int.Parse(command[1]);
-                                    var y = int.Parse(command[2]);
-                                    var lordship = world.Lordships.FirstOrDefault(t => t.MapX == x && t.MapY == y);
-                                    foreach (var household in lordship.Households)
-                                    {
-                                        Console.WriteLine(household.GetDetailsAsString());
-                                    }
-                                }
-                                break;
-                            case "house":
-                                {
-                                    var houseName = command[1];
-                                    var houses = world.NobleHouses.Where(h => h.Name.ToLower() == houseName.ToLower());
-                                    foreach (var house in houses)
-                                    {
-                                        Console.WriteLine(house.GetDetailsAsString());
-                                    }
-                                }
-                                break;
-                            case "world":
-                                {
-                                    Console.WriteLine(world.GetDetailsAsString());
-                                }
-                                break;
-                            case "person":
-                                {
-                                    var name = command[1];
-                                    var house = command[2];
-                                    var people = world.Population.Where(p => p.Name.ToLower() == name.ToLower() && p.House.Name.ToLower() == house.ToLower());
-                                    foreach (var person in people)
-                                    {
-                                        Console.WriteLine(person.GetDetailsAsString());
-                                    }
-                                }
-                                break;
-                            case "getHeirs":
-                                {
-                                    var houseName = command[1];
-                                    var houses = world.NobleHouses.Where(h => h.Name.ToLower() == houseName.ToLower());
-                                    foreach (var house in houses)
-                                    {
-                                        Console.WriteLine("Heirs of House " + houseName + ":");
-                                        var heirs = house.Lords[0].GetCurrentHeirs();
-                                        foreach (var heir in heirs)
-                                        {
-                                            Console.WriteLine("\t" + heir.FullNameAndAge);
-                                        }
-
-                                    }
-
-                                }
-                                break;
-                            case "landlessNobles":
-                                {
-                                    var house = player.House;
-                                    var landlessNobles = house.Members.Where(
-                                        m => m.IsAlive
-                                        && m.Household != null
-                                        && m.Household.HeadofHousehold == m
-                                        && m.Lordships.Count == 0
-                                        );
-                                    foreach (var noble in landlessNobles)
-                                    {
-                                        Console.WriteLine(noble.FullNameAndAge);
-                                    }
-                                }
-                                break;
-                            case "settle":
-                                {
-                                    int x;
-                                    int y;
-                                    Lordship sourceLordship;
-                                    Lordship targetLordship;
-                                    int numberOfSettlers;
-                                    if (command.Count() == 5 && int.TryParse(command[2], out x) && int.TryParse(command[3], out y) && int.TryParse(command[4], out numberOfSettlers))
-                                    {
-                                        sourceLordship = world.Lordships.FirstOrDefault(l => l.Name.ToLower() == command[1].ToLower());
-                                        targetLordship = world.Lordships.FirstOrDefault(t => t.MapX == x && t.MapY == y);
-                                        if (sourceLordship!=null && targetLordship != null && targetLordship.Vacant)
-                                        {
-                                            var potentialSettlerHouseholds = sourceLordship.Households.Where(h => h.HeadofHousehold.Class == SocialClass.Peasant);
-                                            var settlerLordsHousehold = player.House.GetPotentialSettlerLords().Select(h=>h.Household).FirstOrDefault();
-                                            if (settlerLordsHousehold != null && numberOfSettlers <= potentialSettlerHouseholds.Count())
+                                            if (command.Length > 2)
                                             {
-                                                var settlerPeasantHouseholds = potentialSettlerHouseholds.Take(numberOfSettlers).ToList();
-                                                sourceLordship.World.Player.SettleNewLordship(sourceLordship, targetLordship, settlerLordsHousehold, settlerPeasantHouseholds);
+                                                switch (command[2].ToLower()){
+                                                    case "lordship":
+                                                        {
+                                                            Lordship objectLordship = null;
+                                                            if (command.Length == 4) {
+                                                                objectLordship = world.Lordships.FirstOrDefault(l => l.Name.ToLower() == command[3].ToLower());
+                                                            }
+                                                            else if(command.Length == 5) {
+                                                                int x;
+                                                                int y;
+                                                                if (int.TryParse(command[3], out x) && int.TryParse(command[4], out y))
+                                                                {
+                                                                    objectLordship = world.Lordships.FirstOrDefault(l => l.MapX == x && l.MapY == y);
+                                                                }
+                                                            }
+                                                            var visibleLordships = player.House.Seat.GetVisibleLordships();
+                                                            if (objectLordship != null && visibleLordships.Contains(objectLordship))
+                                                            {
+                                                                Console.WriteLine(objectLordship.GetDetailsAsString());
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "person":
+                                                        {
+                                                            if (command.Length == 5)
+                                                            {
+                                                                var name = command[3];
+                                                                var house = command[4];
+                                                                var persons = world.Population.Where(p => p.Name.ToLower() == name.ToLower() && p.House.Name.ToLower() == house.ToLower());
+                                                                foreach (var person in persons)
+                                                                {
+                                                                    Console.WriteLine(person.GetDetailsAsString());
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "world":
+                                                        {
+                                                            Console.WriteLine(world.GetDetailsAsString());
+                                                        }
+                                                        break;
+                                                    case "people":
+                                                        {
+
+                                                        }
+                                                        break;
+                                                }
                                             }
                                         }
-                                    }
-
-                                }
-                                break;
-                            case "attack":
-                                {
-                                    //Lordship attackingLordship;
-                                    //Lordship targetLordsphip;
-                                    if (command.Length == 3)
-                                    {
-                                        var attackingLordship = world.Lordships.FirstOrDefault(ls => !ls.Vacant && ls.Name.ToLower() == command[1].ToLower());
-                                        var targetLordship = world.Lordships.FirstOrDefault(ls => !ls.Vacant && ls.Name.ToLower() == command[2].ToLower());
-                                        if (attackingLordship != null && targetLordship!=null && !targetLordship.Vacant)
+                                        break;
+                                    case "conscript":
                                         {
-                                            var attackingLord = attackingLordship.Lords.Last();
-                                            if (attackingLord != null)
+                                            int soldiersToConscript = int.MaxValue;
+                                            string prompt = "";
+                                            while ((!int.TryParse(prompt, out soldiersToConscript)) || !(soldiersToConscript <= subjectLordship.EligibleForConscription.Count()))
                                             {
-                                                var attackingArmy = attackingLordship.Households.SelectMany(h => h.Members.Where(m=>m.IsAlive&&m.Age>=Constants.AGE_OF_MAJORITY&&m.Age<=Constants.AGE_OF_RETIREMENT)).ToList();
-                                                player.House.Attack(targetLordship, attackingLord, attackingArmy, rnd);
+                                                Console.Write(
+                                                    subjectLordship.Name + " has " + subjectLordship.Farmers.Count(f=>f.IsAlive) + " farmers and "+ subjectLordship.Army.Count(s=>s.IsAlive) + " soldiers.\n"
+                                                    + "There are "+ subjectLordship.EligibleForConscription.Count() + " subjects available for conscription. \n"
+                                                    + "How many soldiers would you like to conscript?\n"
+                                                    );
+                                                prompt = Console.ReadLine();
+                                            }
+                                            subjectLordship.ConscriptSoldiers(soldiersToConscript);
+                                            
+                                            Console.Write(string.Format(
+                                                "{0} conscripted {1} soldiers into the army of {2}.\n"
+                                                + "{2} now has {3} farmers and {4} soldiers.\n",
+                                                subjectLordship.Lord.FullNameAndAge,
+                                                soldiersToConscript,
+                                                subjectLordship.Name,
+                                                subjectLordship.Farmers.Count(f=>f.IsAlive),
+                                                subjectLordship.Army.Count(s=>s.IsAlive)
+                                                ));
+                                        }
+                                        break;
+                                    case "discharge":
+                                        {
+                                            int soldiersToDischarge = int.MaxValue;
+                                            string prompt = "";
+                                            while ((!int.TryParse(prompt, out soldiersToDischarge)) || !(soldiersToDischarge <= subjectLordship.Army.Count(s=>s.IsAlive)))
+                                            {
+                                                Console.Write(string.Format(
+                                                    "{0} has {1} farmers and {2} soldiers.\n"
+                                                    + "How many soldiers would you like to discharge?\n",
+                                                    subjectLordship.Name,
+                                                    subjectLordship.Farmers.Count(f=>f.IsAlive),
+                                                    subjectLordship.Army.Count(s=>s.IsAlive)
+                                                    ));
+                                                prompt = Console.ReadLine();
+                                            }
+                                            subjectLordship.DischargeSoldiers(soldiersToDischarge);
+                                            Console.Write(
+                                                "{0} discharged {1} soldiers into the army of {2}.\n"
+                                                + "{2} now has {3} farmers and {4} soldiers.\n",
+                                                subjectLordship.Lord.FullNameAndAge,
+                                                soldiersToDischarge,
+                                                subjectLordship.Name,
+                                                subjectLordship.Farmers.Count(),
+                                                subjectLordship.Army.Count()
+                                                );
+                                        }
+                                        break;
+                                    case "attack":
+                                        {
+                                            Lordship objectLordship = null;
+                                            if (command.Length == 3)
+                                            {
+                                                objectLordship = world.Lordships.FirstOrDefault(l => l.Name.ToLower() == command[2].ToLower());
+                                            }
+                                            else if (command.Length == 4)
+                                            {
+                                                int x;
+                                                int y;
+                                                if (int.TryParse(command[2], out x) && int.TryParse(command[3], out y))
+                                                {
+                                                    objectLordship = world.Lordships.FirstOrDefault(l => l.MapX == x && l.MapY == y);
+                                                }
+                                            }
+                                            if (objectLordship!=null)
+                                            {
+                                                var attackingLordship = subjectLordship;
+                                                var targetLordship = objectLordship;
+                                                if (attackingLordship != null && targetLordship != null && !attackingLordship.Vacant && !targetLordship.Vacant)
+                                                {
+                                                    attackingLordship.Attack(targetLordship, rnd);
+                                                }
                                             }
                                         }
-                                    }
+                                        break;
+                                    case "pledgefealty":
+                                        {
+                                            if (command.Length == 3)
+                                            {
+                                                var allegience = world.Lordships.FirstOrDefault(l => l.Name.ToLower() == command[2].ToLower());
+                                                if (allegience != null)
+                                                {
+                                                    allegience.AddVassle(subjectLordship);
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case "summon":
+                                        {
+                                            if (command.Length == 3)
+                                            {
+                                                var summoned = world.Lordships.FirstOrDefault(l => l.Name.ToLower() == command[2].ToLower());
+                                                if (summoned != null)
+                                                {
+                                                    subjectLordship.LocationOfLordAndArmy.AddOccupyingLordAndArmy(summoned);
 
+                                                } 
+                                            }
+
+                                        }
+                                        break;
                                 }
-                                break;
-                        }
+                            }
+                        }                        
                     }
                 }
                 IncrementYear(world, rnd);
