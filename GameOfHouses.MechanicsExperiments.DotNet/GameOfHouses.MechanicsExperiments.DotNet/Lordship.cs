@@ -94,7 +94,7 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
                 dischargedSoldier.Profession = Profession.Peasant;
                 eligibleForDischarge.Remove(dischargedSoldier);
                 dischargedSoldiers.Add(dischargedSoldier);
-                dischargedSoldier.MoveToLocation(this);
+                dischargedSoldier.MoveToLocation(dischargedSoldier.Household.Lordship);
             }
             Army.RemoveAll(s => dischargedSoldiers.Contains(s));
         }
@@ -182,6 +182,7 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
         public void IncrementYear()
         {
             PlayerMoves.Clear();
+            AttacksLedThisYear = 0;
             //lets fix this economy!
             //var currentHeirs = 
             if (!Vacant)
@@ -312,14 +313,16 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
         {
             if (!Households.Contains(newHousehold))
             {
+                Lordship oldLorship = null;
                 if (newHousehold.Lordship != null)
                 {
-                    newHousehold.Lordship.Households.Remove(newHousehold);
-                    newHousehold.Lordship = null;
+                    oldLorship = newHousehold.Lordship;
+                    oldLorship.Removehousehold(newHousehold);
                 }
                 Households.Add(newHousehold);
                 newHousehold.Lordship = this;
-                newHousehold.Members.ForEach(m => m.MoveToLocation(this));
+                //only move members that are currently in oldLorship (other may be deployed in army)
+                newHousehold.Members.Where(m=>m.Location==oldLorship).ToList().ForEach(m => m.MoveToLocation(this));
             }
         }
         public void Removehousehold(Household oldHousehold)
@@ -332,6 +335,11 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
         }
         public void AddLord(Person newLord)
         {
+            var oldLord = Lord;
+            if (oldLord != null)
+            {
+                oldLord.Lordships.Remove(this);
+            }
             if (!newLord.Lordships.Contains(this))
             {
                 newLord.Lordships.Add(this);
@@ -519,7 +527,17 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
             }
             return allies;
         }
-        public void Attack(Lordship target, Random rnd)
+        public List<Lordship> GetAttackableLordships()
+        {
+            var subjectLordship = this;
+            var allies = subjectLordship.GetAllies();
+            var attackableLordships =
+                subjectLordship.World.Lordships
+                .Where(l => !allies.Contains(l) && l!=subjectLordship && !double.IsPositiveInfinity(subjectLordship.LocationOfLordAndArmy.GetShortestAvailableDistanceToLordship(l, allies)))
+                .ToList();
+            return attackableLordships;
+        }
+        public void Attack(Lordship target, Random rnd, bool getLiveInput = true, double acceptFealtyRatio = 0.5, double retreatRatio = 1)
         {
 
             //Gather initial armies
@@ -530,12 +548,10 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
             }
             else
             {
-
-
                 var livingDefenders = target.Defenders.ToList();
                 var livingAttackers = attackingLordship.Army.ToList();
-                //build army of vassles -- army will only fight if they are attackers subvassle and their lord is present
-                livingAttackers.AddRange(OccupyingLordsAndArmies.Where(lordship => Lord.House.Vassles.Contains(lordship.Lord.House) && lordship.Lord.House.Allegience.Lord.Location == this).SelectMany(lordship => lordship.Army));
+                //build army of vassles -- army will only fight if they are attackers subvassle
+                livingAttackers.AddRange(OccupyingLordsAndArmies.Where(lordship => Lord.House.Vassles.Contains(lordship.Lord.House)).SelectMany(lordship => lordship.Army));
 
                 //set booleans for commands
                 var offerFealty = false;
@@ -583,7 +599,7 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
                     }
                     //--attacker chooses to continue attack or not
                     var validInput = false;
-                    while (!validInput)
+                    while (!validInput && getLiveInput)
                     {
                         Console.WriteLine("[R]etreat?\n[A]ttack?");
                         if (offerFealty)
@@ -609,6 +625,17 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
                                 }
                                 break;
                         }
+                    }
+                    if (!getLiveInput)
+                    {
+                        var defenderToAttackerRatio = (double)livingDefenders.Count() / livingAttackers.Count();
+                        if (offerFealty && defenderToAttackerRatio > acceptFealtyRatio)
+                        {
+                            acceptFealty = true;
+                        }else if (defenderToAttackerRatio > retreatRatio)
+                        {
+                            retreat = true;
+                        }                 
                     }
                     //--if retreat then battle is over
                     if (retreat)
@@ -656,24 +683,23 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
                         Console.WriteLine("\tAttacker Casulties in Wave: " + attackerCasultiesInWave);
                         Console.WriteLine("\tDefender Casulties in Wave: " + defenderCasultiesInWave);
                     }
-                    if (livingAttackers.Count() == 0)
-                    {
-                        //DEFEAT
-                        endBattle = true;
-                        Console.WriteLine("DEFEAT: " + attackingLordship.Lord.FullNameAndAge + " WAS DEFEATED by " + target.Lord.FullNameAndAge);
-                    }
-                    if (livingDefenders.Count() == 0)
-                    {
-                        //--if attacker wins they become Lord of lordship and take all nobles hostage
-                        endBattle = true;
-                        var oldLord = target.Lord;
-                        var newLord = attackingLordship.Lord;
-                        Console.Write("CONQUEST: " + attackingLordship.Lord.FullNameAndAge + " HAS CONQUORED " + target.Name);
-                        oldLord.Lordships.Remove(target);
-                        target.AddLord(newLord);
-                    }
                 }
-
+                if (livingAttackers.Count() == 0)
+                {
+                    //DEFEAT
+                    endBattle = true;
+                    Console.WriteLine("DEFEAT: " + attackingLordship.Lord.FullNameAndAge + " WAS DEFEATED by " + target.Lord.FullNameAndAge);
+                }
+                if (livingDefenders.Count() == 0)
+                {
+                    //--if attacker wins they become Lord of lordship and take all nobles hostage
+                    endBattle = true;
+                    var oldLord = target.Lord;
+                    var newLord = attackingLordship.Lord;
+                    Console.Write("CONQUEST: " + attackingLordship.Lord.FullNameAndAge + " HAS CONQUORED " + target.Name);
+                    oldLord.Lordships.Remove(target);
+                    target.AddLord(newLord);
+                }
             }
             //var totalDefenderCount = livingDefenders.Count();
             //var totalAttackerCount = livingAttackers.Count();
@@ -822,6 +848,10 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
                     {
                         mapsymbol = "U";
                     }
+                    else if (!lordshipOnMap.Vacant && !lordship.Vacant && lordshipOnMap.Lord.House == lordship.Lord.House)
+                    {
+                        mapsymbol = lordship.Lord.House.Symbol.ToString();
+                    }
                     else if (allies.Contains(lordshipOnMap))
                     {
                         mapsymbol = "+";
@@ -853,5 +883,6 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
         }
         //public Lordship DestinationOfLordshipAndArmy { get; set; }
         public DeploymentRequest DeploymentRequest { get; set; }
+        public int AttacksLedThisYear { get; set; }
     }
 }

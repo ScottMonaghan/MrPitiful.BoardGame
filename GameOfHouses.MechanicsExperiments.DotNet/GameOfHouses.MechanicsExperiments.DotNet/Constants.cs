@@ -8,7 +8,7 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
 {
     public class Constants
     {
-        public const bool PLAY_INTRO = true;
+        public const bool PLAY_INTRO = false;
         public const double CHILDBEARING_CHANCE_IN_PRIME = 0.6;
         public const double DEPENDENT_COST = 1;
         public const double DEPENDENT_INCOME = 0;
@@ -49,6 +49,7 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
         public const int HEIRS_TO_REPORT_ON = 1;
         public const double PERCENTAGE_OF_INCOME_TOWARD_SOLDIERS = 0.8;
         public const double ALLOWED_MOVES_PER_YEAR = 1;
+        public const double ALLOWED_ATTACKS_PER_YEAR = 1;
         public const double SURRENDER_RATIO = 1.5;
     }
 }

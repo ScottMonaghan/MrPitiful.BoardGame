@@ -124,6 +124,11 @@ namespace GameOfHouses.MechanicsExperiments.DotNet
             spouse.Spouse = headOfHousehold;
             return marriageHousehold;
         }
+        public void Resettle(Lordship newLordship)
+        {
+            newLordship.AddHousehold(this);
+            //move all members that are present in the oldLordship  
+        }
     }
 }
 
