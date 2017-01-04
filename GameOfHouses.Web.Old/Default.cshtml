@@ -1,0 +1,188 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Home Page";
+}
+<script>
+   
+    $(document).ready(function () {
+        $('#IntroModal').modal({
+            backdrop: 'static',
+            keyboard:false
+        }
+            )
+    });
+</script>
+<!-- Intro Modal -->
+<div class="modal fade" id="IntroModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="Intro" class="row">
+                    <script>
+                        //intro script
+                        var GameOfHouses = GameOfHouses ? GameOfHouses : { };
+                        GameOfHouses.Intro = {
+                            CurrentStep: 1,
+                            ShowNextStep: function () {
+                                //step 1 - get player name
+                                //step 2 - get player sex
+                                //step 3 - get player house
+                                //step 4 - introduce player
+                                //-- initialize world
+                                //-- get full player info
+                                //step 5 - get player heirs
+                                this.CurrentStep++;
+                                $('.intro-step').removeClass('intro-current-step');
+                                $('.intro-step-' + this.CurrentStep).addClass('intro-current-step');
+                            },
+                            ShowPrevStep: function () {
+                                this.CurrentStep--;
+                                $('.intro-step').removeClass('intro-current-step');
+                                $('.intro-step-' + this.CurrentStep).addClass('intro-current-step');
+                            }
+                        };
+                        function IntroViewModel() {
+                            this.PlayerName = ko.observable('');
+                            this.PlayerHouse = ko.observable('');
+                            this.PlayerSex = ko.observable('');
+                            this.Heirs = ko.observableArray([
+                                       {
+                                           Relation: 'daughter',
+                                           Name: ko.observable('')
+                                       },
+                                       {
+                                           Relation: 'grandson',
+                                           Name: ko.observable('')
+                                       }
+                                    ]
+                                );
+                            this.AllHeirsHaveNames = ko.computed(function () {
+                                var retVal = true;
+                                for (i = 0; i < this.Heirs().length; i++) {
+                                    if (this.Heirs()[i].Name().length == 0) {
+                                        retVal = false;
+                                    }
+                                }
+                                return retVal;
+                            }, this);
+                        }
+                        $(document).ready(function () {
+                            $('.intro-next-button').click(function (e) {
+                                GameOfHouses.Intro.ShowNextStep();
+                            });
+                            $('.intro-back-button').click(function (e) {
+                                GameOfHouses.Intro.ShowPrevStep();
+                            });
+                            // Activates knockout.js
+                            ko.applyBindings(new IntroViewModel(), $('#Intro')[0]);
+                        });
+                    </script>
+                    <style>
+                        /*intro styles*/
+                        .intro-step {
+                            max-height: 0;
+                            opacity: 0;
+                            overflow: hidden;
+                            transition: all 0.5s;
+                            text-align:center;
+                        }
+
+                        .intro-step p {
+                            text-align:left;
+                        }
+
+                        .intro-step .intro-buttons {
+                            text-align:center;
+                        }
+
+                        .intro-current-step {
+                            opacity: 1;
+                            max-height: 500px;
+                            transition: all 0.5s 0.5s;
+                        }
+                    </style>
+
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div id="intro_get_name" class="intro-step intro-step-1 intro-current-step">
+                            <h2 for="player_name_input">What is your name?</h2>
+                            <p>
+                                <input id="player_name_input" class="form-control" type="text" data-bind="textInput: PlayerName" placeholder="Your First Name" />
+                            </p>
+                            <p class="intro-buttons">
+                                <button class="btn btn-primary intro-next-button" data-bind="enable:PlayerName().length > 0">Next</button>
+                            </p>
+                        </div>
+                        <div id="intro_get_sex" class="intro-step intro-step-2">
+                            <h2>Are you a man or a woman?</h2>
+                                <div class="radio">
+                                    <label>
+                                        <input id="player_sex_input_male" name="player_sex_input" type="radio" value="Male" data-bind="checked: PlayerSex"/>
+                                        I am a man.
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input id="player_sex_input_female" name="player_sex_input" type="radio" value="Female" data-bind="checked: PlayerSex"/>
+                                        I am a woman.
+                                    </label>
+                                </div>
+                            <p class="intro-buttons">
+                                <button class="btn btn-primary intro-back-button">Back</button>
+                                <button class="btn btn-primary intro-next-button" data-bind="enable:PlayerSex().length > 0">Next</button>
+                            </p>
+                        </div>
+                        <div id="intro_get_house_name" class="intro-step intro-step-3">
+                            <h1>Hello <span data-bind="text: PlayerName">Eddard</span>.</h1>
+                            <p>
+                                <span data-bind="text: PlayerName">Eddard</span>, you are the <span data-bind="text: PlayerSex()=='Male' ? 'patriarch' : 'matriarch'">LORD OR LADY</span> of an ancient storied noble house.  The blood of kings and queens -- and according to legend, the gods themselves -- runs in your veins.
+                            </p>
+                            <p>
+                                Your noble line runs unbroken to the first of men and is filled with Lords and Ladies both great and terrible.
+                            </p>
+                            <div class="form-group">
+                                <h2 for="player_house_input">What is the name of your house?</h2>
+                                <input id="player_house_input" class="form-control" type="text" placeholder="Your House Name" data-bind="textInput: PlayerHouse"/>
+                            </div>
+                            <p class="intro-buttons">
+                                <button class="btn btn-primary intro-back-button">Back</button>
+                                <button class="btn btn-primary intro-next-button" data-bind="enable:PlayerHouse().length > 0">Next</button>
+                            </p>
+                        </div>
+                        <div id="intro_introduce_lord" class="intro-step intro-step-4">
+                            <h1>You are <span data-bind="text: PlayerName() + ' ' + PlayerHouse()">Eddard Stark</span>.</h1>
+                            <p>You are <span data-bind="text: PlayerName() + ' ' + PlayerHouse() + ', Lord of House ' + PlayerHouse() +  ', Lord of Winterfell, residing in Winterfell, age 41.'">Eddard Stark, Lord of House Stark, Lord of Winterfell, residing in Winterfell, age 41.</span></p>
+                            <p class="intro-buttons">
+                                <button class="btn btn-primary intro-back-button">Back</button>
+                                <button class="btn btn-primary intro-next-button">Next</button>
+                            </p>
+                        </div>
+                        <div id="intro_get_heirs" class="intro-step intro-step-5">
+                            <h1>You Have Heirs.</h1>
+                            <p>
+                                You have <span data-bind="text: Heirs().length">2</span> living heir<span data-bind="text: Heirs().length > 1 ? 's' : ''">s</span>: 
+                                
+                                <span data-bind="foreach: Heirs">
+                                    <span data-bind="if: $index() == ($root.Heirs().length - 1)">and</span>
+                                   a <span data-bind="text: Relation">daughter</span><span data-bind="ifnot: $index() == ($root.Heirs().length - 1)">,</span></span>.
+                                By tradition, you as <span data-bind="text: PlayerSex() == 'Male' ? 'Lord' : 'Lady'">Lord OR LADY</span> of the house, name your heirs.
+                            </p>
+                            <!-- ko foreach: Heirs -->
+                            <div class="form-group">
+                                <h2>What is your <span data-bind="text: Relation">daughter</span>'s name?</h2>
+                                <input class="form-control" data-bind="textInput: Name" placeholder="Your Heir's Name" type="text" />
+                            </div>
+                            <!-- /ko -->
+                            <p class="intro-buttons">
+                                <button class="btn btn-primary intro-back-button">Back</button>
+                                <button class="btn btn-primary intro-next-button" data-bind="enable: AllHeirsHaveNames">Next</button>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+
